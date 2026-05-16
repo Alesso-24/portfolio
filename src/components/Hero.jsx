@@ -17,12 +17,14 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import HeroGradient from './HeroGradient';
+import { useLanguage } from '../context/LanguageContext';
 
 // --- HERO COMPONENT --- //
 const Hero = () => {
   const title1Ref = useRef(null);
   const title2Ref = useRef(null);
   const subtitleRef = useRef(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
 
@@ -64,14 +66,14 @@ const Hero = () => {
         </div>
         <div className="overflow-hidden pb-4">
             <h1 ref={title2Ref} className="font-display font-medium text-[12vw] md:text-[9vw] leading-[0.9] tracking-tight text-brand-primary block">
-                Mechatronics
+                {t('hero.title_mechatronics')}
                 <br />
-                <span className="text-brand-accent italic font-light">&</span> Software
+                <span className="text-brand-orange italic font-light">&</span> {t('hero.title_software')}
             </h1>
         </div>
         
         <p ref={subtitleRef} className="mt-12 text-xs md:text-[15px] font-sans text-brand-primary/70 max-w-xl mx-auto leading-relaxed">
-          Ingeniería Mecatrónica con propósito. Construyendo el puente entre el software avanzado (Machine Learning, Python) y el hardware físico (Robótica competitiva) mediante arquitecturas robustas y eficientes.
+          {t('hero.subtitle')}
         </p>
 
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2">

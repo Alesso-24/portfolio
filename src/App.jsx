@@ -25,6 +25,7 @@ import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import PageTransition from './components/PageTransition';
+import { LanguageProvider } from './context/LanguageContext';
 
 // Lazy load below-the-fold components
 const About = lazy(() => import('./components/About'));
@@ -96,16 +97,18 @@ function App() {
 
   return (
     <HelmetProvider>
-      <Router>
-        <div className="relative w-full bg-brand-dark text-gray-100 font-sans selection:bg-brand-cyan selection:text-black min-h-screen">
-          <Navbar />
-          <main>
-            <Suspense fallback={<div className="h-screen w-full bg-brand-dark flex items-center justify-center font-mono opacity-50">Loading Interface...</div>}>
-              <AnimatedRoutes />
-            </Suspense>
-          </main>
-        </div>
-      </Router>
+      <LanguageProvider>
+        <Router>
+          <div className="relative w-full bg-brand-dark text-gray-100 font-sans selection:bg-brand-cyan selection:text-black min-h-screen">
+            <Navbar />
+            <main>
+              <Suspense fallback={<div className="h-screen w-full bg-brand-dark flex items-center justify-center font-mono opacity-50">Loading Interface...</div>}>
+                <AnimatedRoutes />
+              </Suspense>
+            </main>
+          </div>
+        </Router>
+      </LanguageProvider>
     </HelmetProvider>
   );
 }

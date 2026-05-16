@@ -28,10 +28,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '../components/PageTransition';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FaultDetection = () => {
+  const { t } = useLanguage();
   useEffect(() => {
     // Scroll to top
     window.scrollTo(0, 0);
@@ -58,19 +60,19 @@ const FaultDetection = () => {
             to="/" 
             className="inline-flex items-center gap-4 text-brand-primary font-mono uppercase text-[11px] tracking-[0.2em] mb-12 hover:text-brand-cyan transition-colors"
           >
-              <span className="bg-brand-primary/10 p-2 rounded-full rotate-180">→</span> Back to Home
+              <span className="bg-brand-primary/10 p-2 rounded-full rotate-180">→</span> {t('bdai.back')}
           </Link>
-          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">Scientific Publication</span>
+          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">{t('bdai.badge')}</span>
           
           <h1 className="font-display font-medium text-4xl md:text-5xl lg:text-6xl text-brand-primary tracking-tight leading-tight mb-12">
-            Comparative Evaluation of Lightweight Supervised Machine Learning Techniques for Industrial Rotating Machinery.
+            {t('bdai.title')}
           </h1>
         </div>
 
         {/* Project Meta - Academic Format */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 border-y border-brand-primary/10 py-8 fade-up">
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">Authors</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.authors')}</h4>
             <div className="font-mono text-[12px] text-brand-primary/80 leading-relaxed font-semibold">
               Jordi Alessandro Reyes Martinez¹<br/>
               Karen Melissa Pastrana Monzon¹<br/>
@@ -80,16 +82,16 @@ const FaultDetection = () => {
             <p className="font-mono text-[10px] text-brand-primary/60 mt-2">¹ Universidad Iberoamericana Puebla</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">Conference</h4>
-            <p className="font-mono text-[12px] text-brand-primary/80 italic">IEEE International Conference on Big Data and Artificial Intelligence (BDAI)</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.conference')}</h4>
+            <p className="font-mono text-[12px] text-brand-primary/80 italic">{t('bdai.conference_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">Presentation</h4>
-            <p className="font-mono text-[12px] text-brand-primary/80">July 3–5, 2026<br/>Chongqing, China.</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.presentation')}</h4>
+            <p className="font-mono text-[12px] text-brand-primary/80" dangerouslySetInnerHTML={{__html: t('bdai.presentation_val')}}></p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">Status</h4>
-            <p className="font-sans font-medium text-[10px] uppercase tracking-widest px-3 py-1.5 bg-[#3b82f6]/10 text-[#60a5fa] inline-flex items-center rounded-full border border-[#3b82f6]/30">Accepted for publication</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.status')}</h4>
+            <p className="font-sans font-medium text-[10px] uppercase tracking-widest px-3 py-1.5 bg-[#3b82f6]/10 text-[#60a5fa] inline-flex items-center rounded-full border border-[#3b82f6]/30">{t('bdai.status_val')}</p>
           </div>
         </div>
       </header>
@@ -103,11 +105,11 @@ const FaultDetection = () => {
                 <div className="absolute top-0 right-0 p-8 opacity-5">
                     <span className="font-display text-8xl text-brand-primary">#</span>
                 </div>
-                <h3 className="font-display text-2xl text-brand-primary mb-6 uppercase tracking-wider relative z-10">Abstract</h3>
+                <h3 className="font-display text-2xl text-brand-primary mb-6 uppercase tracking-wider relative z-10">{t('bdai.abstract')}</h3>
                 <p className="font-sans text-brand-primary/80 text-sm md:text-base leading-relaxed text-justify relative z-10">
-                    This paper presents a data-driven approach for predictive maintenance in industrial rotating machinery using the NASA IMS Bearing Dataset. Unplanned downtime caused by bearing failures represents a significant cost in manufacturing. The efficacy of supervised learning algorithms is analyzed to detect mechanical failures before breakdown occurs. To achieve this, a comparative study between Random Forest, Support Vector Machines (SVM), and k-Nearest Neighbors (k-NN) was conducted. Furthermore, a hyperparameter optimization was performed via Grid Search and the model robustness was evaluated against synthetic noise injection. A first-order analytical energy consumption model comparing Edge Artificial Intelligence (AI) processing versus Cloud offloading is also presented. The results demonstrate that the Random Forest classifier achieves over 99 percent accuracy on the test set with optimized parameters. Additionally, under nominal datasheet operating conditions, the analytical model estimates that local inference could reduce data transmission energy by approximately 98 percent compared to raw data streaming. This study concludes that statistical feature extraction combined with ensemble learning represents a potentially energy-efficient solution for battery-powered Industrial Internet of Things (IIoT) nodes targeted for the Espressif ESP32 microcontroller platform.
+                    {t('bdai.abstract_text')}
                 </p>
-                <p className="font-mono text-[10px] text-brand-primary/60 mt-6"><span className="text-brand-primary/40 uppercase tracking-widest">Index Terms —</span> Predictive Maintenance, Machine Learning, Random Forest, Energy Efficiency, Edge AI, ESP32, FreeRTOS.</p>
+                <p className="font-mono text-[10px] text-brand-primary/60 mt-6"><span className="text-brand-primary/40 uppercase tracking-widest">{t('bdai.index_terms')} —</span> {t('bdai.index_terms_val')}</p>
             </div>
         </section>
 
@@ -121,8 +123,7 @@ const FaultDetection = () => {
                 style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                 />
                 <div className="p-4 bg-brand-primary/5 border-t border-white/5">
-                    <p className="font-mono text-brand-primary/70 text-[11px] text-center">
-                        <strong className="text-brand-primary">Fig. 1.</strong> Performance comparison: Random Forest outperforms SVM and k-NN, achieving over 99% accuracy on the test set.
+                    <p className="font-mono text-brand-primary/70 text-[11px] text-center" dangerouslySetInnerHTML={{__html: t('bdai.fig1')}}>
                     </p>
                 </div>
             </div>
@@ -134,12 +135,12 @@ const FaultDetection = () => {
         <section className="fade-up mb-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-6 space-y-6">
-                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">I. Introduction & Context</h3>
+                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">{t('bdai.section1_title')}</h3>
                 <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
-                    Rotating machinery is a primary actuator in key sectors such as wind energy and automotive assembly. Rolling-element bearings are prone to severe degradation from fatigue and misalignment, accounting for nearly 40% of induction motor failures.
+                    {t('bdai.section1_p1')}
                 </p>
                 <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
-                    Traditional strategies such as "Run-to-Failure" or calendar-based preventive maintenance present serious operational challenges, causing unplanned plant shutdowns. Although Industry 4.0 drives Predictive Maintenance (PdM) with Deep Learning (DL), reliance on GPUs and complex mathematics limits the feasibility of battery-powered decentralized monitoring.
+                    {t('bdai.section1_p2')}
                 </p>
             </div>
             <div className="md:col-span-6">
@@ -152,8 +153,7 @@ const FaultDetection = () => {
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.1) contrast(1.2)' }}
                     />
                     <div className="p-3 border-t border-white/5 text-center px-4">
-                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight">
-                            <strong className="text-brand-primary">Fig. 2.</strong> Análisis de vibración en el dominio del tiempo: Contraste entre un estado operativo saludable y una falla crítica.
+                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight" dangerouslySetInnerHTML={{__html: t('bdai.fig2')}}>
                         </p>
                     </div>
                 </div>
@@ -175,19 +175,16 @@ const FaultDetection = () => {
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                     />
                     <div className="p-3 border-t border-white/5 text-center px-4">
-                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight">
-                            <strong className="text-brand-primary">Fig. 3.</strong> Análisis de importancia: El valor RMS domina como la métrica más discriminativa para la detección de fallas frente a variables como Skewness o Shape Factor.
+                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight" dangerouslySetInnerHTML={{__html: t('bdai.fig3')}}>
                         </p>
                     </div>
                 </div>
             </div>
             <div className="md:col-span-7 space-y-6 order-1 md:order-2">
-                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">II. Feature Engineering</h3>
+                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">{t('bdai.section2_title')}</h3>
+                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify" dangerouslySetInnerHTML={{__html: t('bdai.section2_p1')}}></p>
                 <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
-                    To ensure the model was lightweight enough for a microcontroller, the Fast Fourier Transform (FFT) was deliberately omitted, as it requires logarithmic complexity <code className="bg-brand-primary/10 px-1 rounded">O(N log N)</code>. Instead, the system evaluates the one-dimensional statistical temporal evolution of vibrations at <code className="bg-brand-primary/10 px-1 rounded">O(N)</code> complexity.
-                </p>
-                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
-                    Candidate metrics such as Shape Factor, Crest Factor, Skewness, and Kurtosis were computed. After Variable Importance analysis (Gini impurity), it was concluded that Root Mean Square (RMS) and peak amplitude magnitude carried the highest weight in the classifier, making them ideal features due to their monotonic trend directly correlated to progressive physical wear.
+                    {t('bdai.section2_p2')}
                 </p>
             </div>
           </div>
@@ -197,18 +194,14 @@ const FaultDetection = () => {
         <section className="fade-up mb-24">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-7 space-y-6">
-                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">III. Results & Edge Computing</h3>
-                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
-                    To prevent overfitting, hyperparameters were tuned via structured cross-validation over temporal cycles to isolate data leakage. The SVM and k-NN models proved competitive, but the <strong>Random Forest (100 estimators) dominated with over 99% effectiveness.</strong> At the analytical level, reporting 0 false positives was the fundamental milestone for validating it as a safe emergency halt protocol without arbitrarily stopping the plant.
-                </p>
+                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">{t('bdai.section3_title')}</h3>
+                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify" dangerouslySetInnerHTML={{__html: t('bdai.section3_p1')}}></p>
                 <div className="bg-white/[0.03] border border-brand-primary/10 p-6 rounded-2xl mt-6">
                     <h4 className="text-brand-primary font-sans font-medium text-xs uppercase tracking-[0.15em] mb-3 flex items-center gap-2">
                         <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse"></div>
-                        Edge Energy Relevance (ESP32)
+                        {t('bdai.edge_title')}
                     </h4>
-                    <p className="font-sans text-brand-primary/80 text-sm leading-relaxed">
-                        This approach was mathematically extrapolated to an IoT-connected architecture (ESP32-S3 with an RTOS). By inferring the tree branches locally on hardware and using MQTT to transmit <em>exclusively</em> an alarm payload, the device is theoretically estimated to consume 0.99 mJ per execution — a <strong>98% energy saving</strong> compared to streaming all raw data over Wi-Fi to the Cloud.
-                    </p>
+                    <p className="font-sans text-brand-primary/80 text-sm leading-relaxed" dangerouslySetInnerHTML={{__html: t('bdai.edge_desc')}}></p>
                 </div>
             </div>
             <div className="md:col-span-5 flex flex-col gap-8">
@@ -221,8 +214,7 @@ const FaultDetection = () => {
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.1)' }}
                     />
                     <div className="p-3 border-t border-white/5 text-center px-4">
-                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight">
-                        <strong className="text-brand-primary">Fig. 4.</strong> Optimized model confusion matrix, demonstrating complete reliability with zero false positives or false negatives (False Acceptance Rate = 0%).
+                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight" dangerouslySetInnerHTML={{__html: t('bdai.fig4')}}>
                         </p>
                     </div>
                 </div>
@@ -235,13 +227,13 @@ const FaultDetection = () => {
       {/* Call to Action */}
       <footer className="w-full border-t border-brand-primary/10 py-20 text-center bg-black/20">
         <div className="max-w-2xl mx-auto px-4">
-            <h2 className="font-display text-2xl md:text-3xl text-brand-primary mb-6">Document Availability</h2>
+            <h2 className="font-display text-2xl md:text-3xl text-brand-primary mb-6">{t('bdai.cta_title')}</h2>
             <p className="font-mono text-brand-primary/70 text-[11px] md:text-xs leading-relaxed uppercase tracking-wider mb-10">
-                The Camera-Ready Script will finalize editorial indexing after the conference. The full PDF and data annexes will be released publicly in mid-2026 on the IEEE Xplore repository.
+                {t('bdai.cta_desc')}
             </p>
             <button disabled className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800 text-brand-primary/60 font-mono text-[11px] uppercase tracking-widest border border-brand-primary/10 rounded-full cursor-not-allowed transition-colors shadow-inner">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                View Official IEEE Paper (Locked)
+                {t('bdai.cta_btn')}
             </button>
         </div>
       </footer>
