@@ -23,10 +23,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '../components/PageTransition';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SelfBalancingPlatform = () => {
+  const { t } = useLanguage();
   useEffect(() => {
     // Scroll to top on mount
     window.scrollTo(0, 0);
@@ -50,33 +52,31 @@ const SelfBalancingPlatform = () => {
       {/* Hero Header */}
       <header className="pt-40 pb-20 px-4 md:px-8 max-w-5xl mx-auto">
         <div className="fade-up">
-          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">Robotics & Control Systems</span>
+          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">{t('balancin.badge')}</span>
           <h1 className="font-display font-medium text-5xl md:text-7xl text-brand-primary tracking-tight leading-none mb-8">
-            Self-Balancing Platform with Computer Vision.
+            {t('balancin.title')}
           </h1>
           <p className="font-mono text-brand-primary/70 text-sm md:text-base leading-relaxed max-w-2xl mb-12">
-            A mechatronic system designed to continuously balance a rubber ball on a flat plane. 
-            By integrating Python-based OpenCV computer vision with an ESP32 microcontroller, 
-            the system calculates the trajectory of the ball and actuates three servomotors in real-time to maintain equilibrium.
+            {t('balancin.description')}
           </p>
         </div>
 
         {/* Project Meta */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-brand-primary/10 py-8 fade-up mt-12">
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">Role</h4>
-            <p className="font-mono text-[13px] text-brand-primary">Mechatronics Eng.</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('balancin.role')}</h4>
+            <p className="font-mono text-[13px] text-brand-primary">{t('balancin.role_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">Timeline</h4>
-            <p className="font-mono text-[13px] text-brand-primary">Dec 2025</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('balancin.timeline')}</h4>
+            <p className="font-mono text-[13px] text-brand-primary">{t('balancin.timeline_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">Hardware</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('larc.hardware')}</h4>
             <p className="font-mono text-[13px] text-brand-primary">ESP32, MG996R Servos</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">Software</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('larc.software')}</h4>
             <p className="font-mono text-[13px] text-brand-primary">Python, C++, OpenCV</p>
           </div>
         </div>
@@ -87,38 +87,51 @@ const SelfBalancingPlatform = () => {
         
         {/* Gallery / Images (Placeholders for now) */}
         <section className="mb-32 fade-up">
-          <div className="w-full aspect-video bg-brand-primary/5 rounded-lg overflow-hidden border border-brand-primary/10 relative group mb-8">
-            <img 
-              src={`${import.meta.env.BASE_URL}images/plat1.png`} 
-              onError={(e) => {e.target.style.display='none'}}
-              className="w-full h-full object-cover" 
-              alt="Platform assembly" 
-            />
-            <div className="absolute inset-0 flex items-center justify-center -z-10">
-                <span className="font-mono text-brand-primary/80 text-[11px] uppercase tracking-widest">Image 1: Assembly (Load failed/Missing)</span>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+            {/* Left side: Main Image */}
+            <div className="md:col-span-7 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl h-full min-h-[400px]">
+              <img 
+                src={`${import.meta.env.BASE_URL}images/plat1.png`} 
+                onError={(e) => {e.target.style.display='none'}}
+                className="absolute inset-0 w-full h-full object-cover" 
+                alt="Platform assembly" 
+              />
+              <div className="absolute inset-0 flex items-center justify-center -z-10">
+                  <span className="font-mono text-white/50 text-[11px] uppercase tracking-widest">{t('balancin.img1_label')}</span>
+              </div>
             </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="w-full aspect-square bg-brand-primary/5 rounded-lg overflow-hidden border border-brand-primary/10 relative">
-                <img 
-                  src={`${import.meta.env.BASE_URL}images/plat2.png`} 
-                  onError={(e) => {e.target.style.display='none'}}
-                  className="w-full h-full object-cover" 
-                  alt="Servo detail" 
-                />
-                <div className="absolute inset-0 flex items-center justify-center -z-10 text-center px-4">
-                    <span className="font-mono text-brand-primary/80 text-[11px] uppercase tracking-widest">Image 2: Servomotor Detail</span>
+
+            {/* Right side: Flex container for Image 2 and Video */}
+            <div className="md:col-span-5 flex gap-4 h-[500px]">
+                {/* Vertical Video */}
+                <div className="flex-none w-[45%] bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl h-full">
+                    <iframe 
+                        className="absolute inset-0 w-full h-full"
+                        src="https://www.youtube.com/embed/88SjHziDrIY"
+                        title="Self-Balancing Platform Demonstration"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen>
+                    </iframe>
                 </div>
-            </div>
-            <div className="w-full aspect-square bg-brand-primary/5 rounded-lg overflow-hidden border border-brand-primary/10 relative">
-                <img 
-                  src={`${import.meta.env.BASE_URL}images/plat3.png`} 
-                  onError={(e) => {e.target.style.display='none'}}
-                  className="w-full h-full object-cover" 
-                  alt="Hardware close-up" 
-                />
-                <div className="absolute inset-0 flex items-center justify-center -z-10 text-center px-4">
-                    <span className="font-mono text-brand-primary/80 text-[11px] uppercase tracking-widest">Image 3: Hardware Close-up</span>
+                {/* Stacked Images */}
+                <div className="flex-1 flex flex-col gap-4 h-full">
+                    <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl">
+                        <img 
+                          src={`${import.meta.env.BASE_URL}images/plat2.png`} 
+                          onError={(e) => {e.target.style.display='none'}}
+                          className="absolute inset-0 w-full h-full object-cover" 
+                          alt="Servo detail" 
+                        />
+                    </div>
+                    <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl">
+                        <img 
+                          src={`${import.meta.env.BASE_URL}images/plat3.png`} 
+                          onError={(e) => {e.target.style.display='none'}}
+                          className="absolute inset-0 w-full h-full object-cover" 
+                          alt="Hardware close-up" 
+                        />
+                    </div>
                 </div>
             </div>
           </div>
@@ -127,59 +140,40 @@ const SelfBalancingPlatform = () => {
         {/* Text Sections */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-12 fade-up mb-32">
           <div className="md:col-span-4">
-            <h3 className="font-display text-2xl text-brand-primary tracking-tight">The Objective</h3>
+            <h3 className="font-display text-2xl text-brand-primary tracking-tight">{t('balancin.section1_title')}</h3>
           </div>
           <div className="md:col-span-8 font-mono text-brand-primary/70 text-sm leading-relaxed space-y-6">
             <p>
-              The primary goal of this project was to successfully balance a dynamic object (a rubber ball) on a flat, 
-              moving surface. This required a multidisciplinary approach encompassing mechanical design for stability, 
-              electronic integration, and complex control algorithms to ensure rapid and accurate responsiveness.
+              {t('balancin.section1_p1')}
             </p>
             <p>
-              We utilized computer-aided design (CATIA V5) to model the articulators and 3D printing (PLA) alongside 
-              laser-cut MDF to construct the physical base, verifying that the physical tolerances could handle rapid 
-              servo actuation without structural failure.
+              {t('balancin.section1_p2')}
             </p>
           </div>
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-12 gap-12 fade-up mb-32 border-t border-brand-primary/10 pt-32">
           <div className="md:col-span-4">
-            <h3 className="font-display text-2xl text-brand-primary tracking-tight">System Architecture</h3>
+            <h3 className="font-display text-2xl text-brand-primary tracking-tight">{t('balancin.section2_title')}</h3>
           </div>
           <div className="md:col-span-8 font-mono text-brand-primary/70 text-sm leading-relaxed space-y-6">
-            <p>
-              The intelligence of the system is split into two main components: a <strong>Python-based Vision & Control Hub</strong>, 
-              and an <strong>ESP32 embedded execution unit</strong>.
-            </p>
+            <p dangerouslySetInnerHTML={{__html: t('balancin.section2_p1')}}></p>
             <ul className="list-disc pl-5 space-y-3 text-brand-primary/80">
-              <li><span className="text-brand-primary font-medium">Computer Vision:</span> Using a camera and OpenCV, the system tracks a dynamic "blob" representing the ball across the color spectrum (HSV isolation). It simultaneously detects the bounds of the MDF plate to calculate relative positioning coordinates.</li>
-              <li><span className="text-brand-primary font-medium">PID Controller:</span> A Proportional-Integral-Derivative equation computes the exact spatial error and derivative speed to anticipate where the ball is heading, generating correction vectors to slow it down before it falls edge-side.</li>
-              <li><span className="text-brand-primary font-medium">Bluetooth & Kinematics:</span> The correction vectors are sent over Bluetooth Serial to the ESP32. The microcontroller runs a C++ script that maps the 2D Cartesian plane corrections into a 3D inverse kinematic model, translating the values into pulse widths that command the three distinct MG996R servomotors to tilt the plane.</li>
+              <li><span className="text-brand-primary font-medium">{t('balancin.li1_title')}</span> {t('balancin.li1_desc')}</li>
+              <li><span className="text-brand-primary font-medium">{t('balancin.li2_title')}</span> {t('balancin.li2_desc')}</li>
+              <li><span className="text-brand-primary font-medium">{t('balancin.li3_title')}</span> {t('balancin.li3_desc')}</li>
             </ul>
           </div>
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-12 gap-12 fade-up border-t border-brand-primary/10 pt-32">
           <div className="md:col-span-4">
-            <h3 className="font-display text-2xl text-brand-primary tracking-tight">The Result</h3>
+            <h3 className="font-display text-2xl text-brand-primary tracking-tight">{t('balancin.section3_title')}</h3>
           </div>
           <div className="md:col-span-8 font-mono text-brand-primary/70 text-sm leading-relaxed space-y-6">
             <p>
-              By combining high-torque servos with an aggressively tuned PID controller, the platform demonstrates stable, sustained equilibrium. 
-              The memory-vector system implemented in the OpenCV pipeline ensures that even if a frame drops or lighting changes, the platform predicts the last known trajectory, 
-              providing incredible robustness against physical disturbances.
+              {t('balancin.section3_p1')}
             </p>
-            
-            <a 
-              href="https://youtube.com/shorts/88SjHziDrIY?feature=share" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 text-brand-primary font-sans uppercase text-[10px] tracking-[0.2em] mt-8 hover:text-brand-primary/60 transition-colors"
-            >
-              <div className="w-10 h-10 rounded-full border border-white flex items-center justify-center">▶</div>
-              Watch Demonstration Video
-            </a>
           </div>
         </section>
       </main>

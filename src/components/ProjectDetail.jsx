@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '../components/PageTransition';
+import { useLanguage } from '../context/LanguageContext';
 
 // In a real app, this would be fetched from an API or a shared data file
 const projectsDB = {
@@ -28,6 +29,7 @@ const projectsDB = {
 
 const ProjectDetail = () => {
   const { id } = useParams();
+  const { t } = useLanguage();
   const project = projectsDB[id] || projectsDB['1'];
   
   const containerRef = useRef(null);
@@ -52,7 +54,7 @@ const ProjectDetail = () => {
           
           {/* Navigation */}
           <Link to="/" className="inline-flex items-center gap-4 text-white font-mono uppercase text-[11px] tracking-[0.2em] mb-16 hover:text-brand-cyan transition-colors">
-              <span className="bg-white/10 p-2 rounded-full rotate-180">→</span> Back to Home
+              <span className="bg-white/10 p-2 rounded-full rotate-180">→</span> {t('nav.back')}
           </Link>
           
           <header className="mb-24">
