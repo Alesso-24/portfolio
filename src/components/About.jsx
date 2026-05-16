@@ -17,6 +17,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -87,7 +88,13 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             
             {/* Main Intro Panel */}
-            <div className="col-span-1 lg:col-span-2 glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden group hover:border-brand-primary/10 transition-colors duration-500">
+            <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="col-span-1 lg:col-span-2 glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden group hover:border-brand-primary/10 transition-colors duration-500"
+            >
                 <div className="absolute top-0 right-0 p-6 opacity-10 text-brand-primary">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                 </div>
@@ -99,10 +106,16 @@ const About = () => {
                         </span>
                     ))}
                 </div>
-            </div>
+            </motion.div>
 
             {/* Side Panel: Focus Areas */}
-            <div className="glass-panel p-8 md:p-10 rounded-3xl flex flex-col justify-between hover:border-brand-primary/10 transition-colors duration-500">
+            <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="glass-panel p-8 md:p-10 rounded-3xl flex flex-col justify-between hover:border-brand-primary/10 transition-colors duration-500"
+            >
                 <div>
                    <h3 className="text-brand-accent text-xs mb-8 font-sans uppercase tracking-[0.2em] font-medium">{t('about.focusAreas')}</h3>
                    <ul className="space-y-4 font-sans font-medium text-[15px] text-brand-primary/80">
@@ -115,10 +128,16 @@ const About = () => {
                 <div className="pt-8 mt-8 border-t border-brand-primary/10">
                     <p className="font-sans font-medium text-xs uppercase tracking-widest text-brand-primary/60">Currently open to new opportunities</p>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Bottom Row */}
-            <div className="col-span-1 lg:col-span-3 glass-panel p-8 md:p-10 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 hover:border-brand-primary/10 transition-colors duration-500">
+            <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="col-span-1 lg:col-span-3 glass-panel p-8 md:p-10 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 hover:border-brand-primary/10 transition-colors duration-500"
+            >
                 <div className="w-full">
                     <h3 className="text-brand-accent text-xs mb-8 font-sans uppercase tracking-[0.2em] font-medium">{t('about.techStack')}</h3>
                     <div className="flex flex-wrap gap-2">
@@ -129,7 +148,7 @@ const About = () => {
                         ))}
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
       </div>
     </section>
