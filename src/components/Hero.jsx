@@ -53,7 +53,7 @@ const Hero = () => {
       <HeroGradient />
 
       {/* Subtle vignette to guide the eye to center */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_#050505_90%)] pointer-events-none" style={{ zIndex: 1 }}></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_#F7F5F0_90%)] pointer-events-none" style={{ zIndex: 1 }}></div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 w-full max-w-7xl mx-auto flex flex-col items-center">
@@ -63,19 +63,19 @@ const Hero = () => {
             </span>
         </div>
         <div className="overflow-hidden pb-4">
-            <h1 ref={title2Ref} className="font-display font-medium text-[12vw] md:text-[9vw] leading-[0.9] tracking-tight text-white block">
+            <h1 ref={title2Ref} className="font-display font-medium text-[12vw] md:text-[9vw] leading-[0.9] tracking-tight text-brand-primary block">
                 Mechatronics
                 <br />
-                <span className="text-white/40 italic font-light">&</span> Software
+                <span className="text-brand-accent italic font-light">&</span> Software
             </h1>
         </div>
         
-        <p ref={subtitleRef} className="mt-12 text-xs md:text-sm font-sans text-brand-primary/60 max-w-xl mx-auto leading-relaxed">
-          Bridging the gap between physical systems and elegant software. <br className="hidden md:block" /> Focused on intelligent automation and seamless digital experiences.
+        <p ref={subtitleRef} className="mt-12 text-xs md:text-[15px] font-sans text-brand-primary/70 max-w-xl mx-auto leading-relaxed">
+          Ingeniería Mecatrónica con propósito. Construyendo el puente entre el software avanzado (Machine Learning, Python) y el hardware físico (Robótica competitiva) mediante arquitecturas robustas y eficientes.
         </p>
 
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
-            <div className="w-[1px] h-[50px] bg-gradient-to-b from-white/0 via-white/40 to-white/0 mx-auto animate-pulse"></div>
+            <div className="w-[1px] h-[50px] bg-gradient-to-b from-brand-primary/0 via-brand-primary/40 to-brand-primary/0 mx-auto animate-pulse"></div>
         </div>
       </div>
     </section>

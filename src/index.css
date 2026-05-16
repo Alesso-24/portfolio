@@ -1,20 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-dark: #050505;
-  --color-brand-gray: #121212;
-  --color-brand-light: #1c1c1c;
-  --color-brand-primary: #e5e5e5;
-  --color-brand-accent: #ffffff;
-  --font-sans: 'Inter', sans-serif;
+  --color-brand-dark: #F7F5F0;
+  --color-brand-gray: #EAE5D9;
+  --color-brand-light: #DFD7C7;
+  --color-brand-primary: #0F172A;
+  --color-brand-accent: #D95D39;
+  --color-brand-blue: #1D4ED8;
+  --font-sans: 'DM Sans', sans-serif;
   --font-mono: 'Space Mono', monospace;
-  --font-display: 'Outfit', sans-serif;
+  --font-display: 'Instrument Serif', serif;
 }
 
 @layer base {
   body {
     background-color: var(--color-brand-dark);
-    color: #a3a3a3;
+    color: var(--color-brand-primary);
     overflow-x: hidden;
     font-family: var(--font-sans);
     -webkit-tap-highlight-color: transparent;
@@ -29,28 +30,28 @@
     align-items: center;
   }
   h1, h2, h3, h4, h5, h6 {
-    color: #ffffff;
+    color: var(--color-brand-primary);
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
   ::selection {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #fff;
+    background-color: rgba(217, 93, 57, 0.2);
+    color: var(--color-brand-accent);
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5)];
+    @apply bg-white/40 backdrop-blur-xl border border-black/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.03)];
   }
   .glass-panel {
-    @apply bg-black/40 backdrop-blur-3xl border border-white/[0.1] shadow-2xl;
+    @apply bg-white/60 backdrop-blur-3xl border border-black/[0.05] shadow-lg;
   }
   .text-glow {
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    text-shadow: 0 0 30px rgba(217, 93, 57, 0.2);
   }
   .focus-ring {
-    @apply focus:outline-none focus:ring-1 focus:ring-white/20 focus:border-white/30 transition-all duration-300;
+    @apply focus:outline-none focus:ring-1 focus:ring-brand-accent/50 focus:border-brand-accent transition-all duration-300;
   }
 }
 

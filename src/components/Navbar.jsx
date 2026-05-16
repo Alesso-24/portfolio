@@ -70,25 +70,25 @@ const Navbar = () => {
           
           {/* Left: Logo + optional pills */}
           <div className="flex items-center gap-4 text-brand-primary min-w-0">
-            <Link to="/" className="font-display font-medium text-lg tracking-wide hover:text-white transition-colors duration-300 shrink-0">
+            <Link to="/" className="font-display font-medium text-lg tracking-wide hover:text-brand-accent transition-colors duration-300 shrink-0">
               ALESSANDRO.
             </Link>
             <a href="https://github.com/Alesso-24" target="_blank" rel="noopener noreferrer"
-               className="hidden sm:flex items-center justify-center gap-1 font-sans text-[10px] uppercase tracking-widest text-brand-primary/60 border border-white/10 px-3 py-1.5 rounded-full hover:bg-white hover:text-black transition-all duration-300 shrink-0 leading-none">
+               className="hidden sm:flex items-center justify-center gap-1 font-sans text-[10px] uppercase tracking-widest text-brand-primary/60 border border-brand-primary/10 px-3 py-1.5 rounded-full hover:bg-brand-primary hover:text-brand-dark transition-all duration-300 shrink-0 leading-none">
               ★ GitHub
             </a>
             {isProjectPage && (
-              <Link to="/" className="hidden sm:flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 border border-white/10 px-3 py-1.5 rounded-full hover:bg-white hover:text-black transition-all duration-300 shrink-0 leading-none">
+              <Link to="/" className="hidden sm:flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 border border-brand-primary/10 px-3 py-1.5 rounded-full hover:bg-brand-primary hover:text-brand-dark transition-all duration-300 shrink-0 leading-none">
                 ← Back to Work
               </Link>
             )}
           </div>
 
           {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-8 font-sans text-xs uppercase tracking-[0.15em] text-gray-400">
+          <div className="hidden md:flex items-center gap-8 font-sans text-xs uppercase tracking-[0.15em] text-brand-primary/70">
             {navLinks.map(link => (
               <a key={link.id} href={`#${link.id}`} onClick={(e) => handleNavClick(e, link.id)}
-                 className="hover:text-white transition-colors cursor-pointer duration-300">
+                 className="hover:text-brand-accent transition-colors cursor-pointer duration-300">
                 {link.label}
               </a>
             ))}
@@ -97,14 +97,14 @@ const Navbar = () => {
           {/* Mobile: back link + hamburger */}
           <div className="md:hidden flex items-center gap-3 text-brand-primary">
             {isProjectPage && (
-              <Link to="/" className="flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 border border-white/10 px-3 py-1.5 rounded-full leading-none">
+              <Link to="/" className="flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 border border-brand-primary/10 px-3 py-1.5 rounded-full leading-none">
                 ← Back
               </Link>
             )}
             <button
               aria-label={menuOpen ? "Close Menu" : "Open Menu"}
               onClick={() => setMenuOpen(o => !o)}
-              className="hover:text-white transition-colors p-1 touch-manipulation"
+              className="hover:text-brand-accent transition-colors p-1 touch-manipulation"
             >
               {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
             </button>
@@ -114,7 +114,7 @@ const Navbar = () => {
 
       {/* Mobile fullscreen overlay menu */}
       <div
-        className={`fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-brand-dark/95 backdrop-blur-xl flex flex-col items-center justify-center transition-all duration-300 md:hidden ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         aria-hidden={!menuOpen}
@@ -126,7 +126,7 @@ const Navbar = () => {
               href={`#${link.id}`}
               onClick={(e) => handleNavClick(e, link.id)}
               style={{ transitionDelay: menuOpen ? `${i * 60}ms` : '0ms' }}
-              className={`font-display font-light text-5xl text-white/90 hover:text-white tracking-tight transition-all duration-300 touch-manipulation ${
+              className={`font-display font-light text-5xl text-brand-primary/90 hover:text-brand-accent tracking-tight transition-all duration-300 touch-manipulation ${
                 menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
               }`}
             >
@@ -137,7 +137,7 @@ const Navbar = () => {
           <div className={`flex gap-8 mt-4 transition-all duration-300 ${menuOpen ? 'opacity-60' : 'opacity-0'}`}
                style={{ transitionDelay: menuOpen ? '200ms' : '0ms' }}>
             <a href="https://github.com/Alesso-24" target="_blank" rel="noopener noreferrer"
-               className="font-sans text-[11px] uppercase tracking-widest text-white/50 hover:text-white">
+               className="font-sans text-[11px] uppercase tracking-widest text-brand-primary/50 hover:text-brand-accent">
               GitHub
             </a>
           </div>
