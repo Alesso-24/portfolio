@@ -86,10 +86,9 @@ const SelfBalancingPlatform = () => {
       <main className="px-4 md:px-8 max-w-5xl mx-auto pb-32">
         
         {/* Gallery / Images (Placeholders for now) */}
-        <section className="mb-32 fade-up">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-            {/* Left side: Main Image */}
-            <div className="md:col-span-7 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl h-full min-h-[400px]">
+        <section className="mb-32 fade-up flex flex-col gap-8">
+            {/* Top row: Main Image */}
+            <div className="w-full bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl aspect-[16/9] lg:aspect-[21/9]">
               <img 
                 src={`${import.meta.env.BASE_URL}images/plat1.png`} 
                 onError={(e) => {e.target.style.display='none'}}
@@ -101,10 +100,10 @@ const SelfBalancingPlatform = () => {
               </div>
             </div>
 
-            {/* Right side: Flex container for Image 2 and Video */}
-            <div className="md:col-span-5 flex gap-4 h-[500px]">
+            {/* Bottom row: Video and Images */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[500px]">
                 {/* Vertical Video */}
-                <div className="flex-none w-[45%] bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl h-full">
+                <div className="md:col-span-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl min-h-[400px]">
                     <iframe 
                         className="absolute inset-0 w-full h-full"
                         src="https://www.youtube.com/embed/88SjHziDrIY"
@@ -115,8 +114,8 @@ const SelfBalancingPlatform = () => {
                     </iframe>
                 </div>
                 {/* Stacked Images */}
-                <div className="flex-1 flex flex-col gap-4 h-full">
-                    <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl">
+                <div className="md:col-span-2 flex flex-col sm:flex-row gap-8">
+                    <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl min-h-[250px]">
                         <img 
                           src={`${import.meta.env.BASE_URL}images/plat2.png`} 
                           onError={(e) => {e.target.style.display='none'}}
@@ -124,7 +123,7 @@ const SelfBalancingPlatform = () => {
                           alt="Servo detail" 
                         />
                     </div>
-                    <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl">
+                    <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl min-h-[250px]">
                         <img 
                           src={`${import.meta.env.BASE_URL}images/plat3.png`} 
                           onError={(e) => {e.target.style.display='none'}}
@@ -134,7 +133,6 @@ const SelfBalancingPlatform = () => {
                     </div>
                 </div>
             </div>
-          </div>
         </section>
 
         {/* Text Sections */}
