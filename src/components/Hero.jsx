@@ -58,7 +58,29 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_#F7F5F0_90%)] pointer-events-none" style={{ zIndex: 1 }}></div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 w-full max-w-7xl mx-auto flex flex-col items-center">
+      <div className="relative z-10 text-center px-4 w-full max-w-7xl mx-auto flex flex-col items-center mt-20">
+        <div 
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-8 border border-brand-primary/20 shadow-[0_0_60px_rgba(217,93,57,0.15)] relative transform translate-y-[50px] opacity-0"
+            ref={node => {
+                if (node) {
+                    gsap.to(node, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.5,
+                        ease: "power3.out",
+                        delay: 0.2
+                    });
+                }
+            }}
+        >
+            <div className="absolute inset-0 bg-brand-primary/10 animate-pulse"></div>
+            <img 
+                src={`${import.meta.env.BASE_URL}images/profile.png`} 
+                alt="Alessandro Reyes" 
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+            />
+        </div>
+
         <div className="overflow-hidden pb-2 mb-2">
             <span ref={title1Ref} className="font-sans font-light text-[6vw] md:text-[3vw] tracking-[0.2em] text-brand-primary uppercase opacity-80 block">
                 Alessandro
@@ -72,11 +94,11 @@ const Hero = () => {
             </h1>
         </div>
         
-        <p ref={subtitleRef} className="mt-12 text-xs md:text-[15px] font-sans text-brand-primary/70 max-w-xl mx-auto leading-relaxed">
+        <p ref={subtitleRef} className="mt-8 md:mt-12 text-xs md:text-[15px] font-sans text-brand-primary/70 max-w-xl mx-auto leading-relaxed">
           {t('hero.subtitle')}
         </p>
 
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+        <div className="absolute -bottom-24 md:bottom-12 left-1/2 -translate-x-1/2 hidden md:block">
             <div className="w-[1px] h-[50px] bg-gradient-to-b from-brand-primary/0 via-brand-primary/40 to-brand-primary/0 mx-auto animate-pulse"></div>
         </div>
       </div>
