@@ -42,8 +42,8 @@ function Home() {
   return (
     <PageTransition>
       <Helmet>
-        <title>Alessandro | Portfolio</title>
-        <meta name="description" content="Bridging the gap between physical systems and elegant software. Focused on intelligent automation." />
+        <title>Alessandro Reyes — Mechatronics Engineer | Embedded AI & Robotics</title>
+        <meta name="description" content="Mechatronics engineer building AI that survives contact with real hardware. 2x IEEE author (CASE 2026, BDAI 2026), LARC 2025 competitive robotics. Open to Summer 2026 internships." />
       </Helmet>
       <Hero />
       <ProofBar />

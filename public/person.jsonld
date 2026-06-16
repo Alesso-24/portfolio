@@ -1,0 +1,19 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Alessandro Reyes",
+  "alternateName": "Jordi Alessandro Reyes Martínez",
+  "url": "https://alesso-24.github.io/portfolio/",
+  "image": "https://alesso-24.github.io/portfolio/og-image.png",
+  "jobTitle": "Mechatronics Engineering Student",
+  "affiliation": {
+    "@type": "CollegeOrUniversity",
+    "name": "Universidad Iberoamericana Puebla"
+  },
+  "knowsAbout": ["Mechatronics", "Embedded Systems", "Robotics", "Machine Learning", "Edge AI", "Computer Vision", "Control Systems"],
+  "sameAs": [
+    "https://github.com/Alesso-24",
+    "https://www.linkedin.com/in/alessandro-reyes-mtz/",
+    "https://www.instagram.com/alessandro_reyesm/"
+  ]
+}

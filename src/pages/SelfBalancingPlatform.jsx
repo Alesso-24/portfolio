@@ -43,10 +43,10 @@ const SelfBalancingPlatform = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>Self-Balancing Platform | Alessandro</title>
-        <meta name="description" content="A mechatronic system using an ESP32, servomotors, and OpenCV computer vision for strict PID closed-loop control." />
+        <title>Self-Balancing Platform: Computer Vision & Control | Alessandro Reyes</title>
+        <meta name="description" content="Real-time OpenCV computer vision and inverse kinematics keep a rolling ball balanced on an ESP32-driven moving plate, with PID control and trajectory prediction." />
       </Helmet>
-      <div className="bg-brand-cream min-h-screen text-[#e5e5e5] font-sans">
+      <div className="bg-brand-cream min-h-screen text-brand-primary font-sans">
 
 
       {/* Hero Header */}
