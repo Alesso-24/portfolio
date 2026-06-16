@@ -13,6 +13,10 @@
 }
 
 @layer base {
+  section[id] {
+    scroll-margin-top: 6.5rem;
+  }
+
   body {
     background-color: var(--color-brand-dark);
     color: var(--color-brand-primary);

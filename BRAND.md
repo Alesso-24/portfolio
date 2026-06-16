@@ -13,8 +13,12 @@ wins — update it deliberately, don't drift.
   the published record (paper citations, BibTeX, "Authors" field on paper
   pages). Never mix the two on the same page without an explicit link
   ("publishes as Jordi Alessandro Reyes Martínez").
-- Any leftover bare "Jordi" in UI strings (404 page, email CC line, old
-  copyright text) is a bug, not a brand decision — remove it.
+- Any leftover bare "Jordi" in UI strings (404 page, old copyright text) is
+  a bug, not a brand decision — remove it.
+- **Exception:** the Contact section's CC line ("Please CC your email to
+  jordi.reyes@iberopuebla.mx") is intentional and must stay — confirmed
+  2026-06-16. It's his real university email and he wants it visible. Don't
+  re-remove it in a future "identity cleanup" pass.
 
 ## Audience (priority order — confirmed by Alessandro, 2026-06-15)
 

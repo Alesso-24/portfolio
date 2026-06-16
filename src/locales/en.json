@@ -7,11 +7,23 @@
     "back": "← Back"
   },
   "hero": {
-    "status": "Available for Summer 2026 Internships",
+    "status": "Available — Summer 2026 Internships",
     "title_mechatronics": "Mechatronics",
     "title_software": "Software",
-    "subtitle": "Bridging physical systems with intelligent algorithms.",
+    "subtitle": "AI and embedded systems that survive contact with real hardware — validated on the chip, not just in simulation.",
+    "cta_primary": "Get in Touch",
+    "cta_secondary": "View Projects",
     "scroll": "Scroll to Explore"
+  },
+  "proof": {
+    "stat1_value": "126×",
+    "stat1_label": "Faster inference, measured on real ESP32 hardware",
+    "stat2_value": "99.85%",
+    "stat2_label": "Accuracy with zero false positives",
+    "stat3_value": "98.4%",
+    "stat3_label": "Less energy than streaming to the cloud",
+    "affiliations_label": "Research affiliated with",
+    "affiliations": "IEEE · Tecnológico de Monterrey · Universidad Iberoamericana Puebla · Universidad Veracruzana"
   },
   "about": {
     "title": "Profile",
@@ -23,7 +35,8 @@
     "focus2": "Hardware Integration",
     "focus3": "Machine Learning",
     "focus4": "Control Systems",
-    "techStack": "Tech Stack"
+    "techStack": "Tech Stack",
+    "availability": "Open to Summer 2026 internships & international research collaborations"
   },
   "projects": {
     "title1": "Engineering & Applied Robotics",
@@ -33,12 +46,16 @@
     "explore": "Explore",
     "larc_category": "LARC 2025 Robotics Competition",
     "larc_title": "Tracky: High-Speed Line Follower Robot",
-    "case_category": "Scientific Publication (IEEE CASE)",
+    "larc_impact": "Built and raced a custom ESP32-C6 robot that recovers from 90° turns in milliseconds — engineered and debugged under real competition pressure at LARC 2025.",
+    "case_category": "IEEE CASE 2026 · Accepted",
     "case_title": "Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off",
-    "bdai_category": "Data Science & Machine Learning",
+    "case_impact": "Found a hardware bug that silently broke a 'perfect' ML model, then built a model 126× faster with zero false alarms — validated on real ESP32 silicon, not simulation.",
+    "bdai_category": "IEEE BDAI 2026 · Accepted",
     "bdai_title": "Industrial Fault Detection via Machine Learning",
+    "bdai_impact": "99.85% accuracy, zero false positives, 98.4% less energy than the cloud — predictive maintenance light enough to run on a $5 microcontroller.",
     "balancin_category": "Robotics & Control Systems",
-    "balancin_title": "Self-Balancing Platform with Computer Vision"
+    "balancin_title": "Self-Balancing Platform with Computer Vision",
+    "balancin_impact": "Real-time computer vision and inverse kinematics keep a rolling ball balanced on a moving plate — and keep predicting its trajectory even when a camera frame drops."
   },
   "contact": {
     "title": "Let's Talk",
@@ -112,11 +129,11 @@
     "title": "Comparative Evaluation of Lightweight Supervised Machine Learning Techniques for Industrial Rotating Machinery.",
     "authors": "Authors",
     "conference": "Conference",
-    "conference_val": "IEEE International Conference on Big Data and Applied AI",
+    "conference_val": "IEEE 9th International Conference on Big Data and Artificial Intelligence (BDAI 2026)",
     "presentation": "Presentation",
-    "presentation_val": "May 2026",
+    "presentation_val": "July 3–5, 2026<br/>Chongqing, China (remote presentation).",
     "status": "Status",
-    "status_val": "Completed",
+    "status_val": "Accepted — Presenting Remotely",
     "abstract": "Abstract",
     "abstract_text": "This study evaluates the performance of three supervised machine learning algorithms—Random Forest (RF), Logistic Regression (LR), and Support Vector Machine (SVM)—in detecting bearing faults at different degradation stages using the NASA IMS dataset. The methodology involves computing statistical features (RMS, Peak, Crest Factor, Kurtosis) from vibration signals and employing the Fisher Discriminant Ratio (FDR) to separate the data into Incipient and Advanced fault stages.",
     "index_terms": "Index Terms",
@@ -136,8 +153,8 @@
     "edge_desc": "This approach was mathematically extrapolated to an IoT-connected architecture (ESP32-S3 with an RTOS). By inferring the tree branches locally on hardware and using MQTT to transmit <em>exclusively</em> an alarm payload, the device is theoretically estimated to consume 0.99 mJ per execution — a <strong>98% energy saving</strong> compared to streaming all raw data over Wi-Fi to the Cloud.",
     "fig4": "<strong class=\"text-brand-primary\">Fig. 4.</strong> Optimized model confusion matrix, demonstrating complete reliability with zero false positives or false negatives (False Acceptance Rate = 0%).",
     "cta_title": "Document Availability",
-    "cta_desc": "The Camera-Ready Script will finalize editorial indexing after the conference. The full PDF and data annexes will be released publicly in mid-2026 on the IEEE Xplore repository.",
-    "cta_btn": "View Official IEEE Paper (Locked)"
+    "cta_desc": "Accepted to IEEE BDAI 2026; camera-ready manuscript submitted and registration fees paid. Proceedings will be published via IEEE Xplore and indexed in Ei Compendex and Scopus following the conference (July 2026).",
+    "cta_btn": "View on IEEE Xplore (Available After Conference)"
   },
   "case": {
     "back": "← Back to Home",
@@ -146,11 +163,11 @@
     "title": "Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off in Industrial Bearing Predictive Maintenance.",
     "authors": "Authors",
     "conference": "Conference",
-    "conference_val": "IEEE International Conference on Automation Science and Engineering (CASE)",
+    "conference_val": "22nd IEEE International Conference on Automation Science and Engineering (CASE 2026)",
     "presentation": "Presentation",
-    "presentation_val": "August 17–21, 2026<br/>Shenyang, China.",
+    "presentation_val": "August 17–21, 2026<br/>Shenyang, China (remote presentation).",
     "status": "Status",
-    "status_val": "Under Review",
+    "status_val": "Accepted — Presenting Remotely",
     "abstract": "Abstract",
     "abstract_text": "There are several classification strategies available for evaluating when a bearing has failed. Bearing failure is a gradual process, and the question posed is whether or not the best classifier should also be allowed to change based on the fault’s progression. Using measurements which come from the NASA Intelligent Maintenance Systems (IMS) 2nd_test dataset (984 total files that measure Bearing 1, which has a fault on the outer race), three classifiers—Random Forest (RF), Logistic Regression (LR), and Support Vector Machine (SVM)—were evaluated with respect to their ability to detect faults at two stages of degradation. At the incipient stage, RF detected 27 out of 56 fault cycles (48.2% detection rate) while LR detected only 7 out of 56 (12.5%), representing a difference of 3.9×. At the advanced stage, both classifiers converged to Area Under the Curve (AUC) = 1.000. Latency was measured using CPU cycle-counting directly from a real-world ESP32 microcontroller (Xtensa LX6, 240 MHz), not from simulation. LR had a latency of 184 ns while RF had a latency of 23.3 μs, i.e., a 126× difference. SVM misclassified the fault on hardware at 96.5 μs and was disqualified. Fisher Discriminant Ratio (FDR) analysis shows a 5.89× separability increase from incipient to advanced stage, and a label-free proxy trigger validated on IMS Bearing 2 yielded zero false positives. To the best of the authors’ knowledge, no prior study has characterized this trade-off based on degradation stage using physical microcontroller hardware.",
     "index_terms": "Index Terms",
@@ -179,8 +196,8 @@
     "edge_title": "Edge Insights: FPU Hardware Issues",
     "edge_desc": "During physical testing, the SVM model was disqualified due to catastrophic floating-point precision errors on the ESP32 FPU, where precision loss in the <code class=\"bg-black/30 px-1 rounded text-brand-primary\">expf()</code> instruction inverted valid decision boundaries. This underscores the critical urgency of <strong>validating benchmarks on the final hardware rather than relying solely on analytical simulations</strong>.",
     "cta_title": "Manuscript Status",
-    "cta_desc": "The paper is currently in the double-blind peer review phase. The scientific committee's evaluation results are expected in May 2026.",
+    "cta_desc": "Accepted to IEEE CASE 2026; camera-ready manuscript submitted and registration fees paid. The author will present remotely; proceedings will be published via IEEE Xplore following the conference.",
     "cta_btn1": "Paper Status",
-    "cta_btn2": "Under Review (Decision expected May 17th, 2026)"
+    "cta_btn2": "Accepted — IEEE Xplore Publication Pending"
   }
 }

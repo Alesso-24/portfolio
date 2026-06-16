@@ -30,8 +30,9 @@ const projectsData = [
         id: 1,
         titleKey: "projects.larc_title",
         categoryKey: "projects.larc_category",
-        tech: "Hardware Eng. • ESP32-C6 • PID Control • Python",
-        image: `${import.meta.env.BASE_URL}images/robot_full.png`, 
+        impactKey: "projects.larc_impact",
+        techTags: ["ESP32-C6", "RTOS", "PID Control", "Python"],
+        image: `${import.meta.env.BASE_URL}images/robot_full.png`,
         link: "/project/larc-2025",
         filter: "brightness(0.9) contrast(1.1) hue-rotate(-10deg)"
     },
@@ -39,8 +40,9 @@ const projectsData = [
         id: 2,
         titleKey: "projects.case_title",
         categoryKey: "projects.case_category",
-        tech: "C/C++ • ESP32 • Random Forest • Hardware Latency",
-        image: `${import.meta.env.BASE_URL}images/cover_case.jpg`, 
+        impactKey: "projects.case_impact",
+        techTags: ["C/C++", "ESP32", "Random Forest", "Hardware Benchmarking"],
+        image: `${import.meta.env.BASE_URL}images/cover_case.jpg`,
         link: "/project/fault-detection-case",
         filter: "brightness(0.6) contrast(1.1) grayscale(0.2)"
     },
@@ -48,7 +50,8 @@ const projectsData = [
         id: 3,
         titleKey: "projects.bdai_title",
         categoryKey: "projects.bdai_category",
-        tech: "Python • Supervised Learning • NASA Datasets • LaTeX",
+        impactKey: "projects.bdai_impact",
+        techTags: ["Python", "Random Forest", "NASA IMS Dataset", "Edge AI"],
         image: `${import.meta.env.BASE_URL}images/cover_bdai.jpg`,
         link: "/project/fault-detection",
         filter: "brightness(0.6) contrast(1.1) grayscale(0.2)"
@@ -57,7 +60,8 @@ const projectsData = [
         id: 4,
         titleKey: "projects.balancin_title",
         categoryKey: "projects.balancin_category",
-        tech: "ESP32 • Python • C/C++ • Servomotors • PID Control",
+        impactKey: "projects.balancin_impact",
+        techTags: ["ESP32", "OpenCV", "Servo Control", "Inverse Kinematics"],
         image: `${import.meta.env.BASE_URL}images/project1.png`,
         link: "/project/self-balancing-platform"
     }
@@ -140,9 +144,9 @@ const Projects = () => {
                             {/* Image Container */}
                             <div className="w-full md:w-3/5 aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-2xl relative shadow-sm border border-brand-primary/5">
                                 <div className="absolute inset-x-0 -inset-y-[15%] w-full h-[130%]">
-                                    <img 
-                                        src={project.image} 
-                                        alt={project.title} 
+                                    <img
+                                        src={project.image}
+                                        alt={t(project.titleKey)}
                                         loading="lazy"
                                         className="img-parallax w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                                         style={project.filter ? { filter: project.filter } : { filter: "grayscale(0.1) contrast(1.05)" }}
@@ -159,8 +163,16 @@ const Projects = () => {
                                 <h3 className="font-display font-light text-3xl md:text-4xl lg:text-5xl text-brand-primary mb-8 tracking-tight group-hover:opacity-80 transition-opacity duration-300">
                                     {t(project.titleKey)}
                                 </h3>
-                                <p className="font-sans font-light text-[14px] text-brand-primary/70 mb-10 max-w-sm leading-relaxed">{project.tech}</p>
-                                
+                                <p className="font-sans font-light text-[15px] text-brand-primary/80 mb-6 max-w-sm leading-relaxed">{t(project.impactKey)}</p>
+
+                                <div className="flex flex-wrap gap-2 mb-10">
+                                    {project.techTags.map((tag, tagIndex) => (
+                                        <span key={tagIndex} className="px-3 py-1 font-mono text-[10px] text-brand-primary/60 bg-brand-primary/5 border border-brand-primary/10 rounded-full">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
                                 <div className="flex items-center gap-4 text-brand-primary font-sans uppercase text-[11px] font-medium tracking-[0.2em] transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
                                     {t('projects.explore')} <span className="bg-brand-accent text-white px-3 py-1.5 rounded-full ml-1">→</span>
                                 </div>
@@ -207,9 +219,9 @@ const Projects = () => {
                             {/* Image Container */}
                             <div className="w-full md:w-3/5 aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-2xl relative shadow-sm border border-brand-primary/5">
                                 <div className="absolute inset-x-0 -inset-y-[15%] w-full h-[130%]">
-                                    <img 
-                                        src={project.image} 
-                                        alt={project.title} 
+                                    <img
+                                        src={project.image}
+                                        alt={t(project.titleKey)}
                                         loading="lazy"
                                         className="img-parallax w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                                         style={project.filter ? { filter: project.filter } : { filter: "grayscale(0.1) contrast(1.05)" }}
@@ -226,8 +238,16 @@ const Projects = () => {
                                 <h3 className="font-display font-light text-3xl md:text-4xl lg:text-5xl text-brand-primary mb-8 tracking-tight group-hover:opacity-80 transition-opacity duration-300">
                                     {t(project.titleKey)}
                                 </h3>
-                                <p className="font-sans font-light text-[14px] text-brand-primary/70 mb-10 max-w-sm leading-relaxed">{project.tech}</p>
-                                
+                                <p className="font-sans font-light text-[15px] text-brand-primary/80 mb-6 max-w-sm leading-relaxed">{t(project.impactKey)}</p>
+
+                                <div className="flex flex-wrap gap-2 mb-10">
+                                    {project.techTags.map((tag, tagIndex) => (
+                                        <span key={tagIndex} className="px-3 py-1 font-mono text-[10px] text-brand-primary/60 bg-brand-primary/5 border border-brand-primary/10 rounded-full">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
                                 <div className="flex items-center gap-4 text-brand-primary font-sans uppercase text-[11px] font-medium tracking-[0.2em] transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
                                     {t('projects.explore')} <span className="bg-brand-accent text-white px-3 py-1.5 rounded-full ml-1">→</span>
                                 </div>
