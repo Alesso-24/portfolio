@@ -1,34 +1,64 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-dark: #121212;
-  --color-brand-gray: #1e1e1e;
-  --color-brand-cyan: #00e5ff;
-  --color-brand-purple: #7c3aed;
-  --font-sans: 'Inter', sans-serif;
+  --color-brand-dark: #F7F5F0;
+  --color-brand-gray: #EAE5D9;
+  --color-brand-light: #DFD7C7;
+  --color-brand-primary: #0F172A;
+  --color-brand-accent: #1D4ED8;
+  --color-brand-orange: #D95D39;
+  --font-sans: 'DM Sans', sans-serif;
   --font-mono: 'Space Mono', monospace;
-  --font-display: 'Inter', sans-serif;
+  --font-display: 'Instrument Serif', serif;
 }
 
 @layer base {
   body {
     background-color: var(--color-brand-dark);
-    color: #f3f4f6;
+    color: var(--color-brand-primary);
     overflow-x: hidden;
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure all interactive elements have a minimum 44px touch target (Apple HIG) */
+  a, button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-brand-primary);
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
   ::selection {
-    background-color: var(--color-brand-cyan);
-    color: #000;
+    background-color: rgba(29, 78, 216, 0.2);
+    color: var(--color-brand-accent);
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-brand-gray/80 backdrop-blur-md border border-white/5 shadow-2xl;
+    @apply bg-white/40 backdrop-blur-xl border border-black/[0.05] shadow-[0_8px_32px_rgba(0,0,0,0.03)];
+  }
+  .glass-panel {
+    @apply bg-white/60 backdrop-blur-3xl border border-black/[0.05] shadow-lg;
   }
   .text-glow {
-    text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+    text-shadow: 0 0 30px rgba(217, 93, 57, 0.2);
   }
+  .focus-ring {
+    @apply focus:outline-none focus:ring-1 focus:ring-brand-accent/50 focus:border-brand-accent transition-all duration-300;
+  }
+}
+
+/* Performance optimizations */
+.fade-up {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
 }
 
 /* Lenis Recommended CSS */

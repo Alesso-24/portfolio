@@ -1,244 +1,245 @@
+/**
+ * @file FaultDetection.jsx
+ * @route /project/fault-detection
+ * @description Detail page for the IEEE BDAI 2026 paper:
+ *   "Comparative Evaluation of Lightweight Supervised Machine Learning Techniques
+ *    for Industrial Rotating Machinery."
+ *
+ * Sections (rendered as an academic article layout):
+ *  1. Header  — paper title, authors, conference, date, status badge.
+ *  2. Abstract — bordered quote block with decorative hash symbol.
+ *  3. Figure 1 — algorithm performance comparison chart (inverted PNG).
+ *  4. Section I  — Introduction & Context.
+ *  5. Section II — Feature Engineering (RMS, FFT-free, O(N) complexity).
+ *  6. Section III — Results & Edge Computing (ESP32, FreeRTOS, MQTT, 98.4% energy saving).
+ *  7. Footer — IEEE Xplore availability notice (button disabled until post-conference).
+ *
+ * Animation:
+ *  - GSAP batch `.fade-up` entrance on mount (opacity + y offset).
+ *  - ⚠️  Does NOT re-initialize Lenis — the global instance in App.jsx handles scroll.
+ *
+ * Images:
+ *  - All images use `import.meta.env.BASE_URL` for GitHub Pages subdirectory compatibility.
+ *  - CSS filter: `invert(0.85) hue-rotate(180deg)` converts white-background charts to dark-UI.
+ */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from 'lenis';
+import { Helmet } from 'react-helmet-async';
+import PageTransition from '../components/PageTransition';
+import { useLanguage } from '../context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FaultDetection = () => {
+  const { t } = useLanguage();
   useEffect(() => {
-    // Scroll to top on mount
+    // Scroll to top
     window.scrollTo(0, 0);
 
-    // Re-initialize Lenis for this page
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-      infinite: false,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    // Animations
+    // Initial fade in
     gsap.fromTo(".fade-up", 
       { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2 }
+      { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: "power3.out" }
     );
-
-    return () => {
-      lenis.destroy();
-    };
   }, []);
 
   return (
-    <div className="bg-brand-dark min-h-screen text-gray-100 font-sans selection:bg-brand-cyan selection:text-black">
-
+    <PageTransition>
+      <Helmet>
+        <title>Fault Detection (BDAI) | Alessandro</title>
+        <meta name="description" content="Industrial fault detection via machine learning using the NASA IMS dataset. Supervised learning and PCA analysis." />
+      </Helmet>
+      <div className="bg-brand-dark min-h-screen text-[#e5e5e5] font-sans">
 
       {/* Hero Header */}
-      <header className="pt-40 pb-20 px-4 md:px-8 max-w-5xl mx-auto">
+      <header className="pt-32 pb-16 px-4 md:px-8 max-w-6xl mx-auto">
         <div className="fade-up">
-          <span className="font-mono text-[11px] uppercase tracking-widest text-brand-cyan mb-6 block">Data Science & Machine Learning</span>
-          <h1 className="font-display font-medium text-5xl md:text-7xl text-white tracking-tight leading-none mb-8">
-            Industrial Fault Detection via Machine Learning.
+          <Link 
+            to="/" 
+            className="inline-flex items-center gap-4 text-brand-primary font-mono uppercase text-[11px] tracking-[0.2em] mb-12 hover:text-brand-cyan transition-colors"
+          >
+              <span className="bg-brand-primary/10 p-2 rounded-full rotate-180">→</span> {t('bdai.back')}
+          </Link>
+          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">{t('bdai.badge')}</span>
+          
+          <h1 className="font-display font-medium text-4xl md:text-5xl lg:text-6xl text-brand-primary tracking-tight leading-tight mb-12">
+            {t('bdai.title')}
           </h1>
-          <p className="font-mono text-gray-400 text-sm md:text-base leading-relaxed max-w-2xl mb-12">
-            A data-driven predictive maintenance approach for industrial rotating machinery using the NASA Bearing Dataset. 
-            This research evaluates lightweight supervised learning techniques—specifically Random Forest—engineered for deployment on resource-constrained Edge devices like the ESP32.
-          </p>
         </div>
 
-        {/* Project Meta */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-white/10 py-8 fade-up mt-12">
+        {/* Project Meta - Academic Format */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 border-y border-brand-primary/10 py-8 fade-up">
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Role</h4>
-            <p className="font-mono text-[13px] text-white">Data Scientist / Researcher</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.authors')}</h4>
+            <div className="font-mono text-[12px] text-brand-primary/80 leading-relaxed font-semibold">
+              Jordi Alessandro Reyes Martinez¹<br/>
+              Karen Melissa Pastrana Monzon¹<br/>
+              Javier Osorio Figueroa¹<br/>
+              Oliver Ochoa Garcia¹
+            </div>
+            <p className="font-mono text-[10px] text-brand-primary/60 mt-2">¹ Universidad Iberoamericana Puebla</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Timeline</h4>
-            <p className="font-mono text-[13px] text-white">2026 (In Progress)</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.conference')}</h4>
+            <p className="font-mono text-[12px] text-brand-primary/80 italic">{t('bdai.conference_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Algorithms</h4>
-            <p className="font-mono text-[13px] text-white">Random Forest (Optimized)</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.presentation')}</h4>
+            <p className="font-mono text-[12px] text-brand-primary/80" dangerouslySetInnerHTML={{__html: t('bdai.presentation_val')}}></p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-2">Tools</h4>
-            <p className="font-mono text-[13px] text-white">Python, LaTeX</p>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.status')}</h4>
+            <p className="font-sans font-medium text-[10px] uppercase tracking-widest px-3 py-1.5 bg-[#3b82f6]/10 text-[#60a5fa] inline-flex items-center rounded-full border border-[#3b82f6]/30">{t('bdai.status_val')}</p>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="px-4 md:px-8 max-w-5xl mx-auto pb-32">
+      <main className="px-4 md:px-8 max-w-6xl mx-auto pb-32">
         
-        {/* Section 1: The Challenge */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-12 fade-up mb-24">
-          <div className="md:col-span-4">
-            <h3 className="font-display text-2xl text-white tracking-tight sticky top-24">The Challenge</h3>
-          </div>
-          <div className="md:col-span-8 font-mono text-gray-400 text-sm leading-relaxed space-y-6">
-            <p>
-              Unplanned downtime caused by bearing failures represents a significant cost in industrial manufacturing. Traditional 
-              maintenance strategies like "Run-to-Failure" or purely time-based preventative schedules often result in collateral damage 
-              or the unnecessary replacement of perfectly healthy components.
-            </p>
-            <p className="mb-12">
-              While Deep Learning (DL) models offer predictive maintenance capabilities, they typically require GPUs and computationally expensive 
-              frequency-domain transformations (Fast Fourier Transforms). This creates a critical barrier to entry for decentralized Edge computing on low-power, battery-operated microcontrollers like the ESP32 network nodes.
-            </p>
-
-            {/* Images: Degradation & Signals */}
-            <div className="space-y-8 mt-12">
-                <div className="w-full bg-white/5 rounded-lg overflow-hidden border border-white/10">
-                    <img 
-                    src={`${import.meta.env.BASE_URL}images/paper4.png`} 
-                    alt="Bearing Health Degradation Over Time"
-                    className="w-full h-auto"
-                    style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2) contrast(1.1)' }}
-                    />
-                    <div className="p-4 border-t border-white/5 text-center">
-                        <span className="font-mono text-gray-500 text-[10px] uppercase tracking-widest">Fig 1. Bearing Health Degradation (RMS)</span>
-                    </div>
+        {/* Abstract Box */}
+        <section className="fade-up mb-24 w-full md:w-10/12 mx-auto">
+            <div className="bg-white/[0.03] border-l-4 border-white/40 p-8 md:p-12 rounded-r-lg shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-5">
+                    <span className="font-display text-8xl text-brand-primary">#</span>
                 </div>
-                <div className="w-full bg-white/5 rounded-lg overflow-hidden border border-white/10">
+                <h3 className="font-display text-2xl text-brand-primary mb-6 uppercase tracking-wider relative z-10">{t('bdai.abstract')}</h3>
+                <p className="font-sans text-brand-primary/80 text-sm md:text-base leading-relaxed text-justify relative z-10">
+                    {t('bdai.abstract_text')}
+                </p>
+                <p className="font-mono text-[10px] text-brand-primary/60 mt-6"><span className="text-brand-primary/40 uppercase tracking-widest">{t('bdai.index_terms')} —</span> {t('bdai.index_terms_val')}</p>
+            </div>
+        </section>
+
+        {/* Hero Image (Algorithm Comparison) */}
+        <section className="fade-up mb-24">
+            <div className="w-full max-w-4xl mx-auto rounded-lg overflow-hidden border border-brand-primary/10 shadow-2xl">
+                <img 
+                src={`${import.meta.env.BASE_URL}images/paper1.png`} 
+                alt="Algorithm Comparison Hero"
+                className="w-full h-auto"
+                style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
+                />
+                <div className="p-4 bg-brand-primary/5 border-t border-white/5">
+                    <p className="font-mono text-brand-primary/70 text-[11px] text-center" dangerouslySetInnerHTML={{__html: t('bdai.fig1')}}>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent my-16"></div>
+
+        {/* 1. Context & Introduction */}
+        <section className="fade-up mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-6 space-y-6">
+                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">{t('bdai.section1_title')}</h3>
+                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
+                    {t('bdai.section1_p1')}
+                </p>
+                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
+                    {t('bdai.section1_p2')}
+                </p>
+            </div>
+            <div className="md:col-span-6">
+                 {/* Technical Image 1 */}
+                <div className="w-full rounded-lg shadow-xl overflow-hidden border border-brand-primary/10 bg-brand-primary/5">
                     <img 
                     src={`${import.meta.env.BASE_URL}images/paper5.png`} 
-                    alt="Healthy vs Critical Failure Signals"
+                    alt="Time-domain comparison"
                     className="w-full h-auto"
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.1) contrast(1.2)' }}
                     />
-                    <div className="p-4 border-t border-white/5 text-center">
-                        <span className="font-mono text-gray-500 text-[10px] uppercase tracking-widest">Fig 2. Time-Domain Signal Analysis</span>
+                    <div className="p-3 border-t border-white/5 text-center px-4">
+                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight" dangerouslySetInnerHTML={{__html: t('bdai.fig2')}}>
+                        </p>
                     </div>
                 </div>
             </div>
           </div>
         </section>
 
-        {/* Section 2: Methodology */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-12 fade-up mb-24 border-t border-white/10 pt-24">
-          <div className="md:col-span-4">
-            <h3 className="font-display text-2xl text-white tracking-tight sticky top-24">Methodology</h3>
-          </div>
-          <div className="md:col-span-8 font-mono text-gray-400 text-sm leading-relaxed space-y-6">
-            <p>
-              To tackle the computational overhead, this paper proposed replacing the demanding FFT analyses with highly discriminative, 
-              lightweight time-domain statistical metrics. Feature engineering identified <strong>RMS, Kurtosis, and Maximum Amplitude</strong> as the most effective indicators of mechanical degradation over time.
-            </p>
-
-            <div className="my-12 w-full bg-white/5 rounded-lg overflow-hidden border border-white/10">
-                <img 
-                src={`${import.meta.env.BASE_URL}images/paper6.png`} 
-                alt="Feature Importance Analysis"
-                className="w-full h-auto"
-                style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
-                />
-                <div className="p-4 border-t border-white/5 text-center">
-                    <span className="font-mono text-gray-500 text-[10px] uppercase tracking-widest">Fig 3. Feature Importance (Random Forest)</span>
-                </div>
-            </div>
-
-            <ul className="list-disc pl-5 space-y-3 text-white mb-12">
-              <li><span className="text-brand-cyan">Algorithm Evaluation:</span> A comparative study was conducted between Random Forest, Support Vector Machines (SVM), and k-Nearest Neighbors (k-NN) using the IMS Bearing dataset running under constant 2000 RPM load.</li>
-              <li><span className="text-brand-cyan">Hyperparameter Tuning:</span> Grid Search was employed to prevent overfitting. We found that a Random Forest with an optimal depth of 5 and 100 estimators provided maximum accuracy while keeping memory footprint extremely low.</li>
-            </ul>
-
-            <div className="my-12 w-full bg-white/5 rounded-lg overflow-hidden border border-white/10">
-                <img 
-                src={`${import.meta.env.BASE_URL}images/paper7.png`} 
-                alt="Hyperparameter Optimization Grid Search"
-                className="w-full h-auto"
-                style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.1) contrast(1.1)' }}
-                />
-                <div className="p-4 border-t border-white/5 text-center">
-                    <span className="font-mono text-gray-500 text-[10px] uppercase tracking-widest">Fig 4. Grid Search Accuracy Heatmap</span>
-                </div>
-            </div>
-            
-            <p>
-              <span className="text-white">Edge Deployment Theory:</span> Designed a theoretical FreeRTOS firmware architecture for the ESP32-S3 that leverages dual-core (Xtensa LX7) task parallelism to handle high-frequency ADC sampling (Core 0) and predictive inference (Core 1) simultaneously.
-            </p>
-          </div>
-        </section>
-
-        {/* Section 3: Results */}
-        <section className="grid grid-cols-1 md:grid-cols-12 gap-12 fade-up border-t border-white/10 pt-24">
-          <div className="md:col-span-4">
-            <h3 className="font-display text-2xl text-white tracking-tight sticky top-24">Results & Impact</h3>
-          </div>
-          <div className="md:col-span-8 font-mono text-gray-400 text-sm leading-relaxed space-y-6">
-            <p>
-              The optimized <strong>Random Forest model achieved 99.85% accuracy</strong> on unseen test blocks, notably producing <strong>zero false positives</strong>—a critical requirement for autonomous shutdown systems to prevent unnecessary factory halts.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
-                <div className="w-full bg-white/5 rounded-lg overflow-hidden border border-white/10">
+        {/* 2. Methodology & Feature Engineering */}
+        <section className="fade-up mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            {/* Image goes first on mobile, but text goes first logically. Let's flip order visually on desktop */}
+            <div className="md:col-span-5 order-2 md:order-1">
+                 {/* Technical Image 3 */}
+                 <div className="w-full rounded-lg shadow-xl overflow-hidden border border-brand-primary/10 bg-brand-primary/5">
                     <img 
-                    src={`${import.meta.env.BASE_URL}images/paper1.png`} 
-                    alt="Algorithm Comparison"
+                    src={`${import.meta.env.BASE_URL}images/paper6.png`} 
+                    alt="Feature Importance Analysis"
                     className="w-full h-auto"
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                     />
-                    <div className="p-4 border-t border-white/5 text-center">
-                        <span className="font-mono text-gray-500 text-[10px] uppercase tracking-widest">Fig 5. Algorithm Comparison</span>
+                    <div className="p-3 border-t border-white/5 text-center px-4">
+                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight" dangerouslySetInnerHTML={{__html: t('bdai.fig3')}}>
+                        </p>
                     </div>
                 </div>
-                <div className="w-full bg-white/5 rounded-lg overflow-hidden border border-white/10">
+            </div>
+            <div className="md:col-span-7 space-y-6 order-1 md:order-2">
+                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">{t('bdai.section2_title')}</h3>
+                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify" dangerouslySetInnerHTML={{__html: t('bdai.section2_p1')}}></p>
+                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify">
+                    {t('bdai.section2_p2')}
+                </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Resultados y Despliegue en Edge */}
+        <section className="fade-up mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-7 space-y-6">
+                <h3 className="font-display text-3xl text-brand-primary tracking-tight mb-4">{t('bdai.section3_title')}</h3>
+                <p className="font-sans text-brand-primary/70 text-sm leading-relaxed text-justify" dangerouslySetInnerHTML={{__html: t('bdai.section3_p1')}}></p>
+                <div className="bg-white/[0.03] border border-brand-primary/10 p-6 rounded-2xl mt-6">
+                    <h4 className="text-brand-primary font-sans font-medium text-xs uppercase tracking-[0.15em] mb-3 flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse"></div>
+                        {t('bdai.edge_title')}
+                    </h4>
+                    <p className="font-sans text-brand-primary/80 text-sm leading-relaxed" dangerouslySetInnerHTML={{__html: t('bdai.edge_desc')}}></p>
+                </div>
+            </div>
+            <div className="md:col-span-5 flex flex-col gap-8">
+                 {/* Technical Image 2 (Confusion Matrix) */}
+                <div className="w-full rounded-lg shadow-xl overflow-hidden border border-brand-primary/10 bg-brand-primary/5">
                     <img 
                     src={`${import.meta.env.BASE_URL}images/paper3.png`} 
                     alt="Confusion Matrix"
-                    className="w-full h-auto"
+                    className="w-full h-auto transform scale-95"
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.1)' }}
                     />
-                    <div className="p-4 border-t border-white/5 text-center">
-                        <span className="font-mono text-gray-500 text-[10px] uppercase tracking-widest">Fig 6. Confusion Matrix</span>
+                    <div className="p-3 border-t border-white/5 text-center px-4">
+                        <p className="font-mono text-brand-primary/70 text-[10px] leading-tight" dangerouslySetInnerHTML={{__html: t('bdai.fig4')}}>
+                        </p>
                     </div>
                 </div>
             </div>
-
-            <p>
-              Furthermore, robustness analysis proved the system maintained &gt;90% accuracy even when injected with severe Gaussian noise typical of harsh industrial environments.
-            </p>
-
-            <div className="my-12 w-full bg-white/5 rounded-lg overflow-hidden border border-white/10">
-                <img 
-                src={`${import.meta.env.BASE_URL}images/paper2.png`} 
-                alt="Model Robustness vs Signal Noise"
-                className="w-full h-auto"
-                style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
-                />
-                <div className="p-4 border-t border-white/5 text-center">
-                    <span className="font-mono text-gray-500 text-[10px] uppercase tracking-widest">Fig 7. Robustness Analysis</span>
-                </div>
-            </div>
-
-            <p>
-              Most importantly, the theoretical energy consumption model mathematically demonstrated that extracting features and running the Random Forest inference locally on the Edge reduces data transmission requirements dramatically. Compared to traditional architectures that stream raw float data to the Cloud via Wi-Fi, <strong>Edge AI offloading offers a 98.4% reduction in energy consumption</strong>.
-            </p>
           </div>
         </section>
+
       </main>
 
-      {/* Footer */}
-      <footer className="w-full border-t border-white/10 py-12 text-center">
-        <h2 className="font-display text-3xl text-white mb-6">Want to see the data?</h2>
-        <a href="https://github.com/Alesso-24" target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 bg-white text-black font-mono text-[11px] uppercase tracking-widest hover:bg-gray-300 transition-colors">
-            Visit GitHub Repository
-        </a>
+      {/* Call to Action */}
+      <footer className="w-full border-t border-brand-primary/10 py-20 text-center bg-black/20">
+        <div className="max-w-2xl mx-auto px-4">
+            <h2 className="font-display text-2xl md:text-3xl text-brand-primary mb-6">{t('bdai.cta_title')}</h2>
+            <p className="font-mono text-brand-primary/70 text-[11px] md:text-xs leading-relaxed uppercase tracking-wider mb-10">
+                {t('bdai.cta_desc')}
+            </p>
+            <button disabled className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800 text-brand-primary/60 font-mono text-[11px] uppercase tracking-widest border border-brand-primary/10 rounded-full cursor-not-allowed transition-colors shadow-inner">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                {t('bdai.cta_btn')}
+            </button>
+        </div>
       </footer>
 
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

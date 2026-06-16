@@ -1,62 +1,114 @@
+/**
+ * @file Contact.jsx
+ * @description Contact section and site footer.
+ *
+ * Content:
+ *  - Primary email: jordi.reyes.martinez@gmail.com (mailto: link).
+ *  - CC instruction: * Please CC your email to jordi.reyes@iberopuebla.mx
+ *    Note: the CC text must NOT use the `uppercase` CSS class — it renders the email in ALL CAPS.
+ *  - Location: Puebla, Mexico.
+ *  - Copyright: © Alessandro Reyes.
+ *
+ * Background:
+ *  - Uses `<AnimatedGradientBackground />` for a subtle moving gradient behind the text.
+ */
 import React from 'react';
+import { motion } from 'framer-motion';
+import AnimatedGradientBackground from './ui/animated-gradient-background';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
   return (
-    <section id="contact" className="py-32 px-4 md:px-8 bg-brand-dark min-h-screen flex flex-col justify-between relative overflow-hidden border-t border-white/5">
+    <section id="contact" className="py-32 px-4 md:px-8 bg-brand-dark min-h-screen flex flex-col justify-between relative overflow-hidden border-t border-brand-primary/5">
       
-      {/* Background glow (muted for minimalist look) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white opacity-[0.02] blur-[150px] rounded-full pointer-events-none"></div>
+      {/* Background dynamic glow */}
+      <AnimatedGradientBackground />
 
-      <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col justify-center">
+      <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col justify-center py-20">
         
-        <h2 className="font-display font-medium text-[12vw] leading-none tracking-tight text-white text-center transition-all duration-300 mb-12">
-            Let's Talk.
-        </h2>
+        <motion.h2 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display font-light text-[10vw] md:text-[8vw] leading-none tracking-tight text-brand-primary text-center transition-all duration-300 mb-16 opacity-90"
+        >
+            {t('contact.title')}<span className="text-brand-primary/20">.</span>
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-16 max-w-4xl mx-auto w-full z-10">
-            <div>
-                <h3 className="font-mono text-[11px] uppercase tracking-widest text-gray-500 mb-6 flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-white/20 rounded-full"></div>
-                    Contact Info
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 mt-10 max-w-5xl mx-auto w-full z-10">
+            <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="flex flex-col justify-center"
+            >
+                <h3 className="font-sans font-medium text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-8 flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 bg-brand-primary/30 rounded-full"></div>
+                    {t('contact.subtitle')}
                 </h3>
-                <p className="text-gray-400 mb-8 max-w-xs font-mono text-[13px] leading-relaxed">Ready to build the future of mechatronics together? Reach out to me.</p>
-                <div className="space-y-4 text-lg">
-                    <a href="mailto:203032@iberopuebla.mx?cc=jordi.reyes.martinez@gmail.com" className="block text-white hover:opacity-70 transition-opacity">203032@iberopuebla.mx</a>
-                    <p className="text-gray-500 font-mono text-sm">Puebla, Mexico</p>
+                <p className="text-brand-primary/80 mb-10 max-w-sm font-sans font-light text-sm md:text-base leading-relaxed">
+                    {t('contact.p1')}
+                </p>
+                <div className="space-y-6 text-lg font-display tracking-wide">
+                    <div>
+                        <a href="mailto:jordi.reyes.martinez@gmail.com" className="block text-brand-primary hover:text-brand-accent transition-colors duration-300 text-xl md:text-2xl">
+                            jordi.reyes.martinez@gmail.com
+                        </a>
+                        <p className="text-brand-primary/30 font-sans text-[10px] tracking-[0.1em] mt-2">* Please CC your email to jordi.reyes@iberopuebla.mx</p>
+                    </div>
+                    <p className="text-brand-primary/40 font-sans text-xs uppercase tracking-[0.2em]">Puebla, Mexico</p>
                 </div>
-            </div>
+            </motion.div>
 
-            <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
-                <input 
-                    type="text" 
-                    placeholder="YOUR NAME" 
-                    className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-mono text-[11px] tracking-widest uppercase placeholder-gray-600 outline-none focus:border-white transition-colors"
-                />
-                <input 
-                    type="email" 
-                    placeholder="YOUR EMAIL" 
-                    className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-mono text-[11px] tracking-widest uppercase placeholder-gray-600 outline-none focus:border-white transition-colors"
-                />
-                <textarea 
-                    placeholder="MESSAGE" 
-                    rows="3"
-                    className="w-full bg-transparent border-b border-white/20 pb-4 text-white font-mono text-[11px] tracking-widest uppercase placeholder-gray-600 outline-none focus:border-white transition-colors resize-none"
-                ></textarea>
+            <motion.form 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="flex flex-col gap-10 glass-panel p-8 md:p-12 rounded-3xl" 
+                onSubmit={(e) => e.preventDefault()}
+            >
+                <div className="relative group">
+                    <input 
+                        type="text" 
+                        placeholder={t('contact.form.name')} 
+                        className="w-full bg-transparent border-b border-brand-primary/10 pb-4 text-brand-primary font-sans text-sm tracking-widest placeholder-brand-primary/50 outline-none focus:border-brand-primary transition-colors"
+                    />
+                </div>
+                <div className="relative group">
+                    <input 
+                        type="email" 
+                        placeholder={t('contact.form.email')} 
+                        className="w-full bg-transparent border-b border-brand-primary/10 pb-4 text-brand-primary font-sans text-sm tracking-widest placeholder-brand-primary/50 outline-none focus:border-brand-primary transition-colors"
+                    />
+                </div>
+                <div className="relative group">
+                    <textarea 
+                        placeholder={t('contact.form.message')} 
+                        rows="4"
+                        className="w-full bg-transparent border-b border-brand-primary/10 pb-4 text-brand-primary font-sans text-sm tracking-widest placeholder-brand-primary/50 outline-none focus:border-brand-primary transition-colors resize-none"
+                    ></textarea>
+                </div>
                 
-                <button type="submit" className="self-end mt-4 px-8 py-4 bg-white text-black font-mono text-[11px] tracking-widest uppercase hover:bg-gray-200 transition-colors duration-300">
-                    Send Message
+                <button type="submit" className="self-end mt-4 px-10 py-4 bg-brand-primary text-white font-sans text-[11px] tracking-[0.2em] uppercase rounded-full hover:bg-brand-accent hover:text-white hover:border hover:border-brand-accent transition-all duration-300">
+                    {t('contact.form.send')}
                 </button>
-            </form>
+            </motion.form>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto w-full mt-32 flex flex-col md:flex-row gap-6 justify-between items-center font-mono text-[10px] text-gray-500 uppercase tracking-widest border-t border-white/10 pt-8 z-10">
-        <p>© 2026 Alessandro Reyes. All rights reserved.</p>
-        <div className="flex gap-8">
-            <a href="https://www.linkedin.com/in/alessandro-reyes-mtz" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="https://github.com/Alesso-24" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-        </div>
-      </div>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0.5 }}
+        className="max-w-7xl mx-auto w-full mt-24 flex flex-col md:flex-row gap-6 justify-center items-center font-sans font-light text-[10px] text-brand-primary/40 uppercase tracking-[0.1em] border-t border-brand-primary/10 pt-10 z-10 pb-4"
+      >
+        <p> {t('contact.footer')} </p>
+      </motion.div>
     </section>
   );
 };
