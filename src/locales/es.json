@@ -65,7 +65,10 @@
       "name": "Nombre",
       "email": "Correo",
       "message": "Mensaje",
-      "send": "Enviar Mensaje"
+      "send": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success": "Gracias — te responderé pronto.",
+      "error": "Algo salió mal. Por favor escríbeme directamente por correo."
     },
     "footer": "Diseñado y Construido por Alessandro Reyes."
   },
