@@ -39,10 +39,13 @@ const Hero = () => {
         >
             <div className="relative w-full max-w-sm aspect-[4/5] md:aspect-[3/4] rounded-[2rem] overflow-hidden shadow-[0_20px_60px_-15px_rgba(217,93,57,0.3)] border border-brand-primary/10 group">
                 <div className="absolute inset-0 bg-brand-primary/5 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
-                <img 
-                    src={`${import.meta.env.BASE_URL}images/Alessandro.jpg`} 
-                    alt="Alessandro Reyes" 
-                    className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]" 
+                <img
+                    src={`${import.meta.env.BASE_URL}images/Alessandro.webp`}
+                    alt="Alessandro Reyes"
+                    width="900"
+                    height="1600"
+                    fetchPriority="high"
+                    className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 />
             </div>
         </motion.div>

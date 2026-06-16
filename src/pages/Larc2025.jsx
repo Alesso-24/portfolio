@@ -84,7 +84,7 @@ const Larc2025 = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
             <div className="md:col-span-7 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative group shadow-2xl h-full min-h-[300px]">
               <img 
-                src={`${import.meta.env.BASE_URL}images/larc_arena.jpg`} 
+                src={`${import.meta.env.BASE_URL}images/larc_arena.webp`} 
                 onError={(e) => {e.target.style.display='none'}}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
                 alt="LARC 2025 Arena" 
@@ -98,18 +98,19 @@ const Larc2025 = () => {
             <div className="md:col-span-5 flex flex-col gap-8 h-full">
                 <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl">
                     <img 
-                        src={`${import.meta.env.BASE_URL}images/larc_team.jpg`} 
+                        src={`${import.meta.env.BASE_URL}images/larc_team.webp`} 
                         onError={(e) => {e.target.style.display='none'}}
                         className="w-full h-full object-cover object-top transition-transform duration-1000 hover:scale-105" 
                         alt="Team at LARC" 
                     />
                 </div>
                 <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl min-h-[300px]">
-                    <iframe 
+                    <iframe
                         className="absolute inset-0 w-full h-full"
-                        src="https://www.youtube.com/embed/LlpaLHTaqiQ"
+                        src="https://www.youtube-nocookie.com/embed/LlpaLHTaqiQ"
                         title="Tracky LARC Demonstration"
                         frameBorder="0"
+                        loading="lazy"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen>
                     </iframe>
@@ -179,7 +180,7 @@ const Larc2025 = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent rounded-full blur-[120px] opacity-10"></div>
             <div className="flex flex-col md:flex-row items-center gap-16 relative z-10">
                  <div className="w-full md:w-1/2">
-                    <img src={`${import.meta.env.BASE_URL}images/robot_full.png`} alt="Tracky Chassis" className="w-full h-auto drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform -rotate-3 hover:rotate-0 transition-transform duration-700" />
+                    <img src={`${import.meta.env.BASE_URL}images/robot_full.webp`} alt="Tracky Chassis" width="900" height="1600" className="w-full h-auto drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform -rotate-3 hover:rotate-0 transition-transform duration-700" />
                  </div>
                  <div className="w-full md:w-1/2 space-y-6">
                     <h3 className="font-display text-3xl text-brand-primary">{t('larc.hw_title')}</h3>

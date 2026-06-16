@@ -373,8 +373,10 @@ const FaultDetectionCASE = () => {
             <div className="md:col-span-6 order-2 md:order-1">
                  <div className="w-full rounded-xl shadow-xl overflow-hidden border border-brand-primary/5 bg-brand-primary/5">
                     <img 
-                        src={`${import.meta.env.BASE_URL}images/case_fdr.png`} 
+                        src={`${import.meta.env.BASE_URL}images/case_fdr.webp`}
                         alt="FDR Condition Monitoring Trend"
+                        width="1077"
+                        height="866"
                         className="w-full h-auto"
                         style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                     />
@@ -412,8 +414,10 @@ const FaultDetectionCASE = () => {
             <div className="md:col-span-6 flex flex-col gap-8">
                 <div className="w-full rounded-xl shadow-xl overflow-hidden border border-brand-primary/5 bg-brand-primary/5">
                     <img 
-                        src={`${import.meta.env.BASE_URL}images/case_latency.png`} 
+                        src={`${import.meta.env.BASE_URL}images/case_latency.webp`}
                         alt="Inference Latency Setup"
+                        width="1068"
+                        height="1668"
                         className="w-full h-auto"
                         style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                     />
@@ -433,8 +437,10 @@ const FaultDetectionCASE = () => {
             <div className="md:col-span-6">
                  <div className="w-full rounded-xl shadow-xl overflow-hidden border border-brand-primary/5 bg-brand-primary/5">
                     <img 
-                        src={`${import.meta.env.BASE_URL}images/case_pca.png`} 
+                        src={`${import.meta.env.BASE_URL}images/case_pca.webp`}
                         alt="PCA Scatter Plots Incipient vs Advanced"
+                        width="1068"
+                        height="1668"
                         className="w-full h-auto"
                         style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                     />
