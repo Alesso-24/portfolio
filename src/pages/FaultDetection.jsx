@@ -91,7 +91,7 @@ const FaultDetection = () => {
           </div>
           <div>
             <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.status')}</h4>
-            <p className="font-sans font-medium text-[10px] uppercase tracking-widest px-3 py-1.5 bg-[#3b82f6]/10 text-[#60a5fa] inline-flex items-center rounded-full border border-[#3b82f6]/30">{t('bdai.status_val')}</p>
+            <p className="font-sans font-medium text-[10px] uppercase tracking-widest px-3 py-1.5 bg-[#22c55e]/10 text-[#22c55e] inline-flex items-center rounded-full border border-[#22c55e]/30">{t('bdai.status_val')}</p>
           </div>
         </div>
       </header>

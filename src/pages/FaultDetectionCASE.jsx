@@ -290,7 +290,7 @@ const FaultDetectionCASE = () => {
           </div>
           <div>
             <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('case.status')}</h4>
-            <p className="font-mono text-[11px] px-3 py-1 bg-[#ef4444]/10 text-[#ef4444] inline-block rounded-full border border-[#ef4444]/20">{t('case.status_val')}</p>
+            <p className="font-mono text-[11px] px-3 py-1 bg-[#22c55e]/10 text-[#22c55e] inline-block rounded-full border border-[#22c55e]/20">{t('case.status_val')}</p>
           </div>
         </div>
       </header>

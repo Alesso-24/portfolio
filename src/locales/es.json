@@ -7,11 +7,23 @@
     "back": "← Volver"
   },
   "hero": {
-    "status": "Disponible para Prácticas Profesionales Verano 2026",
+    "status": "Disponible — Prácticas de Verano 2026",
     "title_mechatronics": "Mecatrónica",
     "title_software": "Software",
-    "subtitle": "Conectando sistemas físicos con algoritmos inteligentes.",
+    "subtitle": "IA y sistemas embebidos que sobreviven al contacto con hardware real — validados en el chip, no solo en simulación.",
+    "cta_primary": "Contactar",
+    "cta_secondary": "Ver Proyectos",
     "scroll": "Explorar más"
+  },
+  "proof": {
+    "stat1_value": "126×",
+    "stat1_label": "Más rápido en inferencia, medido en hardware ESP32 real",
+    "stat2_value": "99.85%",
+    "stat2_label": "De precisión con cero falsos positivos",
+    "stat3_value": "98.4%",
+    "stat3_label": "Menos energía que transmitir a la nube",
+    "affiliations_label": "Investigación afiliada con",
+    "affiliations": "IEEE · Tecnológico de Monterrey · Universidad Iberoamericana Puebla · Universidad Veracruzana"
   },
   "about": {
     "title": "Perfil",
@@ -23,7 +35,8 @@
     "focus2": "Integración de Hardware",
     "focus3": "Machine Learning",
     "focus4": "Sistemas de Control",
-    "techStack": "Tecnologías"
+    "techStack": "Tecnologías",
+    "availability": "Disponible para prácticas de verano 2026 y colaboraciones de investigación internacionales"
   },
   "projects": {
     "title1": "Ingeniería y Robótica Aplicada",
@@ -33,12 +46,16 @@
     "explore": "Explorar",
     "larc_category": "Competencia de Robótica LARC 2025",
     "larc_title": "Tracky: Robot Seguidor de Línea de Alta Velocidad",
-    "case_category": "Publicación Científica (IEEE CASE)",
+    "larc_impact": "Construí y competí con un robot ESP32-C6 personalizado que se recupera de giros de 90° en milisegundos — diseñado y depurado bajo la presión real de LARC 2025.",
+    "case_category": "IEEE CASE 2026 — Aceptado, Presentación Remota",
     "case_title": "Marco de Decisión Edge AI: Cuantificando el Balance Sensibilidad-Latencia",
-    "bdai_category": "Ciencia de Datos y Machine Learning",
+    "case_impact": "Encontré un error de hardware que rompía silenciosamente un modelo 'perfecto', y construí uno 126× más rápido con cero falsas alarmas — validado en silicio ESP32 real, no en simulación.",
+    "bdai_category": "IEEE BDAI 2026 — Aceptado, Presentación Remota",
     "bdai_title": "Detección de Fallas Industriales mediante Machine Learning",
+    "bdai_impact": "99.85% de precisión, cero falsos positivos y 98.4% menos energía que la nube — mantenimiento predictivo lo bastante ligero para correr en un microcontrolador de $5.",
     "balancin_category": "Robótica y Sistemas de Control",
-    "balancin_title": "Plataforma de Auto-Balanceo con Visión Computacional"
+    "balancin_title": "Plataforma de Auto-Balanceo con Visión Computacional",
+    "balancin_impact": "Visión computacional e inversión cinemática en tiempo real mantienen una pelota en equilibrio sobre un plano móvil — y siguen prediciendo su trayectoria incluso si se pierde un cuadro de cámara."
   },
   "contact": {
     "title": "Hablemos",
@@ -112,11 +129,11 @@
     "title": "Evaluación Comparativa de Técnicas Ligeras de Machine Learning Supervisado para Maquinaria Rotativa Industrial.",
     "authors": "Autores",
     "conference": "Conferencia",
-    "conference_val": "Conferencia Internacional IEEE sobre Big Data e Inteligencia Artificial Aplicada",
+    "conference_val": "IEEE 9.ª Conferencia Internacional sobre Big Data e Inteligencia Artificial (BDAI 2026)",
     "presentation": "Presentación",
-    "presentation_val": "Mayo 2026",
+    "presentation_val": "3–5 de julio, 2026<br/>Chongqing, China (presentación remota).",
     "status": "Estado",
-    "status_val": "Completado",
+    "status_val": "Aceptado — Presentación Remota",
     "abstract": "Resumen",
     "abstract_text": "Este estudio evalúa el rendimiento de tres algoritmos de machine learning supervisado—Random Forest (RF), Regresión Logística (LR), y Máquinas de Soporte Vectorial (SVM)—para detectar fallas de rodamientos en diferentes etapas de degradación usando el dataset de la NASA IMS. La metodología implica computar características estadísticas (RMS, Pico, Factor de Cresta, Curtosis) desde las señales de vibración y emplear la Relación de Discriminante de Fisher (FDR) para separar los datos en etapas Incipiente y Avanzada.",
     "index_terms": "Términos Clave",
@@ -136,8 +153,8 @@
     "edge_desc": "Este enfoque fue matemáticamente extrapolado a una arquitectura conectada IoT (ESP32-S3 con un RTOS). Al inferir las ramas del árbol de decisión localmente en hardware y usando MQTT para transmitir <em>exclusivamente</em> un paquete de alarma, se estima teóricamente que el dispositivo consume 0.99 mJ por ejecución — un <strong>ahorro energético del 98%</strong> comparado con transmitir todos los datos crudos por Wi-Fi hacia la nube.",
     "fig4": "<strong class=\"text-brand-primary\">Fig. 4.</strong> Matriz de confusión del modelo optimizado, demostrando confiabilidad total con cero falsos positivos o falsos negativos (Tasa de Falsa Aceptación = 0%).",
     "cta_title": "Disponibilidad del Documento",
-    "cta_desc": "El script Camera-Ready finalizará la indexación editorial tras la conferencia. El PDF completo y los anexos de datos se liberarán públicamente a mediados de 2026 en el repositorio IEEE Xplore.",
-    "cta_btn": "Ver Paper Oficial de IEEE (Bloqueado)"
+    "cta_desc": "Aceptado en IEEE BDAI 2026; manuscrito camera-ready enviado y cuota de registro pagada. Las actas se publicarán en IEEE Xplore y se indexarán en Ei Compendex y Scopus tras la conferencia (julio 2026).",
+    "cta_btn": "Ver en IEEE Xplore (Disponible Tras la Conferencia)"
   },
   "case": {
     "back": "← Volver a Inicio",
@@ -146,11 +163,11 @@
     "title": "Marco de Decisión Edge AI: Cuantificando el Balance Sensibilidad-Latencia en el Mantenimiento Predictivo Industrial.",
     "authors": "Autores",
     "conference": "Conferencia",
-    "conference_val": "IEEE International Conference on Automation Science and Engineering (CASE)",
+    "conference_val": "22.ª Conferencia Internacional IEEE sobre Ciencia de la Automatización e Ingeniería (CASE 2026)",
     "presentation": "Presentación",
-    "presentation_val": "Agosto 17–21, 2026<br/>Shenyang, China.",
+    "presentation_val": "17–21 de agosto, 2026<br/>Shenyang, China (presentación remota).",
     "status": "Estado",
-    "status_val": "En Revisión",
+    "status_val": "Aceptado — Presentación Remota",
     "abstract": "Resumen",
     "abstract_text": "Existen varias estrategias de clasificación disponibles para evaluar cuando un rodamiento ha fallado. El fallo es un proceso gradual, y la cuestión que se plantea es si al mejor clasificador también se le debería permitir cambiar basándose en la progresión de la falla. Usando mediciones del set de datos NASA Intelligent Maintenance Systems (IMS) 2nd_test (984 archivos totales del Rodamiento 1 con falla en la pista exterior), tres clasificadores—Random Forest (RF), Regresión Logística (LR) y Máquinas de Vectores de Soporte (SVM)—fueron evaluados en su capacidad de detectar fallos en dos etapas de degradación. En etapa incipiente, RF detectó 27 de 56 ciclos (48.2%) mientras que LR detectó solo 7 (12.5%), diferencia de 3.9×. En etapa avanzada, ambos convergieron al Área Bajo la Curva (AUC) de 1.000. La latencia fue medida contando ciclos de CPU directamente de un ESP32 real (Xtensa LX6, 240 MHz). LR tuvo una latencia de 184 ns mientras que RF tardó 23.3 μs, (diferencia de 126×). SVM clasificó erróneamente en hardware a los 96.5 μs y fue descalificado. El análisis FDR muestra un aumento de 5.89× en separabilidad de la etapa incipiente a la avanzada. Y el uso del modelo sin etiquetas validado en el Rodamiento 2 arrojó cero falsos positivos. Hasta donde saben los autores, este es el primer estudio que caracteriza este balance en hardware físico basado en la etapa de degradación.",
     "index_terms": "Términos Clave",
@@ -179,8 +196,8 @@
     "edge_title": "Perspectivas Edge: Fallas de Hardware FPU",
     "edge_desc": "Durante pruebas físicas, el modelo SVM fue descalificado por errores catastróficos en la FPU del ESP32. La pérdida de precisión en <code class=\"bg-black/30 px-1 rounded text-brand-primary\">expf()</code> invirtió límites de decisión. Esto subraya la necesidad de <strong>validar en el hardware final y no confiar en simulaciones analíticas</strong>.",
     "cta_title": "Estado del Manuscrito",
-    "cta_desc": "El paper se encuentra actualmente en fase de revisión por pares doble ciego. Los resultados del comité científico se esperan para Mayo de 2026.",
+    "cta_desc": "Aceptado en IEEE CASE 2026; manuscrito camera-ready enviado y cuota de registro pagada. El autor presentará de forma remota; las actas se publicarán en IEEE Xplore tras la conferencia.",
     "cta_btn1": "Estado del Paper",
-    "cta_btn2": "En Revisión (Decisión esperada: 17 de Mayo, 2026)"
+    "cta_btn2": "Aceptado — Publicación en IEEE Xplore Pendiente"
   }
 }

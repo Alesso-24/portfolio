@@ -126,7 +126,7 @@ const About = () => {
                    </ul>
                 </div>
                 <div className="pt-8 mt-8 border-t border-brand-primary/10">
-                    <p className="font-sans font-medium text-xs uppercase tracking-widest text-brand-primary/60">Currently open to new opportunities</p>
+                    <p className="font-sans font-medium text-xs uppercase tracking-widest text-brand-primary/60">{t('about.availability')}</p>
                 </div>
             </motion.div>
 

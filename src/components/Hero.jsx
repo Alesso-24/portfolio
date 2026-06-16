@@ -49,8 +49,23 @@ const Hero = () => {
 
         {/* Right Column: Text Content */}
         <div className="w-full md:w-7/12 lg:w-8/12 flex flex-col items-center md:items-start text-center md:text-left">
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                className="mb-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-orange/30 bg-brand-orange/5"
+            >
+                <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75 animate-ping"></span>
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-orange"></span>
+                </span>
+                <span className="font-sans font-medium text-[10px] md:text-[11px] tracking-[0.15em] text-brand-orange uppercase">
+                    {t('hero.status')}
+                </span>
+            </motion.div>
+
             <div className="overflow-hidden pb-2 mb-2 md:mb-4">
-                <motion.span 
+                <motion.span
                     initial={{ y: "100%" }}
                     animate={{ y: 0 }}
                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
@@ -82,14 +97,17 @@ const Hero = () => {
                 {t('hero.subtitle')}
             </motion.p>
             
-            <motion.div 
+            <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1.5, delay: 1 }}
-                className="mt-12 flex gap-6 items-center"
+                className="mt-12 flex flex-wrap gap-6 items-center justify-center md:justify-start"
             >
-                <a href="#projects" className="px-8 py-4 bg-brand-primary text-brand-dark rounded-full font-sans font-medium text-xs uppercase tracking-widest hover:bg-brand-orange hover:text-brand-primary transition-all duration-300">
-                    Explore Work
+                <a href="#contact" className="px-8 py-4 bg-brand-primary text-brand-dark rounded-full font-sans font-medium text-xs uppercase tracking-widest hover:bg-brand-orange hover:text-brand-primary transition-all duration-300">
+                    {t('hero.cta_primary')}
+                </a>
+                <a href="#projects" className="font-sans font-medium text-xs uppercase tracking-widest text-brand-primary/70 hover:text-brand-orange transition-colors duration-300 underline-offset-4 hover:underline">
+                    {t('hero.cta_secondary')}
                 </a>
             </motion.div>
         </div>

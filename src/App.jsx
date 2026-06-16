@@ -24,6 +24,7 @@ import Lenis from 'lenis';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import ProofBar from './components/ProofBar';
 import PageTransition from './components/PageTransition';
 import { LanguageProvider } from './context/LanguageContext';
 
@@ -45,6 +46,7 @@ function Home() {
         <meta name="description" content="Bridging the gap between physical systems and elegant software. Focused on intelligent automation." />
       </Helmet>
       <Hero />
+      <ProofBar />
       <Suspense fallback={<div className="h-screen w-full bg-brand-dark"></div>}>
           <About />
           <Projects />

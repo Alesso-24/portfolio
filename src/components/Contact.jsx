@@ -4,8 +4,6 @@
  *
  * Content:
  *  - Primary email: jordi.reyes.martinez@gmail.com (mailto: link).
- *  - CC instruction: * Please CC your email to jordi.reyes@iberopuebla.mx
- *    Note: the CC text must NOT use the `uppercase` CSS class — it renders the email in ALL CAPS.
  *  - Location: Puebla, Mexico.
  *  - Copyright: © Alessandro Reyes.
  *
@@ -57,7 +55,6 @@ const Contact = () => {
                         <a href="mailto:jordi.reyes.martinez@gmail.com" className="block text-brand-primary hover:text-brand-accent transition-colors duration-300 text-xl md:text-2xl">
                             jordi.reyes.martinez@gmail.com
                         </a>
-                        <p className="text-brand-primary/30 font-sans text-[10px] tracking-[0.1em] mt-2">* Please CC your email to jordi.reyes@iberopuebla.mx</p>
                     </div>
                     <p className="text-brand-primary/40 font-sans text-xs uppercase tracking-[0.2em]">Puebla, Mexico</p>
                 </div>
