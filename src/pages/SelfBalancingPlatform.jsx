@@ -46,13 +46,13 @@ const SelfBalancingPlatform = () => {
         <title>Self-Balancing Platform | Alessandro</title>
         <meta name="description" content="A mechatronic system using an ESP32, servomotors, and OpenCV computer vision for strict PID closed-loop control." />
       </Helmet>
-      <div className="bg-brand-dark min-h-screen text-[#e5e5e5] font-sans">
+      <div className="bg-brand-cream min-h-screen text-[#e5e5e5] font-sans">
 
 
       {/* Hero Header */}
       <header className="pt-40 pb-20 px-4 md:px-8 max-w-5xl mx-auto">
         <div className="fade-up">
-          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">{t('balancin.badge')}</span>
+          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/70 mb-6 block">{t('balancin.badge')}</span>
           <h1 className="font-display font-medium text-5xl md:text-7xl text-brand-primary tracking-tight leading-none mb-8">
             {t('balancin.title')}
           </h1>
@@ -64,19 +64,19 @@ const SelfBalancingPlatform = () => {
         {/* Project Meta */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 border-y border-brand-primary/10 py-8 fade-up mt-12">
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('balancin.role')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-2">{t('balancin.role')}</h4>
             <p className="font-mono text-[13px] text-brand-primary">{t('balancin.role_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('balancin.timeline')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-2">{t('balancin.timeline')}</h4>
             <p className="font-mono text-[13px] text-brand-primary">{t('balancin.timeline_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('larc.hardware')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-2">{t('larc.hardware')}</h4>
             <p className="font-mono text-[13px] text-brand-primary">ESP32, MG996R Servos</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-2">{t('larc.software')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-2">{t('larc.software')}</h4>
             <p className="font-mono text-[13px] text-brand-primary">Python, C++, OpenCV</p>
           </div>
         </div>

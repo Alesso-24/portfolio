@@ -1,13 +1,16 @@
 @import "tailwindcss";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource/instrument-serif";
+@import "@fontsource/space-mono";
 
 @theme {
-  --color-brand-dark: #F7F5F0;
+  --color-brand-cream: #F7F5F0;
   --color-brand-gray: #EAE5D9;
   --color-brand-light: #DFD7C7;
   --color-brand-primary: #0F172A;
-  --color-brand-accent: #1D4ED8;
+  --color-brand-accent: #A8441C;
   --color-brand-orange: #D95D39;
-  --font-sans: 'DM Sans', sans-serif;
+  --font-sans: 'DM Sans Variable', sans-serif;
   --font-mono: 'Space Mono', monospace;
   --font-display: 'Instrument Serif', serif;
 }
@@ -18,7 +21,7 @@
   }
 
   body {
-    background-color: var(--color-brand-dark);
+    background-color: var(--color-brand-cream);
     color: var(--color-brand-primary);
     overflow-x: hidden;
     font-family: var(--font-sans);
@@ -39,7 +42,7 @@
     letter-spacing: -0.02em;
   }
   ::selection {
-    background-color: rgba(29, 78, 216, 0.2);
+    background-color: color-mix(in srgb, var(--color-brand-accent) 20%, transparent);
     color: var(--color-brand-accent);
   }
 }

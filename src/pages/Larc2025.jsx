@@ -25,14 +25,14 @@ const Larc2025 = () => {
         <title>LARC 2025 Experience | Alessandro</title>
         <meta name="description" content="Competing at the Latin American Robotics Competition 2025 at Tec de Monterrey with Tracky, an ESP32-C6 line follower." />
       </Helmet>
-      <div className="bg-brand-dark min-h-screen text-[#e5e5e5] font-sans">
+      <div className="bg-brand-cream min-h-screen text-[#e5e5e5] font-sans">
 
       {/* Hero Header */}
       <header className="pt-40 pb-16 px-4 md:px-8 max-w-6xl mx-auto">
         <div className="fade-up flex justify-between items-center mb-12">
           <Link 
             to="/" 
-            className="inline-flex items-center gap-4 text-brand-primary font-sans uppercase text-[10px] tracking-[0.2em] hover:text-brand-primary/60 transition-colors"
+            className="inline-flex items-center gap-4 text-brand-primary font-sans uppercase text-[10px] tracking-[0.2em] hover:text-brand-primary/70 transition-colors"
           >
               <span className="bg-brand-primary/10 p-2 rounded-full rotate-180">→</span> {t('nav.back')}
           </Link>
@@ -48,7 +48,7 @@ const Larc2025 = () => {
         <div className="fade-up">
           <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-accent mb-6 block">{t('larc.badge')}</span>
           <h1 className="font-display font-medium text-4xl md:text-6xl lg:text-7xl text-brand-primary tracking-tight leading-none mb-8">
-            {t('larc.title')}<br/><span className="text-brand-primary/40">{t('larc.subtitle')}</span>
+            {t('larc.title')}<br/><span className="text-brand-primary/70">{t('larc.subtitle')}</span>
           </h1>
           <p className="font-mono text-brand-primary/70 text-sm md:text-base leading-relaxed max-w-3xl mb-12 text-justify">
             {t('larc.description')}
@@ -90,7 +90,7 @@ const Larc2025 = () => {
                 alt="LARC 2025 Arena" 
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center -z-10 text-center px-4 bg-[#111]">
-                  <span className="font-mono text-brand-primary/60 text-[11px] uppercase tracking-widest block mb-3">{t('larc.venue_placeholder')}</span>
+                  <span className="font-mono text-brand-primary/70 text-[11px] uppercase tracking-widest block mb-3">{t('larc.venue_placeholder')}</span>
                   <p className="font-sans text-[11px] text-gray-600 max-w-xs">{t('larc.venue_placeholder_desc')}</p>
               </div>
             </div>

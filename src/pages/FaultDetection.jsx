@@ -51,18 +51,18 @@ const FaultDetection = () => {
         <title>Fault Detection (BDAI) | Alessandro</title>
         <meta name="description" content="Industrial fault detection via machine learning using the NASA IMS dataset. Supervised learning and PCA analysis." />
       </Helmet>
-      <div className="bg-brand-dark min-h-screen text-[#e5e5e5] font-sans">
+      <div className="bg-brand-cream min-h-screen text-[#e5e5e5] font-sans">
 
       {/* Hero Header */}
       <header className="pt-32 pb-16 px-4 md:px-8 max-w-6xl mx-auto">
         <div className="fade-up">
           <Link 
             to="/" 
-            className="inline-flex items-center gap-4 text-brand-primary font-mono uppercase text-[11px] tracking-[0.2em] mb-12 hover:text-brand-cyan transition-colors"
+            className="inline-flex items-center gap-4 text-brand-primary font-mono uppercase text-[11px] tracking-[0.2em] mb-12 hover:text-brand-accent transition-colors"
           >
               <span className="bg-brand-primary/10 p-2 rounded-full rotate-180">→</span> {t('bdai.back')}
           </Link>
-          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">{t('bdai.badge')}</span>
+          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/70 mb-6 block">{t('bdai.badge')}</span>
           
           <h1 className="font-display font-medium text-4xl md:text-5xl lg:text-6xl text-brand-primary tracking-tight leading-tight mb-12">
             {t('bdai.title')}
@@ -72,25 +72,25 @@ const FaultDetection = () => {
         {/* Project Meta - Academic Format */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 border-y border-brand-primary/10 py-8 fade-up">
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.authors')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('bdai.authors')}</h4>
             <div className="font-mono text-[12px] text-brand-primary/80 leading-relaxed font-semibold">
               Jordi Alessandro Reyes Martinez¹<br/>
               Karen Melissa Pastrana Monzon¹<br/>
               Javier Osorio Figueroa¹<br/>
               Oliver Ochoa Garcia¹
             </div>
-            <p className="font-mono text-[10px] text-brand-primary/60 mt-2">¹ Universidad Iberoamericana Puebla</p>
+            <p className="font-mono text-[10px] text-brand-primary/70 mt-2">¹ Universidad Iberoamericana Puebla</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.conference')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('bdai.conference')}</h4>
             <p className="font-mono text-[12px] text-brand-primary/80 italic">{t('bdai.conference_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.presentation')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('bdai.presentation')}</h4>
             <p className="font-mono text-[12px] text-brand-primary/80" dangerouslySetInnerHTML={{__html: t('bdai.presentation_val')}}></p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('bdai.status')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('bdai.status')}</h4>
             <p className="font-sans font-medium text-[10px] uppercase tracking-widest px-3 py-1.5 bg-[#22c55e]/10 text-[#22c55e] inline-flex items-center rounded-full border border-[#22c55e]/30">{t('bdai.status_val')}</p>
           </div>
         </div>
@@ -109,7 +109,7 @@ const FaultDetection = () => {
                 <p className="font-sans text-brand-primary/80 text-sm md:text-base leading-relaxed text-justify relative z-10">
                     {t('bdai.abstract_text')}
                 </p>
-                <p className="font-mono text-[10px] text-brand-primary/60 mt-6"><span className="text-brand-primary/40 uppercase tracking-widest">{t('bdai.index_terms')} —</span> {t('bdai.index_terms_val')}</p>
+                <p className="font-mono text-[10px] text-brand-primary/70 mt-6"><span className="text-brand-primary/70 uppercase tracking-widest">{t('bdai.index_terms')} —</span> {t('bdai.index_terms_val')}</p>
             </div>
         </section>
 
@@ -231,7 +231,7 @@ const FaultDetection = () => {
             <p className="font-mono text-brand-primary/70 text-[11px] md:text-xs leading-relaxed uppercase tracking-wider mb-10">
                 {t('bdai.cta_desc')}
             </p>
-            <button disabled className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800 text-brand-primary/60 font-mono text-[11px] uppercase tracking-widest border border-brand-primary/10 rounded-full cursor-not-allowed transition-colors shadow-inner">
+            <button disabled className="inline-flex items-center gap-3 px-8 py-4 bg-gray-800 text-brand-primary/70 font-mono text-[11px] uppercase tracking-widest border border-brand-primary/10 rounded-full cursor-not-allowed transition-colors shadow-inner">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                 {t('bdai.cta_btn')}
             </button>

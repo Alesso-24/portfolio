@@ -21,7 +21,7 @@ import { useLanguage } from '../context/LanguageContext';
 const Contact = () => {
   const { t } = useLanguage();
   return (
-    <section id="contact" className="py-32 px-4 md:px-8 bg-brand-dark min-h-screen flex flex-col justify-between relative overflow-hidden border-t border-brand-primary/5">
+    <section id="contact" className="py-32 px-4 md:px-8 bg-brand-cream min-h-screen flex flex-col justify-between relative overflow-hidden border-t border-brand-primary/5">
       
       {/* Background dynamic glow */}
       <AnimatedGradientBackground />
@@ -46,7 +46,7 @@ const Contact = () => {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                 className="flex flex-col justify-center"
             >
-                <h3 className="font-sans font-medium text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-8 flex items-center gap-3">
+                <h3 className="font-sans font-medium text-[10px] uppercase tracking-[0.2em] text-brand-primary/70 mb-8 flex items-center gap-3">
                     <div className="w-1.5 h-1.5 bg-brand-primary/30 rounded-full"></div>
                     {t('contact.subtitle')}
                 </h3>
@@ -58,9 +58,9 @@ const Contact = () => {
                         <a href="mailto:jordi.reyes.martinez@gmail.com" className="block text-brand-primary hover:text-brand-accent transition-colors duration-300 text-xl md:text-2xl">
                             jordi.reyes.martinez@gmail.com
                         </a>
-                        <p className="text-brand-primary/50 font-sans text-[10px] tracking-[0.1em] mt-2">* Please CC your email to jordi.reyes@iberopuebla.mx</p>
+                        <p className="text-brand-primary/70 font-sans text-[10px] tracking-[0.1em] mt-2">* Please CC your email to jordi.reyes@iberopuebla.mx</p>
                     </div>
-                    <p className="text-brand-primary/40 font-sans text-xs uppercase tracking-[0.2em]">Puebla, Mexico</p>
+                    <p className="text-brand-primary/70 font-sans text-xs uppercase tracking-[0.2em]">Puebla, Mexico</p>
                 </div>
             </motion.div>
 
@@ -106,7 +106,7 @@ const Contact = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="max-w-7xl mx-auto w-full mt-24 flex flex-col md:flex-row gap-6 justify-center items-center font-sans font-light text-[10px] text-brand-primary/40 uppercase tracking-[0.1em] border-t border-brand-primary/10 pt-10 z-10 pb-4"
+        className="max-w-7xl mx-auto w-full mt-24 flex flex-col md:flex-row gap-6 justify-center items-center font-sans font-light text-[10px] text-brand-primary/70 uppercase tracking-[0.1em] border-t border-brand-primary/10 pt-10 z-10 pb-4"
       >
         <p> {t('contact.footer')} </p>
       </motion.div>

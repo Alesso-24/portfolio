@@ -1,105 +1,45 @@
-import React, { useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import gsap from 'gsap';
+/**
+ * @file ProjectDetail.jsx
+ * @description Fallback for /project/:id when the id doesn't match one of the
+ * dedicated project routes in App.jsx. Previously rendered hardcoded,
+ * out-of-date placeholder project data styled for the old dark theme (white
+ * text on what is now a cream background -- effectively invisible). Replaced
+ * with an honest "not found, here's where the real work is" page instead of
+ * fabricated project details.
+ */
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '../components/PageTransition';
 import { useLanguage } from '../context/LanguageContext';
 
-// In a real app, this would be fetched from an API or a shared data file
-const projectsDB = {
-    '1': {
-        title: "Self-Balancing Platform",
-        subtitle: "Computer Vision & Advanced Control Systems",
-        description: "A comprehensive mechatronics project integrating machine vision for real-time spatial awareness with highly responsive servomotors. The platform uses absolute orientation sensors and PID control loops on an ESP32 to maintain perfect equilibrium even under external disturbances.",
-        tech: "ESP32 • Python • C/C++ • Servomotors • PID Control",
-        year: "2024",
-        role: "Lead Developer / Hardware Architect",
-        image: `${import.meta.env.BASE_URL}images/project1.jpg`
-    },
-    '2': {
-        title: "Industrial Fault Detection",
-        subtitle: "Machine Learning Applied to Aerospace Datasets",
-        description: "An analytical deep dive into predictive maintenance using NASA's turbofan engine degradation simulation datasets. This project leverages supervised learning algorithms to accurately predict Remaining Useful Life (RUL) of critical components.",
-        tech: "Python • Supervised Learning • NASA Datasets • LaTeX",
-        year: "2025",
-        role: "Data Scientist",
-        image: `${import.meta.env.BASE_URL}images/project2.jpg`
-    }
-};
-
 const ProjectDetail = () => {
-  const { id } = useParams();
   const { t } = useLanguage();
-  const project = projectsDB[id] || projectsDB['1'];
-  
-  const containerRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    gsap.fromTo(containerRef.current,
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
-    );
-  }, [id]);
+  }, []);
 
   return (
     <PageTransition>
       <Helmet>
-        <title>{project.title} | Alessandro</title>
-        <meta name="description" content={project.subtitle} />
+        <title>Project Not Found | Alessandro Reyes</title>
+        <meta name="description" content="This project page doesn't exist, but the real work does." />
       </Helmet>
-      <div ref={containerRef} className="min-h-screen bg-brand-dark pt-32 px-4 md:px-8 pb-32">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Navigation */}
-          <Link to="/" className="inline-flex items-center gap-4 text-white font-mono uppercase text-[11px] tracking-[0.2em] mb-16 hover:text-brand-cyan transition-colors">
-              <span className="bg-white/10 p-2 rounded-full rotate-180">→</span> {t('nav.back')}
-          </Link>
-          
-          <header className="mb-24">
-              <h1 className="font-display font-medium text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.1] mb-6">
-                  {project.title}
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-400 font-display tracking-tight border-l-2 border-brand-cyan pl-6">
-                  {project.subtitle}
-              </p>
-          </header>
-
-          {/* Hero Image */}
-          <div className="w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-lg mb-24 relative">
-               <div className="absolute inset-0 bg-brand-cyan/10 mix-blend-overlay z-10"></div>
-               <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-          </div>
-
-          {/* Details Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-              
-              <div className="lg:col-span-8">
-                  <h3 className="text-white text-sm mb-8 font-mono uppercase tracking-widest border-b border-white/10 pb-4 inline-block">Project Overview</h3>
-                  <p className="text-gray-300 text-lg md:text-xl leading-relaxed font-sans">
-                      {project.description}
-                  </p>
-              </div>
-
-              <div className="lg:col-span-4 flex flex-col gap-12">
-                  <div>
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-4">Technologies</h4>
-                      <p className="font-mono text-sm text-gray-300 leading-relaxed uppercase tracking-wider">{project.tech}</p>
-                  </div>
-                  <div>
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-4">Role</h4>
-                      <p className="font-mono text-sm text-gray-300 uppercase tracking-wider">{project.role}</p>
-                  </div>
-                  <div>
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-gray-500 mb-4">Year</h4>
-                      <p className="font-mono text-sm text-gray-300 uppercase tracking-wider">{project.year}</p>
-                  </div>
-              </div>
-
-          </div>
-
-        </div>
+      <div className="min-h-screen bg-brand-cream flex flex-col items-center justify-center text-center px-6 pt-32 pb-32">
+        <span className="font-sans font-medium text-xs uppercase tracking-[0.3em] text-brand-accent mb-6">404</span>
+        <h1 className="font-display font-medium text-4xl md:text-6xl text-brand-primary tracking-tight mb-6">
+          Project Not Found
+        </h1>
+        <p className="text-brand-primary/70 text-base md:text-lg max-w-md mb-12 font-sans">
+          This page doesn't exist — but the work does.
+        </p>
+        <Link
+          to="/"
+          className="px-8 py-4 bg-brand-primary text-brand-cream rounded-full font-sans font-medium text-xs uppercase tracking-widest hover:bg-brand-orange hover:text-brand-primary transition-all duration-300"
+        >
+          {t('nav.backToWork')}
+        </Link>
       </div>
     </PageTransition>
   );

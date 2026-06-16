@@ -47,7 +47,7 @@ function Home() {
       </Helmet>
       <Hero />
       <ProofBar />
-      <Suspense fallback={<div className="h-screen w-full bg-brand-dark"></div>}>
+      <Suspense fallback={<div className="h-screen w-full bg-brand-cream"></div>}>
           <About />
           <Projects />
           <Contact />
@@ -101,10 +101,10 @@ function App() {
     <HelmetProvider>
       <LanguageProvider>
         <Router>
-          <div className="relative w-full bg-brand-dark text-gray-100 font-sans selection:bg-brand-cyan selection:text-black min-h-screen">
+          <div className="relative w-full bg-brand-cream font-sans min-h-screen">
             <Navbar />
             <main>
-              <Suspense fallback={<div className="h-screen w-full bg-brand-dark flex items-center justify-center font-mono opacity-50">Loading Interface...</div>}>
+              <Suspense fallback={<div className="h-screen w-full bg-brand-cream flex items-center justify-center font-mono opacity-50">Loading Interface...</div>}>
                 <AnimatedRoutes />
               </Suspense>
             </main>

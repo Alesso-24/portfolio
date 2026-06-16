@@ -63,13 +63,13 @@ const Navbar = () => {
             
             {/* Desktop Socials */}
             <motion.div layout className="hidden md:flex items-center gap-3 border-l border-brand-primary/20 pl-6">
-                <a href="https://github.com/Alesso-24" target="_blank" rel="noopener noreferrer" className="text-brand-primary/60 hover:text-brand-accent transition-colors">
+                <a href="https://github.com/Alesso-24" target="_blank" rel="noopener noreferrer" className="text-brand-primary/70 hover:text-brand-accent transition-colors">
                     <Github size={18} strokeWidth={1.5} />
                 </a>
-                <a href="https://www.linkedin.com/in/alessandro-reyes-mtz/" target="_blank" rel="noopener noreferrer" className="text-brand-primary/60 hover:text-brand-accent transition-colors">
+                <a href="https://www.linkedin.com/in/alessandro-reyes-mtz/" target="_blank" rel="noopener noreferrer" className="text-brand-primary/70 hover:text-brand-accent transition-colors">
                     <Linkedin size={18} strokeWidth={1.5} />
                 </a>
-                <a href="https://www.instagram.com/alessandro_reyesm/" target="_blank" rel="noopener noreferrer" className="text-brand-primary/60 hover:text-brand-accent transition-colors">
+                <a href="https://www.instagram.com/alessandro_reyesm/" target="_blank" rel="noopener noreferrer" className="text-brand-primary/70 hover:text-brand-accent transition-colors">
                     <Instagram size={18} strokeWidth={1.5} />
                 </a>
             </motion.div>
@@ -83,7 +83,7 @@ const Navbar = () => {
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
                   className="hidden lg:flex"
                 >
-                  <Link to="/" className="flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 border border-brand-primary/10 px-3 py-1.5 rounded-full hover:bg-brand-primary hover:text-brand-dark transition-all duration-300 shrink-0 leading-none ml-2 whitespace-nowrap">
+                  <Link to="/" className="flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 border border-brand-primary/10 px-3 py-1.5 rounded-full hover:bg-brand-primary hover:text-brand-cream transition-all duration-300 shrink-0 leading-none ml-2 whitespace-nowrap">
                     {t('nav.backToWork')}
                   </Link>
                 </motion.div>
@@ -111,7 +111,7 @@ const Navbar = () => {
                   exit={{ opacity: 0, scale: 0.8 }}
                   className="lg:hidden"
                 >
-                  <Link to="/" className="flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 border border-brand-primary/10 px-3 py-1.5 rounded-full leading-none whitespace-nowrap">
+                  <Link to="/" className="flex items-center justify-center font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 border border-brand-primary/10 px-3 py-1.5 rounded-full leading-none whitespace-nowrap">
                     {t('nav.back')}
                   </Link>
                 </motion.div>
@@ -149,7 +149,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-brand-dark/95 backdrop-blur-xl flex flex-col items-center justify-center lg:hidden pointer-events-auto"
+            className="fixed inset-0 z-40 bg-brand-cream/95 backdrop-blur-xl flex flex-col items-center justify-center lg:hidden pointer-events-auto"
             aria-hidden={!menuOpen}
           >
             <nav className="flex flex-col items-center gap-10 w-full px-8">
