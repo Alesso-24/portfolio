@@ -219,10 +219,10 @@ const FaultDetectionCASE = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>IEEE CASE Paper | Alessandro</title>
-        <meta name="description" content="Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off. Paper submitted to IEEE CASE." />
+        <title>Edge AI Decision Framework | IEEE CASE 2026 — Alessandro Reyes</title>
+        <meta name="description" content="Accepted to IEEE CASE 2026: a stage-aware edge AI framework for industrial bearing predictive maintenance, benchmarked on real ESP32 hardware -- 126x faster inference, zero false alarms." />
       </Helmet>
-      <div className="bg-brand-cream min-h-screen text-[#e5e5e5] font-sans">
+      <div className="bg-brand-cream min-h-screen text-brand-primary font-sans">
 
       {/* Hero Header */}
       <header className="pt-32 pb-16 px-4 md:px-8 max-w-6xl mx-auto">

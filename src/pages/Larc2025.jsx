@@ -22,10 +22,10 @@ const Larc2025 = () => {
   return (
     <PageTransition>
       <Helmet>
-        <title>LARC 2025 Experience | Alessandro</title>
-        <meta name="description" content="Competing at the Latin American Robotics Competition 2025 at Tec de Monterrey with Tracky, an ESP32-C6 line follower." />
+        <title>Tracky: ESP32-C6 Line Follower | LARC 2025 — Alessandro Reyes</title>
+        <meta name="description" content="Built and raced Tracky, a custom ESP32-C6 line-following robot, at the 25th Latin American Robotics Competition (LARC 2025) at Tec de Monterrey." />
       </Helmet>
-      <div className="bg-brand-cream min-h-screen text-[#e5e5e5] font-sans">
+      <div className="bg-brand-cream min-h-screen text-brand-primary font-sans">
 
       {/* Hero Header */}
       <header className="pt-40 pb-16 px-4 md:px-8 max-w-6xl mx-auto">

@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "optimize-images": "node scripts/optimize-images.mjs"
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "generate-og-image": "node scripts/generate-og-image.mjs"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.2.8",
