@@ -110,7 +110,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" ref={sectionRef} className="py-32 px-4 md:px-8 bg-brand-dark">
+    <section id="projects" ref={sectionRef} className="py-32 px-4 md:px-8 bg-brand-cream">
       <div className="max-w-7xl mx-auto">
         
         <motion.div 
@@ -167,7 +167,7 @@ const Projects = () => {
 
                                 <div className="flex flex-wrap gap-2 mb-10">
                                     {project.techTags.map((tag, tagIndex) => (
-                                        <span key={tagIndex} className="px-3 py-1 font-mono text-[10px] text-brand-primary/60 bg-brand-primary/5 border border-brand-primary/10 rounded-full">
+                                        <span key={tagIndex} className="px-3 py-1 font-mono text-[10px] text-brand-primary/70 bg-brand-primary/5 border border-brand-primary/10 rounded-full">
                                             {tag}
                                         </span>
                                     ))}
@@ -242,7 +242,7 @@ const Projects = () => {
 
                                 <div className="flex flex-wrap gap-2 mb-10">
                                     {project.techTags.map((tag, tagIndex) => (
-                                        <span key={tagIndex} className="px-3 py-1 font-mono text-[10px] text-brand-primary/60 bg-brand-primary/5 border border-brand-primary/10 rounded-full">
+                                        <span key={tagIndex} className="px-3 py-1 font-mono text-[10px] text-brand-primary/70 bg-brand-primary/5 border border-brand-primary/10 rounded-full">
                                             {tag}
                                         </span>
                                     ))}

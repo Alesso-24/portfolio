@@ -72,7 +72,7 @@ const About = () => {
   const words = text.split(" ");
 
   return (
-    <section id="about" ref={triggerRef} className="py-32 px-4 md:px-8 bg-brand-dark min-h-screen flex items-center relative overflow-hidden">
+    <section id="about" ref={triggerRef} className="py-32 px-4 md:px-8 bg-brand-cream min-h-screen flex items-center relative overflow-hidden">
       {/* Background glow - optimized for performance */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(217,93,57,0.05)_0%,_transparent_70%)] pointer-events-none"></div>
       
@@ -126,7 +126,7 @@ const About = () => {
                    </ul>
                 </div>
                 <div className="pt-8 mt-8 border-t border-brand-primary/10">
-                    <p className="font-sans font-medium text-xs uppercase tracking-widest text-brand-primary/60">{t('about.availability')}</p>
+                    <p className="font-sans font-medium text-xs uppercase tracking-widest text-brand-primary/70">{t('about.availability')}</p>
                 </div>
             </motion.div>
 

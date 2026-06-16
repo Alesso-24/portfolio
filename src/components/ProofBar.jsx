@@ -19,7 +19,7 @@ const ProofBar = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 px-4 md:px-8 bg-brand-dark border-y border-brand-primary/10">
+    <section className="py-16 md:py-20 px-4 md:px-8 bg-brand-cream border-y border-brand-primary/10">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
           {stats.map((stat, i) => (
@@ -34,7 +34,7 @@ const ProofBar = () => {
               <div className="font-display font-medium text-5xl md:text-6xl text-brand-primary tracking-tight">
                 {stat.value}
               </div>
-              <p className="mt-3 font-sans text-xs uppercase tracking-[0.15em] text-brand-primary/60 max-w-[240px] mx-auto md:mx-0 leading-relaxed">
+              <p className="mt-3 font-sans text-xs uppercase tracking-[0.15em] text-brand-primary/70 max-w-[240px] mx-auto md:mx-0 leading-relaxed">
                 {stat.label}
               </p>
             </motion.div>
@@ -48,7 +48,7 @@ const ProofBar = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-12 pt-8 border-t border-brand-primary/5 text-center"
         >
-          <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-primary/40 mb-2">
+          <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-primary/70 mb-2">
             {t('proof.affiliations_label')}
           </p>
           <p className="font-mono text-[11px] md:text-xs text-brand-primary/70 tracking-wide">

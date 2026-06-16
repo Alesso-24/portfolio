@@ -222,14 +222,14 @@ const FaultDetectionCASE = () => {
         <title>IEEE CASE Paper | Alessandro</title>
         <meta name="description" content="Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off. Paper submitted to IEEE CASE." />
       </Helmet>
-      <div className="bg-brand-dark min-h-screen text-[#e5e5e5] font-sans">
+      <div className="bg-brand-cream min-h-screen text-[#e5e5e5] font-sans">
 
       {/* Hero Header */}
       <header className="pt-32 pb-16 px-4 md:px-8 max-w-6xl mx-auto">
         <div className="fade-up flex justify-between items-center mb-12">
           <Link 
             to="/" 
-            className="inline-flex items-center gap-4 text-brand-primary font-sans uppercase text-[10px] tracking-[0.2em] hover:text-brand-primary/60 transition-colors"
+            className="inline-flex items-center gap-4 text-brand-primary font-sans uppercase text-[10px] tracking-[0.2em] hover:text-brand-primary/70 transition-colors"
           >
               <span className="bg-brand-primary/10 p-2 rounded-full rotate-180">→</span> {t('case.back')}
           </Link>
@@ -242,7 +242,7 @@ const FaultDetectionCASE = () => {
         </div>
 
         <div className="fade-up">
-          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/50 mb-6 block">{t('case.badge')}</span>
+          <span className="font-sans font-light text-[10px] uppercase tracking-[0.2em] text-brand-primary/70 mb-6 block">{t('case.badge')}</span>
           
           <h1 className="font-display font-medium text-4xl md:text-5xl lg:text-6xl text-brand-primary tracking-tight leading-tight mb-12">
             {t('case.title')}
@@ -252,44 +252,44 @@ const FaultDetectionCASE = () => {
         {/* Project Meta - Academic Format */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 border-y border-brand-primary/10 py-8 fade-up">
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('case.authors')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('case.authors')}</h4>
             <div className="font-mono text-[11px] text-brand-primary/80 leading-relaxed font-semibold space-y-3">
               <div>
                 <span className="text-brand-primary">Jordi Alessandro Reyes Martinez</span><br/>
-                <span className="text-brand-primary/60 font-normal">Dept. of Mechatronics Engineering, Universidad Iberoamericana Puebla.</span>
+                <span className="text-brand-primary/70 font-normal">Dept. of Mechatronics Engineering, Universidad Iberoamericana Puebla.</span>
               </div>
               <div>
                 <span className="text-brand-primary">Karime Farias Yabur</span><br/>
-                <span className="text-brand-primary/60 font-normal">Nanotechnology Engineering, ITESM.</span>
+                <span className="text-brand-primary/70 font-normal">Nanotechnology Engineering, ITESM.</span>
               </div>
               <div>
                 <span className="text-brand-primary">Fannor Antonio Rodriguez de Leon</span><br/>
-                <span className="text-brand-primary/60 font-normal">Nanotechnology Engineering, ITESM.</span>
+                <span className="text-brand-primary/70 font-normal">Nanotechnology Engineering, ITESM.</span>
               </div>
               <div>
                 <span className="text-brand-primary">Claudia Isaret Mendez Rosas</span><br/>
-                <span className="text-brand-primary/60 font-normal">B.S. in Mechatronics Engineering, ITESM.</span>
+                <span className="text-brand-primary/70 font-normal">B.S. in Mechatronics Engineering, ITESM.</span>
               </div>
               <div>
                 <span className="text-brand-primary">Javier Osorio Figueroa</span><br/>
-                <span className="text-brand-primary/60 font-normal">Dept. of Mechatronics Engineering, Universidad Iberoamericana Puebla.</span>
+                <span className="text-brand-primary/70 font-normal">Dept. of Mechatronics Engineering, Universidad Iberoamericana Puebla.</span>
               </div>
               <div>
                 <span className="text-brand-primary">Oliver Ochoa Garcia</span><br/>
-                <span className="text-brand-primary/60 font-normal">Dept. of Mechatronics Engineering, Universidad Iberoamericana Puebla.</span>
+                <span className="text-brand-primary/70 font-normal">Dept. of Mechatronics Engineering, Universidad Iberoamericana Puebla.</span>
               </div>
             </div>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('case.conference')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('case.conference')}</h4>
             <p className="font-mono text-[12px] text-brand-primary/80 italic">{t('case.conference_val')}</p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('case.presentation')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('case.presentation')}</h4>
             <p className="font-mono text-[12px] text-brand-primary/80" dangerouslySetInnerHTML={{__html: t('case.presentation_val')}}></p>
           </div>
           <div>
-            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/60 mb-3">{t('case.status')}</h4>
+            <h4 className="font-mono text-[10px] uppercase tracking-widest text-brand-primary/70 mb-3">{t('case.status')}</h4>
             <p className="font-mono text-[11px] px-3 py-1 bg-[#22c55e]/10 text-[#22c55e] inline-block rounded-full border border-[#22c55e]/20">{t('case.status_val')}</p>
           </div>
         </div>
@@ -300,7 +300,7 @@ const FaultDetectionCASE = () => {
         
         {/* Abstract Box */}
         <section className="fade-up mb-24 w-full md:w-10/12 mx-auto">
-            <div className="bg-brand-primary/5 border-l-4 border-brand-cyan p-8 md:p-12 rounded-r-lg shadow-2xl relative overflow-hidden">
+            <div className="bg-brand-primary/5 border-l-4 border-brand-accent p-8 md:p-12 rounded-r-lg shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-5">
                     <span className="font-display text-8xl text-brand-primary">#</span>
                 </div>
@@ -308,7 +308,7 @@ const FaultDetectionCASE = () => {
                 <p className="font-sans text-brand-primary/80 text-sm md:text-base leading-relaxed text-justify relative z-10">
                     {t('case.abstract_text')}
                 </p>
-                <p className="font-mono text-[10px] text-brand-primary/60 mt-6"><span className="text-brand-primary/40 uppercase tracking-widest">{t('case.index_terms')} —</span> {t('case.index_terms_val')}</p>
+                <p className="font-mono text-[10px] text-brand-primary/70 mt-6"><span className="text-brand-primary/70 uppercase tracking-widest">{t('case.index_terms')} —</span> {t('case.index_terms_val')}</p>
             </div>
         </section>
 
@@ -473,7 +473,7 @@ const FaultDetectionCASE = () => {
                 <span className="text-[10px] text-brand-primary/80 font-sans tracking-normal capitalize">{t('case.cta_btn2')}</span>
             </button>
             <div className="mt-8">
-                <Link to="/project/fault-detection" className="font-sans font-light text-[10px] text-brand-primary/50 uppercase tracking-[0.2em] hover:underline hover:text-brand-primary/80 transition-colors">
+                <Link to="/project/fault-detection" className="font-sans font-light text-[10px] text-brand-primary/70 uppercase tracking-[0.2em] hover:underline hover:text-brand-primary/80 transition-colors">
                     ← {t('case.view_base')}
                 </Link>
             </div>

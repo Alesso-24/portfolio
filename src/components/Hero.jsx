@@ -19,7 +19,7 @@ const Hero = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-brand-dark pt-24 pb-16 md:py-0">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-brand-cream pt-24 pb-16 md:py-0">
       
       {/* Cursor-reactive gradient background — pure Canvas2D, 60fps on any device */}
       <HeroGradient />
@@ -103,7 +103,7 @@ const Hero = () => {
                 transition={{ duration: 1.5, delay: 1 }}
                 className="mt-12 flex flex-wrap gap-6 items-center justify-center md:justify-start"
             >
-                <a href="#contact" className="px-8 py-4 bg-brand-primary text-brand-dark rounded-full font-sans font-medium text-xs uppercase tracking-widest hover:bg-brand-orange hover:text-brand-primary transition-all duration-300">
+                <a href="#contact" className="px-8 py-4 bg-brand-primary text-brand-cream rounded-full font-sans font-medium text-xs uppercase tracking-widest hover:bg-brand-orange hover:text-brand-primary transition-all duration-300">
                     {t('hero.cta_primary')}
                 </a>
                 <a href="#projects" className="font-sans font-medium text-xs uppercase tracking-widest text-brand-primary/70 hover:text-brand-orange transition-colors duration-300 underline-offset-4 hover:underline">
