@@ -32,7 +32,7 @@ const projectsData = [
         categoryKey: "projects.larc_category",
         impactKey: "projects.larc_impact",
         techTags: ["ESP32-C6", "RTOS", "PID Control", "Python"],
-        image: `${import.meta.env.BASE_URL}images/robot_full.png`,
+        image: `${import.meta.env.BASE_URL}images/robot_full.webp`,
         link: "/project/larc-2025",
         filter: "brightness(0.9) contrast(1.1) hue-rotate(-10deg)"
     },
@@ -42,7 +42,7 @@ const projectsData = [
         categoryKey: "projects.case_category",
         impactKey: "projects.case_impact",
         techTags: ["C/C++", "ESP32", "Random Forest", "Hardware Benchmarking"],
-        image: `${import.meta.env.BASE_URL}images/cover_case.jpg`,
+        image: `${import.meta.env.BASE_URL}images/cover_case.webp`,
         link: "/project/fault-detection-case",
         filter: "brightness(0.6) contrast(1.1) grayscale(0.2)"
     },
@@ -52,7 +52,7 @@ const projectsData = [
         categoryKey: "projects.bdai_category",
         impactKey: "projects.bdai_impact",
         techTags: ["Python", "Random Forest", "NASA IMS Dataset", "Edge AI"],
-        image: `${import.meta.env.BASE_URL}images/cover_bdai.jpg`,
+        image: `${import.meta.env.BASE_URL}images/cover_bdai.webp`,
         link: "/project/fault-detection",
         filter: "brightness(0.6) contrast(1.1) grayscale(0.2)"
     },
@@ -62,7 +62,7 @@ const projectsData = [
         categoryKey: "projects.balancin_category",
         impactKey: "projects.balancin_impact",
         techTags: ["ESP32", "OpenCV", "Servo Control", "Inverse Kinematics"],
-        image: `${import.meta.env.BASE_URL}images/project1.png`,
+        image: `${import.meta.env.BASE_URL}images/project1.webp`,
         link: "/project/self-balancing-platform"
     }
 ];

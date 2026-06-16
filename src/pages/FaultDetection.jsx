@@ -117,8 +117,10 @@ const FaultDetection = () => {
         <section className="fade-up mb-24">
             <div className="w-full max-w-4xl mx-auto rounded-lg overflow-hidden border border-brand-primary/10 shadow-2xl">
                 <img 
-                src={`${import.meta.env.BASE_URL}images/paper1.png`} 
+                src={`${import.meta.env.BASE_URL}images/paper1.webp`}
                 alt="Algorithm Comparison Hero"
+                width="989"
+                height="590"
                 className="w-full h-auto"
                 style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                 />
@@ -147,8 +149,10 @@ const FaultDetection = () => {
                  {/* Technical Image 1 */}
                 <div className="w-full rounded-lg shadow-xl overflow-hidden border border-brand-primary/10 bg-brand-primary/5">
                     <img 
-                    src={`${import.meta.env.BASE_URL}images/paper5.png`} 
+                    src={`${import.meta.env.BASE_URL}images/paper5.webp`}
                     alt="Time-domain comparison"
+                    width="896"
+                    height="1024"
                     className="w-full h-auto"
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.1) contrast(1.2)' }}
                     />
@@ -169,8 +173,10 @@ const FaultDetection = () => {
                  {/* Technical Image 3 */}
                  <div className="w-full rounded-lg shadow-xl overflow-hidden border border-brand-primary/10 bg-brand-primary/5">
                     <img 
-                    src={`${import.meta.env.BASE_URL}images/paper6.png`} 
+                    src={`${import.meta.env.BASE_URL}images/paper6.webp`}
                     alt="Feature Importance Analysis"
+                    width="777"
+                    height="475"
                     className="w-full h-auto"
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.2)' }}
                     />
@@ -208,8 +214,10 @@ const FaultDetection = () => {
                  {/* Technical Image 2 (Confusion Matrix) */}
                 <div className="w-full rounded-lg shadow-xl overflow-hidden border border-brand-primary/10 bg-brand-primary/5">
                     <img 
-                    src={`${import.meta.env.BASE_URL}images/paper3.png`} 
+                    src={`${import.meta.env.BASE_URL}images/paper3.webp`}
                     alt="Confusion Matrix"
+                    width="590"
+                    height="490"
                     className="w-full h-auto transform scale-95"
                     style={{ filter: 'invert(0.85) hue-rotate(180deg) brightness(1.1)' }}
                     />

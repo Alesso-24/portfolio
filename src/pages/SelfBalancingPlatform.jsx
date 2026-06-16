@@ -90,7 +90,7 @@ const SelfBalancingPlatform = () => {
             {/* Top row: Main Image */}
             <div className="w-full bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl aspect-[16/9] lg:aspect-[21/9]">
               <img 
-                src={`${import.meta.env.BASE_URL}images/plat1.png`} 
+                src={`${import.meta.env.BASE_URL}images/plat1.webp`} 
                 onError={(e) => {e.target.style.display='none'}}
                 className="absolute inset-0 w-full h-full object-cover" 
                 alt="Platform assembly" 
@@ -104,11 +104,12 @@ const SelfBalancingPlatform = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[500px]">
                 {/* Vertical Video */}
                 <div className="md:col-span-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl min-h-[400px]">
-                    <iframe 
+                    <iframe
                         className="absolute inset-0 w-full h-full"
-                        src="https://www.youtube.com/embed/88SjHziDrIY"
+                        src="https://www.youtube-nocookie.com/embed/88SjHziDrIY"
                         title="Self-Balancing Platform Demonstration"
                         frameBorder="0"
+                        loading="lazy"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen>
                     </iframe>
@@ -117,7 +118,7 @@ const SelfBalancingPlatform = () => {
                 <div className="md:col-span-2 flex flex-col sm:flex-row gap-8">
                     <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl min-h-[250px]">
                         <img 
-                          src={`${import.meta.env.BASE_URL}images/plat2.png`} 
+                          src={`${import.meta.env.BASE_URL}images/plat2.webp`} 
                           onError={(e) => {e.target.style.display='none'}}
                           className="absolute inset-0 w-full h-full object-cover" 
                           alt="Servo detail" 
@@ -125,7 +126,7 @@ const SelfBalancingPlatform = () => {
                     </div>
                     <div className="flex-1 bg-[#0a0a0a] rounded-2xl overflow-hidden border border-brand-primary/5 relative shadow-2xl min-h-[250px]">
                         <img 
-                          src={`${import.meta.env.BASE_URL}images/plat3.png`} 
+                          src={`${import.meta.env.BASE_URL}images/plat3.webp`} 
                           onError={(e) => {e.target.style.display='none'}}
                           className="absolute inset-0 w-full h-full object-cover" 
                           alt="Hardware close-up" 
