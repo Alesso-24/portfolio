@@ -11,7 +11,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import PageTransition from '../components/PageTransition';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/useLanguage';
 
 const ProjectDetail = () => {
   const { t } = useLanguage();

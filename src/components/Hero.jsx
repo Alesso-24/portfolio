@@ -13,7 +13,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import HeroGradient from './HeroGradient';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/useLanguage';
 
 const Hero = () => {
   const { t } = useLanguage();
