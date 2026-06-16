@@ -1,8 +1,7 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import en from '../locales/en.json';
 import es from '../locales/es.json';
-
-const LanguageContext = createContext();
+import { LanguageContext } from './useLanguage';
 
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
@@ -22,7 +21,7 @@ export const LanguageProvider = ({ children }) => {
   const t = (key) => {
     const keys = key.split('.');
     let value = language === 'en' ? en : es;
-    
+
     for (const k of keys) {
       if (value[k] === undefined) {
         console.warn(`Missing translation key: ${key}`);
@@ -39,5 +38,3 @@ export const LanguageProvider = ({ children }) => {
     </LanguageContext.Provider>
   );
 };
-
-export const useLanguage = () => useContext(LanguageContext);

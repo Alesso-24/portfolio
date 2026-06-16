@@ -23,7 +23,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedGradientBackground from './ui/animated-gradient-background';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../context/useLanguage';
 
 const FORM_ENDPOINT = 'https://formsubmit.co/ajax/jordi.reyes.martinez@gmail.com';
 
