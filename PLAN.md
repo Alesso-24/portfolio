@@ -9,20 +9,20 @@
 - Rama activa: `redesign` (NO toques `main` hasta la Fase 10)
 - El sitio actual en producción sigue siendo el build anterior (main). La rama `redesign` aún no se ha mergeado.
 - Build funciona: `npm run build` genera `dist/` sin errores
-- Último commit en redesign: `b2f84b7` — "feat: fase 1 — migración a Astro 7 + stack premium completo"
+- Último commit en redesign: `cf39509` — "feat: fase 8 — páginas de detalle de proyecto"
 
 ---
 
 ## Estado actual
-- Fase en curso: **Fase 8 — Páginas de detalle de proyecto**
-- Último paso completado: ✅ Fase 1 — scaffold completo (Astro 7, todos los componentes de la homepage, build limpio)
-- 👉 **Próximo paso exacto:** Crear las 4 páginas de detalle en `src/pages/project/`:
-  1. `larc-2025.astro` — LARC 2025 / Tracky robot
-  2. `fault-detection-case.astro` — IEEE CASE 2026
-  3. `fault-detection.astro` — IEEE BDAI 2026
-  4. `self-balancing-platform.astro` — Self-Balancing Platform
+- Fase en curso: **Fase 9 — Responsive + Accesibilidad**
+- Último paso completado: ✅ Fase 8 — 4 páginas de detalle (build limpio, 5 páginas generadas)
+- 👉 **Próximo paso exacto:** Auditar y corregir:
+  1. Responsive 320px, 375px, 768px, 1024px, 1440px, 2560px (4K)
+  2. Accesibilidad: focus-visible, skip-to-content, aria-labels, contraste WCAG AA
+  3. `prefers-reduced-motion` — verificar que todos los `[data-kin]` y `[data-reveal]` se anulan
+  4. Imagen alt text review (todas las imágenes)
 
-  Después de las páginas: Fase 9 (responsive + a11y) → Fase 10 (Lighthouse + deploy a main).
+  Después: Fase 10 (Lighthouse ≥ 95 + merge a main → deploy).
 
 ---
 
@@ -233,12 +233,13 @@ Alessandro.webp · case_fdr.webp · case_latency.webp · case_pca.webp · cover_
   - ✅ `src/components/sections/Work.astro` — cards con sombras de color, hover
   - ✅ `src/components/sections/Research.astro` — filas IEEE
   - ✅ `src/components/sections/Contact.tsx` — isla React, full-bleed azul, form FormSubmit
-- [ ] **Fase 8** — 4 páginas de detalle ← **AQUÍ EMPIEZA LA PRÓXIMA SESIÓN**
-  - [ ] `src/pages/project/larc-2025.astro`
-  - [ ] `src/pages/project/fault-detection-case.astro`
-  - [ ] `src/pages/project/fault-detection.astro`
-  - [ ] `src/pages/project/self-balancing-platform.astro`
-- [ ] **Fase 9** — Responsive 320px–4K + accesibilidad + `prefers-reduced-motion` fino
+- [x] **Fase 8** — 4 páginas de detalle · commit `cf39509`
+  - ✅ `src/layouts/ProjectLayout.astro` — layout compartido (hero, cover, meta, back link, prose utilities)
+  - ✅ `src/pages/project/larc-2025.astro`
+  - ✅ `src/pages/project/fault-detection-case.astro`
+  - ✅ `src/pages/project/fault-detection.astro`
+  - ✅ `src/pages/project/self-balancing-platform.astro`
+- [ ] **Fase 9** — Responsive 320px–4K + accesibilidad + `prefers-reduced-motion` fino ← **PRÓXIMA SESIÓN**
 - [ ] **Fase 10** — Lighthouse ≥ 95, SEO final, verificación en producción, merge `redesign` → `main`
 
 ---
@@ -249,3 +250,4 @@ Alessandro.webp · case_fdr.webp · case_latency.webp · case_pca.webp · cover_
 |---|---|---|
 | 2026-06-27 | Fase 0: auditoría + PLAN.md + rama redesign | 671509a |
 | 2026-06-27 | Fase 1: scaffold Astro 7 completo — 9 secciones, data layer, Lenis+GSAP | b2f84b7 |
+| 2026-06-27 | Fase 8: 4 páginas de detalle + ProjectLayout.astro, build limpio 5 páginas | cf39509 |
