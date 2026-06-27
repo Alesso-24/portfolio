@@ -44,7 +44,7 @@ const [featured, ...rest] = PROJECTS
              box-shadow:0 24px 60px -30px rgba(234,106,46,0.4);
              transition:transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;"
     >
-      <div style="aspect-ratio:16/9; overflow:hidden;">
+      <div class="card-img-wrap">
         <img
           src={featured.image}
           alt={featured.imageAlt}
@@ -142,4 +142,10 @@ const [featured, ...rest] = PROJECTS
   .project-card:hover { transform: translateY(-4px); }
   .project-card:hover .card-img { transform: scale(1.04); }
   .project-card:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; }
+
+  /* Featured card: clamp aspect-ratio height on very small screens */
+  .project-card--large .card-img-wrap { aspect-ratio: 16/9; overflow: hidden; }
+  @media (max-width: 400px) {
+    .project-card--large .card-img-wrap { aspect-ratio: 4/3; }
+  }
 </style>

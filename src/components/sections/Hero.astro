@@ -225,11 +225,26 @@ import { HERO } from '../../data/content'
     letter-spacing: 0.14em; text-transform: uppercase; color: #8a8579;
   }
 
+  /* Tablet: shrink portrait but keep side-by-side */
+  @media (min-width: 561px) and (max-width: 860px) {
+    .hero-portrait { width: clamp(140px, 26vw, 240px); margin-right: 0; }
+    .hero-content { gap: clamp(20px, 3vw, 40px); }
+  }
+
   /* Mobile: stack portrait below text */
-  @media (max-width: 700px) {
-    .hero-root { justify-content: flex-start; padding-top: clamp(110px, 17vh, 160px); }
-    .hero-content { flex-direction: column; gap: 32px; }
-    .hero-portrait { width: clamp(140px, 50vw, 220px); align-self: flex-start; }
+  @media (max-width: 560px) {
+    .hero-root {
+      justify-content: flex-start;
+      padding: clamp(90px, 14vh, 130px) clamp(16px, 5vw, 28px) clamp(40px, 6vh, 72px);
+    }
+    .hero-content { flex-direction: column; gap: 28px; }
+    .hero-portrait {
+      width: min(58vw, 210px);
+      align-self: center;
+      margin-right: 0;
+    }
     .scroll-hint { display: none; }
+    /* CTA row: allow wrapping on very small screens */
+    .hero-content > .hero-text > div[style*="display:flex"] { flex-wrap: wrap; }
   }
 </style>

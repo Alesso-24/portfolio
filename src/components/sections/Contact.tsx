@@ -240,6 +240,9 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
         @media (min-width: 768px) {
           .contact-grid { grid-template-columns: 1fr 1fr !important; }
         }
+        @media (max-width: 480px) {
+          #contact { padding-left: 16px !important; padding-right: 16px !important; }
+        }
       `}</style>
     </section>
   )

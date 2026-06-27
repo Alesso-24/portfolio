@@ -54,7 +54,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div class="stat-highlight" data-reveal data-reveal-delay="140">
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,3vw,40px);">
+    <div class="stat-grid">
       {[
         { num: '99.3%', labelEn: 'Classification accuracy on test set', labelEs: 'Precisión de clasificación en conjunto de prueba' },
         { num: '10×', labelEn: 'Lower energy vs. server inference', labelEs: 'Menos energía vs. inferencia en servidor' },

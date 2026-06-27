@@ -43,6 +43,9 @@ import { STATS } from '../../data/content'
 </section>
 
 <style>
+  @media (max-width: 380px) {
+    .stats-grid { grid-template-columns: 1fr !important; }
+  }
   @media (min-width: 768px) {
     .stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
   }

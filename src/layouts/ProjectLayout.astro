@@ -300,4 +300,35 @@ const {
     color: #2540c0;
     margin: clamp(20px, 3vh, 36px) 0 0;
   }
+
+  /* ── Responsive stat grid (used inside stat-highlight) ── */
+  .project-body .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 3vw, 40px);
+  }
+  @media (max-width: 480px) {
+    .project-body .stat-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* ── Two-image grid (responsive) ── */
+  .project-body .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(12px, 2vw, 24px);
+    margin-bottom: clamp(28px, 4vh, 48px);
+  }
+  @media (max-width: 480px) {
+    .project-body .img-grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── Mobile padding override ── */
+  @media (max-width: 560px) {
+    .project-body { padding: 0 16px clamp(60px, 10vh, 100px); }
+    .project-body h2.section-h2 { font-size: clamp(26px, 7vw, 36px); margin-top: clamp(44px, 7vh, 72px); }
+    .project-body p.prose { font-size: 15px; }
+    .project-body .pull-quote p { font-size: clamp(16px, 5vw, 22px); }
+    .project-body .tech-grid { grid-template-columns: 1fr; }
+    .project-body .stat-highlight { padding: clamp(18px, 4vw, 28px); }
+  }
 </style>
