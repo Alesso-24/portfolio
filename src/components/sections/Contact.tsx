@@ -10,8 +10,10 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
   const [form, setForm] = useState({ name: '', email: '', message: '', _honey: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
 
-  // Sync with Nav language toggle
+  // Sync with Nav language toggle; pick up any lang set before this island hydrates
   useEffect(() => {
+    const current = document.documentElement.getAttribute('lang') as 'en' | 'es'
+    if (current && current !== lang) setLang(current)
     const onLangChange = (e: Event) => setLang((e as CustomEvent<'en' | 'es'>).detail)
     window.addEventListener('lang-change', onLangChange)
     return () => window.removeEventListener('lang-change', onLangChange)

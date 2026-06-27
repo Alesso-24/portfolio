@@ -35,7 +35,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   const toggleLang = () => {
     const next = lang === 'en' ? 'es' : 'en'
     setLang(next)
-    document.documentElement.lang = next
+    document.documentElement.setAttribute('lang', next)
     window.dispatchEvent(new CustomEvent('lang-change', { detail: next }))
   }
 
@@ -108,7 +108,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               width: 7, height: 7, borderRadius: '50%', background: '#ea6a2e',
               animation: 'ar-pulse 1.8s infinite', flexShrink: 0,
             }} />
-            {lang === 'en' ? 'Hire me' : 'Contrátame'}
+            {lang === 'en' ? 'Open to work' : 'Disponible'}
           </a>
 
           {/* Language toggle */}

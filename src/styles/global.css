@@ -159,13 +159,17 @@ body { margin: 0; overflow-x: hidden; }
 }
 
 /* ─── i18n language switching ────────────────────────── */
-/* Default = English; toggle html[lang="es"] to show Spanish */
+/* Default = English. Nav dispatches lang-change + sets html[lang] */
 .lang-es { display: none !important; }
 html[lang="es"] .lang-en { display: none !important; }
-html[lang="es"] .lang-es { display: block !important; }
+html[lang="es"] .lang-es { display: revert !important; }
 html[lang="es"] span.lang-es,
 html[lang="es"] em.lang-es,
-html[lang="es"] a.lang-es { display: inline !important; }
+html[lang="es"] strong.lang-es { display: inline !important; }
+html[lang="es"] a.lang-es { display: inline-flex !important; }
+html[lang="es"] div.lang-es,
+html[lang="es"] p.lang-es,
+html[lang="es"] li.lang-es { display: block !important; }
 
 /* ─── Lenis scroll ───────────────────────────────────── */
 html.lenis, html.lenis body { height: auto; }
