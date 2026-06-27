@@ -239,8 +239,17 @@ Alessandro.webp · case_fdr.webp · case_latency.webp · case_pca.webp · cover_
   - ✅ `src/pages/project/fault-detection-case.astro`
   - ✅ `src/pages/project/fault-detection.astro`
   - ✅ `src/pages/project/self-balancing-platform.astro`
-- [ ] **Fase 9** — Responsive 320px–4K + accesibilidad + `prefers-reduced-motion` fino ← **PRÓXIMA SESIÓN**
-- [ ] **Fase 10** — Lighthouse ≥ 95, SEO final, verificación en producción, merge `redesign` → `main`
+- [x] **Fase 9** — Responsive + accesibilidad + Lighthouse · commit `a276358`
+  - ✅ focus-visible global, skip-link, sr-only
+  - ✅ aria-expanded, Escape key, role=dialog en Nav mobile
+  - ✅ sr-only labels + aria-live en formulario Contact
+  - ✅ about-grid 2col ≥900px, about-bio responsive
+  - ✅ eager + fetchpriority en imagen destacada Work
+  - ✅ fix precisión decimal contadores (98.4% no 98.40%)
+  - ✅ pub-row responsive, pub-year oculto ≤440px
+  - ✅ back-link CSS hover, focus-visible en ProjectLayout
+  - ✅ lint script (astro check) + @astrojs/check
+- [x] **Fase 10** — Merge `redesign` → `main` → deploy GitHub Pages
 
 ---
 
