@@ -7,7 +7,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   title="Edge AI Fault Detection — Induction Motors at 99.3% Accuracy."
   description="A lightweight CNN-LSTM model that detects induction motor faults at the edge with 99.3% accuracy, consuming 10× less energy than server-side inference — accepted to IEEE BDAI 2026."
   coverImage="/portfolio/images/cover_bdai.webp"
-  coverAlt="Edge AI fault detection system for induction motors"
+  coverAlt="Sistema de detección de fallas Edge AI para motores de inducción"
   ogImage="https://alesso-24.github.io/portfolio/images/cover_bdai.webp"
   meta={[
     { label: 'Venue',     value: 'IEEE BDAI 2026 — Big Data & AI' },
@@ -18,55 +18,54 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   ]}
 >
 
-  <!-- IEEE coming soon badge -->
-  <div data-reveal style="margin: clamp(20px,3vh,32px) 0 0; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-    <div style="
-      display:inline-flex; align-items:center; gap:10px;
-      padding:12px 24px; border-radius:100px;
-      background:rgba(37,64,192,0.08); border: 1px solid rgba(37,64,192,0.2);
-    ">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#2540c0" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      <span style="font:700 12px 'Hanken Grotesk',system-ui,sans-serif; letter-spacing:0.12em; text-transform:uppercase; color:#2540c0;">
-        IEEE Xplore · Expected September 2026
-      </span>
+  <!-- IEEE badge -->
+  <div data-reveal style="margin:clamp(20px,3vh,36px) 0 0;">
+    <div class="ieee-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <span class="lang-en">IEEE Xplore · Expected September 2026</span>
+      <span class="lang-es">IEEE Xplore · Previsto Septiembre 2026</span>
     </div>
   </div>
 
   <hr class="divider" />
 
-  <!-- Pull quote -->
   <blockquote class="pull-quote" data-reveal>
-    <p>"The industrial floor can't wait for the cloud. We pushed a full fault-detection brain to a microcontroller — and it works better than expected."</p>
+    <p>
+      <span class="lang-en">"The industrial floor can't wait for the cloud. We pushed a full fault-detection brain to a microcontroller — and it works better than expected."</span>
+      <span class="lang-es">"El piso industrial no puede esperar a la nube. Instalamos un cerebro completo de detección de fallas en un microcontrolador — y funciona mejor de lo esperado."</span>
+    </p>
   </blockquote>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>The Industrial Problem.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">The Industrial Problem.</span>
+    <span class="lang-es">El Problema Industrial.</span>
+  </h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    Induction motors power roughly 70% of global industrial electricity consumption.
-    When one fails unexpectedly, downtime costs can reach tens of thousands of dollars
-    per hour in a production environment. Traditional condition monitoring sends vibration
-    and current data to a server for analysis — introducing latency and cloud dependency
-    that makes real-time intervention impossible.
-  </p>
-  <p class="prose" data-reveal data-reveal-delay="100">
-    We asked: can a micro-controller at the motor itself detect faults as accurately as
-    a remote server — and do it an order of magnitude more efficiently?
-    The answer informed this entire research trajectory.
+    <span class="lang-en">Induction motors power roughly 70% of global industrial electricity consumption. When one fails unexpectedly, downtime costs can reach tens of thousands of dollars per hour. Traditional condition monitoring sends data to a remote server for analysis — introducing latency and cloud dependency that makes real-time intervention impossible.</span>
+    <span class="lang-es">Los motores de inducción alimentan aproximadamente el 70% del consumo eléctrico industrial global. Cuando uno falla inesperadamente, los costos de inactividad pueden alcanzar decenas de miles de dólares por hora. El monitoreo de condición tradicional envía datos a un servidor remoto para análisis — introduciendo latencia y dependencia de la nube que hace imposible la intervención en tiempo real.</span>
   </p>
 
-  <!-- Stats -->
+  <p class="prose" data-reveal data-reveal-delay="100">
+    <span class="lang-en">We asked: can a microcontroller at the motor itself detect faults as accurately as a remote server — and do it an order of magnitude more efficiently? The answer to that question is what this research is about.</span>
+    <span class="lang-es">Nos preguntamos: ¿puede un microcontrolador en el propio motor detectar fallas tan precisamente como un servidor remoto, y hacerlo un orden de magnitud más eficientemente? La respuesta a esa pregunta es de lo que trata esta investigación.</span>
+  </p>
+
   <div class="stat-highlight" data-reveal data-reveal-delay="140">
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,3vw,40px);">
       {[
-        { num: '99.3%', label: 'Classification accuracy on test set' },
-        { num: '10×', label: 'Lower energy vs. server-side inference' },
-        { num: '4', label: 'Fault classes detected (incl. healthy)' },
-      ].map(({ num, label }) => (
+        { num: '99.3%', labelEn: 'Classification accuracy on test set', labelEs: 'Precisión de clasificación en conjunto de prueba' },
+        { num: '10×', labelEn: 'Lower energy vs. server inference', labelEs: 'Menos energía vs. inferencia en servidor' },
+        { num: '4', labelEn: 'Fault classes detected incl. healthy', labelEs: 'Clases de falla detectadas incl. sano' },
+      ].map(({ num, labelEn, labelEs }) => (
         <div style="border-top: 2px solid #2540c0; padding-top: 16px;">
-          <div data-counter={num} style="font-family:'Instrument Serif',serif; font-size:clamp(28px,3.5vw,52px); color:#2540c0; line-height:1; margin-bottom:8px;">{num}</div>
-          <p style="margin:0; font-size:13px; color:#6f6a5f; letter-spacing:0.04em;">{label}</p>
+          <div style="font-family:'Instrument Serif',serif; font-size:clamp(28px,3.5vw,52px); color:#2540c0; line-height:1; margin-bottom:8px;">{num}</div>
+          <p style="margin:0; font-size:13px; color:#6f6a5f; letter-spacing:0.03em; line-height:1.4;">
+            <span class="lang-en">{labelEn}</span>
+            <span class="lang-es">{labelEs}</span>
+          </p>
         </div>
       ))}
     </div>
@@ -74,77 +73,51 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>Model Architecture & Approach.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Model Architecture & Approach.</span>
+    <span class="lang-es">Arquitectura del Modelo y Enfoque.</span>
+  </h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    The model combines a 1D CNN for spatial feature extraction from motor current signatures,
-    stacked with LSTM layers to capture temporal dependencies in the bearing fault progression.
-    The full pipeline was quantized to INT8 using TensorFlow Lite, enabling deployment on
-    an ESP32 microcontroller with less than 512KB of RAM.
+    <span class="lang-en">The model combines a 1D CNN for spatial feature extraction from motor current signatures, stacked with LSTM layers to capture temporal dependencies in bearing fault progression. The full pipeline was quantized to INT8 using TensorFlow Lite, enabling deployment on an ESP32 microcontroller with less than 512KB of RAM.</span>
+    <span class="lang-es">El modelo combina una CNN 1D para extracción de características espaciales de las firmas de corriente del motor, apilada con capas LSTM para capturar dependencias temporales en la progresión de fallas en rodamientos. El pipeline completo fue cuantizado a INT8 usando TensorFlow Lite, permitiendo el despliegue en un microcontrolador ESP32 con menos de 512KB de RAM.</span>
   </p>
 
   <div class="tech-grid" data-reveal data-reveal-delay="100">
     <div class="tech-card">
-      <div class="tech-num">01</div>
-      <h3>Signal Preprocessing</h3>
-      <p>Motor stator current signals processed through windowed FFT and time-domain
-      feature extraction — building structured input tensors from raw ADC readings.</p>
+      <div class="tech-num" style="color:#2540c0;">01</div>
+      <h3><span class="lang-en">Signal Preprocessing</span><span class="lang-es">Preprocesamiento de Señales</span></h3>
+      <p><span class="lang-en">Motor stator current processed through windowed FFT and time-domain feature extraction — building structured input tensors from raw ADC readings.</span><span class="lang-es">Corriente del estátor del motor procesada mediante FFT con ventana y extracción de características en dominio temporal — construyendo tensores de entrada estructurados desde lecturas ADC brutas.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">02</div>
-      <h3>CNN-LSTM Fusion</h3>
-      <p>Convolutional filters detect fault-frequency signatures; LSTM layers track
-      fault progression over time — achieving cloud-level accuracy at edge-level cost.</p>
+      <div class="tech-num" style="color:#2540c0;">02</div>
+      <h3><span class="lang-en">CNN-LSTM Fusion</span><span class="lang-es">Fusión CNN-LSTM</span></h3>
+      <p><span class="lang-en">Convolutional filters detect fault-frequency signatures; LSTM layers track fault progression over time — achieving cloud-level accuracy at edge-level cost.</span><span class="lang-es">Filtros convolucionales detectan firmas de frecuencia de falla; las capas LSTM rastrean la progresión de fallas en el tiempo — logrando precisión de nivel nube al costo de nivel edge.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">03</div>
-      <h3>TFLite INT8 Quantization</h3>
-      <p>Post-training quantization reduces the model from float32 to INT8 — 4× smaller,
-      runs on microcontrollers with virtually no accuracy penalty (≤0.2%).</p>
+      <div class="tech-num" style="color:#2540c0;">03</div>
+      <h3><span class="lang-en">TFLite INT8 Quantization</span><span class="lang-es">Cuantización INT8 TFLite</span></h3>
+      <p><span class="lang-en">Post-training quantization reduces the model 4× in size. Runs on microcontrollers with virtually no accuracy penalty (≤0.2% drop).</span><span class="lang-es">La cuantización post-entrenamiento reduce el modelo 4× en tamaño. Corre en microcontroladores con una penalidad de precisión virtualmente nula (caída ≤0.2%).</span></p>
     </div>
   </div>
 
-  <!-- Figures -->
-  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(28px,4vh,48px) 0; box-shadow: 0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/paper1.webp" alt="CNN-LSTM architecture for fault detection"
-         loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
+    <img src="/portfolio/images/paper1.webp" alt="Arquitectura CNN-LSTM para detección de fallas" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
-  <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,24px); margin-bottom: clamp(28px,4vh,48px);">
+  <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,24px); margin-bottom:clamp(28px,4vh,48px);">
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(37,64,192,0.3);">
-      <img src="/portfolio/images/paper3.webp" alt="Latency comparison: edge vs. server"
-           loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+      <img src="/portfolio/images/paper3.webp" alt="Comparación de latencia: edge vs. servidor" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(234,106,46,0.3);">
-      <img src="/portfolio/images/paper5.webp" alt="PCA visualization of fault classes"
-           loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+      <img src="/portfolio/images/paper5.webp" alt="Visualización PCA de clases de falla" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
   </div>
 
   <div class="callout" data-reveal>
-    <strong>Edge vs. Cloud Energy Cost.</strong>
-    A single fault-detection inference on the server costs ~110mJ per query (including network
-    round-trip). On the ESP32 with INT8 TFLite: ~11mJ. At 1 inference/second over an 8-hour
-    shift, that's the difference between 3.2Wh and 317Wh per motor — compounding at factory scale.
+    <strong><span class="lang-en">Edge vs. Cloud Energy Cost</span><span class="lang-es">Costo energético: Edge vs. Nube</span></strong>
+    <span class="lang-en">A single fault-detection inference on the server costs ~110mJ per query (including network round-trip). On the ESP32 with INT8 TFLite: ~11mJ. At 1 inference/second over an 8-hour shift, that's 317Wh vs. 31.7Wh per motor — the difference compounds dramatically at factory scale.</span>
+    <span class="lang-es">Una sola inferencia de detección de fallas en el servidor cuesta ~110mJ por consulta (incluyendo el viaje de red de ida y vuelta). En el ESP32 con INT8 TFLite: ~11mJ. Con 1 inferencia/segundo durante un turno de 8 horas, eso es 317Wh vs. 31.7Wh por motor — la diferencia se compone dramáticamente a escala de fábrica.</span>
   </div>
 
 </ProjectLayout>
-
-<style>
-  .pull-quote {
-    border-left: 3px solid #2540c0;
-    margin: clamp(32px,5vh,56px) 0;
-    padding: clamp(16px,2.5vw,24px) clamp(20px,3vw,32px);
-    background: #efe7d8;
-    border-radius: 0 12px 12px 0;
-  }
-  .pull-quote p {
-    margin: 0; font-family: 'Instrument Serif', serif;
-    font-size: clamp(17px, 1.9vw, 24px); line-height: 1.4;
-    color: #211f1a; font-style: italic;
-  }
-  .tech-num {
-    font-family: 'Instrument Serif', serif; font-size: 32px;
-    color: #2540c0; line-height: 1; margin-bottom: 12px; letter-spacing: -0.02em;
-  }
-</style>

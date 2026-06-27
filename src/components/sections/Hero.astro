@@ -142,10 +142,10 @@ import { HERO } from '../../data/content'
   .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 1280px;
+    max-width: 1120px;
     display: flex;
     align-items: center;
-    gap: clamp(32px, 5vw, 80px);
+    gap: clamp(32px, 5vw, 72px);
   }
 
   .hero-text { flex: 1; min-width: 0; }
@@ -174,8 +174,9 @@ import { HERO } from '../../data/content'
   /* Portrait */
   .hero-portrait {
     flex-shrink: 0;
-    width: clamp(180px, 28vw, 400px);
+    width: clamp(160px, 22vw, 320px);
     position: relative;
+    margin-right: clamp(8px, 2vw, 40px);
   }
 
   .portrait-frame {

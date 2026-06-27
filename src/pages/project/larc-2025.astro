@@ -11,27 +11,31 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   ogImage="https://alesso-24.github.io/portfolio/images/larc_arena.webp"
   meta={[
     { label: 'Role',     value: 'Hardware Lead & Software Co-Dev' },
-    { label: 'Venue',    value: 'Tec de Monterrey, N.L., Mexico' },
+    { label: 'Venue',    value: 'Tec de Monterrey, N.L., México' },
     { label: 'Event',    value: 'LARC 2025 — TIR Line Follower' },
     { label: 'Hardware', value: 'ESP32-C6 · IR Array · TB6612FNG' },
     { label: 'Software', value: 'C++ · PID Control · Python · BLE' },
   ]}
   githubHref="https://github.com/Alesso-24/Tracky"
-  githubLabel="View Tracky on GitHub"
 >
 
-  <!-- Pull quote -->
   <blockquote class="pull-quote" data-reveal>
-    <p>"Real engineering under fire — where theoretical math meets physical reality, and your code either holds the line or crashes out."</p>
+    <p>
+      <span class="lang-en">"Real engineering under fire — where theoretical math meets physical reality, and your code either holds the line or crashes out."</span>
+      <span class="lang-es">"Ingeniería real bajo presión — donde las matemáticas teóricas se encuentran con la realidad física, y tu código aguanta la línea o colapsa."</span>
+    </p>
   </blockquote>
 
   <hr class="divider" />
 
-  <!-- Demo Video -->
-  <h2 class="section-h2" data-reveal>Watch Tracky Race.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Watch Tracky Race.</span>
+    <span class="lang-es">Mira correr a Tracky.</span>
+  </h2>
+
   <p class="prose" data-reveal data-reveal-delay="60">
-    One competition heat. A robot that has to think faster than the track curves.
-    Watch the Inertial Recovery protocol activate on the 90° corners in real-time.
+    <span class="lang-en">One competition heat. A robot that has to think faster than the track curves. Watch the Inertial Recovery protocol activate on the 90° corners in real-time.</span>
+    <span class="lang-es">Una eliminatoria. Un robot que debe pensar más rápido que las curvas del circuito. Observa el protocolo de Recuperación Inercial activarse en los giros de 90° en tiempo real.</span>
   </p>
 
   <div data-reveal data-reveal-delay="100" class="video-embed">
@@ -39,102 +43,69 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
       src="https://www.youtube-nocookie.com/embed/LlpaLHTaqiQ"
       title="Tracky LARC 2025 — Line Follower Race Demo"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      loading="lazy"
+      allowfullscreen loading="lazy"
     ></iframe>
   </div>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>The Competition Experience.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">The Competition.</span>
+    <span class="lang-es">La Competencia.</span>
+  </h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    At the 25th Latin American Robotics Competition (LARC) in Nuevo León, we put our engineering
-    to the ultimate test — facing top universities across Latin America in the TIR
-    Line Follower category. Every millisecond counted, every heat was final.
-  </p>
-  <p class="prose" data-reveal data-reveal-delay="100">
-    The environment was intense: the smell of fresh solder, high-pitch servo whines, teams
-    pushing hardware to the breaking point. We were debugging C++ memory leaks on the fly,
-    fighting BLE interference from neighboring robots, and constantly recalibrating
-    IR arrays against the arena's shifting ambient light.
+    <span class="lang-en">At the 25th Latin American Robotics Competition in Nuevo León, we faced top universities from across Latin America in the TIR Line Follower category. Every millisecond counted. Every heat was final.</span>
+    <span class="lang-es">En la 25ª Competencia Latinoamericana de Robótica en Nuevo León, nos enfrentamos a las mejores universidades de América Latina en la categoría TIR Seguidor de Línea. Cada milisegundo contaba. Cada eliminatoria era definitiva.</span>
   </p>
 
-  <div data-reveal data-reveal-delay="140" style="border-radius:18px; overflow:hidden; margin: clamp(28px,4vh,48px) 0; box-shadow: 0 22px 50px -30px rgba(234,106,46,0.35);">
-    <img src="/portfolio/images/larc_team.webp" alt="Alessandro and teammate at LARC 2025"
-         loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+  <p class="prose" data-reveal data-reveal-delay="100">
+    <span class="lang-en">The environment was intense: fresh solder fumes, servo whines, teams pushing hardware to the limit. We debugged C++ memory leaks on the fly, fought BLE interference from neighboring robots, and constantly recalibrated IR sensors against the arena's shifting ambient light.</span>
+    <span class="lang-es">El ambiente era intenso: humo de soldadura fresca, servos chillando, equipos empujando el hardware al límite. Depuramos fugas de memoria en C++ al vuelo, luchamos contra interferencias BLE de robots vecinos, y recalibramos constantemente los sensores IR contra la cambiante luz ambiental de la arena.</span>
+  </p>
+
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -30px rgba(234,106,46,0.35);">
+    <img src="/portfolio/images/larc_team.webp" alt="Alessandro y compañero en LARC 2025" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>Engineering for Performance.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Engineering for Performance.</span>
+    <span class="lang-es">Ingeniería para el Rendimiento.</span>
+  </h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    Tracky runs on the ESP32-C6 (RISC-V core), executing an RTOS-like control loop that
-    guarantees microsecond response times — making the robot hunt the line instead of just
-    following it.
+    <span class="lang-en">Tracky runs on the ESP32-C6 (RISC-V core), executing an RTOS-like control loop that guarantees microsecond response times — making the robot hunt the line instead of just following it.</span>
+    <span class="lang-es">Tracky corre sobre el ESP32-C6 (núcleo RISC-V), ejecutando un bucle de control tipo RTOS que garantiza tiempos de respuesta en microsegundos — haciendo que el robot persiga la línea en vez de solo seguirla.</span>
   </p>
 
   <div class="tech-grid" data-reveal data-reveal-delay="100">
     <div class="tech-card">
-      <div class="tech-num">01</div>
-      <h3>Inertial Recovery</h3>
-      <p>If all 8 IR sensors hit white, Tracky pulls the derivative vector of its last known
-      position and spins aggressively back — zero freeze, millisecond execution.</p>
+      <div class="tech-num" style="color:#ea6a2e;">01</div>
+      <h3><span class="lang-en">Inertial Recovery</span><span class="lang-es">Recuperación Inercial</span></h3>
+      <p><span class="lang-en">All 8 IR sensors hit white → Tracky extracts the derivative vector of its last known position and spins back aggressively. Zero freeze. Millisecond execution.</span><span class="lang-es">Los 8 sensores IR detectan blanco → Tracky extrae el vector derivado de su última posición conocida y gira de regreso agresivamente. Cero congelamiento. Ejecución en milisegundos.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">02</div>
-      <h3>Strat-Profiles</h3>
-      <p>Physical DIP switches hot-swap between pre-calibrated PID profiles (Slow/Balanced/
-      Aggressive/High-Damping) — no reflashing between heats, ever.</p>
+      <div class="tech-num" style="color:#ea6a2e;">02</div>
+      <h3><span class="lang-en">Strat-Profiles</span><span class="lang-es">Perfiles Estratégicos</span></h3>
+      <p><span class="lang-en">Physical DIP switches hot-swap between pre-calibrated PID profiles: Slow, Balanced, Aggressive, High-Damping. No reflashing between heats — ever.</span><span class="lang-es">Interruptores DIP físicos cambian entre perfiles PID pre-calibrados: Lento, Balanceado, Agresivo, Alta-Amortiguación. Sin reprogramar entre eliminatorias.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">03</div>
-      <h3>BLE Auto-Healing</h3>
-      <p>Python dashboard for live PID tuning over BLE. If the connection drops from arena
-      interference, the robot continues autonomously at last known parameters.</p>
+      <div class="tech-num" style="color:#ea6a2e;">03</div>
+      <h3><span class="lang-en">BLE Auto-Healing</span><span class="lang-es">Auto-Recuperación BLE</span></h3>
+      <p><span class="lang-en">Python dashboard for live PID tuning over BLE. If arena interference drops the connection, the robot continues autonomously at last known parameters.</span><span class="lang-es">Dashboard Python para ajuste PID en vivo vía BLE. Si la interferencia de la arena corta la conexión, el robot continúa autónomamente con los últimos parámetros conocidos.</span></p>
     </div>
   </div>
 
-  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(28px,4vh,48px) 0; box-shadow: 0 24px 60px -30px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/robot_full.webp" alt="Tracky line follower robot — full hardware view"
-         loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 24px 60px -30px rgba(37,64,192,0.35);">
+    <img src="/portfolio/images/robot_full.webp" alt="Tracky — hardware completo" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+  </div>
+
+  <div class="callout" data-reveal>
+    <strong><span class="lang-en">Hardware highlights</span><span class="lang-es">Detalles del hardware</span></strong>
+    <span class="lang-en">Upgraded motor drivers handle high-current burst maneuvers. A custom multiplexing circuit polls all 8 phototransistors at full speed, feeding the PID with millimeter-precise position data. The ESP32-C6 runs concurrent RTOS-like tasks — BLE telemetry, sensor polling, and kinematic math — without blocking the main control loop.</span>
+    <span class="lang-es">Los drivers de motor mejorados manejan maniobras de corriente alta. Un circuito multiplexor personalizado consulta los 8 fototransistores a máxima velocidad, alimentando el PID con datos de posición precisos al milímetro. El ESP32-C6 ejecuta tareas RTOS concurrentes — telemetría BLE, lectura de sensores y cálculos cinemáticos — sin bloquear el bucle de control principal.</span>
   </div>
 
 </ProjectLayout>
-
-<style>
-  .pull-quote {
-    border-left: 3px solid #ea6a2e;
-    margin: clamp(32px,5vh,56px) 0;
-    padding: clamp(16px,2.5vw,24px) clamp(20px,3vw,32px);
-    background: #efe7d8;
-    border-radius: 0 12px 12px 0;
-  }
-  .pull-quote p {
-    margin: 0;
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(17px, 1.9vw, 24px);
-    line-height: 1.4;
-    color: #211f1a;
-    font-style: italic;
-  }
-  .video-embed {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 32px 80px -28px rgba(37,64,192,0.35);
-    margin: clamp(20px,3vh,32px) 0 clamp(32px,5vh,56px);
-    background: #211f1a;
-  }
-  .video-embed iframe {
-    position: absolute; inset: 0; width: 100%; height: 100%; border: none;
-  }
-  .tech-num {
-    font-family: 'Instrument Serif', serif;
-    font-size: 32px; color: #ea6a2e; line-height: 1;
-    margin-bottom: 12px; letter-spacing: -0.02em;
-  }
-</style>

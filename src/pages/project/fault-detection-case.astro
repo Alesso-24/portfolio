@@ -7,7 +7,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   title="High-Speed Fault Detection — 126× Faster than the Baseline."
   description="A hybrid CNN-PCA pipeline that achieves 126× speedup in bearing fault detection while maintaining 99.1% accuracy — accepted to IEEE CASE 2026 (Automation Science & Engineering)."
   coverImage="/portfolio/images/cover_case.webp"
-  coverAlt="High-speed fault detection CNN-PCA pipeline visualization"
+  coverAlt="Visualización del pipeline CNN-PCA de detección de fallas de alta velocidad"
   ogImage="https://alesso-24.github.io/portfolio/images/cover_case.webp"
   meta={[
     { label: 'Venue',    value: 'IEEE CASE 2026 — Automation Science' },
@@ -19,135 +19,104 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 >
 
   <!-- IEEE badge -->
-  <div data-reveal style="margin: clamp(20px,3vh,32px) 0 0; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-    <div style="
-      display:inline-flex; align-items:center; gap:10px;
-      padding:12px 24px; border-radius:100px;
-      background:rgba(37,64,192,0.08); border: 1px solid rgba(37,64,192,0.2);
-    ">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#2540c0" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      <span style="font:700 12px 'Hanken Grotesk',system-ui,sans-serif; letter-spacing:0.12em; text-transform:uppercase; color:#2540c0;">
-        IEEE Xplore · Expected November 2026
-      </span>
+  <div data-reveal style="margin:clamp(20px,3vh,36px) 0 0;">
+    <div class="ieee-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      <span class="lang-en">IEEE Xplore · Expected November 2026</span>
+      <span class="lang-es">IEEE Xplore · Previsto Noviembre 2026</span>
     </div>
   </div>
 
   <hr class="divider" />
 
-  <!-- Pull quote -->
   <blockquote class="pull-quote" data-reveal>
-    <p>"126× faster isn't an optimization — it's a qualitative shift. What was too slow for real-time use suddenly becomes the fastest thing in the room."</p>
+    <p>
+      <span class="lang-en">"126× faster isn't an optimization — it's a qualitative shift. What was too slow for real-time use suddenly becomes the fastest thing in the room."</span>
+      <span class="lang-es">"126× más rápido no es una optimización — es un cambio cualitativo. Lo que era demasiado lento para uso en tiempo real de repente se convierte en lo más rápido de la sala."</span>
+    </p>
   </blockquote>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>The Speed Problem in Fault Detection.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">The Speed Problem in Fault Detection.</span>
+    <span class="lang-es">El Problema de Velocidad en Detección de Fallas.</span>
+  </h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    Bearing fault detection in industrial environments is computationally demanding.
-    Traditional deep-learning approaches achieve high accuracy but require inference
-    times that are incompatible with real-time control loops — especially for
-    high-speed machinery running at thousands of RPM where fault progression
-    can happen within seconds.
-  </p>
-  <p class="prose" data-reveal data-reveal-delay="100">
-    This research introduces a hybrid CNN-PCA architecture that front-loads dimensionality
-    reduction via PCA (eliminating ~87% of redundant features before the CNN sees the data),
-    enabling the classifier to run 126× faster than a comparable full-feature CNN baseline
-    while retaining 99.1% accuracy on the CWRU benchmark dataset.
+    <span class="lang-en">Bearing fault detection in industrial environments is computationally demanding. Traditional deep-learning approaches achieve high accuracy but require inference times incompatible with real-time control loops — especially for high-speed machinery running at thousands of RPM where fault progression can happen within seconds.</span>
+    <span class="lang-es">La detección de fallas en rodamientos en entornos industriales es computacionalmente exigente. Los enfoques tradicionales de aprendizaje profundo logran alta precisión pero requieren tiempos de inferencia incompatibles con los bucles de control en tiempo real — especialmente para maquinaria de alta velocidad que opera a miles de RPM donde la progresión de fallas puede ocurrir en segundos.</span>
   </p>
 
-  <!-- 126x stat headline -->
+  <p class="prose" data-reveal data-reveal-delay="100">
+    <span class="lang-en">This research introduces a hybrid CNN-PCA architecture that front-loads dimensionality reduction — eliminating ~87% of redundant features before the CNN sees the data — enabling 126× speedup while retaining 99.1% accuracy on the CWRU benchmark dataset.</span>
+    <span class="lang-es">Esta investigación introduce una arquitectura híbrida CNN-PCA que adelanta la reducción de dimensionalidad — eliminando ~87% de características redundantes antes de que la CNN procese los datos — habilitando un speedup de 126× mientras se retiene el 99.1% de precisión en el dataset de referencia CWRU.</span>
+  </p>
+
+  <!-- 126× hero stat -->
   <div data-reveal data-reveal-delay="140" style="
-    text-align:center; padding: clamp(32px,5vh,64px) 0;
-    border-top: 1px solid rgba(33,31,26,0.1); border-bottom: 1px solid rgba(33,31,26,0.1);
-    margin: clamp(28px,4vh,48px) 0;
+    text-align:center; padding:clamp(32px,5vh,64px) 0;
+    border-top:1px solid rgba(33,31,26,0.1); border-bottom:1px solid rgba(33,31,26,0.1);
+    margin:clamp(28px,4vh,48px) 0;
   ">
-    <div style="font-family:'Instrument Serif',serif; font-size:clamp(72px,14vw,160px); line-height:0.9;
+    <div style="font-family:'Instrument Serif',serif; font-size:clamp(72px,14vw,160px); line-height:0.88;
                 color:#ea6a2e; letter-spacing:-0.04em; font-weight:400;">
       126×
     </div>
-    <p style="margin:16px 0 0; font:600 13px 'Hanken Grotesk',system-ui,sans-serif;
-              letter-spacing:0.12em; text-transform:uppercase; color:#6f6a5f;">
-      Faster than full-feature CNN baseline
+    <p style="margin:18px 0 0; font:700 11px 'Hanken Grotesk',system-ui,sans-serif;
+              letter-spacing:0.14em; text-transform:uppercase; color:#6f6a5f;">
+      <span class="lang-en">Faster than full-feature CNN baseline</span>
+      <span class="lang-es">Más rápido que la línea base CNN completa</span>
     </p>
   </div>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>The CNN-PCA Architecture.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">The CNN-PCA Architecture.</span>
+    <span class="lang-es">La Arquitectura CNN-PCA.</span>
+  </h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    The key insight: not all dimensions of a vibration signal are equally informative
-    for fault classification. PCA identifies the principal components that account for
-    95% of variance — and discards the rest before the CNN ever processes the data.
-    The CNN then operates on a dramatically smaller, more expressive feature space.
+    <span class="lang-en">The key insight: not all dimensions of a vibration signal are equally informative for fault classification. PCA identifies the principal components accounting for 95% of variance — discarding the rest before the CNN processes the data. The CNN then operates on a dramatically smaller, more expressive feature space.</span>
+    <span class="lang-es">La idea clave: no todas las dimensiones de una señal de vibración son igualmente informativas para la clasificación de fallas. El PCA identifica los componentes principales que representan el 95% de la varianza — descartando el resto antes de que la CNN procese los datos. La CNN entonces opera sobre un espacio de características dramáticamente más pequeño y expresivo.</span>
   </p>
 
   <div class="tech-grid" data-reveal data-reveal-delay="100">
     <div class="tech-card">
-      <div class="tech-num">01</div>
-      <h3>PCA Pre-Processing</h3>
-      <p>Principal component analysis reduces input dimensionality from ~1500 to ~190 features
-      per sample — removing noise while preserving the fault-relevant signal structure.</p>
+      <div class="tech-num" style="color:#ea6a2e;">01</div>
+      <h3><span class="lang-en">PCA Pre-Processing</span><span class="lang-es">Pre-procesamiento PCA</span></h3>
+      <p><span class="lang-en">Principal component analysis reduces input dimensionality from ~1500 to ~190 features per sample — removing noise while preserving the fault-relevant signal structure.</span><span class="lang-es">El análisis de componentes principales reduce la dimensionalidad de entrada de ~1500 a ~190 características por muestra — eliminando ruido mientras preserva la estructura de señal relevante para las fallas.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">02</div>
-      <h3>Lightweight CNN</h3>
-      <p>A shallow 3-layer 1D CNN trained on PCA-compressed inputs achieves 99.1% accuracy —
-      without the computational overhead of processing raw high-dimensional vibration data.</p>
+      <div class="tech-num" style="color:#ea6a2e;">02</div>
+      <h3><span class="lang-en">Lightweight CNN</span><span class="lang-es">CNN Ligera</span></h3>
+      <p><span class="lang-en">A shallow 3-layer 1D CNN trained on PCA-compressed inputs achieves 99.1% accuracy — without the overhead of processing raw high-dimensional vibration data.</span><span class="lang-es">Una CNN 1D superficial de 3 capas entrenada sobre entradas comprimidas por PCA logra 99.1% de precisión — sin la sobrecarga de procesar datos de vibración crudos de alta dimensión.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">03</div>
-      <h3>FPU Bug Discovery</h3>
-      <p>During hardware testing, an undocumented FPU edge case was discovered in the target
-      microcontroller — leading to a novel software workaround now included in the paper
-      as a deployment contribution.</p>
+      <div class="tech-num" style="color:#ea6a2e;">03</div>
+      <h3><span class="lang-en">FPU Bug Discovery</span><span class="lang-es">Descubrimiento de Bug FPU</span></h3>
+      <p><span class="lang-en">During hardware testing, an undocumented FPU edge case was discovered — leading to a novel software workaround now included in the paper as a deployment contribution.</span><span class="lang-es">Durante las pruebas de hardware, se descubrió un caso límite no documentado de la FPU — lo que llevó a una solución de software novedosa ahora incluida en el artículo como contribución de despliegue.</span></p>
     </div>
   </div>
 
-  <!-- Figures -->
-  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(28px,4vh,48px) 0; box-shadow: 0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/case_fdr.webp" alt="CNN-PCA fault detection pipeline diagram"
-         loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
+    <img src="/portfolio/images/case_fdr.webp" alt="Diagrama del pipeline CNN-PCA de detección de fallas" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
-  <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,24px); margin-bottom: clamp(28px,4vh,48px);">
+  <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,24px); margin-bottom:clamp(28px,4vh,48px);">
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(37,64,192,0.3);">
-      <img src="/portfolio/images/case_latency.webp" alt="Latency comparison showing 126× speedup"
-           loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+      <img src="/portfolio/images/case_latency.webp" alt="Comparación de latencia mostrando speedup de 126×" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(234,106,46,0.3);">
-      <img src="/portfolio/images/case_pca.webp" alt="PCA feature space visualization"
-           loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+      <img src="/portfolio/images/case_pca.webp" alt="Visualización del espacio de características PCA" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
   </div>
 
   <div class="callout" data-reveal>
-    <strong>On the FPU Bug.</strong>
-    During deployment testing, we encountered consistent numerical errors in the PCA
-    matrix multiplication on the target hardware. After systematic debugging, we traced
-    it to a denormalized-float edge case in the hardware FPU — undocumented for this
-    chip variant. The software workaround adds ~3μs per inference and is now part of the paper.
+    <strong><span class="lang-en">On the FPU Bug</span><span class="lang-es">Sobre el Bug FPU</span></strong>
+    <span class="lang-en">During deployment testing, we encountered consistent numerical errors in the PCA matrix multiplication on the target hardware. After systematic debugging, we traced it to a denormalized-float edge case in the hardware FPU — undocumented for this chip variant. The software workaround adds ~3μs per inference and is now part of the published paper.</span>
+    <span class="lang-es">Durante las pruebas de despliegue, encontramos errores numéricos consistentes en la multiplicación de matrices PCA en el hardware objetivo. Después de una depuración sistemática, lo rastreamos a un caso límite de float desnormalizado en la FPU de hardware — no documentado para esta variante del chip. La solución de software agrega ~3μs por inferencia y ahora es parte del artículo publicado.</span>
   </div>
 
 </ProjectLayout>
-
-<style>
-  .pull-quote {
-    border-left: 3px solid #ea6a2e;
-    margin: clamp(32px,5vh,56px) 0;
-    padding: clamp(16px,2.5vw,24px) clamp(20px,3vw,32px);
-    background: #efe7d8;
-    border-radius: 0 12px 12px 0;
-  }
-  .pull-quote p {
-    margin: 0; font-family: 'Instrument Serif', serif;
-    font-size: clamp(17px, 1.9vw, 24px); line-height: 1.4;
-    color: #211f1a; font-style: italic;
-  }
-  .tech-num {
-    font-family: 'Instrument Serif', serif; font-size: 32px;
-    color: #ea6a2e; line-height: 1; margin-bottom: 12px; letter-spacing: -0.02em;
-  }
-</style>

@@ -7,7 +7,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   title="3-DOF Self-Balancing Platform — Stewart-Inspired Design."
   description="A 3-axis attitude control platform using PID + LQR control and real-time sensor fusion — built from scratch with custom control software and mechatronic design."
   coverImage="/portfolio/images/plat1.webp"
-  coverAlt="3-DOF Self-Balancing Platform on test bench"
+  coverAlt="Plataforma autobalanceable de 3-DOF en banco de pruebas"
   ogImage="https://alesso-24.github.io/portfolio/images/plat1.webp"
   meta={[
     { label: 'Role',     value: 'Full-Stack Engineer (HW + SW)' },
@@ -17,19 +17,23 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   ]}
 >
 
-  <!-- Pull quote -->
   <blockquote class="pull-quote" data-reveal>
-    <p>"The gap between a working controller in MATLAB and a real platform that stays balanced is exactly where mechatronics engineering lives."</p>
+    <p>
+      <span class="lang-en">"The gap between a working controller in MATLAB and a real platform that stays balanced is exactly where mechatronics engineering lives."</span>
+      <span class="lang-es">"La brecha entre un controlador que funciona en MATLAB y una plataforma real que se mantiene balanceada es exactamente donde vive la ingeniería mecatrónica."</span>
+    </p>
   </blockquote>
 
   <hr class="divider" />
 
-  <!-- Demo Video -->
-  <h2 class="section-h2" data-reveal>Watch It Balance.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Watch It Balance.</span>
+    <span class="lang-es">Mírala balancearse.</span>
+  </h2>
+
   <p class="prose" data-reveal data-reveal-delay="60">
-    Three axes. One MPU6050. 50ms control cycles. Watch the platform self-correct
-    in real-time against deliberate perturbations — a live demonstration of closed-loop
-    attitude control working as designed.
+    <span class="lang-en">Three axes. One MPU6050. 50ms control cycles. Watch the platform self-correct in real-time against deliberate perturbations — closed-loop attitude control working as designed.</span>
+    <span class="lang-es">Tres ejes. Un MPU6050. Ciclos de control de 50ms. Observa la plataforma corregirse en tiempo real ante perturbaciones deliberadas — control de actitud en lazo cerrado funcionando exactamente como fue diseñado.</span>
   </p>
 
   <div data-reveal data-reveal-delay="100" class="video-embed">
@@ -37,37 +41,40 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
       src="https://www.youtube-nocookie.com/embed/88SjHziDrIY"
       title="3-DOF Self-Balancing Platform — Control System Demo"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      loading="lazy"
+      allowfullscreen loading="lazy"
     ></iframe>
   </div>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>Why This Problem is Hard.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Why This Problem is Hard.</span>
+    <span class="lang-es">Por qué este Problema es Difícil.</span>
+  </h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    Building a single-axis pendulum that balances is a textbook exercise. Building
-    a 3-DOF platform with coupled axes, real servo non-linearities, and I²C latency
-    from sensor to actuator — that's where real control theory meets physical constraints.
+    <span class="lang-en">Building a single-axis pendulum that balances is a textbook exercise. Building a 3-DOF platform with coupled axes, real servo non-linearities, and I²C latency from sensor to actuator — that's where real control theory meets physical constraints.</span>
+    <span class="lang-es">Construir un péndulo de un solo eje que se balancee es un ejercicio de libro de texto. Construir una plataforma de 3-DOF con ejes acoplados, no-linealidades reales del servo y latencia I²C del sensor al actuador — ahí es donde la teoría de control real se encuentra con las limitaciones físicas.</span>
   </p>
+
   <p class="prose" data-reveal data-reveal-delay="100">
-    The challenge: a single IMU on the platform needs to feed three independent servo
-    controllers, all without introducing phase lag that destabilizes the loop. The servo
-    bandwidth, Kalman filter update rate, and PID cycle time had to be carefully matched
-    to produce stable behavior across all three axes simultaneously.
+    <span class="lang-en">The challenge: a single IMU needs to feed three independent servo controllers without introducing phase lag that destabilizes the loop. The servo bandwidth, Kalman filter update rate, and PID cycle time had to be carefully matched to produce stable behavior across all three axes simultaneously.</span>
+    <span class="lang-es">El reto: un solo IMU debe alimentar tres controladores de servo independientes sin introducir retardo de fase que desestabilice el bucle. El ancho de banda del servo, la tasa de actualización del filtro Kalman, y el tiempo de ciclo PID tuvieron que ser cuidadosamente sincronizados para producir comportamiento estable en los tres ejes simultáneamente.</span>
   </p>
 
   <div class="stat-highlight" data-reveal data-reveal-delay="140">
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,3vw,40px);">
       {[
-        { num: '50ms', label: 'Control cycle time' },
-        { num: '3-DOF', label: 'Axes controlled simultaneously' },
-        { num: '±2°', label: 'Steady-state error target' },
-      ].map(({ num, label }) => (
+        { num: '50ms', labelEn: 'Control cycle time', labelEs: 'Tiempo de ciclo de control' },
+        { num: '3-DOF', labelEn: 'Axes controlled simultaneously', labelEs: 'Ejes controlados simultáneamente' },
+        { num: '±2°', labelEn: 'Steady-state error target', labelEs: 'Error en estado estable objetivo' },
+      ].map(({ num, labelEn, labelEs }) => (
         <div style="border-top: 2px solid #2540c0; padding-top: 16px;">
           <div style="font-family:'Instrument Serif',serif; font-size:clamp(28px,3.5vw,52px); color:#2540c0; line-height:1; margin-bottom:8px;">{num}</div>
-          <p style="margin:0; font-size:13px; color:#6f6a5f; letter-spacing:0.04em;">{label}</p>
+          <p style="margin:0; font-size:13px; color:#6f6a5f; letter-spacing:0.04em; line-height:1.4;">
+            <span class="lang-en">{labelEn}</span>
+            <span class="lang-es">{labelEs}</span>
+          </p>
         </div>
       ))}
     </div>
@@ -75,67 +82,42 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>System Architecture.</h2>
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">System Architecture.</span>
+    <span class="lang-es">Arquitectura del Sistema.</span>
+  </h2>
 
   <div class="tech-grid" data-reveal data-reveal-delay="60">
     <div class="tech-card">
-      <div class="tech-num">01</div>
-      <h3>Sensor Fusion Layer</h3>
-      <p>MPU6050 gyro + accelerometer data fed into a discrete Kalman filter — delivering
-      clean roll/pitch/yaw estimates free of gyroscopic drift and accelerometer noise.</p>
+      <div class="tech-num" style="color:#2540c0;">01</div>
+      <h3><span class="lang-en">Sensor Fusion Layer</span><span class="lang-es">Capa de Fusión de Sensores</span></h3>
+      <p><span class="lang-en">MPU6050 gyro + accelerometer data fed into a discrete Kalman filter — delivering clean roll/pitch/yaw estimates free of gyroscopic drift and accelerometer noise.</span><span class="lang-es">Datos de giroscopio + acelerómetro del MPU6050 alimentados a un filtro Kalman discreto — entregando estimaciones limpias de alabeo/cabeceo/guiñada libres de deriva giroscópica y ruido del acelerómetro.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">02</div>
-      <h3>Dual-Mode Control</h3>
-      <p>PID for setpoint tracking during commissioning; LQR for optimal disturbance rejection
-      once the state-space model was validated. Both modes switch at runtime.</p>
+      <div class="tech-num" style="color:#2540c0;">02</div>
+      <h3><span class="lang-en">Dual-Mode Control</span><span class="lang-es">Control de Doble Modo</span></h3>
+      <p><span class="lang-en">PID for setpoint tracking during commissioning; LQR for optimal disturbance rejection once the state-space model was validated. Both modes switch at runtime.</span><span class="lang-es">PID para seguimiento de setpoint durante la puesta en marcha; LQR para rechazo óptimo de perturbaciones una vez validado el modelo en espacio de estados. Ambos modos conmutan en tiempo de ejecución.</span></p>
     </div>
     <div class="tech-card">
-      <div class="tech-num">03</div>
-      <h3>Mechatronic Design</h3>
-      <p>Fusion 360 chassis designed for minimal servo arm coupling. Geometry chosen to
-      decouple roll, pitch, and yaw axes — making the math in the controller match reality.</p>
+      <div class="tech-num" style="color:#2540c0;">03</div>
+      <h3><span class="lang-en">Mechatronic Design</span><span class="lang-es">Diseño Mecatrónico</span></h3>
+      <p><span class="lang-en">Fusion 360 chassis designed for minimal servo arm coupling. Geometry chosen to decouple roll, pitch, and yaw axes — making the math in the controller match physical reality.</span><span class="lang-es">Chasis diseñado en Fusion 360 para mínimo acoplamiento de brazos de servo. Geometría elegida para desacoplar los ejes de alabeo, cabeceo y guiñada — haciendo que las matemáticas del controlador coincidan con la realidad física.</span></p>
     </div>
   </div>
 
-  <!-- Platform image grid -->
-  <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,24px); margin: clamp(32px,5vh,56px) 0;">
+  <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,24px); margin:clamp(32px,5vh,56px) 0;">
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 20px 50px -24px rgba(37,64,192,0.4);">
-      <img src="/portfolio/images/plat2.webp" alt="Self-balancing platform — top view"
-           loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+      <img src="/portfolio/images/plat2.webp" alt="Plataforma autobalanceable — vista superior" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 20px 50px -24px rgba(234,106,46,0.35);">
-      <img src="/portfolio/images/plat3.webp" alt="Self-balancing platform — side view"
-           loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+      <img src="/portfolio/images/plat3.webp" alt="Plataforma autobalanceable — vista lateral" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
+  </div>
+
+  <div class="callout" data-reveal>
+    <strong><span class="lang-en">Key insight</span><span class="lang-es">Insight clave</span></strong>
+    <span class="lang-en">The servo bandwidth determines the upper bound on your control loop frequency — not your microcontroller's clock speed. Exceeding this causes the servo to amplify noise rather than reject it. Matching the Kalman filter cutoff to the servo's mechanical bandwidth was the critical tuning step that made everything else work.</span>
+    <span class="lang-es">El ancho de banda del servo determina el límite superior de la frecuencia del bucle de control — no la velocidad del reloj del microcontrolador. Superarlo hace que el servo amplíe el ruido en lugar de rechazarlo. Ajustar la frecuencia de corte del filtro Kalman al ancho de banda mecánico del servo fue el paso de sintonización crítico que hizo funcionar todo lo demás.</span>
   </div>
 
 </ProjectLayout>
-
-<style>
-  .pull-quote {
-    border-left: 3px solid #2540c0;
-    margin: clamp(32px,5vh,56px) 0;
-    padding: clamp(16px,2.5vw,24px) clamp(20px,3vw,32px);
-    background: #efe7d8;
-    border-radius: 0 12px 12px 0;
-  }
-  .pull-quote p {
-    margin: 0;
-    font-family: 'Instrument Serif', serif;
-    font-size: clamp(17px, 1.9vw, 24px);
-    line-height: 1.4; color: #211f1a; font-style: italic;
-  }
-  .video-embed {
-    position: relative; width: 100%; aspect-ratio: 16/9;
-    border-radius: 18px; overflow: hidden;
-    box-shadow: 0 32px 80px -28px rgba(37,64,192,0.35);
-    margin: clamp(20px,3vh,32px) 0 clamp(32px,5vh,56px);
-    background: #211f1a;
-  }
-  .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-  .tech-num {
-    font-family: 'Instrument Serif', serif; font-size: 32px;
-    color: #2540c0; line-height: 1; margin-bottom: 12px; letter-spacing: -0.02em;
-  }
-</style>
