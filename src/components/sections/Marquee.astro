@@ -1,0 +1,30 @@
+---
+const terms = ['Embedded AI', 'Robotics', 'Computer Vision', 'Control Systems', 'Research', 'TinyML', 'RTOS']
+---
+
+<section
+  aria-hidden="true"
+  style="border-top:1px solid rgba(33,31,26,0.1); border-bottom:1px solid rgba(33,31,26,0.1);
+         padding:24px 0; overflow:hidden; background:#efe7d8;"
+>
+  <div style="display:flex; width:max-content; animation:ar-marquee 38s linear infinite;">
+    <!-- Track 1 -->
+    <div style="display:flex; align-items:center;">
+      {terms.map((term) => (
+        <>
+          <span style="font-family:'Instrument Serif',serif; font-size:clamp(24px,2.8vw,38px); padding:0 30px; color:#211f1a;">{term}</span>
+          <span style="color:#ea6a2e; font-size:18px;">✦</span>
+        </>
+      ))}
+    </div>
+    <!-- Track 2 (duplicate for seamless loop) -->
+    <div style="display:flex; align-items:center;" aria-hidden="true">
+      {terms.map((term) => (
+        <>
+          <span style="font-family:'Instrument Serif',serif; font-size:clamp(24px,2.8vw,38px); padding:0 30px; color:#211f1a;">{term}</span>
+          <span style="color:#ea6a2e; font-size:18px;">✦</span>
+        </>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,111 @@
+---
+import { HERO } from '../../data/content'
+
+// Default to EN — Nav island handles language switching client-side
+const lang = 'en'
+const h1 = HERO.h1[lang]
+---
+
+<header
+  id="top"
+  style="position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 clamp(20px,4vw,60px) clamp(44px,7vh,80px); box-sizing:border-box; overflow:hidden;"
+>
+  <!-- Aurora background -->
+  <div
+    data-parallax="hero-bg"
+    style="position:absolute; inset:0; z-index:0; pointer-events:none;"
+    aria-hidden="true"
+  >
+    <div style="position:absolute; width:48vw; height:48vw; left:40%; top:2%;
+                background:radial-gradient(circle, #2540c0, transparent 62%);
+                filter:blur(72px); opacity:0.5;
+                animation:ar-drift1 17s ease-in-out infinite;"></div>
+    <div style="position:absolute; width:40vw; height:40vw; left:56%; top:26%;
+                background:radial-gradient(circle, #ea6a2e, transparent 60%);
+                filter:blur(82px); opacity:0.42;
+                animation:ar-drift2 20s ease-in-out infinite;"></div>
+    <div style="position:absolute; width:32vw; height:32vw; left:48%; top:-4%;
+                background:radial-gradient(circle, #fff6e9, transparent 60%);
+                filter:blur(60px); opacity:0.6;
+                animation:ar-drift3 23s ease-in-out infinite;"></div>
+    <!-- Vignette mask to blend into cream -->
+    <div style="position:absolute; inset:0;
+                background:radial-gradient(125% 95% at 52% 42%, transparent 26%, rgba(243,237,225,0.58) 100%);"></div>
+  </div>
+
+  <!-- Label top-left -->
+  <div
+    data-kin
+    style="animation:ar-kin 1s cubic-bezier(0.16,1,0.3,1) both; animation-delay:40ms;
+           position:absolute; top:clamp(100px,15vh,160px); left:clamp(20px,4vw,60px); z-index:2;
+           display:flex; align-items:center; gap:12px;
+           font:600 12px 'Hanken Grotesk',system-ui,sans-serif;
+           letter-spacing:0.16em; text-transform:uppercase; color:#6f6a5f;"
+  >
+    <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#ea6a2e; flex-shrink:0;"></span>
+    {HERO.label}
+  </div>
+
+  <!-- Main content -->
+  <div data-parallax="hero-text" style="position:relative; z-index:2; max-width:1280px;">
+    <h1
+      data-kin
+      style="animation:ar-kin 1.05s cubic-bezier(0.16,1,0.3,1) both; animation-delay:120ms;
+             margin:0;
+             font-family:'Instrument Serif',serif; font-weight:400;
+             font-size:clamp(46px,9.4vw,160px); line-height:0.96;
+             letter-spacing:-0.015em; text-wrap:balance;"
+    >
+      {h1.plain} <em style="font-style:italic; color:#ea6a2e;">{h1.italic}</em>
+    </h1>
+
+    <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:28px; margin-top:clamp(30px,4vh,52px);">
+      <p
+        data-kin
+        style="animation:ar-kin 1.05s cubic-bezier(0.16,1,0.3,1) both; animation-delay:260ms;
+               margin:0; max-width:440px;
+               font-size:clamp(15px,1.4vw,18px); line-height:1.55; color:#534f46;"
+      >
+        {HERO.paragraph[lang]}
+      </p>
+
+      <div
+        data-kin
+        style="animation:ar-kin 1.05s cubic-bezier(0.16,1,0.3,1) both; animation-delay:360ms;
+               display:flex; gap:14px; flex-wrap:wrap;"
+      >
+        <a
+          href="#work"
+          style="display:inline-flex; align-items:center; gap:8px;
+                 padding:15px 28px; border-radius:100px;
+                 background:#2540c0; color:#f3ede1;
+                 text-decoration:none; font:600 15px 'Hanken Grotesk',system-ui,sans-serif;
+                 transition:opacity 0.2s;"
+        >
+          {HERO.cta_primary[lang]} <span style="font-size:13px;">↗</span>
+        </a>
+        <a
+          href="#contact"
+          style="display:inline-flex; align-items:center; gap:8px;
+                 padding:15px 28px; border-radius:100px;
+                 background:transparent; border:1px solid rgba(33,31,26,0.25);
+                 color:#211f1a;
+                 text-decoration:none; font:600 15px 'Hanken Grotesk',system-ui,sans-serif;
+                 transition:all 0.2s;"
+        >
+          {HERO.cta_secondary[lang]}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div style="position:absolute; bottom:28px; right:clamp(20px,4vw,60px); z-index:2;
+              display:flex; align-items:center; gap:10px;
+              font:600 11px 'Hanken Grotesk',system-ui,sans-serif;
+              letter-spacing:0.14em; text-transform:uppercase; color:#8a8579;"
+       aria-hidden="true">
+    Scroll
+    <span style="display:inline-block; width:1px; height:32px; background:linear-gradient(#8a8579, transparent);"></span>
+  </div>
+</header>

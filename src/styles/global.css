@@ -1,0 +1,166 @@
+@import "tailwindcss";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/hanken-grotesk";
+
+/* ─── Design tokens ──────────────────────────────────── */
+@theme {
+  --color-cream:      #f3ede1;
+  --color-cream-alt:  #efe7d8;
+  --color-ink:        #211f1a;
+  --color-muted:      #6f6a5f;
+  --color-muted-soft: #534f46;
+  --color-hairline:   #8a8579;
+  --color-blue:       #2540c0;
+  --color-orange:     #ea6a2e;
+  --color-on-blue:    #f3ede1;
+
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans:  "Hanken Grotesk", system-ui, sans-serif;
+
+  --radius-card: 18px;
+  --radius-pill: 100px;
+
+  --shadow-blue:   0 24px 60px -30px rgba(37, 64, 192, 0.4);
+  --shadow-orange: 0 22px 50px -30px rgba(234, 106, 46, 0.4);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background: #f3ede1;
+  color: #211f1a;
+  font-family: "Hanken Grotesk", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body { margin: 0; overflow-x: hidden; }
+
+::selection { background: #2540c0; color: #f3ede1; }
+
+/* ─── CSS Animations (from reference HTML) ───────────── */
+@keyframes ar-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes ar-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+@keyframes ar-drift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(4%, 6%) scale(1.14); }
+}
+
+@keyframes ar-drift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-6%, -4%) scale(1.08); }
+}
+
+@keyframes ar-drift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(3%, -6%) scale(1.16); }
+}
+
+@keyframes ar-kin {
+  from { opacity: 0; transform: translateY(30px); filter: blur(7px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+/* ─── Reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  [data-kin] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Focus visible (WCAG 2.1 §2.4.7) ──────────────────────── */
+:focus-visible {
+  outline: 2px solid #2540c0;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+:focus:not(:focus-visible) { outline: none; }
+
+/* ─── Skip to content link ───────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus-visible {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  padding: 12px 28px;
+  background: #2540c0;
+  color: #f3ede1;
+  font: 600 14px 'Hanken Grotesk', system-ui, sans-serif;
+  border-radius: 100px;
+  z-index: 9999;
+  text-decoration: none;
+  outline: 2px solid #f3ede1;
+  outline-offset: 2px;
+}
+
+/* ─── Screen reader only (a11y utility) ──────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ─── Section label base style (pseudo via span.dot in HTML) ──── */
+.section-label {
+  font-family: "Hanken Grotesk", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6f6a5f;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ─── Lenis scroll ───────────────────────────────────── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }

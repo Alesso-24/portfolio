@@ -1,0 +1,59 @@
+---
+import { ABOUT } from '../../data/content'
+const lang = 'en'
+const h2 = ABOUT.h2[lang]
+---
+
+<section
+  id="about"
+  style="background:#f3ede1; padding:clamp(76px,12vh,150px) clamp(20px,4vw,60px);"
+>
+  <div style="max-width:1280px; margin:0 auto;">
+
+    <!-- Section label -->
+    <div
+      data-reveal
+      style="font:600 12px 'Hanken Grotesk',system-ui,sans-serif;
+             letter-spacing:0.16em; text-transform:uppercase; color:#6f6a5f;
+             margin-bottom:clamp(32px,5vh,60px);
+             display:flex; align-items:center; gap:12px;"
+    >
+      <span style="width:9px; height:9px; border-radius:50%; background:#ea6a2e; flex-shrink:0;"></span>
+      {ABOUT.label[lang]}
+    </div>
+
+    <div class="about-grid" style="display:grid; grid-template-columns:1fr; gap:clamp(34px,5vw,80px); align-items:end;">
+
+      <!-- H2 serif big -->
+      <h2
+        data-reveal
+        style="margin:0;
+               font-family:'Instrument Serif',serif; font-weight:400;
+               font-size:clamp(32px,4.8vw,72px); line-height:1.04;
+               letter-spacing:-0.01em; max-width:18ch;"
+      >
+        {h2.plain} <em style="font-style:italic; color:#2540c0;">{h2.italic}</em> {h2.end}
+      </h2>
+
+      <!-- Bio + availability -->
+      <div class="about-bio" data-reveal data-reveal-delay="120" style="max-width:480px;">
+        {ABOUT.bio[lang].map((p) => (
+          <p style="margin:0 0 20px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#534f46;">{p}</p>
+        ))}
+
+        <p style="margin:24px 0 0; font:600 12px 'Hanken Grotesk',system-ui,sans-serif;
+                  letter-spacing:0.12em; text-transform:uppercase; color:#6f6a5f;">
+          {ABOUT.availability[lang]}
+        </p>
+      </div>
+
+    </div>
+  </div>
+<style>
+  @media (min-width: 900px) {
+    .about-grid { grid-template-columns: 1fr 1fr !important; }
+    .about-bio  { justify-self: end; }
+  }
+</style>
+
+</section>

@@ -1,0 +1,187 @@
+---
+import '../styles/global.css'
+import Nav from '../components/layout/Nav'
+import Footer from '../components/layout/Footer.astro'
+
+interface Props {
+  title?: string
+  description?: string
+  lang?: 'en' | 'es'
+  ogImage?: string
+  canonical?: string
+}
+
+const {
+  title = 'Alessandro Reyes — Mechatronics Engineer | Embedded AI & Robotics',
+  description = 'Mechatronics engineer building AI that survives contact with real hardware. 2× IEEE author (CASE 2026, BDAI 2026), LARC 2025 competitive robotics. Open to Summer 2026 internships.',
+  lang = 'en',
+  ogImage = 'https://alesso-24.github.io/portfolio/og-image.png',
+  canonical = 'https://alesso-24.github.io/portfolio/',
+} = Astro.props
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formsubmit.co; frame-src https://www.youtube-nocookie.com; form-action https://formsubmit.co; base-uri 'self'; object-src 'none';" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg?v=1.0.1" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"              content="website" />
+    <meta property="og:url"               content={canonical} />
+    <meta property="og:title"             content={title} />
+    <meta property="og:description"       content={description} />
+    <meta property="og:image"             content={ogImage} />
+    <meta property="og:image:width"       content="1200" />
+    <meta property="og:image:height"      content="630" />
+    <meta property="og:locale"            content={lang === 'en' ? 'en_US' : 'es_MX'} />
+    <meta property="og:locale:alternate"  content={lang === 'en' ? 'es_MX' : 'en_US'} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:url"         content={canonical} />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#f3ede1" />
+
+    <!-- JSON-LD -->
+    <script is:inline type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Alessandro Reyes",
+        "url": canonical,
+        "jobTitle": "Mechatronics Engineer",
+        "alumniOf": "Universidad Iberoamericana Puebla",
+        "sameAs": [
+          "https://github.com/Alesso-24",
+          "https://www.linkedin.com/in/alessandro-reyes-mtz/"
+        ]
+      })}
+    </script>
+  </head>
+
+  <body class="bg-cream text-ink overflow-x-hidden">
+    <!-- Skip to main content (a11y) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation (React island — needs client JS for mobile menu + lang toggle) -->
+    <Nav client:load lang={lang} />
+
+    <!-- Page content -->
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+
+    <!-- Lenis smooth scroll + GSAP ScrollTrigger setup -->
+    <script>
+      import Lenis from 'lenis'
+      import gsap from 'gsap'
+      import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+      gsap.registerPlugin(ScrollTrigger)
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+      let lenis: Lenis | null = null
+
+      if (!prefersReduced) {
+        lenis = new Lenis({ lerp: 0.1, duration: 1.2, smoothWheel: true })
+        lenis.on('scroll', ScrollTrigger.update)
+        gsap.ticker.add((time) => lenis?.raf(time * 1000))
+        gsap.ticker.lagSmoothing(0)
+      }
+
+      // Scroll reveals — [data-reveal] elements animate in
+      const reveals = document.querySelectorAll<HTMLElement>('[data-reveal]')
+
+      if (!prefersReduced) {
+        reveals.forEach((el) => {
+          const delay = parseFloat(el.dataset.revealDelay ?? '0') / 1000
+
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 34 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              delay,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 88%',
+                once: true,
+              },
+            }
+          )
+
+          // Safety fallback: force visible after 4.5s in case observer never fires
+          setTimeout(() => {
+            if (getComputedStyle(el).opacity === '0') {
+              gsap.set(el, { opacity: 1, y: 0 })
+            }
+          }, 4500)
+        })
+
+        // Hero parallax
+        const heroText = document.querySelector<HTMLElement>('[data-parallax="hero-text"]')
+        const heroBg   = document.querySelector<HTMLElement>('[data-parallax="hero-bg"]')
+
+        if (heroText) {
+          gsap.to(heroText, {
+            yPercent: 16,
+            opacity: 0.4,
+            ease: 'none',
+            scrollTrigger: { trigger: 'header', start: 'top top', end: 'bottom top', scrub: true },
+          })
+        }
+
+        if (heroBg) {
+          gsap.to(heroBg, {
+            yPercent: 26,
+            ease: 'none',
+            scrollTrigger: { trigger: 'header', start: 'top top', end: 'bottom top', scrub: true },
+          })
+        }
+
+        // Number counters
+        document.querySelectorAll<HTMLElement>('[data-counter]').forEach((el) => {
+          const raw     = el.dataset.counter ?? '0'
+          const suffix  = raw.replace(/[\d.]/g, '')
+          const numStr  = raw.replace(/[^\d.]/g, '')
+          const num     = parseFloat(numStr)
+          const isInt   = Number.isInteger(num)
+          const decPts  = numStr.includes('.') ? numStr.split('.')[1].length : 0
+          const obj     = { val: 0 }
+
+          gsap.to(obj, {
+            val: num,
+            duration: 1.8,
+            ease: 'power2.out',
+            onUpdate: () => {
+              el.textContent = (isInt ? Math.round(obj.val) : obj.val.toFixed(decPts)) + suffix
+            },
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+          })
+        })
+
+      } else {
+        // Reduced motion: show all reveals immediately
+        reveals.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none' })
+      }
+    </script>
+  </body>
+</html>

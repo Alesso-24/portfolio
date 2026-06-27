@@ -1,0 +1,183 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro'
+---
+
+<ProjectLayout
+  badge="Scientific Publication — Edge AI"
+  title="Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off in Industrial Bearing Predictive Maintenance."
+  description="Found a hardware bug that silently broke a 'perfect' ML model, then built a model 126× faster with zero false alarms — validated on real ESP32 silicon, not simulation."
+  coverImage="/portfolio/images/cover_case.webp"
+  coverAlt="IEEE CASE 2026 — Edge AI Decision Framework paper cover"
+  ogImage="https://alesso-24.github.io/portfolio/images/cover_case.webp"
+  meta={[
+    { label: 'Conference', value: '22nd IEEE International Conference on Automation Science and Engineering (CASE 2026)' },
+    { label: 'Presentation', value: 'August 17–21, 2026 · Shenyang, China (remote)' },
+    { label: 'Status', value: 'Accepted — Presenting Remotely' },
+    { label: 'Index Terms', value: 'Edge AI, Predictive Maintenance, TinyML, Bearing Fault Detection, FDR, Hardware Benchmark' },
+  ]}
+>
+
+  <!-- Abstract -->
+  <h2 class="section-h2" data-reveal>Abstract.</h2>
+  <p class="prose" data-reveal data-reveal-delay="80">
+    There are several classification strategies available for evaluating when a bearing has failed.
+    Bearing failure is a gradual process, and the question posed is whether or not the best
+    classifier should also be allowed to change based on the fault's progression. Using measurements
+    from the NASA IMS 2nd_test dataset (984 total files, Bearing 1 outer race fault), three
+    classifiers — Random Forest (RF), Logistic Regression (LR), and SVM — were evaluated at two
+    stages of degradation.
+  </p>
+  <p class="prose" data-reveal data-reveal-delay="120">
+    At the incipient stage, RF detected 27/56 fault cycles (48.2%) while LR detected only
+    7/56 (12.5%) — a 3.9× difference. At the advanced stage, both converged to AUC = 1.000.
+    Latency was measured using CPU cycle-counting on a real ESP32 (Xtensa LX6, 240 MHz): LR
+    at 184 ns vs RF at 23.3 μs — a <strong style="color:#2540c0;">126× difference</strong>.
+    SVM was disqualified after misclassifying faults at 96.5 μs due to FPU precision errors.
+  </p>
+
+  <hr class="divider" />
+
+  <!-- Key Technical Points -->
+  <h2 class="section-h2" data-reveal>Key Technical Points.</h2>
+
+  <div class="tech-grid" data-reveal data-reveal-delay="80">
+    <div class="tech-card">
+      <h3>Real Hardware Validation</h3>
+      <p>Unlike prior simulations, this model was deployed and evaluated on a physical ESP32 using the <em>EloquentTinyML</em> library — not emulation.</p>
+    </div>
+    <div class="tech-card">
+      <h3>Multi-Stage Fault Detection</h3>
+      <p>An FDR-based method with statistical features (RMS, Kurtosis, Peak) segments bearing health into three states: Healthy, Incipient, and Advanced.</p>
+    </div>
+    <div class="tech-card">
+      <h3>CPU-Cycle Latency Measurement</h3>
+      <p>Inference time measured directly on the microcontroller. Random Forest: 23.3 μs (5,592 cycles). Logistic Regression: 184 ns (44 cycles). Ultra-efficient real-time monitoring.</p>
+    </div>
+    <div class="tech-card">
+      <h3>Cascading Model Strategy</h3>
+      <p>Adaptive scheme: Random Forest in healthy state → switches to ultra-lightweight Logistic Regression once fault detected. Maximizes energy efficiency.</p>
+    </div>
+  </div>
+
+  <!-- Fig 1 -->
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(32px,5vh,56px) 0; box-shadow: 0 24px 60px -30px rgba(37,64,192,0.35);">
+    <img
+      src="/portfolio/images/case_fdr.webp"
+      alt="Fig 1. Statistical feature evolution and degradation stage segmentation based on the FDR framework"
+      loading="lazy"
+      decoding="async"
+      style="width:100%; height:auto; display:block;"
+    />
+    <div style="padding:16px 20px; background:#efe7d8; font:400 13px 'Hanken Grotesk',system-ui,sans-serif; color:#6f6a5f;">
+      <strong style="color:#211f1a;">Fig 1.</strong> Statistical feature evolution and degradation stage segmentation based on the FDR framework.
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Cognitive Stage Transition -->
+  <h2 class="section-h2" data-reveal>Cognitive Stage Transition.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="80">
+    Through the Fisher Discriminant Ratio (FDR) metric, the system mathematically distinguishes
+    when a defect is minor (Incipient) versus when it shows considerable mechanical degradation
+    (Advanced). FDR analysis shows a <strong style="color:#2540c0;">5.89× separability increase</strong> from
+    incipient to advanced stage.
+  </p>
+  <p class="prose" data-reveal data-reveal-delay="120">
+    Upon crossing this threshold, the system dynamically stops running the Random Forest (a
+    moderate battery consumer) and switches exclusively to Logistic Regression to continue
+    tracking the advanced fault at a much lower energy cost.
+  </p>
+
+  <!-- Stat callout -->
+  <div class="callout" data-reveal data-reveal-delay="160">
+    <div class="stat-highlight">126×</div>
+    <p style="margin: 8px 0 0; font-size:15px; color:#534f46; line-height:1.55;">
+      Faster inference — Logistic Regression (184 ns) vs Random Forest (23.3 μs)
+      on the Xtensa LX6 at 240 MHz.
+    </p>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Hardware Speedup -->
+  <h2 class="section-h2" data-reveal>Production Hardware Speedup.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="80">
+    Demonstrating software improvements in PC emulation is trivial. In this work, we iterated
+    by directly measuring CPU clock usage on the real Xtensa LX6 architecture.
+  </p>
+
+  <div class="callout" data-reveal data-reveal-delay="120">
+    <p class="prose" style="margin:0; color:#534f46;">
+      We avoided tools like <code class="inline-code">micros()</code> that inject overhead
+      in C++, and instead read the native hardware cycle-counter registers directly to ensure
+      nanosecond precision — mathematically validating why Logistic Regression represents the
+      optimal choice for passively powered remote IoT.
+    </p>
+  </div>
+
+  <!-- Latency figure -->
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(24px,4vh,40px) 0; box-shadow: 0 22px 50px -30px rgba(234,106,46,0.3);">
+    <img
+      src="/portfolio/images/case_latency.webp"
+      alt="Fig 2. Hardware latency benchmark: Logistic Regression achieves 126× faster inference than Random Forest on the ESP32"
+      loading="lazy"
+      decoding="async"
+      style="width:100%; height:auto; display:block;"
+    />
+    <div style="padding:16px 20px; background:#efe7d8; font:400 13px 'Hanken Grotesk',system-ui,sans-serif; color:#6f6a5f;">
+      <strong style="color:#211f1a;">Fig 2.</strong> Hardware latency benchmark: LR achieves 126× faster inference than RF on the ESP32.
+    </div>
+  </div>
+
+  <!-- PCA figure -->
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(24px,4vh,40px) 0; box-shadow: 0 24px 60px -30px rgba(37,64,192,0.3);">
+    <img
+      src="/portfolio/images/case_pca.webp"
+      alt="Fig 3. PCA analysis illustrating fault progression from Incipient to Advanced degradation stage"
+      loading="lazy"
+      decoding="async"
+      style="width:100%; height:auto; display:block;"
+    />
+    <div style="padding:16px 20px; background:#efe7d8; font:400 13px 'Hanken Grotesk',system-ui,sans-serif; color:#6f6a5f;">
+      <strong style="color:#211f1a;">Fig 3.</strong> PCA analysis illustrating fault progression from Incipient to Advanced degradation stage.
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Edge Insights: FPU Bug -->
+  <h2 class="section-h2" data-reveal>Edge Insight: FPU Hardware Issues.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="80">
+    During physical testing, the SVM model was disqualified due to catastrophic floating-point
+    precision errors on the ESP32 FPU, where precision loss in the
+    <code class="inline-code">expf()</code> instruction inverted valid decision boundaries.
+    This underscores the critical urgency of <strong style="color:#211f1a;">validating
+    benchmarks on the final hardware rather than relying solely on analytical simulations.</strong>
+  </p>
+
+  <hr class="divider" />
+
+  <!-- CTA -->
+  <div data-reveal style="text-align:center; padding: clamp(24px,4vh,40px) 0;">
+    <p style="font:600 12px 'Hanken Grotesk',system-ui,sans-serif; letter-spacing:0.14em; text-transform:uppercase; color:#6f6a5f; margin:0 0 16px;">
+      Manuscript Status
+    </p>
+    <p class="prose" style="text-align:center; max-width:48ch; margin: 0 auto 24px;">
+      Accepted to IEEE CASE 2026; camera-ready manuscript submitted and registration fees paid.
+      Proceedings will be published via IEEE Xplore following the conference.
+    </p>
+    <span style="
+      display:inline-flex; align-items:center; gap:8px;
+      padding:14px 28px; border-radius:100px;
+      background:#2540c0; color:#f3ede1;
+      font:600 14px 'Hanken Grotesk',system-ui,sans-serif;
+    ">
+      Accepted — IEEE Xplore Publication Pending
+    </span>
+  </div>
+
+</ProjectLayout>

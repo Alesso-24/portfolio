@@ -1,0 +1,209 @@
+---
+import Base from './Base.astro'
+
+interface Props {
+  title: string
+  description: string
+  badge: string
+  coverImage: string
+  coverAlt: string
+  meta?: { label: string; value: string }[]
+  backHref?: string
+  ogImage?: string
+}
+
+const {
+  title,
+  description,
+  badge,
+  coverImage,
+  coverAlt,
+  meta = [],
+  backHref = '/portfolio/',
+  ogImage,
+} = Astro.props
+---
+
+<Base
+  title={`${title} — Alessandro Reyes`}
+  description={description}
+  ogImage={ogImage}
+  canonical={`https://alesso-24.github.io${Astro.url.pathname}`}
+>
+  <!-- Project hero header -->
+  <article>
+    <header style="
+      padding: clamp(120px,18vh,180px) clamp(20px,4vw,60px) clamp(48px,7vh,80px);
+      max-width: 1280px; margin: 0 auto;
+    ">
+
+      <!-- Back link -->
+      <a href={backHref} class="back-link">
+        ← Back to Home
+      </a>
+
+      <!-- Badge -->
+      <div
+        data-reveal
+        style="
+          display: flex; align-items: center; gap: 12px;
+          font: 600 12px 'Hanken Grotesk', system-ui, sans-serif;
+          letter-spacing: 0.16em; text-transform: uppercase;
+          color: #6f6a5f; margin-bottom: clamp(20px, 3vh, 32px);
+        "
+      >
+        <span style="width:9px; height:9px; border-radius:50%; background:#ea6a2e; flex-shrink:0;"></span>
+        {badge}
+      </div>
+
+      <!-- Title -->
+      <h1
+        data-reveal
+        data-reveal-delay="80"
+        style="
+          margin: 0 0 clamp(28px, 4vh, 48px);
+          font-family: 'Instrument Serif', serif; font-weight: 400;
+          font-size: clamp(28px, 4.2vw, 64px); line-height: 1.06;
+          letter-spacing: -0.01em; max-width: 20ch;
+          color: #211f1a;
+        "
+      >
+        {title}
+      </h1>
+
+      <!-- Meta row -->
+      {meta.length > 0 && (
+        <div
+          data-reveal
+          data-reveal-delay="160"
+          style="
+            display: flex; flex-wrap: wrap; gap: clamp(24px, 3vw, 48px);
+            border-top: 1px solid rgba(33,31,26,0.1);
+            padding-top: clamp(20px, 3vh, 32px);
+          "
+        >
+          {meta.map(({ label, value }) => (
+            <div>
+              <div style="font: 600 10px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: #6f6a5f; margin-bottom: 6px;">
+                {label}
+              </div>
+              <div style="font: 400 15px 'Hanken Grotesk', system-ui, sans-serif; color: #211f1a;" set:html={value} />
+            </div>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Cover image -->
+    <div
+      data-reveal
+      style="
+        margin: 0 clamp(20px,4vw,60px) clamp(48px,7vh,80px);
+        border-radius: 18px; overflow: hidden;
+        box-shadow: 0 32px 80px -30px rgba(33,31,26,0.18);
+      "
+    >
+      <img
+        src={coverImage}
+        alt={coverAlt}
+        loading="eager"
+        decoding="async"
+        style="width: 100%; height: auto; display: block; aspect-ratio: 16/9; object-fit: cover;"
+      />
+    </div>
+
+    <!-- Page content -->
+    <div style="
+      max-width: 860px; margin: 0 auto;
+      padding: 0 clamp(20px,4vw,60px) clamp(80px,12vh,140px);
+    ">
+      <slot />
+    </div>
+  </article>
+</Base>
+
+<style>
+  /* Back navigation link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 12px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6f6a5f;
+    text-decoration: none;
+    margin-bottom: clamp(32px, 5vh, 56px);
+    transition: color 0.2s;
+  }
+  .back-link:hover   { color: #ea6a2e; }
+  .back-link:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; border-radius: 4px; }
+
+  /* Prose styles for project detail content */
+  h2.section-h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(22px, 2.8vw, 36px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #211f1a;
+    margin: clamp(48px, 7vh, 72px) 0 clamp(16px, 2vh, 24px);
+  }
+  p.prose {
+    font-size: clamp(15px, 1.3vw, 17px);
+    line-height: 1.65;
+    color: #534f46;
+    margin: 0 0 20px;
+  }
+  .callout {
+    background: #efe7d8;
+    border-radius: 12px;
+    padding: clamp(20px, 3vw, 32px);
+    margin: clamp(24px, 4vh, 40px) 0;
+  }
+  .callout p { margin: 0; }
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(16px, 2vw, 24px);
+    margin: clamp(24px, 4vh, 40px) 0;
+  }
+  .tech-card {
+    background: #efe7d8;
+    border-radius: 12px;
+    padding: clamp(20px, 2.5vw, 28px);
+  }
+  .tech-card h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(18px, 1.6vw, 22px);
+    color: #211f1a;
+    margin: 0 0 10px;
+  }
+  .tech-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #534f46;
+    margin: 0;
+  }
+  .stat-highlight {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1;
+    color: #2540c0;
+    letter-spacing: -0.02em;
+  }
+  .inline-code {
+    font-family: ui-monospace, 'Cascadia Code', monospace;
+    font-size: 0.88em;
+    background: rgba(37, 64, 192, 0.08);
+    color: #2540c0;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(33,31,26,0.1);
+    margin: clamp(40px, 6vh, 64px) 0;
+  }
+</style>
