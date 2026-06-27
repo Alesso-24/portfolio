@@ -1,9 +1,28 @@
-# PLAN — Redesign del portfolio · Astro 5 + stack premium
+# PLAN — Redesign del portfolio · Astro 7 + stack premium
+
+## ⚡ Para retomar en una nueva sesión de Claude
+
+**Di exactamente esto al abrir Claude Code:**
+> "Lee PLAN.md y continúa desde el próximo paso pendiente en la rama redesign."
+
+**Contexto crítico:**
+- Rama activa: `redesign` (NO toques `main` hasta la Fase 10)
+- El sitio actual en producción sigue siendo el build anterior (main). La rama `redesign` aún no se ha mergeado.
+- Build funciona: `npm run build` genera `dist/` sin errores
+- Último commit en redesign: `b2f84b7` — "feat: fase 1 — migración a Astro 7 + stack premium completo"
+
+---
 
 ## Estado actual
-- Fase en curso: **Fase 1 — Scaffold Astro 5 (EN PROGRESO)**
-- Último paso completado: Fase 0 — auditoría + inventario
-- 👉 Próximo paso: instalar dependencias y verificar build
+- Fase en curso: **Fase 8 — Páginas de detalle de proyecto**
+- Último paso completado: ✅ Fase 1 — scaffold completo (Astro 7, todos los componentes de la homepage, build limpio)
+- 👉 **Próximo paso exacto:** Crear las 4 páginas de detalle en `src/pages/project/`:
+  1. `larc-2025.astro` — LARC 2025 / Tracky robot
+  2. `fault-detection-case.astro` — IEEE CASE 2026
+  3. `fault-detection.astro` — IEEE BDAI 2026
+  4. `self-balancing-platform.astro` — Self-Balancing Platform
+
+  Después de las páginas: Fase 9 (responsive + a11y) → Fase 10 (Lighthouse + deploy a main).
 
 ---
 
@@ -199,17 +218,28 @@ Alessandro.webp · case_fdr.webp · case_latency.webp · case_pca.webp · cover_
 
 ## Fases
 
-- [x] **Fase 0** — Auditoría + PLAN.md + rama `redesign`
-- [ ] **Fase 1** — Scaffold: Astro 5 + Tailwind 4 + GSAP + Lenis + tokens + fonts ← EN PROGRESO
-- [ ] **Fase 2** — Data layer: `src/data/` con todo el contenido tipado
-- [ ] **Fase 3** — Layout + Nav + Footer + scroll setup
-- [ ] **Fase 4** — Hero (aurora CSS + kinetic entry + parallax)
-- [ ] **Fase 5** — Marquee + About + Numbers (counter animado)
-- [ ] **Fase 6** — Work section (grid cards + image reveal + hover)
-- [ ] **Fase 7** — Research section + Contact (full-bleed azul + form React)
-- [ ] **Fase 8** — 4 páginas de detalle de proyecto rediseñadas
-- [ ] **Fase 9** — Responsive 320px–4K + accesibilidad + `prefers-reduced-motion`
-- [ ] **Fase 10** — Lighthouse ≥ 95, SEO, verificación en producción + merge a main
+- [x] **Fase 0** — Auditoría + PLAN.md + rama `redesign` · commit `671509a`
+- [x] **Fase 1** — Scaffold Astro 7 + Tailwind 4 + GSAP + Lenis + todos los componentes homepage · commit `b2f84b7`
+  - ✅ `astro.config.mjs`, `tsconfig.json`, `src/env.d.ts`
+  - ✅ `src/styles/global.css` — tokens + keyframes aurora/marquee/pulse/kin + reduced-motion
+  - ✅ `src/data/content.ts` — todo el contenido EN/ES en un solo archivo
+  - ✅ `src/layouts/Base.astro` — SEO, Lenis+GSAP script, scroll reveals, parallax, counters
+  - ✅ `src/components/layout/Nav.tsx` — isla React, avatar, pill pulsante, lang toggle, mobile menu
+  - ✅ `src/components/layout/Footer.astro`
+  - ✅ `src/components/sections/Hero.astro` — aurora, kinetic, parallax, CTAs
+  - ✅ `src/components/sections/Marquee.astro`
+  - ✅ `src/components/sections/About.astro`
+  - ✅ `src/components/sections/Numbers.astro` — counters animados
+  - ✅ `src/components/sections/Work.astro` — cards con sombras de color, hover
+  - ✅ `src/components/sections/Research.astro` — filas IEEE
+  - ✅ `src/components/sections/Contact.tsx` — isla React, full-bleed azul, form FormSubmit
+- [ ] **Fase 8** — 4 páginas de detalle ← **AQUÍ EMPIEZA LA PRÓXIMA SESIÓN**
+  - [ ] `src/pages/project/larc-2025.astro`
+  - [ ] `src/pages/project/fault-detection-case.astro`
+  - [ ] `src/pages/project/fault-detection.astro`
+  - [ ] `src/pages/project/self-balancing-platform.astro`
+- [ ] **Fase 9** — Responsive 320px–4K + accesibilidad + `prefers-reduced-motion` fino
+- [ ] **Fase 10** — Lighthouse ≥ 95, SEO final, verificación en producción, merge `redesign` → `main`
 
 ---
 
@@ -218,4 +248,4 @@ Alessandro.webp · case_fdr.webp · case_latency.webp · case_pca.webp · cover_
 | Fecha | Acción | Commit |
 |---|---|---|
 | 2026-06-27 | Fase 0: auditoría + PLAN.md + rama redesign | 671509a |
-| 2026-06-27 | Fase 1: scaffold Astro 5 | (pendiente) |
+| 2026-06-27 | Fase 1: scaffold Astro 7 completo — 9 secciones, data layer, Lenis+GSAP | b2f84b7 |
