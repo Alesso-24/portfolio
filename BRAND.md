@@ -115,9 +115,7 @@ bar" anchor stats — the rest live on the paper detail pages.
 
 **Copy rule:** always say "Accepted to IEEE CASE 2026 (Shenyang, China) —
 presenting remotely" / "Accepted to IEEE BDAI 2026 (Chongqing, China) —
-presenting remotely." Never imply physical travel/attendance. The current
-site's "Presentation: May 2026" on the BDAI page is wrong and must be fixed
-to July 3–5, 2026.
+presenting remotely." Never imply physical travel/attendance.
 
 ## Voice & tone
 
@@ -138,3 +136,26 @@ to July 3–5, 2026.
   already publishes hardware-validated results."
 - **Don't** oversell conference attendance as travel/in-person presence.
 - **Don't** mix legal name and brand name on the same line without context.
+
+---
+
+## Site status (updated 2026-06-27)
+
+**Stack:** Astro 7 + Tailwind CSS 4 + React 19 islands. Fully rebuilt from the original React+Vite version.
+
+**What's live and working:**
+- Bilingual EN/ES toggle (CSS-based, works on every section, button, badge, footer)
+- Hero with editorial split layout (text left, portrait right; stacks on mobile)
+- Project pages: LARC 2025, Self-Balancing Platform, Fault Detection (BDAI), Fault Detection (CASE)
+- YouTube embeds on LARC and Self-Balancing pages
+- IEEE "Accepted" badges on both research pages
+- GitHub button on LARC/Tracky page
+- Fully responsive — optimized from 320px to 1440px+
+- GitHub Actions CI/CD — auto-deploys on push to `main`
+- SEO: OG tags, JSON-LD, sitemap, robots.txt, llms.txt
+
+**Pending (planned for a future session):**
+- Update project body copy to use exact BRAND.md proof-point numbers (current text is narrative but not verbatim)
+- Add LARC 2025 GitHub repo link once published publicly
+- Update BDAI/CASE pages once papers are indexed on IEEE Xplore (~Sep–Nov 2026)
+- Consider a downloadable CV / resume page
