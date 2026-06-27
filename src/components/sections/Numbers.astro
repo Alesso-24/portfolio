@@ -1,6 +1,5 @@
 ---
 import { STATS } from '../../data/content'
-const lang = 'en'
 ---
 
 <section
@@ -30,10 +29,11 @@ const lang = 'en'
           >
             {stat.value}
           </div>
-          <!-- Label -->
+          <!-- Label (bilingual) -->
           <p style="margin:0; font-size:clamp(13px,1.1vw,15px); line-height:1.55;
                     color:#6f6a5f; max-width:22ch;">
-            {stat.label[lang]}
+            <span class="lang-en">{stat.label.en}</span>
+            <span class="lang-es">{stat.label.es}</span>
           </p>
         </div>
       ))}

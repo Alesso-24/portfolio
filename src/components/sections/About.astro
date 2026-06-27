@@ -1,7 +1,5 @@
 ---
 import { ABOUT } from '../../data/content'
-const lang = 'en'
-const h2 = ABOUT.h2[lang]
 ---
 
 <section
@@ -19,7 +17,8 @@ const h2 = ABOUT.h2[lang]
              display:flex; align-items:center; gap:12px;"
     >
       <span style="width:9px; height:9px; border-radius:50%; background:#ea6a2e; flex-shrink:0;"></span>
-      {ABOUT.label[lang]}
+      <span class="lang-en">{ABOUT.label.en}</span>
+      <span class="lang-es">{ABOUT.label.es}</span>
     </div>
 
     <div class="about-grid" style="display:grid; grid-template-columns:1fr; gap:clamp(34px,5vw,80px); align-items:end;">
@@ -29,31 +28,40 @@ const h2 = ABOUT.h2[lang]
         data-reveal
         style="margin:0;
                font-family:'Instrument Serif',serif; font-weight:400;
-               font-size:clamp(32px,4.8vw,72px); line-height:1.04;
+               font-size:clamp(28px,4.4vw,66px); line-height:1.04;
                letter-spacing:-0.01em; max-width:18ch;"
       >
-        {h2.plain} <em style="font-style:italic; color:#2540c0;">{h2.italic}</em> {h2.end}
+        <span class="lang-en">{ABOUT.h2.en.plain} <em style="font-style:italic; color:#2540c0;">{ABOUT.h2.en.italic}</em> {ABOUT.h2.en.end}</span>
+        <span class="lang-es">{ABOUT.h2.es.plain} <em style="font-style:italic; color:#2540c0;">{ABOUT.h2.es.italic}</em> {ABOUT.h2.es.end}</span>
       </h2>
 
       <!-- Bio + availability -->
       <div class="about-bio" data-reveal data-reveal-delay="120" style="max-width:480px;">
-        {ABOUT.bio[lang].map((p) => (
-          <p style="margin:0 0 20px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#534f46;">{p}</p>
-        ))}
+        <div class="lang-en">
+          {ABOUT.bio.en.map((p) => (
+            <p style="margin:0 0 20px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#534f46;">{p}</p>
+          ))}
+        </div>
+        <div class="lang-es">
+          {ABOUT.bio.es.map((p) => (
+            <p style="margin:0 0 20px; font-size:clamp(15px,1.3vw,17px); line-height:1.6; color:#534f46;">{p}</p>
+          ))}
+        </div>
 
         <p style="margin:24px 0 0; font:600 12px 'Hanken Grotesk',system-ui,sans-serif;
                   letter-spacing:0.12em; text-transform:uppercase; color:#6f6a5f;">
-          {ABOUT.availability[lang]}
+          <span class="lang-en">{ABOUT.availability.en}</span>
+          <span class="lang-es">{ABOUT.availability.es}</span>
         </p>
       </div>
 
     </div>
   </div>
+</section>
+
 <style>
   @media (min-width: 900px) {
     .about-grid { grid-template-columns: 1fr 1fr !important; }
     .about-bio  { justify-self: end; }
   }
 </style>
-
-</section>

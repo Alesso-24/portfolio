@@ -1,13 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CONTACT, SITE } from '../../data/content'
 import { Github, Linkedin } from 'lucide-react'
 
 interface Props { lang?: 'en' | 'es' }
 
-export default function Contact({ lang = 'en' }: Props) {
+export default function Contact({ lang: initialLang = 'en' }: Props) {
   const t = CONTACT
+  const [lang, setLang] = useState<'en' | 'es'>(initialLang)
   const [form, setForm] = useState({ name: '', email: '', message: '', _honey: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+
+  // Sync with Nav language toggle
+  useEffect(() => {
+    const onLangChange = (e: Event) => setLang((e as CustomEvent<'en' | 'es'>).detail)
+    window.addEventListener('lang-change', onLangChange)
+    return () => window.removeEventListener('lang-change', onLangChange)
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })

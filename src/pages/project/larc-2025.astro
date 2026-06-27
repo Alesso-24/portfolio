@@ -3,124 +3,138 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 ---
 
 <ProjectLayout
-  badge="Competitive Robotics / October 2025"
-  title="LARC 2025 at Tec de Monterrey. The Tracky Project."
+  badge="Competitive Robotics · October 2025"
+  title="LARC 2025 — Tec de Monterrey. The Tracky Project."
   description="Built and raced a custom ESP32-C6 line-follower robot that recovers from 90° turns in milliseconds — engineered under real competition pressure at LARC 2025."
   coverImage="/portfolio/images/larc_arena.webp"
   coverAlt="Tracky robot racing at LARC 2025 arena, Tec de Monterrey"
   ogImage="https://alesso-24.github.io/portfolio/images/larc_arena.webp"
   meta={[
-    { label: 'Role',  value: 'Hardware Lead & Software Co-Dev' },
-    { label: 'Venue', value: 'Tec de Monterrey, N.L., Mexico' },
-    { label: 'Event', value: 'LARC 2025 — TIR Line Follower Category' },
-    { label: 'Date',  value: 'October 2025' },
+    { label: 'Role',     value: 'Hardware Lead & Software Co-Dev' },
+    { label: 'Venue',    value: 'Tec de Monterrey, N.L., Mexico' },
+    { label: 'Event',    value: 'LARC 2025 — TIR Line Follower' },
+    { label: 'Hardware', value: 'ESP32-C6 · IR Array · TB6612FNG' },
+    { label: 'Software', value: 'C++ · PID Control · Python · BLE' },
   ]}
+  githubHref="https://github.com/Alesso-24/Tracky"
+  githubLabel="View Tracky on GitHub"
 >
 
-  <!-- Section 1: The Competition -->
-  <h2 class="section-h2" data-reveal>The Competition Experience.</h2>
+  <!-- Pull quote -->
+  <blockquote class="pull-quote" data-reveal>
+    <p>"Real engineering under fire — where theoretical math meets physical reality, and your code either holds the line or crashes out."</p>
+  </blockquote>
 
-  <p class="prose" data-reveal data-reveal-delay="80">
-    Building hardware is one thing; making it survive a chaotic, high-stakes arena is another.
-    At the 25th Latin American Robotics Competition (LARC) in Nuevo León, we put our engineering
-    to the ultimate test. Facing off against top universities across Latin America in the TIR
-    Line Follower category, we deployed our custom ESP32-C6 robot, Tracky, into a fiercely
-    contested race where every millisecond mattered.
+  <hr class="divider" />
+
+  <!-- Demo Video -->
+  <h2 class="section-h2" data-reveal>Watch Tracky Race.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    One competition heat. A robot that has to think faster than the track curves.
+    Watch the Inertial Recovery protocol activate on the 90° corners in real-time.
   </p>
 
-  <p class="prose" data-reveal data-reveal-delay="120">
-    LARC 2025 wasn't just a showcase; it was an absolute proving ground. Held at the
-    Tecnológico de Monterrey in Nuevo León, the environment was intense — filled with the smell
-    of fresh solder, the high-pitch whine of racing servos, and teams pushing their hardware to
-    the breaking point.
-  </p>
-
-  <p class="prose" data-reveal data-reveal-delay="160">
-    As a two-person team, agility was our best weapon. We were debugging C++ memory leaks on
-    the fly, fighting BLE interference, and constantly recalibrating the IR arrays to match the
-    arena's changing ambient light. It was real engineering under fire — where theoretical math
-    meets physical reality, and your code either holds the line or crashes out.
-  </p>
-
-  <!-- Team photo -->
-  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(32px,5vh,56px) 0; box-shadow: 0 22px 50px -30px rgba(234,106,46,0.35);">
-    <img
-      src="/portfolio/images/larc_team.webp"
-      alt="Alessandro and teammate at LARC 2025"
+  <div data-reveal data-reveal-delay="100" class="video-embed">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/LlpaLHTaqiQ"
+      title="Tracky LARC 2025 — Line Follower Race Demo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
       loading="lazy"
-      decoding="async"
-      style="width:100%; height:auto; display:block;"
-    />
+    ></iframe>
   </div>
 
   <hr class="divider" />
 
-  <!-- Section 2: Engineering -->
-  <h2 class="section-h2" data-reveal>Engineering Tracky for Performance.</h2>
+  <h2 class="section-h2" data-reveal>The Competition Experience.</h2>
 
-  <p class="prose" data-reveal data-reveal-delay="80">
-    Tracky is built on low inertia and extreme processing speed. We ditched the standard Arduino
-    loops and leveraged the ESP32-C6 (RISC-V core), implementing an RTOS-like architecture that
-    guarantees our control loop fires instantly, making the robot hunt the line instead of just
+  <p class="prose" data-reveal data-reveal-delay="60">
+    At the 25th Latin American Robotics Competition (LARC) in Nuevo León, we put our engineering
+    to the ultimate test — facing top universities across Latin America in the TIR
+    Line Follower category. Every millisecond counted, every heat was final.
+  </p>
+  <p class="prose" data-reveal data-reveal-delay="100">
+    The environment was intense: the smell of fresh solder, high-pitch servo whines, teams
+    pushing hardware to the breaking point. We were debugging C++ memory leaks on the fly,
+    fighting BLE interference from neighboring robots, and constantly recalibrating
+    IR arrays against the arena's shifting ambient light.
+  </p>
+
+  <div data-reveal data-reveal-delay="140" style="border-radius:18px; overflow:hidden; margin: clamp(28px,4vh,48px) 0; box-shadow: 0 22px 50px -30px rgba(234,106,46,0.35);">
+    <img src="/portfolio/images/larc_team.webp" alt="Alessandro and teammate at LARC 2025"
+         loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>Engineering for Performance.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    Tracky runs on the ESP32-C6 (RISC-V core), executing an RTOS-like control loop that
+    guarantees microsecond response times — making the robot hunt the line instead of just
     following it.
   </p>
 
-  <!-- Tech cards -->
-  <div class="tech-grid" data-reveal data-reveal-delay="120">
+  <div class="tech-grid" data-reveal data-reveal-delay="100">
     <div class="tech-card">
+      <div class="tech-num">01</div>
       <h3>Inertial Recovery</h3>
-      <p>
-        Most line followers fail catastrophically on sharp 90° bends. We coded a Pure Inertial
-        Recovery protocol: if all 8 IR sensors hit white, Tracky instantly pulls the derivative
-        vector of its last known position and spins aggressively in that direction until it
-        catches the track again.
-      </p>
+      <p>If all 8 IR sensors hit white, Tracky pulls the derivative vector of its last known
+      position and spins aggressively back — zero freeze, millisecond execution.</p>
     </div>
     <div class="tech-card">
+      <div class="tech-num">02</div>
       <h3>Strat-Profiles</h3>
-      <p>
-        Reflashing code between heats is a rookie mistake. We wired physical DIP switches on
-        the chassis to hot-swap between pre-calibrated PID profiles: Slow Test (Purple),
-        Balanced (Blue), Aggressive (Red), and a High-Damping Mode (Green) for zig-zag sections.
-      </p>
+      <p>Physical DIP switches hot-swap between pre-calibrated PID profiles (Slow/Balanced/
+      Aggressive/High-Damping) — no reflashing between heats, ever.</p>
     </div>
     <div class="tech-card">
+      <div class="tech-num">03</div>
       <h3>BLE Auto-Healing</h3>
-      <p>
-        We built a real-time BLE dashboard in Python as a wireless "Optical Viewfinder" to tune
-        PID parameters live. If the connection dropped due to arena interference, Tracky's
-        Auto-Healing routine ignored the drop and continued the race autonomously.
-      </p>
+      <p>Python dashboard for live PID tuning over BLE. If the connection drops from arena
+      interference, the robot continues autonomously at last known parameters.</p>
     </div>
   </div>
 
-  <hr class="divider" />
-
-  <!-- Section 3: Hardware -->
-  <h2 class="section-h2" data-reveal>Hardware Integration.</h2>
-
-  <div data-reveal data-reveal-delay="80" style="display:flex; flex-direction:column; gap:16px;">
-    {[
-      'Swapped out inferior motor drivers to handle high-current burst maneuvers, ensuring the motors received clean PWM signals during aggressive cornering.',
-      'Orchestrated a multiplexing circuit to poll all 8 phototransistors at lightning speed, feeding the PID error calculator with millimeter-perfect coordinates.',
-      'ESP32-C6 served as the core brain, running concurrent RTOS-like logic to manage BLE telemetry, sensor polling, and kinematic math without blocking the main control loop.',
-    ].map((item, i) => (
-      <div style="display:flex; gap:16px; align-items:flex-start;">
-        <span style="font-family:'Instrument Serif',serif; font-size:22px; color:#ea6a2e; flex-shrink:0; line-height:1.4;">{String(i + 1).padStart(2, '0')}</span>
-        <p style="margin:0; font-size:clamp(14px,1.2vw,16px); line-height:1.65; color:#534f46;">{item}</p>
-      </div>
-    ))}
-  </div>
-
-  <!-- Robot full photo -->
-  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(32px,5vh,56px) 0; box-shadow: 0 24px 60px -30px rgba(37,64,192,0.35);">
-    <img
-      src="/portfolio/images/robot_full.webp"
-      alt="Tracky line follower robot full view"
-      loading="lazy"
-      decoding="async"
-      style="width:100%; height:auto; display:block;"
-    />
+  <div data-reveal style="border-radius:18px; overflow:hidden; margin: clamp(28px,4vh,48px) 0; box-shadow: 0 24px 60px -30px rgba(37,64,192,0.35);">
+    <img src="/portfolio/images/robot_full.webp" alt="Tracky line follower robot — full hardware view"
+         loading="lazy" decoding="async" style="width:100%; height:auto; display:block;" />
   </div>
 
 </ProjectLayout>
+
+<style>
+  .pull-quote {
+    border-left: 3px solid #ea6a2e;
+    margin: clamp(32px,5vh,56px) 0;
+    padding: clamp(16px,2.5vw,24px) clamp(20px,3vw,32px);
+    background: #efe7d8;
+    border-radius: 0 12px 12px 0;
+  }
+  .pull-quote p {
+    margin: 0;
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(17px, 1.9vw, 24px);
+    line-height: 1.4;
+    color: #211f1a;
+    font-style: italic;
+  }
+  .video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px -28px rgba(37,64,192,0.35);
+    margin: clamp(20px,3vh,32px) 0 clamp(32px,5vh,56px);
+    background: #211f1a;
+  }
+  .video-embed iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+  }
+  .tech-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px; color: #ea6a2e; line-height: 1;
+    margin-bottom: 12px; letter-spacing: -0.02em;
+  }
+</style>

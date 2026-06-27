@@ -158,6 +158,15 @@ body { margin: 0; overflow-x: hidden; }
   gap: 12px;
 }
 
+/* ─── i18n language switching ────────────────────────── */
+/* Default = English; toggle html[lang="es"] to show Spanish */
+.lang-es { display: none !important; }
+html[lang="es"] .lang-en { display: none !important; }
+html[lang="es"] .lang-es { display: block !important; }
+html[lang="es"] span.lang-es,
+html[lang="es"] em.lang-es,
+html[lang="es"] a.lang-es { display: inline !important; }
+
 /* ─── Lenis scroll ───────────────────────────────────── */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

@@ -32,6 +32,13 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
     el?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const toggleLang = () => {
+    const next = lang === 'en' ? 'es' : 'en'
+    setLang(next)
+    document.documentElement.lang = next
+    window.dispatchEvent(new CustomEvent('lang-change', { detail: next }))
+  }
+
   return (
     <>
       <header
@@ -101,12 +108,12 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               width: 7, height: 7, borderRadius: '50%', background: '#ea6a2e',
               animation: 'ar-pulse 1.8s infinite', flexShrink: 0,
             }} />
-            {lang === 'en' ? 'Open to Summer 2026' : 'Disponible Verano 2026'}
+            {lang === 'en' ? 'Hire me' : 'Contrátame'}
           </a>
 
           {/* Language toggle */}
           <button
-            onClick={() => setLang(l => l === 'en' ? 'es' : 'en')}
+            onClick={toggleLang}
             title="Toggle Language"
             style={{
               display: 'flex', alignItems: 'center', gap: 4,

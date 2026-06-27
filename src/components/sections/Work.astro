@@ -1,6 +1,5 @@
 ---
 import { PROJECTS } from '../../data/content'
-const lang = 'en'
 const [featured, ...rest] = PROJECTS
 ---
 
@@ -19,7 +18,8 @@ const [featured, ...rest] = PROJECTS
                display:flex; align-items:center; gap:12px; margin-bottom:20px;"
       >
         <span style="width:9px; height:9px; border-radius:50%; background:#ea6a2e; flex-shrink:0;"></span>
-        {lang === 'en' ? 'Selected Work' : 'Trabajo Seleccionado'}
+        <span class="lang-en">Selected Work</span>
+        <span class="lang-es">Trabajo Seleccionado</span>
       </div>
       <h2
         data-reveal
@@ -29,7 +29,8 @@ const [featured, ...rest] = PROJECTS
                font-size:clamp(32px,5vw,80px); line-height:0.98;
                letter-spacing:-0.01em;"
       >
-        {lang === 'en' ? <>Projects & <em style="font-style:italic; color:#ea6a2e;">real systems</em></> : <>Proyectos & <em style="font-style:italic; color:#ea6a2e;">sistemas reales</em></>}
+        <span class="lang-en">Projects & <em style="font-style:italic; color:#ea6a2e;">real systems</em></span>
+        <span class="lang-es">Proyectos & <em style="font-style:italic; color:#ea6a2e;">sistemas reales</em></span>
       </h2>
     </div>
 
@@ -59,17 +60,20 @@ const [featured, ...rest] = PROJECTS
         <div style="font:600 11px 'Hanken Grotesk',system-ui,sans-serif;
                     letter-spacing:0.14em; text-transform:uppercase; color:#6f6a5f;
                     margin-bottom:12px;">
-          {featured.tag[lang]}
+          <span class="lang-en">{featured.tag.en}</span>
+          <span class="lang-es">{featured.tag.es}</span>
         </div>
         <h3 style="margin:0 0 12px;
                    font-family:'Instrument Serif',serif; font-weight:400;
                    font-size:clamp(22px,2.4vw,36px); line-height:1.1;
                    color:#211f1a;">
-          {featured.title[lang]}
+          <span class="lang-en">{featured.title.en}</span>
+          <span class="lang-es">{featured.title.es}</span>
         </h3>
         <p style="margin:0; font-size:clamp(14px,1.2vw,16px); line-height:1.55;
                   color:#534f46; max-width:60ch;">
-          {featured.description[lang]}
+          <span class="lang-en">{featured.description.en}</span>
+          <span class="lang-es">{featured.description.es}</span>
         </p>
       </div>
     </a>
@@ -105,17 +109,20 @@ const [featured, ...rest] = PROJECTS
             <div style="font:600 11px 'Hanken Grotesk',system-ui,sans-serif;
                         letter-spacing:0.14em; text-transform:uppercase; color:#6f6a5f;
                         margin-bottom:10px;">
-              {project.tag[lang]}
+              <span class="lang-en">{project.tag.en}</span>
+              <span class="lang-es">{project.tag.es}</span>
             </div>
             <h3 style="margin:0 0 10px;
                        font-family:'Instrument Serif',serif; font-weight:400;
                        font-size:clamp(18px,1.8vw,26px); line-height:1.15;
                        color:#211f1a;">
-              {project.title[lang]}
+              <span class="lang-en">{project.title.en}</span>
+              <span class="lang-es">{project.title.es}</span>
             </h3>
             <p style="margin:0; font-size:clamp(13px,1.1vw,15px); line-height:1.55;
                       color:#534f46;">
-              {project.description[lang]}
+              <span class="lang-en">{project.description.en}</span>
+              <span class="lang-es">{project.description.es}</span>
             </p>
           </div>
         </a>
