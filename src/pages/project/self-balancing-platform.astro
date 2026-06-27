@@ -1,0 +1,117 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro'
+---
+
+<ProjectLayout
+  badge="Robotics & Control Systems"
+  title="Self-Balancing Platform with Computer Vision."
+  description="Real-time computer vision and inverse kinematics keep a rolling ball balanced on a moving plate — predicting trajectory even when a camera frame drops."
+  coverImage="/portfolio/images/plat1.webp"
+  coverAlt="Self-balancing platform with computer vision — full system view"
+  ogImage="https://alesso-24.github.io/portfolio/images/plat1.webp"
+  meta={[
+    { label: 'Role',     value: 'Mechatronics Engineer' },
+    { label: 'Timeline', value: 'December 2025' },
+    { label: 'Stack',    value: 'Python · OpenCV · ESP32 · C++ · PID · Inverse Kinematics' },
+    { label: 'Tools',    value: 'CATIA V5 · 3D Printing (PLA) · Laser-cut MDF' },
+  ]}
+>
+
+  <!-- Description -->
+  <p class="prose" data-reveal style="font-size:clamp(16px,1.5vw,19px); color:#534f46; margin: clamp(24px,4vh,40px) 0;">
+    A mechatronic system designed to continuously balance a rubber ball on a flat plane. By
+    integrating Python-based OpenCV computer vision with an ESP32 microcontroller, the system
+    calculates the trajectory of the ball and actuates three servomotors in real-time to
+    maintain equilibrium.
+  </p>
+
+  <hr class="divider" />
+
+  <!-- The Objective -->
+  <h2 class="section-h2" data-reveal>The Objective.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="80">
+    The primary goal was to successfully balance a dynamic object (a rubber ball) on a flat,
+    moving surface. This required a multidisciplinary approach encompassing mechanical design
+    for stability, electronic integration, and complex control algorithms to ensure rapid and
+    accurate responsiveness.
+  </p>
+  <p class="prose" data-reveal data-reveal-delay="120">
+    We utilized computer-aided design (CATIA V5) to model the articulators and 3D printing
+    (PLA) alongside laser-cut MDF to construct the physical base, verifying that the physical
+    tolerances could handle rapid servo actuation without structural failure.
+  </p>
+
+  <!-- Platform photos grid -->
+  <div data-reveal data-reveal-delay="160" style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,1.5vw,20px); margin: clamp(32px,5vh,56px) 0;">
+    <div style="border-radius:14px; overflow:hidden; box-shadow:0 22px 50px -30px rgba(234,106,46,0.3);">
+      <img src="/portfolio/images/plat2.webp" alt="Self-balancing platform — detail view" loading="lazy" decoding="async" style="width:100%; height:auto; display:block; aspect-ratio:4/3; object-fit:cover;" />
+    </div>
+    <div style="border-radius:14px; overflow:hidden; box-shadow:0 24px 60px -30px rgba(37,64,192,0.3);">
+      <img src="/portfolio/images/plat3.webp" alt="Self-balancing platform — servo actuation" loading="lazy" decoding="async" style="width:100%; height:auto; display:block; aspect-ratio:4/3; object-fit:cover;" />
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- System Architecture -->
+  <h2 class="section-h2" data-reveal>System Architecture.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="80">
+    The intelligence of the system is split into two main components: a Python-based Vision &
+    Control Hub, and an ESP32 embedded execution unit.
+  </p>
+
+  <div class="tech-grid" data-reveal data-reveal-delay="120">
+    <div class="tech-card">
+      <h3>Computer Vision</h3>
+      <p>
+        Using a camera and OpenCV, the system tracks a dynamic "blob" (the ball) across the
+        color spectrum via HSV isolation. It simultaneously detects the bounds of the MDF plate
+        to calculate relative positioning coordinates.
+      </p>
+    </div>
+    <div class="tech-card">
+      <h3>PID Controller</h3>
+      <p>
+        A Proportional-Integral-Derivative equation computes the exact spatial error and
+        derivative speed to anticipate where the ball is heading, generating correction vectors
+        to slow it before it falls off the edge.
+      </p>
+    </div>
+    <div class="tech-card">
+      <h3>Bluetooth & Kinematics</h3>
+      <p>
+        Correction vectors are sent over Bluetooth Serial to the ESP32. A C++ script maps the
+        2D Cartesian corrections into a 3D inverse kinematic model, translating them into pulse
+        widths that command three MG996R servomotors to tilt the plane.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- The Result -->
+  <h2 class="section-h2" data-reveal>The Result.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="80">
+    By combining high-torque servos with an aggressively tuned PID controller, the platform
+    demonstrates stable, sustained equilibrium. The memory-vector system implemented in the
+    OpenCV pipeline ensures that even if a frame drops or lighting changes, the platform
+    predicts the last known trajectory, providing incredible robustness against physical
+    disturbances.
+  </p>
+
+  <!-- Highlight callout -->
+  <div class="callout" data-reveal data-reveal-delay="120">
+    <p style="font:600 12px 'Hanken Grotesk',system-ui,sans-serif; letter-spacing:0.14em; text-transform:uppercase; color:#6f6a5f; margin:0 0 12px;">
+      Key Achievement
+    </p>
+    <p style="margin:0; font-size:clamp(14px,1.2vw,16px); line-height:1.65; color:#534f46;">
+      The system maintains balance even when camera frames drop — the OpenCV memory-vector
+      predicts the ball's last known trajectory, decoupling the control loop from vision
+      reliability. No dropped frame = no dropped ball.
+    </p>
+  </div>
+
+</ProjectLayout>
