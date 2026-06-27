@@ -1,147 +1,215 @@
-# PLAN — Migración del portfolio al nuevo diseño
+# PLAN — Redesign del portfolio · Astro 5 + stack premium
 
 ## Estado actual
-- Fase en curso: **Fase 0 completada — esperando aprobación**
-- Último paso completado: Auditoría + inventario de contenido + creación de PLAN.md
-- 👉 Próximo paso: Aprobación del plan → Fase 1 (tokens, fuentes, estructura base)
+- Fase en curso: **Fase 1 — Scaffold Astro 5 (EN PROGRESO)**
+- Último paso completado: Fase 0 — auditoría + inventario
+- 👉 Próximo paso: instalar dependencias y verificar build
 
 ---
 
-## Decisiones técnicas
+## Stack definitivo (best-in-class 2026)
 
-| Decisión | Elección | Razón |
+| Capa | Tecnología | Razón |
 |---|---|---|
-| Stack | **React 19 + Vite 7 + Tailwind CSS 4 + GSAP 3 + Lenis + Framer Motion 12** | Ya instalado; el brief dice "si hay stack montado, respétalo". Coincide con la alternativa válida del brief. |
-| Fuentes | **Instrument Serif** (ya instalado) + **Hanken Grotesk** (agregar) | Especificadas en el brief. Self-host via Fontsource. |
-| Animaciones | **GSAP + ScrollTrigger** para reveals/parallax · **Framer Motion** para transiciones de UI · **Lenis** para smooth scroll | Ya instalados. |
-| Aurora | **CSS puro** (radial-gradients + blur + @keyframes) | Brief lo especifica, sin WebGL. |
-| i18n (EN/ES) | **Conservar** | Feature del sitio actual no en la referencia, pero tiene valor real. |
-| Páginas de detalle | **Conservar y rediseñar** | 4 páginas de proyecto existentes (/project/*). |
-| Base path Pages | `/portfolio/` | GitHub Pages project site, igual que ahora. |
-| Rama de trabajo | `redesign` | Creada. PRs a `main` al finalizar cada fase. |
+| Framework | **Astro 5** | Zero JS por defecto; isla React solo donde se necesita; Lighthouse 100 alcanzable; i18n + routing + image optimization nativos |
+| Estilos | **Tailwind CSS 4** | Config via CSS (`@theme`), sin archivo `.config.js`; tokens directos |
+| Scroll suave | **Lenis 1.3** | Estándar de la industria; sincroniza perfecto con ScrollTrigger |
+| Animaciones scroll | **GSAP 3 + ScrollTrigger** | Insuperable para reveals, parallax y timelines precisos |
+| Animaciones React | **Motion (Framer Motion) 12** | Islas React: nav móvil, magnetic buttons, form |
+| Tipografía | **Fontsource self-hosted** | Instrument Serif 400/italic + Hanken Grotesk 300–700 variable |
+| Iconos | **Lucide React** | Solo en islas React (nav, contact) |
+| TypeScript | **strict mode** | Content collections tipadas, seguridad en data layer |
+
+> React solo en islas interactivas: Nav, ContactForm, cursor. El resto es Astro puro.
 
 ---
 
-## Inventario de contenido
+## Tokens de diseño (del reference HTML — fuente de verdad)
+
+```css
+/* Colores */
+--cream:        #f3ede1   /* fondo principal */
+--cream-alt:    #efe7d8   /* marquee, Work */
+--ink:          #211f1a   /* texto principal */
+--muted:        #6f6a5f   /* labels */
+--muted-soft:   #534f46   /* párrafos */
+--hairline:     #8a8579   /* líneas, scroll hint */
+--blue:         #2540c0   /* marca, CTAs, Contact full-bleed */
+--orange:       #ea6a2e   /* acento, itálicas, dots */
+--on-blue:      #f3ede1   /* texto sobre azul */
+
+/* Radios */
+--radius-card: 18px
+--radius-pill: 100px
+
+/* Sombras coloreadas */
+shadow-blue:   0 24px 60px -30px rgba(37,64,192,.4)
+shadow-orange: 0 22px 50px -30px rgba(234,106,46,.4)
+```
+
+---
+
+## Animaciones (del reference HTML + awwwards-animations skill)
+
+### CSS nativo (sin JS, máximo rendimiento)
+| Nombre | Tipo | Timing | Uso |
+|---|---|---|---|
+| `ar-drift1` | translate+scale | 17s ease-in-out infinite | Blob azul aurora |
+| `ar-drift2` | translate+scale | 20s ease-in-out infinite | Blob naranja aurora |
+| `ar-drift3` | translate+scale | 23s ease-in-out infinite | Blob crema aurora |
+| `ar-marquee` | translateX(-50%) | 38s linear infinite | Marquee loop |
+| `ar-pulse` | opacity 1→0.3→1 | 1.8s infinite | Dot naranja en pill nav |
+| `ar-kin` | opacity+Y+blur | 1–1.05s cubic-bezier(0.16,1,0.3,1) | Entrada kinética hero |
+
+### GSAP + ScrollTrigger (scroll-driven)
+| Animación | Trigger | Valores | Fallback |
+|---|---|---|---|
+| `[data-reveal]` scroll reveal | IntersectionObserver threshold 0.12 | opacity 0→1, Y 34→0, 0.9s | `setTimeout` 4.5s fuerza visible |
+| Parallax hero text | scrub scroll | Y * 0.16, opacity fade | Desactivado en reduced-motion |
+| Parallax hero bg | scrub scroll | Y * 0.26, scale 1→1.04 | Desactivado en reduced-motion |
+| Number counter | once: true | `{val: 0}` → `{val: X}` gsap.to, onUpdate | Estado final visible |
+| Image reveal | once: true | clipPath inset(100%→0%) + scale 1.3→1 | Estado final visible |
+
+### Motion (React islands)
+| Componente | Técnica |
+|---|---|
+| Magnetic buttons | spring stiffness:150 damping:15 en hover |
+| Nav mobile menu | AnimatePresence + stagger delay |
+| Custom cursor | GSAP ticker + mix-blend-difference |
+
+### `prefers-reduced-motion: reduce`
+- `[data-kin]`: animation none, opacity 1, transform none, filter none
+- `[data-reveal]`: estado final visible inmediatamente
+- Lenis desactivado (scroll nativo)
+- GSAP ScrollTrigger duración 0
+
+---
+
+## Estructura de archivos (Astro 5)
+
+```
+src/
+├── components/
+│   ├── layout/
+│   │   ├── Nav.tsx             ← isla React (mobile menu, language toggle)
+│   │   └── Footer.astro
+│   ├── sections/
+│   │   ├── Hero.astro
+│   │   ├── Marquee.astro
+│   │   ├── About.astro
+│   │   ├── Numbers.astro
+│   │   ├── Work.astro
+│   │   ├── Research.astro
+│   │   └── Contact.tsx         ← isla React (formulario con estado)
+│   └── ui/
+│       ├── CustomCursor.tsx    ← isla React
+│       ├── MagneticButton.tsx  ← isla React
+│       └── RevealText.astro    ← animación de texto (solo class + data attr)
+├── data/
+│   ├── projects.ts             ← 4 proyectos tipados
+│   ├── publications.ts         ← 2 publicaciones IEEE
+│   ├── stats.ts                ← stats/numbers
+│   └── i18n.ts                 ← strings EN/ES
+├── layouts/
+│   └── Base.astro              ← head SEO + Nav + Footer + scripts
+├── pages/
+│   ├── index.astro
+│   └── project/
+│       ├── larc-2025.astro
+│       ├── fault-detection.astro
+│       ├── fault-detection-case.astro
+│       └── self-balancing-platform.astro
+└── styles/
+    └── global.css              ← @import tailwindcss, @theme tokens, CSS animations
+```
+
+---
+
+## Inventario de contenido (migrar de sitio actual)
 
 ### Nav
-| Elemento | Valor exacto | Sección nueva | ¿Migrado? |
-|---|---|---|---|
-| Logo | "ALESSANDRO." | Nav | [ ] |
-| Links | About · Projects · Contact | Nav | [ ] |
-| GitHub | github.com/Alesso-24 | Nav + Contact | [ ] |
-| LinkedIn | linkedin.com/in/alessandro-reyes-mtz/ | Nav + Contact | [ ] |
-| Instagram | @alessandro_reyesm | Nav | [ ] |
-| Language toggle | EN / ES | Nav | [ ] |
-| Status pill | "Open to Summer 2026" (pulsing dot) | Nav | [ ] |
+| Elemento | Valor | ¿Migrado? |
+|---|---|---|
+| Avatar | "A" (círculo azul, Instrument Serif) | [ ] |
+| Nombre | "Alessandro Reyes" | [ ] |
+| Links | Work · Research · About · Contact | [ ] |
+| Pill | "Open to Summer 2026" + dot naranja pulsante | [ ] |
+| GitHub | github.com/Alesso-24 | [ ] |
+| LinkedIn | linkedin.com/in/alessandro-reyes-mtz/ | [ ] |
+| Instagram | @alessandro_reyesm | [ ] |
+| Language toggle | EN / ES | [ ] |
 
 ### Hero
-| Elemento | Valor exacto | Sección nueva | ¿Migrado? |
-|---|---|---|---|
-| Label | "Mechatronics · Embedded AI · Robotics" | Hero | [ ] |
-| H1 | "Building AI that survives contact with real hardware." | Hero | [ ] |
-| Subtítulo | "AI and embedded systems that survive contact with real hardware — validated on the chip, not just in simulation." | Hero | [ ] |
-| CTA primario | "View work" → #projects | Hero | [ ] |
-| CTA secundario | "Get in touch" → #contact | Hero | [ ] |
-| Scroll hint | "Scroll to Explore" | Hero | [ ] |
-| Fondo | Aurora (CSS, 3 blobs radiales azul/naranja/crema) | Hero | [ ] |
+| Elemento | Valor | ¿Migrado? |
+|---|---|---|
+| Label | "Mechatronics · Embedded AI · Robotics" | [ ] |
+| H1 | "Building AI that survives contact with real hardware." | [ ] |
+| H1 itálica naranja | "real hardware." | [ ] |
+| Párrafo | "Mechatronics engineer crafting intelligent systems where software meets motors, sensors and microcontrollers — built to work in the real world." | [ ] |
+| CTA primario | "View work ↗" → #work | [ ] |
+| CTA secundario | "Get in touch" → #contact | [ ] |
+| Scroll hint | "Scroll" + línea vertical | [ ] |
+| Fondo | Aurora (3 blobs CSS) | [ ] |
 
 ### Stats / Numbers
-| Elemento | Valor exacto | Sección nueva | ¿Migrado? |
-|---|---|---|---|
-| Stat 1 | **126×** — "Faster inference, measured on real ESP32 hardware" | Numbers | [ ] |
-| Stat 2 | **99.85%** — "Accuracy with zero false positives" | Numbers | [ ] |
-| Stat 3 | **98.4%** — "Less energy than streaming to the cloud" | Numbers | [ ] |
-| Stat 4 | **2×** — IEEE author (CASE 2026 + BDAI 2026) | Numbers | [ ] |
-| Afiliaciones | IEEE · Tecnológico de Monterrey · IBERO Puebla · Universidad Veracruzana | Numbers/About | [ ] |
+| Elemento | Valor | ¿Migrado? |
+|---|---|---|
+| Stat 1 | **126×** "Faster inference, measured on real ESP32 hardware" | [ ] |
+| Stat 2 | **99.85%** "Accuracy with zero false positives" | [ ] |
+| Stat 3 | **98.4%** "Less energy than streaming to the cloud" | [ ] |
+| Stat 4 | **2×** "IEEE accepted papers (CASE 2026 + BDAI 2026)" | [ ] |
 
 ### About
-| Elemento | Valor exacto | Sección nueva | ¿Migrado? |
-|---|---|---|---|
-| Nombre | Alessandro Reyes | About | [ ] |
-| Bio p1 | "I am Alessandro Reyes, a Mechatronics Engineering student at IBERO Puebla. My work sits at the intersection of robust mechanical design, embedded systems, and applied artificial intelligence." | About | [ ] |
-| Bio p2 | "From deploying machine learning models on microcontrollers to architecting closed-loop control systems for competitive robotics, I build technology that works in the real world, not just in simulation." | About | [ ] |
-| Focus Areas | Intelligent Systems · Hardware Integration · Machine Learning · Control Systems | About | [ ] |
-| Disponibilidad | "Open to Summer 2026 internships & international research collaborations" | Nav pill + About | [ ] |
+| Elemento | Valor | ¿Migrado? |
+|---|---|---|
+| Label | "Who I am" | [ ] |
+| H2 | "I build AI that doesn't just run in a notebook — it runs on motors, sensors and microcontrollers, in the real world." | [ ] |
+| H2 itálica azul | "motors, sensors and microcontrollers," | [ ] |
+| Bio | Párrafos completos de en.json | [ ] |
+| Focus Areas | Intelligent Systems · Hardware Integration · Machine Learning · Control Systems | [ ] |
 
-### Work / Projects
-| Elemento | Descripción | Imagen | Sección nueva | ¿Migrado? |
+### Work (proyectos)
+| Proyecto | Tag | Imagen | Card | ¿Migrado? |
 |---|---|---|---|---|
-| LARC 2025 | "Tracky: High-Speed Line Follower Robot" — ESP32-C6, PID, BLE, LARC Competition | larc_arena.webp / larc_team.webp | Work (card grande) | [ ] |
-| IEEE CASE 2026 | "Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off" | cover_case.webp | Work (card) | [ ] |
-| IEEE BDAI 2026 | "Industrial Fault Detection via Machine Learning" — 99.85% acc, 0 FP | cover_bdai.webp | Work (card) | [ ] |
-| Self-Balancing Platform | "Self-Balancing Platform with Computer Vision" — ESP32 + OpenCV + IK | plat1/2/3.webp | Work (card) | [ ] |
+| LARC 2025 — Tracky | Robotics | larc_arena.webp | Grande 16:9 | [ ] |
+| IEEE CASE 2026 | Research | cover_case.webp | 4:3 | [ ] |
+| IEEE BDAI 2026 | Research | cover_bdai.webp | 4:3 | [ ] |
+| Self-Balancing Platform | Robotics / CV | plat1.webp | 4:3 | [ ] |
 
 ### Research / Publications
-| Elemento | Valor exacto | Sección nueva | ¿Migrado? |
+| Pub | Año | Venue | ¿Migrado? |
 |---|---|---|---|
-| Pub 1 | "Edge AI Decision Framework…" — IEEE CASE 2026 — Ago 17–21, 2026, Shenyang | Research | [ ] |
-| Pub 2 | "Comparative Evaluation of Lightweight Supervised ML…" — IEEE BDAI 2026 — Jul 3–5, 2026, Chongqing | Research | [ ] |
+| Edge AI Decision Framework... | 2026 | IEEE CASE 2026 | [ ] |
+| Comparative Evaluation of Lightweight ML... | 2026 | IEEE BDAI 2026 | [ ] |
 
 ### Contact
-| Elemento | Valor exacto | Sección nueva | ¿Migrado? |
-|---|---|---|---|
-| Email primario | jordi.reyes.martinez@gmail.com | Contact | [ ] |
-| CC (INTENCIONAL, no eliminar) | jordi.reyes@iberopuebla.mx | Contact | [ ] |
-| Ubicación | Puebla, Mexico | Contact | [ ] |
-| Formulario | FormSubmit.co AJAX, honeypot `_honey` | Contact | [ ] |
-
-### Assets / Imágenes
-| Archivo | Uso | ¿Migrado? |
+| Elemento | Valor | ¿Migrado? |
 |---|---|---|
-| Alessandro.webp | Foto de perfil (hero variante foto / about) | [ ] |
-| cover_case.webp | Card CASE 2026 | [ ] |
-| cover_bdai.webp | Card BDAI 2026 | [ ] |
-| larc_arena.webp | Card / detalle LARC 2025 | [ ] |
-| larc_team.webp | Detalle LARC 2025 | [ ] |
-| plat1/2/3.webp | Card / detalle Self-Balancing | [ ] |
-| project1.webp | Card / hero (a confirmar uso exacto) | [ ] |
-| robot_full.webp | Detalle LARC | [ ] |
-| case_fdr/latency/pca.webp | Detalle CASE 2026 | [ ] |
-| paper1/3/5/6.webp | Detalle BDAI 2026 | [ ] |
-| favicon.svg | Nav favicon | [ ] |
-| og-image.png | Open Graph | [ ] |
+| Email primario | jordi.reyes.martinez@gmail.com | [ ] |
+| CC (INTENCIONAL) | jordi.reyes@iberopuebla.mx | [ ] |
+| Ubicación | Puebla, Mexico | [ ] |
+| Formulario | FormSubmit.co AJAX + honeypot | [ ] |
+| GitHub CTA | github.com/Alesso-24 | [ ] |
+| LinkedIn CTA | linkedin.com/in/alessandro-reyes-mtz/ | [ ] |
 
-### Extra (en el viejo, NO en la referencia → conservar)
-| Elemento | Decisión |
-|---|---|
-| EN/ES language toggle | Conservar completo (LanguageContext + locales/) |
-| 4 páginas de detalle de proyecto (/project/*) | Conservar y rediseñar con tokens nuevos |
-| Instagram social link | Conservar en nav y menú móvil |
-| ProofBar con afiliaciones | Integrar en sección Numbers |
-| Tech Stack display | Integrar en About o eliminar (pendiente decisión) |
+### Imágenes (public/images/ — conservar todas)
+Alessandro.webp · case_fdr.webp · case_latency.webp · case_pca.webp · cover_bdai.webp · cover_case.webp · larc_arena.webp · larc_team.webp · paper1/3/5/6.webp · plat1/2/3.webp · project1.webp · robot_full.webp
 
 ---
 
 ## Fases
 
-- [x] **Fase 0** — Auditoría + PLAN.md + rama `redesign` + commit inicial
-- [ ] **Fase 1** — Tokens de diseño (colores, fuentes, escala tipográfica), instalar Hanken Grotesk, Tailwind config
-- [ ] **Fase 2** — Migración de contenido a data layer (`src/data/content.ts`)
-- [ ] **Fase 3** — Implementación del diseño por sección (Nav → Hero/Aurora → Marquee → About → Numbers → Work → Research → Contact → Footer)
-- [ ] **Fase 4** — Páginas de detalle rediseñadas + responsive (320px–4K) + accesibilidad + `prefers-reduced-motion`
-- [ ] **Fase 5** — Performance (Lighthouse ≥ 95), SEO, verificación en producción
-
----
-
-## Tokens de diseño (del brief)
-
-```
---cream         #f3ede1   /* fondo principal */
---cream-alt     #efe7d8   /* secciones alternas (marquee, Work) */
---ink           #211f1a   /* texto principal */
---muted         #6f6a5f   /* texto secundario */
---muted-soft    #534f46   /* párrafos sobre crema */
---hairline      #8a8579   /* labels apagados / líneas */
---blue          #2540c0   /* AZUL REY: marca, CTA, Contact full-bleed */
---orange        #ea6a2e   /* NARANJA: acento, itálicas, detalles */
---on-blue       #f3ede1   /* texto sobre azul */
-```
-
-Tipografía:
-- Display/serif: Instrument Serif 400 + italic (ya instalada)
-- UI/text: Hanken Grotesk 300–700 (agregar)
-- Labels: Hanken Grotesk 600, ~12px, MAYÚSCULAS, tracking 0.16em, color muted, punto naranja 9px
+- [x] **Fase 0** — Auditoría + PLAN.md + rama `redesign`
+- [ ] **Fase 1** — Scaffold: Astro 5 + Tailwind 4 + GSAP + Lenis + tokens + fonts ← EN PROGRESO
+- [ ] **Fase 2** — Data layer: `src/data/` con todo el contenido tipado
+- [ ] **Fase 3** — Layout + Nav + Footer + scroll setup
+- [ ] **Fase 4** — Hero (aurora CSS + kinetic entry + parallax)
+- [ ] **Fase 5** — Marquee + About + Numbers (counter animado)
+- [ ] **Fase 6** — Work section (grid cards + image reveal + hover)
+- [ ] **Fase 7** — Research section + Contact (full-bleed azul + form React)
+- [ ] **Fase 8** — 4 páginas de detalle de proyecto rediseñadas
+- [ ] **Fase 9** — Responsive 320px–4K + accesibilidad + `prefers-reduced-motion`
+- [ ] **Fase 10** — Lighthouse ≥ 95, SEO, verificación en producción + merge a main
 
 ---
 
@@ -149,4 +217,5 @@ Tipografía:
 
 | Fecha | Acción | Commit |
 |---|---|---|
-| 2026-06-27 | Fase 0: auditoría + PLAN.md + rama redesign | (pendiente) |
+| 2026-06-27 | Fase 0: auditoría + PLAN.md + rama redesign | 671509a |
+| 2026-06-27 | Fase 1: scaffold Astro 5 | (pendiente) |

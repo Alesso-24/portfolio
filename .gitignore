@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Brief extraction
+_brief_extracted/
+# Astro generated
+.astro/

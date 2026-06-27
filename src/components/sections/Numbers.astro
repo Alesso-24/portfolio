@@ -1,0 +1,48 @@
+---
+import { STATS } from '../../data/content'
+const lang = 'en'
+---
+
+<section
+  id="numbers"
+  style="background:#f3ede1; padding:clamp(60px,10vh,120px) clamp(20px,4vw,60px);
+         border-top:1px solid rgba(33,31,26,0.08);"
+>
+  <div style="max-width:1280px; margin:0 auto;">
+
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(24px,4vw,60px);"
+         class="stats-grid">
+      {STATS.map((stat, i) => (
+        <div
+          data-reveal
+          data-reveal-delay={String(i * 80)}
+          style="padding:clamp(24px,3vw,44px) 0;
+                 border-top:1px solid rgba(33,31,26,0.12);"
+        >
+          <!-- Big number -->
+          <div
+            data-counter={stat.value}
+            style="font-family:'Instrument Serif',serif; font-weight:400;
+                   font-size:clamp(48px,7vw,96px); line-height:0.96;
+                   letter-spacing:-0.02em; color:#2540c0;
+                   margin-bottom:16px;"
+          >
+            {stat.value}
+          </div>
+          <!-- Label -->
+          <p style="margin:0; font-size:clamp(13px,1.1vw,15px); line-height:1.55;
+                    color:#6f6a5f; max-width:22ch;">
+            {stat.label[lang]}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @media (min-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
+  }
+</style>
