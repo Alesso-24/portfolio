@@ -47,7 +47,8 @@ const [featured, ...rest] = PROJECTS
         <img
           src={featured.image}
           alt={featured.imageAlt}
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
           decoding="async"
           style="width:100%; height:100%; object-fit:cover;
                  transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);"
@@ -133,4 +134,5 @@ const [featured, ...rest] = PROJECTS
   }
   .project-card:hover { transform: translateY(-4px); }
   .project-card:hover .card-img { transform: scale(1.04); }
+  .project-card:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; }
 </style>

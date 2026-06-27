@@ -18,7 +18,12 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenu(false) }
+    if (menuOpen) document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', onKey)
+    }
   }, [menuOpen])
 
   const scrollTo = (href: string) => {
@@ -120,6 +125,8 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
           <button
             className="hamburger"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
             onClick={() => setMenu(o => !o)}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
@@ -135,6 +142,10 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -145,7 +156,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             }}
           >
-            <nav style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40, width: '100%', padding: '0 32px' }}>
+            <nav aria-label="Mobile navigation" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40, width: '100%', padding: '0 32px' }}>
               {NAV_LINKS.map((link, i) => (
                 <motion.button
                   key={link.href}

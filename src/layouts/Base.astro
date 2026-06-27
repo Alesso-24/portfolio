@@ -51,8 +51,11 @@ const {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image"       content={ogImage} />
 
+    <!-- Theme color -->
+    <meta name="theme-color" content="#f3ede1" />
+
     <!-- JSON-LD -->
-    <script type="application/ld+json">
+    <script is:inline type="application/ld+json">
       {JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Person",
@@ -69,11 +72,14 @@ const {
   </head>
 
   <body class="bg-cream text-ink overflow-x-hidden">
+    <!-- Skip to main content (a11y) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Navigation (React island — needs client JS for mobile menu + lang toggle) -->
     <Nav client:load lang={lang} />
 
     <!-- Page content -->
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
 
@@ -153,18 +159,20 @@ const {
 
         // Number counters
         document.querySelectorAll<HTMLElement>('[data-counter]').forEach((el) => {
-          const raw    = el.dataset.counter ?? '0'
-          const suffix = raw.replace(/[\d.]/g, '')
-          const num    = parseFloat(raw)
-          const isInt  = Number.isInteger(num)
-          const obj    = { val: 0 }
+          const raw     = el.dataset.counter ?? '0'
+          const suffix  = raw.replace(/[\d.]/g, '')
+          const numStr  = raw.replace(/[^\d.]/g, '')
+          const num     = parseFloat(numStr)
+          const isInt   = Number.isInteger(num)
+          const decPts  = numStr.includes('.') ? numStr.split('.')[1].length : 0
+          const obj     = { val: 0 }
 
           gsap.to(obj, {
             val: num,
             duration: 1.8,
             ease: 'power2.out',
             onUpdate: () => {
-              el.textContent = (isInt ? Math.round(obj.val) : obj.val.toFixed(2)) + suffix
+              el.textContent = (isInt ? Math.round(obj.val) : obj.val.toFixed(decPts)) + suffix
             },
             scrollTrigger: { trigger: el, start: 'top 85%', once: true },
           })

@@ -151,6 +151,7 @@ export default function Contact({ lang = 'en' }: Props) {
           {/* Right: form */}
           <form
             onSubmit={handleSubmit}
+            aria-label={lang === 'en' ? 'Contact form' : 'Formulario de contacto'}
             style={{ display: 'flex', flexDirection: 'column', gap: 36 }}
           >
             {/* Honeypot */}
@@ -158,38 +159,53 @@ export default function Contact({ lang = 'en' }: Props) {
               type="text" name="_honey" value={form._honey}
               onChange={handleChange} tabIndex={-1} autoComplete="off"
               style={{ display: 'none' }}
+              aria-hidden="true"
             />
 
-            <input
-              type="text" name="name" required value={form.name}
-              onChange={handleChange} placeholder={t.form.name[lang]}
-              disabled={status === 'sending'}
-              style={{ ...inputStyle, opacity: status === 'sending' ? 0.5 : 1 }}
-            />
-            <input
-              type="email" name="email" required value={form.email}
-              onChange={handleChange} placeholder={t.form.email[lang]}
-              disabled={status === 'sending'}
-              style={{ ...inputStyle, opacity: status === 'sending' ? 0.5 : 1 }}
-            />
-            <textarea
-              name="message" required value={form.message}
-              onChange={handleChange} placeholder={t.form.message[lang]}
-              rows={4} disabled={status === 'sending'}
-              style={{ ...inputStyle, resize: 'none', opacity: status === 'sending' ? 0.5 : 1 }}
-            />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              <label htmlFor="contact-name" className="sr-only">{t.form.name[lang]}</label>
+              <input
+                id="contact-name"
+                type="text" name="name" required value={form.name}
+                onChange={handleChange} placeholder={t.form.name[lang]}
+                disabled={status === 'sending'}
+                style={{ ...inputStyle, opacity: status === 'sending' ? 0.5 : 1 }}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              <label htmlFor="contact-email" className="sr-only">{t.form.email[lang]}</label>
+              <input
+                id="contact-email"
+                type="email" name="email" required value={form.email}
+                onChange={handleChange} placeholder={t.form.email[lang]}
+                disabled={status === 'sending'}
+                style={{ ...inputStyle, opacity: status === 'sending' ? 0.5 : 1 }}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+              <label htmlFor="contact-message" className="sr-only">{t.form.message[lang]}</label>
+              <textarea
+                id="contact-message"
+                name="message" required value={form.message}
+                onChange={handleChange} placeholder={t.form.message[lang]}
+                rows={4} disabled={status === 'sending'}
+                style={{ ...inputStyle, resize: 'none', opacity: status === 'sending' ? 0.5 : 1 }}
+              />
+            </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 12 }}>
-              {status === 'success' && (
-                <p style={{ margin: 0, color: '#ea6a2e', fontSize: 13, fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}>
-                  {t.form.success[lang]}
-                </p>
-              )}
-              {status === 'error' && (
-                <p style={{ margin: 0, color: '#ff8a65', fontSize: 13, fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}>
-                  {t.form.error[lang]}
-                </p>
-              )}
+              <div role="status" aria-live="polite" aria-atomic="true">
+                {status === 'success' && (
+                  <p style={{ margin: 0, color: '#ea6a2e', fontSize: 13, fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}>
+                    {t.form.success[lang]}
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p style={{ margin: 0, color: '#ff8a65', fontSize: 13, fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}>
+                    {t.form.error[lang]}
+                  </p>
+                )}
+              </div>
               <button
                 type="submit"
                 disabled={status === 'sending'}

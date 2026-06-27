@@ -38,19 +38,7 @@ const {
     ">
 
       <!-- Back link -->
-      <a
-        href={backHref}
-        style="
-          display: inline-flex; align-items: center; gap: 8px;
-          font: 600 12px 'Hanken Grotesk', system-ui, sans-serif;
-          letter-spacing: 0.12em; text-transform: uppercase;
-          color: #6f6a5f; text-decoration: none;
-          margin-bottom: clamp(32px, 5vh, 56px);
-          transition: color 0.2s;
-        "
-        onmouseover="this.style.color='#ea6a2e'"
-        onmouseout="this.style.color='#6f6a5f'"
-      >
+      <a href={backHref} class="back-link">
         ← Back to Home
       </a>
 
@@ -135,6 +123,22 @@ const {
 </Base>
 
 <style>
+  /* Back navigation link */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: 600 12px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6f6a5f;
+    text-decoration: none;
+    margin-bottom: clamp(32px, 5vh, 56px);
+    transition: color 0.2s;
+  }
+  .back-link:hover   { color: #ea6a2e; }
+  .back-link:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; border-radius: 4px; }
+
   /* Prose styles for project detail content */
   h2.section-h2 {
     font-family: 'Instrument Serif', serif;
