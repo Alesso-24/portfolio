@@ -1,0 +1,30 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+import { DOCS_SUBJECTS } from '../../data/docs'
+---
+
+<DocsLayout
+  title="Documentación"
+  description="Apuntes, prácticas y proyectos de materias de la universidad — documentados en el camino, no después."
+  badge="Documentación"
+  breadcrumbs={[{ label: 'Inicio', href: '/portfolio/' }]}
+>
+  <div class="subject-grid">
+    {DOCS_SUBJECTS.map((subject) => (
+      <a href={`/portfolio/docs/${subject.slug}`} data-reveal class="subject-card">
+        <svg class="subject-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <rect x="9" y="9" width="6" height="6" />
+          <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2" stroke-linecap="round" />
+        </svg>
+        <h3>{subject.name}</h3>
+        <p>{subject.tagline}</p>
+      </a>
+    ))}
+  </div>
+
+  <div class="callout" data-reveal data-reveal-delay="100">
+    <strong>Más materias, próximamente</strong>
+    Esta sección crece conforme avanzo el semestre — cada materia con documentación útil tendrá su propia portada y prácticas aquí.
+  </div>
+</DocsLayout>

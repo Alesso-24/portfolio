@@ -28,6 +28,11 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
 
   const scrollTo = (href: string) => {
     setMenu(false)
+    // Non-hash links (e.g. "/portfolio/docs") are real routes, not in-page anchors.
+    if (!href.startsWith('#')) {
+      window.location.href = href
+      return
+    }
     const el = document.querySelector(href)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })

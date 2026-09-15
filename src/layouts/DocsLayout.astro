@@ -1,0 +1,303 @@
+---
+import Base from './Base.astro'
+
+interface Crumb { label: string; href: string }
+
+interface Props {
+  title: string
+  description: string
+  badge: string
+  breadcrumbs: Crumb[]
+  ogImage?: string
+}
+
+const { title, description, badge, breadcrumbs, ogImage } = Astro.props
+const backHref = breadcrumbs[breadcrumbs.length - 1]?.href ?? '/portfolio/docs'
+const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
+---
+
+<Base
+  title={`${title} | Alessandro Reyes`}
+  description={description}
+  lang="es"
+  ogImage={ogImage}
+  canonical={`https://alesso-24.github.io${Astro.url.pathname}`}
+>
+  <article>
+    <header class="docs-header">
+      <a href={backHref} class="back-link">
+        <span>←</span>
+        <span>{backLabel}</span>
+      </a>
+
+      <div data-reveal class="badge-row">
+        <span class="dot"></span>
+        {badge}
+      </div>
+
+      <h1 data-reveal data-reveal-delay="80" class="docs-title">{title}</h1>
+
+      {description && (
+        <p data-reveal data-reveal-delay="160" class="docs-lede">{description}</p>
+      )}
+    </header>
+
+    <div class="docs-body">
+      <slot />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .docs-header {
+    padding: clamp(120px, 18vh, 180px) clamp(24px, 5vw, 80px) clamp(48px, 7vh, 80px);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #6f6a5f; text-decoration: none;
+    margin-bottom: clamp(28px, 4vh, 48px);
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #ea6a2e; }
+  .back-link:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; border-radius: 4px; }
+
+  .badge-row {
+    display: flex; align-items: center; gap: 12px;
+    font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #6f6a5f; margin-bottom: clamp(16px, 2.5vh, 28px);
+  }
+  .badge-row .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #2540c0; flex-shrink: 0;
+  }
+
+  .docs-title {
+    margin: 0 0 clamp(20px, 3vh, 32px);
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(30px, 4.6vw, 68px); line-height: 1.04;
+    letter-spacing: -0.015em; max-width: 20ch;
+    color: #211f1a;
+  }
+
+  .docs-lede {
+    margin: 0;
+    max-width: 62ch;
+    font-size: clamp(15px, 1.35vw, 18px);
+    line-height: 1.65;
+    color: #534f46;
+  }
+</style>
+
+<!-- is:global: cascade into <slot /> content scoped to .docs-body -->
+<style is:global>
+  .docs-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 5vw, 80px) clamp(80px, 12vh, 140px);
+  }
+
+  .docs-body h2.section-h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: #211f1a;
+    margin: clamp(56px, 8vh, 90px) 0 clamp(16px, 2.2vh, 24px);
+  }
+
+  .docs-body p.prose {
+    font-size: clamp(15px, 1.3vw, 17px);
+    line-height: 1.75;
+    color: #534f46;
+    margin: 0 0 clamp(16px, 2.2vh, 22px);
+    max-width: 70ch;
+  }
+
+  .docs-body hr.divider {
+    border: none;
+    border-top: 1px solid rgba(33, 31, 26, 0.1);
+    margin: clamp(40px, 6vh, 64px) 0;
+  }
+
+  /* ── TODO / pending callout ── */
+  .docs-body .todo-callout {
+    background: rgba(234, 106, 46, 0.06);
+    border: 1px dashed rgba(234, 106, 46, 0.4);
+    border-radius: 14px;
+    padding: clamp(18px, 2.6vw, 26px);
+    margin: clamp(20px, 3vh, 32px) 0;
+    font-size: clamp(13px, 1.1vw, 14.5px);
+    line-height: 1.65;
+    color: #534f46;
+  }
+  .docs-body .todo-callout strong {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #ea6a2e; margin-bottom: 10px;
+  }
+
+  /* ── Image placeholder slot ── */
+  .docs-body .img-placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px;
+    aspect-ratio: 16/9;
+    border-radius: 18px;
+    border: 1.5px dashed rgba(33, 31, 26, 0.22);
+    background: rgba(33, 31, 26, 0.03);
+    color: #8a8579;
+    margin: clamp(18px, 2.5vh, 28px) 0 clamp(36px, 5.5vh, 56px);
+    text-align: center;
+    padding: 20px;
+  }
+  .docs-body .img-placeholder svg { opacity: 0.55; }
+  .docs-body .img-placeholder span {
+    font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ── Callout box (neutral info) ── */
+  .docs-body .callout {
+    background: rgba(37, 64, 192, 0.05);
+    border: 1px solid rgba(37, 64, 192, 0.14);
+    border-radius: 14px;
+    padding: clamp(20px, 2.8vw, 32px);
+    margin: clamp(28px, 4vh, 44px) 0;
+    font-size: clamp(14px, 1.15vw, 15.5px);
+    line-height: 1.7;
+    color: #534f46;
+  }
+  .docs-body .callout strong {
+    display: block;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #2540c0; margin-bottom: 10px;
+  }
+
+  /* ── Team grid (portada de la materia) ── */
+  .docs-body .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 2.5vw, 28px);
+    margin: clamp(24px, 3.5vh, 40px) 0;
+  }
+  .docs-body .team-card {
+    background: #efe7d8;
+    border-radius: 18px;
+    padding: clamp(22px, 2.8vw, 30px);
+    border: 1px solid rgba(33, 31, 26, 0.07);
+  }
+  .docs-body .team-card .team-photo {
+    width: 76px; height: 76px; border-radius: 50%;
+    object-fit: cover; margin-bottom: 16px;
+    background: #dcd3bf;
+  }
+  .docs-body .team-card .team-photo--placeholder {
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px dashed rgba(33, 31, 26, 0.25);
+    color: #8a8579;
+  }
+  .docs-body .team-card h3 {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(19px, 2vw, 24px); line-height: 1.2;
+    color: #211f1a; margin: 0 0 4px;
+  }
+  .docs-body .team-card .team-role {
+    font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #2540c0; margin: 0 0 12px;
+  }
+  .docs-body .team-card p {
+    font-size: 14px; line-height: 1.65; color: #6f6a5f; margin: 0;
+  }
+
+  /* ── Practice list rows ── */
+  .docs-body .practice-list { margin: clamp(20px, 3vh, 32px) 0; }
+  .docs-body .practice-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; text-decoration: none;
+    padding: clamp(20px, 2.6vw, 26px) 0;
+    border-top: 1px solid rgba(33, 31, 26, 0.1);
+    transition: opacity 0.2s;
+  }
+  .docs-body .practice-list a.practice-row:last-child { border-bottom: 1px solid rgba(33, 31, 26, 0.1); }
+  .docs-body .practice-row:hover { opacity: 0.7; }
+  .docs-body .practice-row:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; border-radius: 8px; }
+  .docs-body .practice-row .practice-num {
+    font-family: 'Instrument Serif', serif; font-size: clamp(24px, 2.6vw, 34px);
+    color: #2540c0; min-width: 40px;
+  }
+  .docs-body .practice-row .practice-main { flex: 1; }
+  .docs-body .practice-row h3 {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(18px, 1.9vw, 24px); color: #211f1a; margin: 0 0 6px;
+  }
+  .docs-body .practice-row p {
+    font-size: 13.5px; line-height: 1.5; color: #6f6a5f; margin: 0; max-width: 52ch;
+  }
+  .docs-body .status-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 14px; border-radius: 100px;
+    font: 600 10.5px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .docs-body .status-chip--en-progreso { background: rgba(234, 106, 46, 0.1); color: #ea6a2e; }
+  .docs-body .status-chip--completa { background: rgba(37, 64, 192, 0.1); color: #2540c0; }
+  .docs-body .status-chip .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ── Subject cards (hub /docs) ── */
+  .docs-body .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(16px, 2.5vw, 26px);
+    margin: clamp(20px, 3vh, 32px) 0;
+  }
+  .docs-body .subject-card {
+    display: block; text-decoration: none;
+    background: #efe7d8; border-radius: 18px;
+    padding: clamp(24px, 3vw, 32px);
+    border: 1px solid rgba(33, 31, 26, 0.07);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s;
+  }
+  .docs-body .subject-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px -30px rgba(37, 64, 192, 0.35);
+  }
+  .docs-body .subject-card:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; }
+  .docs-body .subject-card .subject-icon { color: #2540c0; margin-bottom: 18px; }
+  .docs-body .subject-card h3 {
+    font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(20px, 2.2vw, 28px); color: #211f1a; margin: 0 0 8px;
+  }
+  .docs-body .subject-card p {
+    font-size: 14px; line-height: 1.6; color: #6f6a5f; margin: 0;
+  }
+
+  /* ── CTA button ── */
+  .docs-body .docs-cta {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 26px; border-radius: 100px;
+    background: #2540c0; color: #f3ede1; text-decoration: none;
+    font: 600 14px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.02em; margin-top: clamp(8px, 1.5vh, 16px);
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 24px 60px -30px rgba(37, 64, 192, 0.4);
+  }
+  .docs-body .docs-cta:hover { transform: translateY(-2px); }
+  .docs-body .docs-cta:focus-visible { outline: 2px solid #211f1a; outline-offset: 3px; }
+
+  @media (max-width: 640px) {
+    .docs-body { padding: 0 16px clamp(60px, 10vh, 100px); }
+    .docs-body .team-grid { grid-template-columns: 1fr; }
+    .docs-body h2.section-h2 { font-size: clamp(24px, 6.5vw, 32px); margin-top: clamp(44px, 7vh, 68px); }
+    .docs-body .practice-row { flex-wrap: wrap; }
+  }
+</style>

@@ -1,0 +1,38 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro'
+import { getSubject, getPractices } from '../../../../data/docs'
+
+const subject = getSubject('produccion-electronica')!
+const practices = getPractices('produccion-electronica')
+---
+
+<DocsLayout
+  title="Prácticas"
+  description={`Registro de prácticas de ${subject.name}, documentadas conforme avanzamos.`}
+  badge="Producción Electrónica"
+  breadcrumbs={[
+    { label: 'Documentación', href: '/portfolio/docs' },
+    { label: subject.name, href: `/portfolio/docs/${subject.slug}` },
+  ]}
+>
+  <div class="practice-list" data-reveal>
+    {practices.map((practice) => (
+      <a href={`/portfolio/docs/${subject.slug}/practicas/${practice.slug}`} class="practice-row">
+        <span class="practice-num">{practice.number}</span>
+        <div class="practice-main">
+          <h3>{practice.title}</h3>
+          <p>{practice.summary}</p>
+        </div>
+        <span class={`status-chip status-chip--${practice.status}`}>
+          <span class="status-dot"></span>
+          {practice.status === 'en-progreso' ? 'En progreso' : 'Completa'}
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <div class="callout" data-reveal data-reveal-delay="100">
+    <strong>Más prácticas, próximamente</strong>
+    Cada nueva práctica de la materia se agrega aquí conforme la vamos completando.
+  </div>
+</DocsLayout>
