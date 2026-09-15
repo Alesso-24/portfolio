@@ -1,5 +1,20 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## ⏸ Pausa de sesión — 2026-09-15, antes de reiniciar la laptop
+> Todo está guardado y commiteado, nada se pierde con el reinicio. Para retomar:
+> 1. Lee este archivo (`docs-source/produccion-electronica/CONTEXTO.md`) primero — es la fuente de
+>    verdad de en qué íbamos.
+> 2. Seguimos en la rama **`docs/materias-produccion-electronica`** (sin mergear a `main`), último
+>    commit `ffbd777`. `main` está intacto, no se tocó.
+> 3. El dev server (`npm run dev`) se cae con el reinicio — hay que levantarlo de nuevo si se quiere
+>    ver el sitio local (`http://localhost:4321/portfolio/`).
+> 4. Ahora mismo estábamos esperando que Alessandro siga mandando material — el siguiente paso
+>    natural es continuar el flujo del esquemático de la Práctica 1 (colocar componentes/cablear),
+>    o arrancar contenido de MonoFab/KiCad si prefiere eso primero. Ver "Pendientes consolidados"
+>    abajo para el detalle completo.
+
+---
+
 > Bitácora de trabajo para la sección `/docs/produccion-electronica` del portafolio. Aquí se
 > registran decisiones, pendientes y un log breve por sesión — el contenido ya volcado a página
 > vive en el `.astro` correspondiente (fuente de verdad), no se duplica aquí completo.
