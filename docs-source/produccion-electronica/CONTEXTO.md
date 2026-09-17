@@ -1,17 +1,16 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ⏸ Pausa de sesión — 2026-09-15, antes de reiniciar la laptop
-> Todo está guardado y commiteado, nada se pierde con el reinicio. Para retomar:
-> 1. Lee este archivo (`docs-source/produccion-electronica/CONTEXTO.md`) primero — es la fuente de
->    verdad de en qué íbamos.
-> 2. Seguimos en la rama **`docs/materias-produccion-electronica`** (sin mergear a `main`), último
->    commit `ffbd777`. `main` está intacto, no se tocó.
-> 3. El dev server (`npm run dev`) se cae con el reinicio — hay que levantarlo de nuevo si se quiere
->    ver el sitio local (`http://localhost:4321/portfolio/`).
-> 4. Ahora mismo estábamos esperando que Alessandro siga mandando material — el siguiente paso
->    natural es continuar el flujo del esquemático de la Práctica 1 (colocar componentes/cablear),
->    o arrancar contenido de MonoFab/KiCad si prefiere eso primero. Ver "Pendientes consolidados"
->    abajo para el detalle completo.
+> ## ✅ Estado — 2026-09-17: mergeado a `main` y desplegado
+> La rama `docs/materias-produccion-electronica` se mergeó a `main` y se hizo push a `origin` —
+> el deploy a GitHub Pages corre automático vía `.github/workflows/ci-cd.yml`. El sitio ya está
+> **público** en `https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`
+> tal como está hoy: **incompleto a propósito** (decisión de Alessandro — no importa que no esté
+> terminado). Ver "Pendientes consolidados" abajo para lo que falta.
+>
+> Nota para retomar en cualquier sesión futura: lee este archivo primero — es la fuente de verdad
+> de en qué íbamos. El dev server local (`npm run dev`, sirve en `http://localhost:4321/portfolio/`
+> — **ojo con el base path `/portfolio`**, no carga en `localhost:4321/` a secas) no persiste entre
+> reinicios ni sesiones, hay que levantarlo de nuevo cada vez.
 
 ---
 
@@ -121,3 +120,20 @@ numerados con `.step-num`, el editor de esquemas, y la lista de "herramientas ut
 nombre + descripción) con los 3 diálogos de captura. Se agregaron estilos reusables a
 `DocsLayout.astro` (`.screenshot`, `.step-num`, `.tool-row`, `.tool-icon-box`) para futuras
 páginas de esta sección. Build y `astro check` limpios. Commit: `fed8ba4`.
+
+### 2026-09-17 — Retomar sesión, arreglar acceso local, merge a `main` y deploy real
+
+Se retomó la sesión: rama `docs/materias-produccion-electronica` seguía intacta con último commit
+`6f75afe`. Se levantó el dev server (`npm run dev` — en Astro 7 arranca como daemon persistente,
+el comando reporta éxito y termina) y al abrir `http://localhost:4321/...` la página no cargaba;
+la causa era el `base: '/portfolio'` de `astro.config.mjs` — la URL local correcta lleva ese
+prefijo (`http://localhost:4321/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`).
+Ya documentado arriba para no repetir la confusión.
+
+Alessandro pidió ver el trabajo en línea para compartir el link. Se le presentaron las opciones
+(Artifact privado / PR sin deploy / merge real a `main`) y eligió **mergear a `main` y desplegar
+de verdad**, aceptando explícitamente que el contenido sigue incompleto — solo pidió que quedara
+claro qué falta pendiente (ver sección de arriba). Se hizo push de la rama a `origin` para no
+perder historial, luego merge a `main` y push de `main` (dispara el deploy vía
+`.github/workflows/ci-cd.yml`). URL pública:
+`https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`.
