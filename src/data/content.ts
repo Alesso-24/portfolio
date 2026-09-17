@@ -16,10 +16,11 @@ export const SITE = {
 }
 
 export const NAV_LINKS = [
-  { label: { en: 'Work',     es: 'Proyectos' }, href: '#work'     },
-  { label: { en: 'Research', es: 'Research'  }, href: '#research' },
-  { label: { en: 'About',    es: 'Sobre mí'  }, href: '#about'    },
-  { label: { en: 'Contact',  es: 'Contacto'  }, href: '#contact'  },
+  { label: { en: 'Work',     es: 'Proyectos' },      href: '#work'          },
+  { label: { en: 'Research', es: 'Research'  },      href: '#research'      },
+  { label: { en: 'About',    es: 'Sobre mí'  },      href: '#about'         },
+  { label: { en: 'Contact',  es: 'Contacto'  },      href: '#contact'       },
+  { label: { en: 'Docs',     es: 'Documentación' },  href: '/portfolio/docs' },
 ]
 
 export const HERO = {

@@ -1,0 +1,263 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro'
+import { getSubject } from '../../../../data/docs'
+
+const subject = getSubject('produccion-electronica')!
+const teamNames = subject.team.map((m) => m.name).join(' + ')
+
+const img = (path: string) => `/portfolio/images/docs/produccion-electronica/practicas/01-primera-placa/${path}`
+
+const tools = [
+  {
+    icon: img('01-esquematico/herramientas/01-icono-seleccionar-componente.png'),
+    name: 'Seleccionar componente',
+    desc: 'Abre el buscador de símbolos (22,987 elementos cargados en las librerías) para colocar cualquier componente en el esquemático.',
+  },
+  {
+    icon: img('01-esquematico/herramientas/03-icono-simbolo-alimentacion.png'),
+    name: 'Símbolo de alimentación',
+    desc: 'Abre el buscador de símbolos de alimentación: tierra, +3V3, +5V, +9V, +12V, +24V, +36V, +48V — incluye los símbolos de la librería PCM_fab que vino con KiCad FabLib.',
+  },
+  {
+    icon: img('01-esquematico/herramientas/05-icono-dibujar-cable.png'),
+    name: 'Dibujar cable',
+    desc: 'Traza las conexiones eléctricas (wires) entre los pines de los componentes.',
+  },
+  {
+    icon: img('01-esquematico/herramientas/06-icono-etiqueta-de-red.png'),
+    name: 'Etiqueta de red',
+    desc: 'Nombra una red eléctrica para conectar puntos del esquemático sin necesidad de dibujar un cable físico entre ellos.',
+  },
+  {
+    icon: img('01-esquematico/herramientas/07-icono-texto.png'),
+    name: 'Texto',
+    desc: 'Agrega texto libre al esquemático (notas, títulos) — abre un diálogo de propiedades con fuente, tamaño, alineación y color.',
+  },
+]
+---
+
+<DocsLayout
+  title="Nuestra primera placa en KiCad"
+  description="Diseño esquemático, ruteo del PCB y fabricación con MonoFab — documentado paso a paso."
+  badge="Producción Electrónica · Práctica 01"
+  breadcrumbs={[
+    { label: 'Documentación', href: '/portfolio/docs' },
+    { label: subject.name, href: `/portfolio/docs/${subject.slug}` },
+    { label: 'Prácticas', href: `/portfolio/docs/${subject.slug}/practicas` },
+  ]}
+>
+  <!-- Meta row -->
+  <div class="callout" data-reveal>
+    <strong>Ficha de la práctica</strong>
+    <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:4px;">
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Materia</span>{subject.name}</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Equipo</span>{teamNames}</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Herramientas</span>KiCad · MonoFab</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Estado</span>
+        <span class="status-chip status-chip--en-progreso" style="margin-top:2px;"><span class="status-dot"></span>En progreso</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="todo-callout" data-reveal data-reveal-delay="60">
+    <strong>🚧 En construcción</strong>
+    Vamos documentando esta práctica conforme avanzamos. Ahora mismo cubre la preparación y el
+    arranque del esquemático — el ruteo del PCB y la fabricación en MonoFab todavía están pendientes
+    más abajo.
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ── Nota aparte: instalación de librería, antes del flujo principal ── -->
+  <div class="callout" data-reveal>
+    <strong>Antes de empezar · Instalar una librería de componentes</strong>
+    <p class="prose" style="margin:0 0 14px; font-size:14.5px;">
+      Antes de dibujar cualquier esquemático hace falta instalar <strong>KiCad FabLib</strong>: una
+      librería de componentes pensada para fabricar PCBs en un Fab Lab estándar, con mapeo 1:1 a las
+      piezas del inventario oficial de Fab Lab — reduce la fricción de aprender electrónica y da más
+      confianza al prototipar rápido.
+    </p>
+    <div class="tool-row" style="border-top:none; padding-top:0;">
+      <div style="flex:1;">
+        <img
+          src={img('00-preparacion/04-menu-herramientas-administrador-complementos.png')}
+          alt="Menú Herramientas de KiCad con la opción Administrador de complementos y contenido"
+          class="screenshot"
+          loading="lazy"
+          decoding="async"
+          style="margin-bottom:6px;"
+        />
+        <span class="screenshot-caption">Herramientas → Administrador de complementos y contenido (Ctrl+M)</span>
+      </div>
+    </div>
+    <img
+      src={img('00-preparacion/05-instalar-kicad-fablib.png')}
+      alt="Panel de instalación del complemento KiCad FabLib con sus metadatos"
+      class="screenshot"
+      loading="lazy"
+      decoding="async"
+    />
+    <p class="prose" style="margin:0; font-size:13px; color:#6f6a5f;">
+      Licencia CC-BY-4.0 · Autor: Krisjanis Rijnieks y Fab Academy Community
+      (<a href="https://fabacademy.org" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">fabacademy.org</a>) ·
+      Fuente: <a href="https://gitlab.fabcloud.org/pub/libraries/electronics/kicad" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">gitlab.fabcloud.org/pub/libraries/electronics/kicad</a>
+    </p>
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>Objetivo de la práctica.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <em>TODO: describir qué circuito vamos a diseñar y por qué — qué problema resuelve la placa, qué debe hacer
+    eléctricamente, y qué aprendizaje busca esta práctica dentro de la materia.</em>
+  </p>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>1. Preparación: abrir KiCad y crear el proyecto.</h2>
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="step-num">1</span>Abrimos KiCad — trabajamos con <strong>KiCad 10.0</strong>. La ventana
+    principal del proyecto muestra los editores disponibles: Editor de esquemas, Editor de símbolos, Editor
+    de placas, Editor de huellas, Visor Gerber, Conversor de imágenes, Herramientas de cálculo, Editor de
+    hoja de trabajo, y el Administrador de complementos y contenido.
+  </p>
+  <img
+    src={img('00-preparacion/01-abrir-kicad-ventana-principal.png')}
+    alt="Ventana principal de KiCad 10.0 mostrando los editores disponibles del proyecto"
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="step-num">2</span>Desde el menú <strong>Archivo → Nuevo proyecto...</strong> (Ctrl+N) creamos
+    un proyecto nuevo.
+  </p>
+  <img
+    src={img('00-preparacion/02-menu-archivo-nuevo-proyecto.png')}
+    alt="Menú Archivo de KiCad con la opción Nuevo proyecto"
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="step-num">3</span>Nombramos el proyecto <strong>"Hola_Mundo"</strong> — nuestro primer proyecto
+    de prueba en KiCad, para familiarizarnos con el flujo antes de ir por la placa real. Al crearlo, KiCad
+    genera automáticamente <code>Hola_Mundo.kicad_pro</code>, <code>Hola_Mundo.kicad_pcb</code> y
+    <code>Hola_Mundo.kicad_sch</code>.
+  </p>
+  <img
+    src={img('00-preparacion/03-proyecto-hola-mundo-creado.png')}
+    alt="Árbol de archivos del proyecto Hola_Mundo recién creado en KiCad"
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>2. Editor de esquemas.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    Entramos al <strong>Editor de esquemas</strong> (Ctrl+E) para empezar el esquemático del circuito.
+    Arranca con la hoja en blanco, formato A4, con el cuadro de título en la esquina inferior derecha.
+  </p>
+  <img
+    src={img('01-esquematico/00-editor-de-esquemas-vacio.png')}
+    alt="Editor de esquemas de KiCad con una hoja en blanco formato A4"
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <div class="callout" data-reveal>
+    <strong>Herramientas utilizadas en el esquemático</strong>
+    <div class="tool-list">
+      {tools.map((tool) => (
+        <div class="tool-row">
+          <div class="tool-icon-box"><img src={tool.icon} alt="" loading="lazy" decoding="async" /></div>
+          <div>
+            <h4>{tool.name}</h4>
+            <p>{tool.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <img
+    src={img('01-esquematico/herramientas/02-dialogo-elegir-simbolo.png')}
+    alt="Diálogo Elegir símbolo del editor de esquemas, con 22,987 elementos cargados"
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+  <span class="screenshot-caption">Buscador de símbolos — herramienta "Seleccionar componente"</span>
+
+  <img
+    src={img('01-esquematico/herramientas/04-dialogo-elegir-simbolo-alimentacion.png')}
+    alt="Diálogo Elegir símbolo de alimentación, con la librería PCM_fab expandida"
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+  <span class="screenshot-caption">Buscador de símbolos de alimentación — incluye la librería PCM_fab de KiCad FabLib</span>
+
+  <img
+    src={img('01-esquematico/herramientas/08-dialogo-propiedades-texto.png')}
+    alt="Diálogo de propiedades del texto en el editor de esquemas"
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+  <span class="screenshot-caption">Propiedades del texto — fuente, tamaño, alineación y color</span>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>Diseño del PCB (ruteo).</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <em>TODO: explicar el layout físico — colocación de componentes, capas usadas, ancho de pistas, y cualquier
+    reto de ruteo.</em>
+  </p>
+  <div class="img-placeholder" data-reveal data-reveal-delay="100">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="9" cy="9" r="2" />
+      <path d="M21 15l-5-5-9 9" />
+    </svg>
+    <span>Captura del PCB ruteado — pendiente</span>
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>Fabricación en MonoFab.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <em>TODO: documentar el proceso físico de fabricación — de archivo Gerber a placa fresada/grabada, ajustes de
+    la máquina, y cualquier problema encontrado durante el fresado.</em>
+  </p>
+  <div class="img-placeholder" data-reveal data-reveal-delay="100">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="9" cy="9" r="2" />
+      <path d="M21 15l-5-5-9 9" />
+    </svg>
+    <span>Fotos del proceso de fabricación — pendiente</span>
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>Resultados y aprendizajes.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <em>TODO: foto de la placa terminada, pruebas eléctricas realizadas, qué funcionó, qué no, y qué haríamos
+    diferente en la siguiente práctica.</em>
+  </p>
+  <div class="img-placeholder" data-reveal data-reveal-delay="100">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="9" cy="9" r="2" />
+      <path d="M21 15l-5-5-9 9" />
+    </svg>
+    <span>Foto de la placa terminada — pendiente</span>
+  </div>
+</DocsLayout>

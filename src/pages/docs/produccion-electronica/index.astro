@@ -1,0 +1,70 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro'
+import { getSubject, getPractices } from '../../../data/docs'
+
+const subject = getSubject('produccion-electronica')!
+const practices = getPractices('produccion-electronica')
+---
+
+<DocsLayout
+  title={subject.name}
+  description={subject.description}
+  badge="Producción Electrónica · Trabajo en parejas"
+  breadcrumbs={[{ label: 'Documentación', href: '/portfolio/docs' }]}
+  ogImage="https://alesso-24.github.io/portfolio/images/Alessandro.webp"
+>
+  <h2 class="section-h2" data-reveal>Nuestro equipo.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    Esta materia se trabaja en parejas: diseñamos, ruteamos y fabricamos nuestras placas juntos, de principio a fin.
+  </p>
+
+  <div class="team-grid" data-reveal data-reveal-delay="100">
+    {subject.team.map((member) => (
+      member.photo ? (
+        <div class="team-card">
+          <img src={member.photo} alt={`Foto de ${member.name}`} class="team-photo" loading="lazy" decoding="async" />
+          <h3>{member.name}</h3>
+          <p class="team-role">{member.role}</p>
+          <p>{member.bio}</p>
+        </div>
+      ) : (
+        <div class="team-card">
+          <div class="team-photo team-photo--placeholder" role="img" aria-label="Foto pendiente">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h3>{member.name}</h3>
+          <p class="team-role">{member.role}</p>
+          <p>{member.bio}</p>
+        </div>
+      )
+    ))}
+  </div>
+
+  <div class="todo-callout" data-reveal data-reveal-delay="140">
+    <strong>⚠ Pendiente</strong>
+    Falta agregar el nombre, foto y breve descripción reales de tu compañera en <code>src/data/docs.ts</code>.
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>Sobre la materia.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    En Producción Electrónica documentamos el proceso completo de diseño de un circuito impreso (PCB): desde el
+    esquemático en <strong>KiCad</strong> hasta la fabricación física de la placa usando <strong>MonoFab</strong>.
+    Aquí vamos a llevar el registro de cada práctica conforme la hagamos.
+  </p>
+
+  <a href={`/portfolio/docs/${subject.slug}/practicas`} class="docs-cta" data-reveal data-reveal-delay="100">
+    Ver nuestras prácticas
+    <span aria-hidden="true">→</span>
+  </a>
+
+  {practices.length > 0 && (
+    <p class="prose" style="margin-top:28px; font-size:14px; color:#8a8579;" data-reveal data-reveal-delay="140">
+      Práctica actual: <strong style="color:#534f46;">{practices[0].title}</strong> — {practices[0].status === 'en-progreso' ? 'en progreso' : 'completa'}.
+    </p>
+  )}
+</DocsLayout>
