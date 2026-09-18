@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro'
+import AnnotatedShot from '../../../../components/docs/AnnotatedShot.astro'
 import { getSubject } from '../../../../data/docs'
 
 const subject = getSubject('produccion-electronica')!
@@ -7,6 +8,21 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
 
 const img = (path: string) => `/portfolio/images/docs/produccion-electronica/practicas/01-primera-placa/${path}`
 const monofabImg = '/portfolio/images/docs/produccion-electronica/monofab/srm-20-roland.png'
+
+const steps = [
+  { href: '#objetivo', label: 'Objetivo' },
+  { href: '#paso-1', label: '1. Preparación' },
+  { href: '#paso-2', label: '2. Editor de esquemas' },
+  { href: '#paso-3', label: '3. Organización' },
+  { href: '#paso-4', label: '4. Pulsadores' },
+  { href: '#paso-5', label: '5. Conectores' },
+  { href: '#paso-6', label: '6. Esquemático completo' },
+  { href: '#paso-7', label: '7. Editor de placas' },
+  { href: '#paso-8', label: '8. Exportación a Gerber' },
+  { href: '#paso-9', label: '9. Toolpaths con mods' },
+  { href: '#fabricacion', label: 'Fabricación en MonoFab' },
+  { href: '#resultados', label: 'Resultados' },
+]
 
 const tools = [
   {
@@ -38,7 +54,7 @@ const tools = [
 ---
 
 <DocsLayout
-  title="Nuestra primera placa en KiCad"
+  title="Primera placa en KiCad"
   description="Diseño esquemático, ruteo del PCB y fabricación con MonoFab — documentado paso a paso."
   badge="Producción Electrónica · Práctica 01"
   breadcrumbs={[
@@ -62,10 +78,17 @@ const tools = [
 
   <div class="todo-callout" data-reveal data-reveal-delay="60">
     <strong>🚧 En construcción</strong>
-    Vamos documentando esta práctica conforme avanzamos. El esquemático completo y el PCB ruteado
-    (con exportación a Gerber) ya están documentados abajo — la fabricación física en MonoFab y los
-    resultados todavía están pendientes al final de la página.
+    Esta práctica se va documentando conforme avanza. El esquemático completo, el PCB ruteado
+    (con exportación a Gerber) y la generación de toolpaths en mods ya están documentados abajo —
+    el fresado físico real en la SRM-20 y los resultados todavía están pendientes al final de la
+    página.
   </div>
+
+  <nav class="step-toc" data-reveal data-reveal-delay="100" aria-label="Pasos de esta práctica">
+    {steps.map((s) => (
+      <a href={s.href}>{s.label}</a>
+    ))}
+  </nav>
 
   <hr class="divider" />
 
@@ -80,13 +103,10 @@ const tools = [
     </p>
     <div class="tool-row" style="border-top:none; padding-top:0;">
       <div style="flex:1;">
-        <img
+        <AnnotatedShot
           src={img('00-preparacion/04-menu-herramientas-administrador-complementos.png')}
           alt="Menú Herramientas de KiCad con la opción Administrador de complementos y contenido"
-          class="screenshot"
-          loading="lazy"
-          decoding="async"
-          style="margin-bottom:6px;"
+          boxes={[{ left: 0, top: 79, width: 100, height: 9, label: 'Clic aquí' }]}
         />
         <span class="screenshot-caption">Herramientas → Administrador de complementos y contenido (Ctrl+M)</span>
       </div>
@@ -107,18 +127,18 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>Objetivo de la práctica.</h2>
+  <h2 id="objetivo" class="section-h2" data-reveal>Objetivo de la práctica.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    <em>TODO: describir qué circuito vamos a diseñar y por qué — qué problema resuelve la placa, qué debe hacer
+    <em>TODO: describir qué circuito se va a diseñar y por qué — qué problema resuelve la placa, qué debe hacer
     eléctricamente, y qué aprendizaje busca esta práctica dentro de la materia.</em>
   </p>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>1. Preparación: abrir KiCad y crear el proyecto.</h2>
+  <h2 id="paso-1" class="section-h2" data-reveal>1. Preparación: abrir KiCad y crear el proyecto.</h2>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">1</span>Abrimos KiCad — trabajamos con <strong>KiCad 10.0</strong>. La ventana
+    <span class="step-num">1</span>Se abre KiCad — se trabaja con <strong>KiCad 10.0</strong>. La ventana
     principal del proyecto muestra los editores disponibles: Editor de esquemas, Editor de símbolos, Editor
     de placas, Editor de huellas, Visor Gerber, Conversor de imágenes, Herramientas de cálculo, Editor de
     hoja de trabajo, y el Administrador de complementos y contenido.
@@ -132,22 +152,19 @@ const tools = [
   />
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">2</span>Desde el menú <strong>Archivo → Nuevo proyecto...</strong> (Ctrl+N) creamos
+    <span class="step-num">2</span>Desde el menú <strong>Archivo → Nuevo proyecto...</strong> (Ctrl+N) se crea
     un proyecto nuevo.
   </p>
-  <img
+  <AnnotatedShot
     src={img('00-preparacion/02-menu-archivo-nuevo-proyecto.png')}
     alt="Menú Archivo de KiCad con la opción Nuevo proyecto"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
+    boxes={[{ left: 0, top: 5, width: 45, height: 8, label: 'Clic aquí' }]}
   />
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">3</span>Nombramos el proyecto <strong>"Hola_Mundo"</strong> — nuestro primer proyecto
-    de prueba en KiCad, para familiarizarnos con el flujo antes de ir por la placa real. Al crearlo, KiCad
-    genera automáticamente <code>Hola_Mundo.kicad_pro</code>, <code>Hola_Mundo.kicad_pcb</code> y
-    <code>Hola_Mundo.kicad_sch</code>.
+    <span class="step-num">3</span>Se nombra el proyecto <strong>"Hola_Mundo"</strong> — el primer proyecto
+    de prueba en KiCad, para familiarizarse con el flujo antes de ir por la placa real. Al crearlo, KiCad
+    genera automáticamente <code>Hola_Mundo.kicad_pro</code>, <code>Hola_Mundo.kicad_pcb</code> y <code>Hola_Mundo.kicad_sch</code>.
   </p>
   <img
     src={img('00-preparacion/03-proyecto-hola-mundo-creado.png')}
@@ -159,9 +176,9 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>2. Editor de esquemas.</h2>
+  <h2 id="paso-2" class="section-h2" data-reveal>2. Editor de esquemas.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Entramos al <strong>Editor de esquemas</strong> (Ctrl+E) para empezar el esquemático del circuito.
+    Se entra al <strong>Editor de esquemas</strong> (Ctrl+E) para empezar el esquemático del circuito.
     Arranca con la hoja en blanco, formato A4, con el cuadro de título en la esquina inferior derecha.
   </p>
   <img
@@ -187,12 +204,11 @@ const tools = [
     </div>
   </div>
 
-  <img
+  <AnnotatedShot
     src={img('01-esquematico/herramientas/02-dialogo-elegir-simbolo.png')}
     alt="Diálogo Elegir símbolo del editor de esquemas, con 22,987 elementos cargados"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
+    wide
+    boxes={[{ left: 0, top: 4, width: 46, height: 4, label: 'Buscar aquí' }]}
   />
   <span class="screenshot-caption">Buscador de símbolos — herramienta "Seleccionar componente"</span>
 
@@ -216,11 +232,10 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>3. Organización del esquema.</h2>
+  <h2 id="paso-3" class="section-h2" data-reveal>3. Organización del esquema.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Antes de seguir colocando componentes conviene organizar visualmente el esquema. La herramienta
-    <strong>Dibujar rectángulo</strong> agrega un cuadro puramente gráfico — sin ningún efecto
-    eléctrico — para delimitar y agrupar visualmente un bloque de componentes relacionados. La usamos
+    Antes de seguir colocando componentes conviene organizar visualmente el esquema. La herramienta <strong>Dibujar rectángulo</strong> agrega un cuadro puramente gráfico — sin ningún efecto
+    eléctrico — para delimitar y agrupar visualmente un bloque de componentes relacionados. Se usa
     para separar "Entradas y Salidas" de "Pulsadores" en la vista completa más abajo.
   </p>
   <div class="tool-row" style="border-top:none; padding-top:0;">
@@ -232,7 +247,7 @@ const tools = [
   </div>
 
   <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>Atajos de teclado que usamos seguido</strong>
+    <strong>Atajos de teclado usados seguido</strong>
     <p class="prose" style="margin:0 0 10px; font-size:14.5px;">
       <code>E</code> edita las propiedades de lo seleccionado (o doble click) — sirve para símbolos,
       texto y hasta el propio cuadro delimitador.
@@ -245,9 +260,9 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>4. Los pulsadores.</h2>
+  <h2 id="paso-4" class="section-h2" data-reveal>4. Los pulsadores.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Construimos <strong>4 módulos idénticos</strong> (S1–S4), uno por cada botón. Cada módulo combina
+    Se construyen <strong>4 módulos idénticos</strong> (S1–S4), uno por cada botón. Cada módulo combina
     un switch táctil, dos resistencias y un LED indicador — este es el circuito completo del módulo
     S3, como ejemplo:
   </p>
@@ -259,8 +274,7 @@ const tools = [
     decoding="async"
   />
   <p class="prose" data-reveal data-reveal-delay="60">
-    El switch conecta <strong>V3.3</strong> al nodo <code>s3</code>. Desde ahí, una resistencia baja a
-    <strong>GND</strong> — es una <strong>pull-down</strong>: mantiene el nodo en LOW cuando el botón no
+    El switch conecta <strong>V3.3</strong> al nodo <code>s3</code>. Desde ahí, una resistencia baja a <strong>GND</strong> — es una <strong>pull-down</strong>: mantiene el nodo en LOW cuando el botón no
     está presionado, en vez de dejarlo flotando. La otra rama sale del mismo nodo por una resistencia
     limitadora hacia un <strong>LED</strong> a GND — se enciende cada vez que el botón está presionado,
     como indicador visual. El nodo <code>sN</code> de cada módulo es lo que sale hacia el conector de
@@ -301,11 +315,10 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>5. Conectores de entrada y salida.</h2>
+  <h2 id="paso-5" class="section-h2" data-reveal>5. Conectores de entrada y salida.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
     La placa se conecta al exterior por dos headers: <strong>J1 "Entradas"</strong> trae la
-    alimentación externa (pin 1 = V3.3 vía el símbolo de red <code>PWR_3V3</code>, pin 2 = GND), y
-    <strong>J2 "Salidas"</strong> expone el estado de los 4 pulsadores (pines <code>s1</code>–<code>s4</code>)
+    alimentación externa (pin 1 = V3.3 vía el símbolo de red <code>PWR_3V3</code>, pin 2 = GND), y <strong>J2 "Salidas"</strong> expone el estado de los 4 pulsadores (pines <code>s1</code>–<code>s4</code>)
     hacia afuera — por ejemplo, a un microcontrolador que los lea.
   </p>
   <img src={img('04-conectores/01-j1-entradas-alimentacion.png')} alt="Conector J1 Entradas: header de 2 pines con V3.3 y GND" class="screenshot" loading="lazy" decoding="async" />
@@ -331,7 +344,7 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>6. Esquemático completo.</h2>
+  <h2 id="paso-6" class="section-h2" data-reveal>6. Esquemático completo.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
     Con los 4 pulsadores y los conectores de entrada/salida ya armados, así queda el esquemático
     completo de <code>Hola_Mundo.kicad_sch</code> — dos bloques delimitados con cuadros: "Entradas y
@@ -345,9 +358,9 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>7. Editor de placas (PCB).</h2>
+  <h2 id="paso-7" class="section-h2" data-reveal>7. Editor de placas (PCB).</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Con el esquemático listo, pasamos al <strong>Editor de placas</strong> para diseñar el PCB físico.
+    Con el esquemático listo, se pasa al <strong>Editor de placas</strong> para diseñar el PCB físico.
   </p>
   <div class="tool-row" style="border-top:none; padding-top:0;">
     <div class="tool-icon-box"><img src={img('06-editor-placas/00-icono-abrir-editor-placas.png')} alt="" loading="lazy" decoding="async" /></div>
@@ -358,15 +371,31 @@ const tools = [
   </div>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">1</span>Antes de colocar nada configuramos las reglas de diseño en
-    <strong>Configuración de la placa → Reglas de diseño → Requerimientos</strong>: fijamos el
-    <strong>margen mínimo de cobre en 0.4 mm</strong> — la separación mínima entre conductores, acorde
-    al material y proceso de fresado de la placa — y dejamos el ancho de pista predefinido también en
+    <span class="step-num">1</span>Antes de colocar nada se configuran las reglas de diseño en <strong>Configuración de la placa → Reglas de diseño → Requerimientos</strong>: se fija el <strong>margen mínimo de cobre en 0.4 mm</strong> — la separación mínima entre conductores, acorde
+    al material y proceso de fresado de la placa — y se deja el ancho de pista predefinido también en
     0.4 mm (con una opción alternativa de 0.8 mm para pistas de más corriente).
   </p>
-  <img src={img('06-editor-placas/00-configuracion-inicial/02-configuracion-placa-reglas-diseno.png')} alt="Diálogo Configuración de la placa, Reglas de diseño, Requerimientos" class="screenshot" loading="lazy" decoding="async" />
-  <img src={img('06-editor-placas/00-configuracion-inicial/01-ancho-pista-predefinido.png')} alt="Menú desplegable de anchos de pista predefinidos: 0.400mm y 0.800mm" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Anchos de pista predefinidos</span>
+  <details class="step-group">
+    <summary>Ver capturas (2)</summary>
+    <div class="step-group__body shot-grid">
+      <AnnotatedShot
+        src={img('06-editor-placas/00-configuracion-inicial/02-configuracion-placa-reglas-diseno.png')}
+        alt="Diálogo Configuración de la placa, Reglas de diseño, Requerimientos"
+        boxes={[
+          { left: 0, top: 20, width: 26, height: 5, label: 'Clic aquí' },
+          { left: 48, top: 7, width: 9, height: 5, label: 'Cambiar a 0.4mm' },
+        ]}
+      />
+      <div>
+        <AnnotatedShot
+          src={img('06-editor-placas/00-configuracion-inicial/01-ancho-pista-predefinido.png')}
+          alt="Menú desplegable de anchos de pista predefinidos: 0.400mm y 0.800mm"
+          boxes={[{ left: 0, top: 38, width: 100, height: 18, label: 'Elegir este ancho' }]}
+        />
+        <span class="screenshot-caption">Anchos de pista predefinidos</span>
+      </div>
+    </div>
+  </details>
 
   <div class="callout" data-reveal data-reveal-delay="100">
     <strong>Herramientas de dibujo del editor de placas</strong>
@@ -395,126 +424,362 @@ const tools = [
 
   <p class="prose" data-reveal data-reveal-delay="60">
     <span class="step-num">2</span><strong>Capas.</strong> <code>F.Cu</code> (cobre superior) es la
-    capa principal — ahí vive todo el cobre de este diseño de una sola cara. Las capas
-    <code>User.1</code>–<code>User.4</code> son auxiliares: las usamos para marcar perforaciones,
+    capa principal — ahí vive todo el cobre de este diseño de una sola cara. Las capas <code>User.1</code>–<code>User.4</code> son auxiliares: se usan para marcar perforaciones,
     agregar etiquetas y tener más control a la hora de exportar. <code>Edge.Cuts</code> define el
     contorno físico/corte de la placa.
   </p>
-  <img src={img('06-editor-placas/02-capas/01-fcu-capa-principal.png')} alt="Capa F.Cu activa en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">F.Cu — capa principal</span>
-  <img src={img('06-editor-placas/02-capas/03-capas-usuario.png')} alt="Capas User.1 a User.4 en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">User.1–User.4 — capas auxiliares</span>
-  <img src={img('06-editor-placas/02-capas/04-edge-cuts.png')} alt="Capa Edge.Cuts en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Edge.Cuts — contorno de la placa</span>
+  <details class="step-group">
+    <summary>Ver capturas (3)</summary>
+    <div class="step-group__body shot-grid">
+      <div>
+        <img src={img('06-editor-placas/02-capas/01-fcu-capa-principal.png')} alt="Capa F.Cu activa en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">F.Cu — capa principal</span>
+      </div>
+      <div>
+        <img src={img('06-editor-placas/02-capas/03-capas-usuario.png')} alt="Capas User.1 a User.4 en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">User.1–User.4 — capas auxiliares</span>
+      </div>
+      <div>
+        <img src={img('06-editor-placas/02-capas/04-edge-cuts.png')} alt="Capa Edge.Cuts en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">Edge.Cuts — contorno de la placa</span>
+      </div>
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">3</span>Acomodamos primero todos los componentes y ruteamos las pistas
+    <span class="step-num">3</span>Se acomodan primero todos los componentes y se rutean las pistas
     completas sobre <code>F.Cu</code>:
   </p>
-  <img src={img('06-editor-placas/03-componentes-y-rutas/01-board-componentes-y-rutas.png')} alt="PCB con todos los componentes colocados y las pistas ya ruteadas" class="screenshot" loading="lazy" decoding="async" />
+  <details class="step-group">
+    <summary>Ver captura</summary>
+    <div class="step-group__body">
+      <img src={img('06-editor-placas/03-componentes-y-rutas/01-board-componentes-y-rutas.png')} alt="PCB con todos los componentes colocados y las pistas ya ruteadas" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">4</span>Le dimos a la placa un borde con esquinas cortadas (forma
+    <span class="step-num">4</span>Se le da a la placa un borde con esquinas cortadas (forma
     octagonal) en <code>Edge.Cuts</code>, con <strong>2 mm de ancho de línea</strong> — es el trazo que
     sigue la fresadora al cortar el contorno físico de la placa.
   </p>
-  <img src={img('06-editor-placas/04-borde-placa-edge-cuts/01-zoom-borde-octagonal.png')} alt="Zoom del borde octagonal de la placa en Edge.Cuts" class="screenshot" loading="lazy" decoding="async" />
-  <img src={img('06-editor-placas/04-borde-placa-edge-cuts/02-propiedades-segmento-2mm.png')} alt="Propiedades del segmento del borde: ancho de línea 2mm, capa Edge.Cuts" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Propiedades del segmento — 2 mm, capa Edge.Cuts</span>
+  <details class="step-group">
+    <summary>Ver capturas (2)</summary>
+    <div class="step-group__body shot-grid">
+      <img src={img('06-editor-placas/04-borde-placa-edge-cuts/01-zoom-borde-octagonal.png')} alt="Zoom del borde octagonal de la placa en Edge.Cuts" class="screenshot" loading="lazy" decoding="async" />
+      <div>
+        <AnnotatedShot
+          src={img('06-editor-placas/04-borde-placa-edge-cuts/02-propiedades-segmento-2mm.png')}
+          alt="Propiedades del segmento del borde: ancho de línea 2mm, capa Edge.Cuts"
+          boxes={[{ left: 19, top: 46, width: 21, height: 6, label: 'Poner en 2mm' }]}
+        />
+        <span class="screenshot-caption">Propiedades del segmento — 2 mm, capa Edge.Cuts</span>
+      </div>
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">5</span>Antes de eso, dibujamos la forma de la placa en <code>F.Cu</code> y
-    usamos la herramienta de <strong>zona rellena</strong> — todo el cobre no usado por las pistas
+    <span class="step-num">5</span>Antes de eso, se dibuja la forma de la placa en <code>F.Cu</code> y
+    se usa la herramienta de <strong>zona rellena</strong> — todo el cobre no usado por las pistas
     queda como un plano sólido (se ve todo en rojo):
   </p>
-  <img src={img('06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.png')} alt="PCB completo con la zona de cobre rellena en F.Cu, todo en rojo" class="screenshot" loading="lazy" decoding="async" />
+  <details class="step-group">
+    <summary>Ver captura</summary>
+    <div class="step-group__body">
+      <img src={img('06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.png')} alt="PCB completo con la zona de cobre rellena en F.Cu, todo en rojo" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">6</span>Marcamos las perforaciones en <code>User.4</code> con círculos de
+    <span class="step-num">6</span>Se marcan las perforaciones en <code>User.4</code> con círculos de
     0.7 mm de radio y relleno <strong>sólido</strong> (junto a los pads de salidas, por ejemplo):
   </p>
-  <img src={img('06-editor-placas/06-perforaciones-user4/02-zoom-salidas-perforacion.png')} alt="Zoom de los pads de J2 Salidas con un círculo blanco marcando una perforación en User.4" class="screenshot" loading="lazy" decoding="async" />
-  <img src={img('06-editor-placas/06-perforaciones-user4/01-propiedades-circulo-user4.png')} alt="Propiedades del círculo: capa User.4, radio 0.7mm, relleno sólido" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Propiedades del círculo — User.4, radio 0.7 mm</span>
-  <img src={img('06-editor-placas/06-perforaciones-user4/03-opciones-relleno-solido.png')} alt="Opciones de relleno: Ninguno, Sólida, Rayado, Rayado inverso, Rayado cruzado" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Relleno — Sólida</span>
+  <details class="step-group">
+    <summary>Ver capturas (3)</summary>
+    <div class="step-group__body shot-grid">
+      <img src={img('06-editor-placas/06-perforaciones-user4/02-zoom-salidas-perforacion.png')} alt="Zoom de los pads de J2 Salidas con un círculo blanco marcando una perforación en User.4" class="screenshot" loading="lazy" decoding="async" />
+      <div>
+        <img src={img('06-editor-placas/06-perforaciones-user4/01-propiedades-circulo-user4.png')} alt="Propiedades del círculo: capa User.4, radio 0.7mm, relleno sólido" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">Propiedades del círculo — User.4, radio 0.7 mm</span>
+      </div>
+      <div>
+        <AnnotatedShot
+          src={img('06-editor-placas/06-perforaciones-user4/03-opciones-relleno-solido.png')}
+          alt="Opciones de relleno: Ninguno, Sólida, Rayado, Rayado inverso, Rayado cruzado"
+          boxes={[{ left: 0, top: 34, width: 100, height: 11, label: 'Elegir Sólida' }]}
+        />
+        <span class="screenshot-caption">Relleno — Sólida</span>
+      </div>
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">7</span>Las etiquetas (<code>VCC</code>, <code>GND</code>,
-    <code>S1</code>–<code>S4</code>) las pusimos directo en <code>F.Cu</code>:
+    <span class="step-num">7</span>Las etiquetas (<code>VCC</code>, <code>GND</code>, <code>S1</code>–<code>S4</code>)
+    se ponen directo en <code>F.Cu</code>:
   </p>
-  <img src={img('06-editor-placas/07-etiquetas-fcu/01-zoom-vcc-gnd.png')} alt="Zoom de las etiquetas VCC y GND junto al conector J1, en F.Cu" class="screenshot" loading="lazy" decoding="async" />
+  <details class="step-group">
+    <summary>Ver captura</summary>
+    <div class="step-group__body">
+      <img src={img('06-editor-placas/07-etiquetas-fcu/01-zoom-vcc-gnd.png')} alt="Zoom de las etiquetas VCC y GND junto al conector J1, en F.Cu" class="screenshot" loading="lazy" decoding="async" />
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
     <span class="step-num">8</span>Y así queda el resultado final del PCB: forma octagonal, plano de
     cobre, pistas, etiquetas y los headers J1/J2.
   </p>
-  <img src={img('06-editor-placas/08-resultado-final/01-board-final.png')} alt="PCB terminado: forma octagonal, cobre rojo, pistas, etiquetas VCC/GND/S1-S4" class="screenshot" loading="lazy" decoding="async" />
-  <img src={img('06-editor-placas/08-resultado-final/02-board-final-editor-completo.png')} alt="Vista del editor de placas completo con el PCB terminado" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Editor de placas — resultado final</span>
+  <details class="step-group" open>
+    <summary>Ver capturas (2)</summary>
+    <div class="step-group__body shot-grid">
+      <img src={img('06-editor-placas/08-resultado-final/01-board-final.png')} alt="PCB terminado: forma octagonal, cobre rojo, pistas, etiquetas VCC/GND/S1-S4" class="screenshot" loading="lazy" decoding="async" />
+      <div>
+        <img src={img('06-editor-placas/08-resultado-final/02-board-final-editor-completo.png')} alt="Vista del editor de placas completo con el PCB terminado" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">Editor de placas — resultado final</span>
+      </div>
+    </div>
+  </details>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>8. Exportación a Gerber.</h2>
+  <h2 id="paso-8" class="section-h2" data-reveal>8. Exportación a Gerber.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
     <span class="step-num">1</span>Desde <strong>Archivo → Salidas de fabricación → Gerbers...</strong>
   </p>
-  <img src={img('06-editor-placas/09-exportacion-gerbers/01-menu-salidas-fabricacion.png')} alt="Menú Archivo, Salidas de fabricación, con la opción Gerbers" class="screenshot" loading="lazy" decoding="async" />
+  <AnnotatedShot
+    src={img('06-editor-placas/09-exportacion-gerbers/01-menu-salidas-fabricacion.png')}
+    alt="Menú Archivo, Salidas de fabricación, con la opción Gerbers"
+    wide
+    boxes={[{ left: 47, top: 0, width: 53, height: 14, label: 'Clic aquí' }]}
+  />
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">2</span>En el diálogo <strong>Trazar</strong>, cambiamos el formato de
-    trazado a <strong>SVG</strong> e incluimos solo las capas que se usaron en cada archivo: pistas
+    <span class="step-num">2</span>En el diálogo <strong>Trazar</strong>, se cambia el formato de
+    trazado a <strong>SVG</strong> y se incluyen solo las capas que se usaron en cada archivo: pistas
     (<code>F.Cu</code> + <code>Edge.Cuts</code>) y perforaciones/periferia
     (<code>Edge.Cuts</code> + <code>User.4</code>).
   </p>
-  <img src={img('06-editor-placas/09-exportacion-gerbers/02-dialogo-trazar-gerber.png')} alt="Diálogo Trazar, con formato Gerber y las opciones generales" class="screenshot" loading="lazy" decoding="async" />
-  <img src={img('06-editor-placas/09-exportacion-gerbers/03-formato-svg.png')} alt="Menú de formato de trazado con SVG seleccionado" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Formato de trazado — SVG</span>
-  <img src={img('06-editor-placas/09-exportacion-gerbers/04-capas-fcu-edgecuts.png')} alt="Selección de capas F.Cu y Edge.Cuts para el archivo de pistas" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Capas para "Pistas" — F.Cu + Edge.Cuts</span>
-  <img src={img('06-editor-placas/09-exportacion-gerbers/05-capas-edgecuts-user4.png')} alt="Selección de capas Edge.Cuts y User.4 para los archivos de periferia y horificios" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Capas para "Periferia"/"Horificios" — Edge.Cuts + User.4</span>
+  <details class="step-group">
+    <summary>Ver capturas (4)</summary>
+    <div class="step-group__body shot-grid">
+      <AnnotatedShot
+        src={img('06-editor-placas/09-exportacion-gerbers/02-dialogo-trazar-gerber.png')}
+        alt="Diálogo Trazar, con formato Gerber y las opciones generales"
+        wide
+        boxes={[{ left: 62, top: 92, width: 9, height: 6, label: 'Trazar' }]}
+      />
+      <div>
+        <AnnotatedShot
+          src={img('06-editor-placas/09-exportacion-gerbers/03-formato-svg.png')}
+          alt="Menú de formato de trazado con SVG seleccionado"
+          boxes={[{ left: 0, top: 52, width: 100, height: 17, label: 'Elegir SVG' }]}
+        />
+        <span class="screenshot-caption">Formato de trazado — SVG</span>
+      </div>
+      <div>
+        <AnnotatedShot
+          src={img('06-editor-placas/09-exportacion-gerbers/04-capas-fcu-edgecuts.png')}
+          alt="Selección de capas F.Cu y Edge.Cuts para el archivo de pistas"
+          boxes={[
+            { left: 0, top: 5, width: 100, height: 8, label: 'Marcar F.Cu' },
+            { left: 0, top: 90, width: 100, height: 5, label: 'Marcar Edge.Cuts' },
+          ]}
+        />
+        <span class="screenshot-caption">Capas para "Pistas" — F.Cu + Edge.Cuts</span>
+      </div>
+      <div>
+        <AnnotatedShot
+          src={img('06-editor-placas/09-exportacion-gerbers/05-capas-edgecuts-user4.png')}
+          alt="Selección de capas Edge.Cuts y User.4 para los archivos de periferia y horificios"
+          boxes={[
+            { left: 0, top: 36, width: 100, height: 5, label: 'Marcar Edge.Cuts' },
+            { left: 0, top: 88, width: 100, height: 6, label: 'Marcar User.4' },
+          ]}
+        />
+        <span class="screenshot-caption">Capas para "Periferia"/"Horificios" — Edge.Cuts + User.4</span>
+      </div>
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">3</span>Muy importante: activar <strong>"Ajustar página a la placa"</strong>
-    en las opciones de SVG.
+    <span class="step-num">3</span>Muy importante: activar <strong>"Ajustar página a la placa"</strong> en las opciones de SVG.
   </p>
-  <img src={img('06-editor-placas/09-exportacion-gerbers/06-opciones-svg-ajustar-pagina.png')} alt="Opciones SVG con Ajustar página a la placa activado" class="screenshot" loading="lazy" decoding="async" />
+  <AnnotatedShot
+    src={img('06-editor-placas/09-exportacion-gerbers/06-opciones-svg-ajustar-pagina.png')}
+    alt="Opciones SVG con Ajustar página a la placa activado"
+    boxes={[{ left: 2, top: 70, width: 42, height: 14, label: 'Activar esto' }]}
+  />
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">4</span>Damos <strong>Trazar</strong> y luego <strong>Guardar</strong> — los
+    <span class="step-num">4</span>Se da <strong>Trazar</strong> y luego <strong>Guardar</strong> — los
     archivos se generan en la carpeta del proyecto:
   </p>
-  <img src={img('06-editor-placas/09-exportacion-gerbers/09-archivos-generados.png')} alt="Archivos SVG generados en la carpeta del proyecto: Edge_Cuts, F_Cu, User_4" class="screenshot" loading="lazy" decoding="async" />
+  <details class="step-group">
+    <summary>Ver captura</summary>
+    <div class="step-group__body">
+      <img src={img('06-editor-placas/09-exportacion-gerbers/09-archivos-generados.png')} alt="Archivos SVG generados en la carpeta del proyecto: Edge_Cuts, F_Cu, User_4" class="screenshot" loading="lazy" decoding="async" />
+    </div>
+  </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">5</span>Como buena práctica, les cambiamos el nombre a algo descriptivo:
-    <strong>HORIFICIOS</strong> (perforaciones, capa User.4), <strong>PERIFERIA</strong> (contorno,
+    <span class="step-num">5</span>Como buena práctica, se les cambia el nombre a algo descriptivo: <strong>HORIFICIOS</strong> (perforaciones, capa User.4), <strong>PERIFERIA</strong> (contorno,
     Edge.Cuts) y <strong>PISTAS</strong> (cobre, F.Cu).
   </p>
   <img src={img('06-editor-placas/09-exportacion-gerbers/10-archivos-renombrados.png')} alt="Archivos renombrados: HORIFICIOS, PERIFERIA, PISTAS" class="screenshot" loading="lazy" decoding="async" />
-  <div style="display:flex; gap:16px; flex-wrap:wrap; margin: 8px 0 40px;">
-    <div style="flex:1; min-width:140px;">
-      <img src={img('06-editor-placas/09-exportacion-gerbers/11-horificios-preview.png')} alt="Vista previa del SVG de horificios: puntos de perforación" style="width:100%; border-radius:14px; border:1px solid rgba(33,31,26,0.1);" loading="lazy" decoding="async" />
-      <span style="display:block; margin-top:6px; font-size:12.5px; color:#8a8579; text-align:center;">HORIFICIOS</span>
+  <div class="shot-grid" style="margin-top:-8px;">
+    <div>
+      <img src={img('06-editor-placas/09-exportacion-gerbers/11-horificios-preview.png')} alt="Vista previa del SVG de horificios: puntos de perforación" class="screenshot" style="max-height:180px;" loading="lazy" decoding="async" />
+      <span class="screenshot-caption">HORIFICIOS</span>
     </div>
-    <div style="flex:1; min-width:140px;">
-      <img src={img('06-editor-placas/09-exportacion-gerbers/12-periferia-preview.png')} alt="Vista previa del SVG de periferia: contorno octagonal de la placa" style="width:100%; border-radius:14px; border:1px solid rgba(33,31,26,0.1);" loading="lazy" decoding="async" />
-      <span style="display:block; margin-top:6px; font-size:12.5px; color:#8a8579; text-align:center;">PERIFERIA</span>
+    <div>
+      <img src={img('06-editor-placas/09-exportacion-gerbers/12-periferia-preview.png')} alt="Vista previa del SVG de periferia: contorno octagonal de la placa" class="screenshot" style="max-height:180px;" loading="lazy" decoding="async" />
+      <span class="screenshot-caption">PERIFERIA</span>
     </div>
-    <div style="flex:1; min-width:140px;">
-      <img src={img('06-editor-placas/09-exportacion-gerbers/13-pistas-preview.png')} alt="Vista previa del SVG de pistas: cobre y trazas del circuito" style="width:100%; border-radius:14px; border:1px solid rgba(33,31,26,0.1);" loading="lazy" decoding="async" />
-      <span style="display:block; margin-top:6px; font-size:12.5px; color:#8a8579; text-align:center;">PISTAS</span>
+    <div>
+      <img src={img('06-editor-placas/09-exportacion-gerbers/13-pistas-preview.png')} alt="Vista previa del SVG de pistas: cobre y trazas del circuito" class="screenshot" style="max-height:180px;" loading="lazy" decoding="async" />
+      <span class="screenshot-caption">PISTAS</span>
     </div>
   </div>
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>Fabricación en MonoFab.</h2>
+  <h2 id="paso-9" class="section-h2" data-reveal>9. Generación de toolpaths con mods.</h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    Con los 3 SVG ya exportados (<code>PERIFERIA</code>, <code>PISTAS</code>, <code>HORIFICIOS</code>),
+    el siguiente paso es convertirlos en trayectorias de fresado que la Roland SRM-20 pueda ejecutar.
+    Para eso se usa <strong><a href="https://modsproject.org/" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">mods.org</a></strong>,
+    la herramienta CAM basada en nodos del CBA/MIT que se usa en los Fab Labs.
+  </p>
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="step-num">1</span>En el menú <strong>Programs</strong> de mods se busca "SRM" y
+    se elige <strong>"mill 2D PCB"</strong> (dentro de "SRM-20 mill"). Esto carga de una sola vez un
+    grafo pre-armado con todos los nodos ya conectados: <code>read SVG</code> → <code>convert SVG image</code> → <code>image threshold</code> → <code>distance transform</code> → <code>offset</code> → <code>edge detect</code> → <code>orient edges</code> → <code>vectorize</code> → <code>mill raster 2D</code> → <code>simulate toolpath</code> → <code>Roland SRM-20 milling machine</code> → <code>save file</code> (más <code>set PCB defaults</code> y <code>V-bit calculator</code> como nodos auxiliares de configuración).
+  </p>
+  <details class="step-group">
+    <summary>Ver capturas (2)</summary>
+    <div class="step-group__body shot-grid">
+      <div>
+        <AnnotatedShot
+          src={img('07-monofab-mods/00-programa-mill-2d-pcb/05-buscar-srm-completo.png')}
+          alt="Menú Programs de mods filtrado por SRM, con la opción mill 2D PCB resaltada"
+          boxes={[{ left: 0, top: 56, width: 100, height: 9, label: 'Elegir este' }]}
+        />
+        <span class="screenshot-caption">Programs → filtro "SRM" → "mill 2D PCB"</span>
+      </div>
+      <div>
+        <img src={img('07-monofab-mods/00-programa-mill-2d-pcb/07-grafo-completo-cargado.png')} alt="Grafo completo Roland Monofab PCB cargado en mods, con todos los nodos conectados" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">Grafo "Roland Monofab PCB" recién cargado</span>
+      </div>
+    </div>
+  </details>
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    Este mismo grafo se recorre <strong>tres veces, una por cada SVG</strong> — cambia el archivo
+    cargado en <code>read SVG</code>, el preset elegido en <code>set PCB defaults</code> y los
+    parámetros de <code>mill raster 2D</code> y de la máquina.
+  </p>
+
+  <div class="callout" data-reveal data-reveal-delay="100">
+    <strong>PERIFERIA — corte del contorno</strong>
+    <p class="prose" style="margin:0; font-size:14.5px;">
+      Preset <strong>"1.59mm cutout"</strong> → fresa de <strong>1.9 mm</strong> de diámetro,
+      profundidad de corte 0.254 mm, profundidad máxima 1.7018 mm, velocidad de la máquina
+      <strong>4 mm/s</strong>. Al calcular, la simulación 3D muestra el corte del contorno
+      octagonal ya trazado sobre el stock.
+    </p>
+  </div>
+  <details class="step-group">
+    <summary>Ver capturas (2)</summary>
+    <div class="step-group__body shot-grid">
+      <div>
+        <AnnotatedShot
+          src={img('07-monofab-mods/01-periferia-contorno/04-set-pcb-defaults-cutout-1-59mm-seleccionado.png')}
+          alt="Nodo set PCB defaults con el preset 1.59mm cutout seleccionado"
+          boxes={[{ left: 0, top: 83, width: 100, height: 12, label: 'Elegir este preset' }]}
+        />
+        <span class="screenshot-caption">set PCB defaults — preset "1.59mm cutout"</span>
+      </div>
+      <div>
+        <img src={img('07-monofab-mods/01-periferia-contorno/10-toolpath-simulado-contorno.png')} alt="Simulación 3D del toolpath de contorno sobre el stock de cobre, forma octagonal" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">Toolpath simulado — PERIFERIA</span>
+      </div>
+    </div>
+  </details>
+
+  <div class="callout" data-reveal data-reveal-delay="100">
+    <strong>PISTAS — aislamiento del cobre</strong>
+    <p class="prose" style="margin:0; font-size:14.5px;">
+      Preset <strong>"0.40mm flat"</strong> (fresa plana, no V-bit) → diámetro
+      <strong>0.396 mm</strong>, profundidad de corte 0.1016 mm — mucho más fina que el
+      contorno, porque aquí solo hay que aislar cobre, no cortar la placa. En <code>convert SVG image</code> se activa <strong>invert</strong> para que el aislamiento
+      quede del lado correcto de las pistas.
+    </p>
+  </div>
+  <details class="step-group">
+    <summary>Ver capturas (2)</summary>
+    <div class="step-group__body shot-grid">
+      <div>
+        <AnnotatedShot
+          src={img('07-monofab-mods/02-pistas-trazas/11-convert-svg-image-invert-pistas.png')}
+          alt="Nodo convert SVG image mostrando las pistas VCC y GND, con invert activado"
+          boxes={[{ left: 42, top: 63, width: 11, height: 6, label: 'Activar invert' }]}
+        />
+        <span class="screenshot-caption">convert SVG image — PISTAS, con "invert" activado</span>
+      </div>
+      <div>
+        <img src={img('07-monofab-mods/02-pistas-trazas/12-toolpath-simulado-pistas.png')} alt="Simulación 3D del toolpath de aislamiento de pistas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">Toolpath simulado — PISTAS</span>
+      </div>
+    </div>
+  </details>
+
+  <div class="callout" data-reveal data-reveal-delay="100">
+    <strong>HORIFICIOS — perforaciones</strong>
+    <p class="prose" style="margin:0; font-size:14.5px;">
+      Preset <strong>"0.79mm drill"</strong> → broca de <strong>0.79 mm</strong> de diámetro,
+      velocidad de la máquina reducida a <strong>0.3 mm/s</strong> (mucho más lenta que el
+      contorno y las pistas, apropiado para taladrar). La simulación muestra la placa con las
+      perforaciones ya marcadas.
+    </p>
+  </div>
+  <details class="step-group">
+    <summary>Ver capturas (2)</summary>
+    <div class="step-group__body shot-grid">
+      <div>
+        <AnnotatedShot
+          src={img('07-monofab-mods/03-orificios-taladrado/02-set-pcb-defaults-drill-0-79mm.png')}
+          alt="Nodo set PCB defaults con el preset 0.79mm drill seleccionado"
+          boxes={[{ left: 0, top: 65, width: 100, height: 7, label: 'Elegir este preset' }]}
+        />
+        <span class="screenshot-caption">set PCB defaults — preset "0.79mm drill"</span>
+      </div>
+      <div>
+        <img src={img('07-monofab-mods/03-orificios-taladrado/11-toolpath-simulado-orificios-cerca.png')} alt="Simulación 3D de las perforaciones ya marcadas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
+        <span class="screenshot-caption">Toolpath simulado — HORIFICIOS</span>
+      </div>
+    </div>
+  </details>
+
+  <div class="todo-callout" data-reveal data-reveal-delay="100">
+    <strong>⚠ Pendiente</strong>
+    Confirmar con Alessandro si la velocidad distinta por archivo (4 mm/s para contorno/pistas vs.
+    0.3 mm/s para taladrado) es una convención fija del flujo de mods o un ajuste manual de esa
+    sesión puntual.
+  </div>
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    Cada pasada termina guardando el archivo correspondiente desde el nodo <code>save file</code>.
+    Al final de las tres, quedan los 3 <code>.rml</code> listos para pasarle a la SRM-20 física:
+  </p>
+  <img src={img('07-monofab-mods/04-archivos-finales/01-tres-rml-generados.png')} alt="Explorador de Windows con los tres archivos generados: PISTAS.rml, ORIFICIOS.rml, PERIFERIA.rml" class="screenshot" loading="lazy" decoding="async" />
+  <span class="screenshot-caption">PISTAS.rml · ORIFICIOS.rml · PERIFERIA.rml — listos para la SRM-20</span>
+
+  <hr class="divider" />
+
+  <h2 id="fabricacion" class="section-h2" data-reveal>Fabricación en MonoFab.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
     <strong>MonoFab</strong> es la <strong>Roland SRM-20</strong>: una fresadora CNC de escritorio que
-    usamos para fabricar PCBs por fresado a partir de los archivos SVG que exportamos arriba
-    (<code>HORIFICIOS</code>, <code>PERIFERIA</code>, <code>PISTAS</code>).
+    se usa para fabricar PCBs por fresado a partir de los archivos <code>.rml</code> generados
+    arriba con mods (<code>PERIFERIA.rml</code>, <code>PISTAS.rml</code>, <code>ORIFICIOS.rml</code>).
   </p>
   <img
     src={monofabImg}
@@ -539,9 +804,9 @@ const tools = [
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>Resultados y aprendizajes.</h2>
+  <h2 id="resultados" class="section-h2" data-reveal>Resultados y aprendizajes.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    <em>TODO: foto de la placa terminada, pruebas eléctricas realizadas, qué funcionó, qué no, y qué haríamos
+    <em>TODO: foto de la placa terminada, pruebas eléctricas realizadas, qué funcionó, qué no, y qué se haría
     diferente en la siguiente práctica.</em>
   </p>
   <div class="img-placeholder" data-reveal data-reveal-delay="100">

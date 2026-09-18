@@ -163,15 +163,25 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     letter-spacing: 0.08em; text-transform: uppercase;
   }
 
-  /* ── Real screenshot (filled-in step) ── */
+  /* ── Real screenshot (filled-in step) ──
+     Capped so a small dialog/node crop doesn't stretch to the full 800px column;
+     .screenshot--wide opts back in for full-desktop shots and board photos that
+     need the width to stay legible. */
   .docs-body .screenshot {
     display: block;
-    width: 100%;
+    width: auto;
     height: auto;
+    max-width: 640px;
+    max-height: 440px;
+    object-fit: contain;
     border-radius: 14px;
     border: 1px solid rgba(33, 31, 26, 0.1);
     box-shadow: 0 30px 70px -36px rgba(33, 31, 26, 0.28);
-    margin: clamp(16px, 2.2vh, 24px) 0 clamp(32px, 5vh, 52px);
+    margin: clamp(16px, 2.2vh, 24px) auto clamp(32px, 5vh, 52px);
+  }
+  .docs-body .screenshot--wide {
+    max-width: 100%;
+    max-height: 560px;
   }
   .docs-body .screenshot-caption {
     display: block;
@@ -180,6 +190,106 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     color: #8a8579;
     text-align: center;
   }
+
+  /* ── Shot grid: 2-3 related screenshots side by side instead of stacked ── */
+  .docs-body .shot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: clamp(16px, 2.2vh, 24px) 0 clamp(32px, 5vh, 52px);
+  }
+  .docs-body .shot-grid .screenshot,
+  .docs-body .shot-grid .shot-annotated {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  /* width/height stay auto so tall, narrow crops scale down proportionally
+     instead of stretching to the cell width and getting squashed by max-height */
+  .docs-body .shot-grid .screenshot { max-height: 260px; width: auto; height: auto; }
+  .docs-body .shot-grid .screenshot-caption { margin: 8px 0 0; text-align: center; }
+
+  /* ── Annotated screenshot: highlight box + label pointing at what to click/change ── */
+  .docs-body .shot-annotated {
+    position: relative;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: clamp(16px, 2.2vh, 24px) auto clamp(32px, 5vh, 52px);
+  }
+  .docs-body .shot-annotated .screenshot { margin: 0; display: block; }
+  .docs-body .shot-annotation {
+    position: absolute;
+    border: 2.5px solid #ea6a2e;
+    border-radius: 6px;
+    background: rgba(234, 106, 46, 0.1);
+    box-shadow: 0 0 0 3px rgba(234, 106, 46, 0.14);
+    pointer-events: none;
+  }
+  .docs-body .shot-annotation__label {
+    position: absolute;
+    top: -13px;
+    left: -2px;
+    transform: translateY(-100%);
+    background: #ea6a2e;
+    color: #f3ede1;
+    font: 700 10.5px 'Hanken Grotesk', system-ui, sans-serif;
+    letter-spacing: 0.01em;
+    padding: 4px 9px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ── Step jump menu ── */
+  .docs-body .step-toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 10px;
+    margin: clamp(20px, 3vh, 32px) 0;
+  }
+  .docs-body .step-toc a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; border-radius: 12px;
+    background: #efe7d8; border: 1px solid rgba(33, 31, 26, 0.08);
+    font: 600 13px 'Hanken Grotesk', system-ui, sans-serif;
+    color: #211f1a; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .docs-body .step-toc a:hover { border-color: rgba(37, 64, 192, 0.4); color: #2540c0; transform: translateY(-1px); }
+  .docs-body .step-toc a:focus-visible { outline: 2px solid #2540c0; outline-offset: 3px; }
+  .docs-body .step-toc .step-toc__num {
+    font-family: 'Instrument Serif', serif; font-size: 18px; color: #2540c0; flex-shrink: 0; min-width: 18px;
+  }
+
+  /* ── Collapsible step group (wraps screenshots, keeps prose always visible) ── */
+  .docs-body details.step-group {
+    border: 1px solid rgba(33, 31, 26, 0.1);
+    border-radius: 16px;
+    margin: clamp(16px, 2.2vh, 24px) 0 clamp(32px, 5vh, 52px);
+    background: #efe7d8;
+    overflow: hidden;
+  }
+  .docs-body details.step-group summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 20px;
+    font: 700 13.5px 'Hanken Grotesk', system-ui, sans-serif;
+    color: #211f1a;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .docs-body details.step-group summary::-webkit-details-marker { display: none; }
+  .docs-body details.step-group summary::after {
+    content: '+';
+    font-size: 18px; line-height: 1; color: #2540c0; flex-shrink: 0;
+  }
+  .docs-body details.step-group[open] summary::after { content: '\2212'; }
+  .docs-body details.step-group summary:focus-visible { outline: 2px solid #2540c0; outline-offset: -2px; }
+  .docs-body details.step-group .step-group__body {
+    padding: 4px 20px 20px;
+    border-top: 1px solid rgba(33, 31, 26, 0.08);
+  }
+  .docs-body details.step-group .step-group__body > *:first-child { margin-top: 16px; }
+  .docs-body details.step-group .step-group__body > *:last-child { margin-bottom: 0; }
 
   /* ── Step number badge ── */
   .docs-body .step-num {

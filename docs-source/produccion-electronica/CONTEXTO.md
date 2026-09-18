@@ -1,22 +1,21 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ✅ Estado al 2026-09-18
-> **Mergeado a `main` y desplegado.** La rama `docs/materias-produccion-electronica` (fast-forward,
-> sin conflictos) se mergeó y pusheó a `origin/main`, el deploy a GitHub Pages corre vía
-> `.github/workflows/ci-cd.yml`. El sitio público ya incluye el esquemático completo (organización,
-> 4 pulsadores, conectores I/O, vista general) y el PCB completo (configuración, herramientas,
-> capas, ruteo, borde, zona de cobre, perforaciones, etiquetas, exportación a Gerber) —
-> **incompleto a propósito**: falta objetivo de la práctica, valores reales de componentes,
-> fabricación física en MonoFab y resultados.
+> ## ✅ Estado al 2026-09-18 (actualizado, sesión mods.org)
+> **Mergeado a `main` y desplegado** (esquemático + PCB completos en KiCad, ver detalle más abajo).
+> Además, en esta sesión se organizó material crudo nuevo de **mods.org** (generación de
+> toolpaths para la Roland SRM-20 a partir de los 3 SVG exportados de KiCad) en
+> `practicas/01-primera-placa/07-monofab-mods/` — **todavía no integrado a la página real**, solo
+> organizado. Ver "Assets ya recolectados" y el log de sesión de hoy para el detalle completo.
 > URL: `https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`
 >
 > El dev server local (`npm run dev`, sirve en `http://localhost:4321/portfolio/` — **ojo con el
 > base path `/portfolio`**, no carga en `localhost:4321/` a secas) no persiste entre reinicios ni
 > sesiones, hay que levantarlo de nuevo cada vez.
 >
-> Siguiente paso natural al volver: seguir esperando material de Alessandro (fabricación física en
-> la SRM-20, resultados/pruebas) o llenar el objetivo de la práctica y los valores reales de
-> componentes si los tiene a mano. Ver "Pendientes consolidados" abajo para el detalle completo.
+> Siguiente paso natural al volver: integrar el material de mods.org a la página real (nueva
+> sección "Generación de toolpaths con mods" antes de "Fabricación en MonoFab"), o seguir
+> esperando material de Alessandro (fresado físico real en la SRM-20, resultados/pruebas) o el
+> objetivo de la práctica y los valores reales de componentes. Ver "Pendientes consolidados" abajo.
 
 ---
 
@@ -43,6 +42,13 @@
 >   - `06-editor-placas/` — editor de placas (PCB): configuración inicial, herramientas de
 >     dibujo, capas, colocación/ruteo, borde de placa, zona de cobre, perforaciones, etiquetas,
 >     resultado final y exportación a Gerber/SVG (ver subcarpetas numeradas dentro)
+>   - `07-monofab-mods/` — flujo en **mods.org** (herramienta CAM del CBA/MIT, basada en nodos) que
+>     toma los 3 SVG exportados de KiCad (PISTAS, ORIFICIOS, PERIFERIA) y genera las trayectorias
+>     de fresado (`.rml`) para la Roland SRM-20. Subcarpetas cronológicas:
+>     `00-programa-mill-2d-pcb/` (abrir el programa correcto), `01-periferia-contorno/`,
+>     `02-pistas-trazas/`, `03-orificios-taladrado/` (una por archivo SVG procesado) y
+>     `04-archivos-finales/` (los 3 `.rml` listos) — **material crudo organizado, aún no
+>     integrado a la página real**
 > - `monofab/srm-20-roland.png` — foto de referencia de la fresadora Roland SRM-20 (la MonoFab
 >   real que usa la materia)
 >
@@ -164,6 +170,46 @@ una a la página real.**
     proyecto y se renombran a algo descriptivo: **`HORIFICIOS`** (perforaciones, capa `User.4`),
     **`PERIFERIA`** (contorno, `Edge.Cuts`) y **`PISTAS`** (cobre, `F.Cu`).
 
+- `07-monofab-mods/` (47 capturas — se revisaron las 48 del día, se descartó solo 1 por ser una
+  captura de otra materia ajena a este trabajo) — flujo completo en **mods.org**
+  (https://modsproject.org/, herramienta CAM de nodos del CBA/MIT usada con máquinas de FabLab)
+  para convertir los 3 SVG de la Práctica 1 (`PISTAS.svg`, `ORIFICIOS.svg`, `PERIFERIA.svg`,
+  exportados desde el editor de placas de KiCad) en trayectorias de fresado para la Roland
+  SRM-20. El programa base es **"mill 2D PCB"** (dentro de "SRM-20 mill" en el buscador de
+  Programs), que carga un grafo llamado **"Roland Monofab PCB"** con todos los nodos ya
+  conectados: `read SVG` → `convert SVG image` → `image threshold` → `distance transform` →
+  `offset` → `edge detect` → `orient edges` → `vectorize` → `mill raster 2D` →
+  `simulate toolpath` → `Roland SRM-20 milling machine` → `save file` (más `set PCB defaults` y
+  `V-bit calculator` como nodos auxiliares de configuración).
+  - **00-programa-mill-2d-pcb/** — abrir mods.org, menú Programs, buscar "SRM" (aparecen las
+    opciones de SRM-20 mill: 2.5D stl / 2D / 2D PCB / 3D stl, y las de xdesign connect), elegir
+    "mill 2D PCB", el grafo completo se carga de una vez.
+  - **01-periferia-contorno/** — se carga `PERIFERIA.svg` (el contorno de la placa) en el nodo
+    `read SVG`; en `set PCB defaults` se elige el preset **"1.59mm cutout"** (fresa de corte de
+    borde); `mill raster 2D` queda con herramienta de 1.9 mm de diámetro, profundidad de corte
+    0.254 mm, profundidad máxima 1.7018 mm; el nodo `Roland SRM-20 milling machine` se configura
+    con velocidad 4 mm/s y origen/home de la máquina; al calcular, la simulación 3D muestra el
+    corte del contorno octagonal ya trazado sobre el stock; se guarda como `PERIFERIA.rml`
+    (4526 bytes).
+  - **02-pistas-trazas/** — se carga `PISTAS.svg` (el cobre); en `set PCB defaults` se elige el
+    preset **"0.40mm flat"** (fresa plana para aislamiento de pistas, no V-bit); `mill raster 2D`
+    queda con herramienta de 0.396 mm, profundidad de corte 0.1016 mm (mucho más fina que el
+    contorno — solo hay que aislar cobre, no cortar la placa); en `convert SVG image` se activa
+    **invert** para que el aislamiento quede del lado correcto; la simulación 3D muestra el
+    patrón de pistas completo (con las etiquetas VCC/GND visibles) ya ruteado por la fresa; se
+    calcula el toolpath (patrón tipo laberinto, visible en la vista previa del nodo).
+  - **03-orificios-taladrado/** — se carga el tercer SVG (perforaciones); en `set PCB defaults`
+    se elige el preset **"0.79mm drill"**; el nodo de la SRM-20 baja la velocidad a **0.3 mm/s**
+    (mucho más lento que el contorno/pistas, apropiado para taladrar); `mill raster 2D` queda con
+    herramienta de 0.79 mm de diámetro; la simulación 3D muestra la placa con las perforaciones ya
+    marcadas (2 arriba + 4 en fila, coincide con las perforaciones de `User.4` documentadas en la
+    sección 06); se guarda como `ORIFICIOS.rml` (10128 bytes).
+  - **04-archivos-finales/** — el Explorador de Windows muestra los 3 archivos `.rml` generados
+    hoy: `PISTAS.rml`, `ORIFICIOS.rml`, `PERIFERIA.rml` — listos para pasarlos a la SRM-20 física.
+  - Nota: velocidades y orígenes distintos por archivo (4 mm/s para contorno/pistas vs 0.3 mm/s
+    para taladrado) — confirmar con Alessandro si esto es una convención fija del flujo mods o
+    ajuste manual de esa sesión, para documentarlo bien al integrar a la página.
+
 ## Pendientes consolidados
 
 - **Bio de Alexa:** nombre (Alexa Groot) y foto ya son reales en `src/data/docs.ts`
@@ -173,8 +219,13 @@ una a la página real.**
 - **Valores reales de componentes:** ohmiaje de las resistencias (pull-down R1/R3/R5/R7 y
   limitadoras R2/R4/R6/R8) y color/referencia exacta del LED — no vienen en las capturas
   (`R_1206`/`LED_1206` son el nombre de la huella, no el valor).
-- **Resto del flujo de la práctica 1:** fabricación física en la SRM-20 (MonoFab) con los
-  archivos ya exportados → resultados y pruebas.
+- **Resto del flujo de la práctica 1:** el flujo de generación de toolpaths en mods.org
+  (`PERIFERIA.rml`, `PISTAS.rml`, `ORIFICIOS.rml`) ya está organizado en `docs-source/` — falta
+  (a) integrarlo a la página real y (b) el fresado físico real en la SRM-20 con esos archivos →
+  resultados y pruebas.
+- **Integrar el material de mods.org a la página real:** organizado en
+  `07-monofab-mods/`, pendiente de volcar a `primera-placa-kicad.astro` (nueva sección antes de
+  "Fabricación en MonoFab", algo como "Generación de toolpaths con mods").
 - **Logo/asset de MonoFab (Roland/SRM-20)** si existe uno oficial además de la foto ya guardada
   en `monofab/srm-20-roland.png`, o confirmar que la foto del equipo es suficiente.
 - **Nombre final de la placa real** — "Hola_Mundo" fue solo el proyecto de prueba para aprender
@@ -309,3 +360,36 @@ Nota aparte (no relacionada a este trabajo): GitHub reporta 29 vulnerabilidades 
 el repo (1 crítica, 19 altas, 8 moderadas, 1 baja) — son de dependencias existentes, no de estos
 cambios; queda como pendiente revisar cuando Alessandro tenga tiempo
 (`https://github.com/Alesso-24/portfolio/security/dependabot`).
+
+### 2026-09-18 (continuación) — Flujo de mods.org: de los SVG de KiCad a los .rml de la SRM-20
+
+Alessandro mandó 48 capturas del proceso en **mods.org** para generar las trayectorias de fresado
+de la SRM-20 a partir de los 3 SVG ya exportados de KiCad (`PISTAS.svg`, `ORIFICIOS.svg`,
+`PERIFERIA.svg`). Las capturas no traían contexto explícito por imagen — se identificó el orden
+cronológico real a partir de la marca de tiempo de archivo de cada captura (carpeta
+`C:\Users\jordi\OneDrive\Imágenes\Capturas de pantalla\`, todas entre 11:41 y 12:26). En una
+primera pasada se descartaron ~18 capturas por parecer recortes/duplicados; Alessandro pidió
+revisar de nuevo porque varias eran en realidad tomas repetidas del mismo nodo en momentos
+distintos (antes/después de un cambio de valor, o zoom a un botón específico) que sí aportan
+detalle del paso. Se volvió a revisar una por una: de las 48, solo se descartó 1 por ser una
+captura de otra materia (ajena a este trabajo, un enunciado de tarea en alemán); las 47 restantes
+quedaron organizadas.
+
+Resumen del flujo (ver detalle completo en "Assets ya recolectados" arriba): se abre mods.org, se
+busca el programa **"mill 2D PCB"** (dentro de "SRM-20 mill"), que carga un grafo pre-armado
+**"Roland Monofab PCB"**. Ese grafo se recorre tres veces, una por cada SVG:
+**PERIFERIA** (preset "1.59mm cutout", fresa de 1.9 mm, velocidad 4 mm/s) → **PISTAS** (preset
+"0.40mm flat", fresa de 0.396 mm, profundidad de corte mucho más fina, `invert` activado en la
+conversión) → **ORIFICIOS** (preset "0.79mm drill", fresa de 0.79 mm, velocidad reducida a
+0.3 mm/s por tratarse de taladrado). Cada pasada termina con una simulación 3D del resultado sobre
+el stock y el guardado del archivo correspondiente. Al final quedan los 3 `.rml` listos:
+`PERIFERIA.rml`, `PISTAS.rml`, `ORIFICIOS.rml`.
+
+Se organizó todo en
+`docs-source/produccion-electronica/practicas/01-primera-placa/07-monofab-mods/`, en 5
+subcarpetas cronológicas (`00-programa-mill-2d-pcb/` a `04-archivos-finales/`). **Por el mismo
+criterio usado en sesiones anteriores, solo se organizó el material crudo — todavía no se integró
+a la página real** (`primera-placa-kicad.astro`); queda pendiente para cuando Alessandro pida
+volcarlo. Queda una duda para confirmar con Alessandro antes de integrar: si la velocidad distinta
+por archivo (4 mm/s vs 0.3 mm/s para taladrado) es una convención fija del flujo o un ajuste
+manual de esa sesión puntual.
