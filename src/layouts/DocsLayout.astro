@@ -440,47 +440,6 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     font-size: 14px; line-height: 1.6; color: #6f6a5f; margin: 0;
   }
 
-  /* ── Machine product shot: floating cutout with glow + 3D tilt-on-hover ── */
-  .docs-body .machine-shot {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    margin: clamp(20px, 3vh, 32px) 0 clamp(36px, 5vh, 56px);
-    perspective: 1200px;
-  }
-  .docs-body .machine-shot::before {
-    content: '';
-    position: absolute;
-    inset: 10% 15%;
-    background: radial-gradient(closest-side, rgba(37, 64, 192, 0.26), rgba(234, 106, 46, 0.14) 55%, transparent 75%);
-    filter: blur(36px);
-    animation: machine-glow 6s ease-in-out infinite;
-  }
-  .docs-body .machine-shot__float {
-    position: relative;
-    animation: machine-float 5s ease-in-out infinite;
-  }
-  .docs-body .machine-shot__img {
-    display: block;
-    max-width: 420px;
-    width: 100%;
-    filter: drop-shadow(0 26px 34px rgba(33, 31, 26, 0.32));
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-  @keyframes machine-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  @keyframes machine-glow {
-    0%, 100% { opacity: 0.65; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.05); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .docs-body .machine-shot__float,
-    .docs-body .machine-shot::before { animation: none; }
-  }
-
   /* ── CTA button ── */
   .docs-body .docs-cta {
     display: inline-flex; align-items: center; gap: 9px;
