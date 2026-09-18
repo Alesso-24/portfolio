@@ -1,12 +1,17 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ✅ Estado al 2026-09-18 (actualizado, sesión mods.org)
-> **Mergeado a `main` y desplegado** (esquemático + PCB completos en KiCad, ver detalle más abajo).
-> Además, en esta sesión se organizó material crudo nuevo de **mods.org** (generación de
-> toolpaths para la Roland SRM-20 a partir de los 3 SVG exportados de KiCad) en
-> `practicas/01-primera-placa/07-monofab-mods/` — **todavía no integrado a la página real**, solo
-> organizado. Ver "Assets ya recolectados" y el log de sesión de hoy para el detalle completo.
+> ## ✅ Estado al 2026-09-18 (actualizado, sesión perf + machine-shot)
+> **Mergeado a `main` y desplegado** (esquemático + PCB completos en KiCad). Además, el material
+> crudo de **mods.org** (generación de toolpaths para la SRM-20 a partir de los 3 SVG de KiCad) ya
+> está organizado en `practicas/01-primera-placa/07-monofab-mods/` — **todavía no integrado a la
+> página real**. Ver "Assets ya recolectados" y el log de sesiones para el detalle completo.
 > URL: `https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`
+>
+> Después del merge, en una sesión aparte (sin commitear todavía al retomarla) se hizo una pasada
+> de performance (conversión a WebP de las 9 imágenes pesadas + ajustes de tamaño mobile) y se le
+> dio tratamiento "hero" a la foto de la SRM-20 (tarjeta flotante con glow + tilt 3D al pasar el
+> mouse, vía GSAP). Ambos cambios ya se verificaron (`astro check` limpio, página viva en local) y
+> se dejaron commiteados — ver log de sesión de hoy.
 >
 > El dev server local (`npm run dev`, sirve en `http://localhost:4321/portfolio/` — **ojo con el
 > base path `/portfolio`**, no carga en `localhost:4321/` a secas) no persiste entre reinicios ni
@@ -393,3 +398,20 @@ a la página real** (`primera-placa-kicad.astro`); queda pendiente para cuando A
 volcarlo. Queda una duda para confirmar con Alessandro antes de integrar: si la velocidad distinta
 por archivo (4 mm/s vs 0.3 mm/s para taladrado) es una convención fija del flujo o un ajuste
 manual de esa sesión puntual.
+
+### 2026-09-18 (continuación) — Perf pass (WebP) + tratamiento hero a la foto de la SRM-20
+
+Sesión retomada tras perderse la anterior (chat interrumpido); se recuperó el estado leyendo este
+mismo archivo y el `git log`/`git diff` — la rama `main` ya traía commiteado un primer commit de
+esta sesión (`01304ad`, conversión a WebP de las 9 imágenes más pesadas — capturas de pantalla
+completa y renders 3D de mods — más ajustes de tamaño para mobile en `.screenshot`/`.shot-grid`/
+`step-toc`), y quedaban cambios sin commitear: la foto de la SRM-20
+(`monofab/srm-20-roland.webp`) reexportada más grande/nítida, y un tratamiento visual nuevo para
+esa misma foto en `primera-placa-kicad.astro` — tarjeta `.machine-shot` con glow radial animado de
+fondo, flotación vertical suave (`machine-float`), y tilt 3D que sigue el mouse (GSAP
+`quickTo` sobre `rotateX`/`rotateY`, con `prefers-reduced-motion` respetado tanto en CSS como en
+el script). Estilos nuevos agregados a `DocsLayout.astro` (`.machine-shot`, `.machine-shot__float`,
+`.machine-shot__img` + keyframes). Se verificó `astro check` limpio (0 errores) y la página viva en
+local (`http://localhost:4321/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`,
+devuelve 200 con el nuevo markup presente). Se commiteó a `main` y se hizo push (dispara deploy vía
+`.github/workflows/ci-cd.yml`).

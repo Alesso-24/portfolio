@@ -781,14 +781,17 @@ const tools = [
     se usa para fabricar PCBs por fresado a partir de los archivos <code>.rml</code> generados
     arriba con mods (<code>PERIFERIA.rml</code>, <code>PISTAS.rml</code>, <code>ORIFICIOS.rml</code>).
   </p>
-  <img
-    src={monofabImg}
-    alt="Fresadora Roland SRM-20 (MonoFab)"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-    style="max-width:420px;"
-  />
+  <div class="machine-shot" data-reveal data-reveal-delay="100">
+    <div class="machine-shot__float">
+      <img
+        src={monofabImg}
+        alt="Fresadora Roland SRM-20 (MonoFab)"
+        class="machine-shot__img"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
   <p class="prose" data-reveal data-reveal-delay="60">
     <em>TODO: documentar el proceso físico de fabricación — de archivo a placa fresada, ajustes de
     la máquina, y cualquier problema encontrado durante el fresado.</em>
@@ -818,3 +821,28 @@ const tools = [
     <span>Foto de la placa terminada — pendiente</span>
   </div>
 </DocsLayout>
+
+<script>
+  import gsap from 'gsap'
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const shot = document.querySelector<HTMLElement>('.machine-shot')
+  const img = shot?.querySelector<HTMLElement>('.machine-shot__img')
+
+  if (shot && img && !prefersReduced) {
+    const setRotateX = gsap.quickTo(img, 'rotateX', { duration: 0.45, ease: 'power3.out' })
+    const setRotateY = gsap.quickTo(img, 'rotateY', { duration: 0.45, ease: 'power3.out' })
+
+    shot.addEventListener('pointermove', (e) => {
+      const rect = shot.getBoundingClientRect()
+      const px = (e.clientX - rect.left) / rect.width - 0.5
+      const py = (e.clientY - rect.top) / rect.height - 0.5
+      setRotateY(px * 18)
+      setRotateX(py * -18)
+    })
+    shot.addEventListener('pointerleave', () => {
+      setRotateX(0)
+      setRotateY(0)
+    })
+  }
+</script>
