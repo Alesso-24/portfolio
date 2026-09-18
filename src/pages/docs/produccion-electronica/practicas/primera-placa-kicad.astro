@@ -7,7 +7,7 @@ const subject = getSubject('produccion-electronica')!
 const teamNames = subject.team.map((m) => m.name).join(' + ')
 
 const img = (path: string) => `/portfolio/images/docs/produccion-electronica/practicas/01-primera-placa/${path}`
-const monofabImg = '/portfolio/images/docs/produccion-electronica/monofab/srm-20-roland.png'
+const monofabImg = '/portfolio/images/docs/produccion-electronica/monofab/srm-20-roland.webp'
 
 const steps = [
   { href: '#objetivo', label: 'Objetivo' },
@@ -144,7 +144,7 @@ const tools = [
     hoja de trabajo, y el Administrador de complementos y contenido.
   </p>
   <img
-    src={img('00-preparacion/01-abrir-kicad-ventana-principal.png')}
+    src={img('00-preparacion/01-abrir-kicad-ventana-principal.webp')}
     alt="Ventana principal de KiCad 10.0 mostrando los editores disponibles del proyecto"
     class="screenshot"
     loading="lazy"
@@ -182,7 +182,7 @@ const tools = [
     Arranca con la hoja en blanco, formato A4, con el cuadro de título en la esquina inferior derecha.
   </p>
   <img
-    src={img('01-esquematico/00-editor-de-esquemas-vacio.png')}
+    src={img('01-esquematico/00-editor-de-esquemas-vacio.webp')}
     alt="Editor de esquemas de KiCad con una hoja en blanco formato A4"
     class="screenshot"
     loading="lazy"
@@ -485,7 +485,7 @@ const tools = [
   <details class="step-group">
     <summary>Ver captura</summary>
     <div class="step-group__body">
-      <img src={img('06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.png')} alt="PCB completo con la zona de cobre rellena en F.Cu, todo en rojo" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
+      <img src={img('06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.webp')} alt="PCB completo con la zona de cobre rellena en F.Cu, todo en rojo" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
     </div>
   </details>
 
@@ -532,7 +532,7 @@ const tools = [
     <div class="step-group__body shot-grid">
       <img src={img('06-editor-placas/08-resultado-final/01-board-final.png')} alt="PCB terminado: forma octagonal, cobre rojo, pistas, etiquetas VCC/GND/S1-S4" class="screenshot" loading="lazy" decoding="async" />
       <div>
-        <img src={img('06-editor-placas/08-resultado-final/02-board-final-editor-completo.png')} alt="Vista del editor de placas completo con el PCB terminado" class="screenshot" loading="lazy" decoding="async" />
+        <img src={img('06-editor-placas/08-resultado-final/02-board-final-editor-completo.webp')} alt="Vista del editor de placas completo con el PCB terminado" class="screenshot" loading="lazy" decoding="async" />
         <span class="screenshot-caption">Editor de placas — resultado final</span>
       </div>
     </div>
@@ -666,7 +666,7 @@ const tools = [
         <span class="screenshot-caption">Programs → filtro "SRM" → "mill 2D PCB"</span>
       </div>
       <div>
-        <img src={img('07-monofab-mods/00-programa-mill-2d-pcb/07-grafo-completo-cargado.png')} alt="Grafo completo Roland Monofab PCB cargado en mods, con todos los nodos conectados" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
+        <img src={img('07-monofab-mods/00-programa-mill-2d-pcb/07-grafo-completo-cargado.webp')} alt="Grafo completo Roland Monofab PCB cargado en mods, con todos los nodos conectados" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
         <span class="screenshot-caption">Grafo "Roland Monofab PCB" recién cargado</span>
       </div>
     </div>
@@ -699,7 +699,7 @@ const tools = [
         <span class="screenshot-caption">set PCB defaults — preset "1.59mm cutout"</span>
       </div>
       <div>
-        <img src={img('07-monofab-mods/01-periferia-contorno/10-toolpath-simulado-contorno.png')} alt="Simulación 3D del toolpath de contorno sobre el stock de cobre, forma octagonal" class="screenshot" loading="lazy" decoding="async" />
+        <img src={img('07-monofab-mods/01-periferia-contorno/10-toolpath-simulado-contorno.webp')} alt="Simulación 3D del toolpath de contorno sobre el stock de cobre, forma octagonal" class="screenshot" loading="lazy" decoding="async" />
         <span class="screenshot-caption">Toolpath simulado — PERIFERIA</span>
       </div>
     </div>
@@ -726,7 +726,7 @@ const tools = [
         <span class="screenshot-caption">convert SVG image — PISTAS, con "invert" activado</span>
       </div>
       <div>
-        <img src={img('07-monofab-mods/02-pistas-trazas/12-toolpath-simulado-pistas.png')} alt="Simulación 3D del toolpath de aislamiento de pistas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
+        <img src={img('07-monofab-mods/02-pistas-trazas/12-toolpath-simulado-pistas.webp')} alt="Simulación 3D del toolpath de aislamiento de pistas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
         <span class="screenshot-caption">Toolpath simulado — PISTAS</span>
       </div>
     </div>
@@ -753,7 +753,7 @@ const tools = [
         <span class="screenshot-caption">set PCB defaults — preset "0.79mm drill"</span>
       </div>
       <div>
-        <img src={img('07-monofab-mods/03-orificios-taladrado/11-toolpath-simulado-orificios-cerca.png')} alt="Simulación 3D de las perforaciones ya marcadas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
+        <img src={img('07-monofab-mods/03-orificios-taladrado/11-toolpath-simulado-orificios-cerca.webp')} alt="Simulación 3D de las perforaciones ya marcadas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
         <span class="screenshot-caption">Toolpath simulado — HORIFICIOS</span>
       </div>
     </div>
