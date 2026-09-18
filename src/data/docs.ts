@@ -32,10 +32,11 @@ export const DOCS_SUBJECTS: DocsSubject[] = [
         photo: '/portfolio/images/Alessandro.webp',
       },
       {
-        // TODO(Alessandro): reemplaza con el nombre, rol/breve descripción y foto reales de tu compañera.
-        name: '[Nombre de tu compañera]',
+        // TODO(Alessandro): agrega aquí la bio real de Alexa.
+        name: 'Alexa Groot',
         role: 'Ingeniería Mecatrónica · IBERO Puebla',
         bio: 'TODO: agrega aquí su breve descripción.',
+        photo: '/portfolio/images/Alexa.webp',
       },
     ],
   },
