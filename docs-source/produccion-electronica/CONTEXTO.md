@@ -1,16 +1,20 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ✅ Estado — 2026-09-17: mergeado a `main` y desplegado
-> La rama `docs/materias-produccion-electronica` se mergeó a `main` y se hizo push a `origin` —
-> el deploy a GitHub Pages corre automático vía `.github/workflows/ci-cd.yml`. El sitio ya está
-> **público** en `https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`
-> tal como está hoy: **incompleto a propósito** (decisión de Alessandro — no importa que no esté
-> terminado). Ver "Pendientes consolidados" abajo para lo que falta.
->
-> Nota para retomar en cualquier sesión futura: lee este archivo primero — es la fuente de verdad
-> de en qué íbamos. El dev server local (`npm run dev`, sirve en `http://localhost:4321/portfolio/`
-> — **ojo con el base path `/portfolio`**, no carga en `localhost:4321/` a secas) no persiste entre
-> reinicios ni sesiones, hay que levantarlo de nuevo cada vez.
+> ## ⏸ Pausa de sesión — 2026-09-17
+> Alessandro se ausenta un momento, sin mandar material nuevo todavía. Para retomar:
+> 1. Lee este archivo primero — es la fuente de verdad de en qué íbamos.
+> 2. **Ya mergeado a `main` y desplegado** — la rama `docs/materias-produccion-electronica` se
+>    mergeó y pusheó a `origin`, el deploy a GitHub Pages corrió vía `.github/workflows/ci-cd.yml`.
+>    El sitio está **público** tal como está hoy: **incompleto a propósito** (decisión explícita de
+>    Alessandro, no importa que no esté terminado). Ya no se trabaja en rama aparte — los próximos
+>    cambios van directo sobre `main` salvo que se diga lo contrario.
+>    URL: `https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`
+> 3. El dev server local (`npm run dev`, sirve en `http://localhost:4321/portfolio/` — **ojo con
+>    el base path `/portfolio`**, no carga en `localhost:4321/` a secas) no persiste entre
+>    reinicios ni sesiones, hay que levantarlo de nuevo cada vez.
+> 4. Siguiente paso natural al volver: seguir esperando material de Alessandro para continuar la
+>    Práctica 1 (colocar componentes/cablear el esquemático), o aclarar qué es MonoFab si prefiere
+>    arrancar esa página primero. Ver "Pendientes consolidados" abajo para el detalle completo.
 
 ---
 
