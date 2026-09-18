@@ -1,20 +1,22 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ⏸ Pausa de sesión — 2026-09-17
-> Alessandro se ausenta un momento, sin mandar material nuevo todavía. Para retomar:
-> 1. Lee este archivo primero — es la fuente de verdad de en qué íbamos.
-> 2. **Ya mergeado a `main` y desplegado** — la rama `docs/materias-produccion-electronica` se
->    mergeó y pusheó a `origin`, el deploy a GitHub Pages corrió vía `.github/workflows/ci-cd.yml`.
->    El sitio está **público** tal como está hoy: **incompleto a propósito** (decisión explícita de
->    Alessandro, no importa que no esté terminado). Ya no se trabaja en rama aparte — los próximos
->    cambios van directo sobre `main` salvo que se diga lo contrario.
->    URL: `https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`
-> 3. El dev server local (`npm run dev`, sirve en `http://localhost:4321/portfolio/` — **ojo con
->    el base path `/portfolio`**, no carga en `localhost:4321/` a secas) no persiste entre
->    reinicios ni sesiones, hay que levantarlo de nuevo cada vez.
-> 4. Siguiente paso natural al volver: seguir esperando material de Alessandro para continuar la
->    Práctica 1 (colocar componentes/cablear el esquemático), o aclarar qué es MonoFab si prefiere
->    arrancar esa página primero. Ver "Pendientes consolidados" abajo para el detalle completo.
+> ## ✅ Estado al 2026-09-18
+> **Mergeado a `main` y desplegado.** La rama `docs/materias-produccion-electronica` (fast-forward,
+> sin conflictos) se mergeó y pusheó a `origin/main`, el deploy a GitHub Pages corre vía
+> `.github/workflows/ci-cd.yml`. El sitio público ya incluye el esquemático completo (organización,
+> 4 pulsadores, conectores I/O, vista general) y el PCB completo (configuración, herramientas,
+> capas, ruteo, borde, zona de cobre, perforaciones, etiquetas, exportación a Gerber) —
+> **incompleto a propósito**: falta objetivo de la práctica, valores reales de componentes,
+> fabricación física en MonoFab y resultados.
+> URL: `https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`
+>
+> El dev server local (`npm run dev`, sirve en `http://localhost:4321/portfolio/` — **ojo con el
+> base path `/portfolio`**, no carga en `localhost:4321/` a secas) no persiste entre reinicios ni
+> sesiones, hay que levantarlo de nuevo cada vez.
+>
+> Siguiente paso natural al volver: seguir esperando material de Alessandro (fabricación física en
+> la SRM-20, resultados/pruebas) o llenar el objetivo de la práctica y los valores reales de
+> componentes si los tiene a mano. Ver "Pendientes consolidados" abajo para el detalle completo.
 
 ---
 
@@ -22,7 +24,8 @@
 > registran decisiones, pendientes y un log breve por sesión — el contenido ya volcado a página
 > vive en el `.astro` correspondiente (fuente de verdad), no se duplica aquí completo.
 >
-> **Rama de trabajo:** `docs/materias-produccion-electronica` (no mergeada a `main`).
+> **Rama de trabajo:** el trabajo se hizo en `docs/materias-produccion-electronica`, ya mergeada
+> (fast-forward) a `main` y desplegada — ver estado arriba.
 >
 > Estructura de carpetas hermana (`docs-source/produccion-electronica/`):
 > - `kicad/` — material crudo para la página "¿Qué es KiCad?"
@@ -178,6 +181,8 @@ una a la página real.**
   el flujo de KiCad.
 - Crear las rutas `/docs/produccion-electronica/herramientas/kicad` y `.../monofab` cuando haya
   contenido suficiente para no dejarlas vacías.
+- **(No relacionado a esta materia)** 29 vulnerabilidades de Dependabot reportadas por GitHub en
+  el repo (1 crítica, 19 altas, 8 moderadas, 1 baja) — revisar cuando Alessandro tenga tiempo.
 
 ---
 
@@ -267,7 +272,7 @@ Se organizó todo en `docs-source/produccion-electronica/practicas/01-primera-pl
 `docs-source/produccion-electronica/monofab/`. Igual que la sesión anterior, **solo se organizó
 el material — todavía no se integra a la página real**, queda para cuando Alessandro retome.
 
-### 2026-09-17 — Volcado completo a la página real (esquemático + PCB)
+### 2026-09-17 (continuación, ya 2026-09-18) — Volcado completo a la página real (esquemático + PCB)
 
 Alessandro pidió integrar todo el material organizado a la página real. Se mergeó todo a
 `primera-placa-kicad.astro`:
@@ -287,4 +292,20 @@ Se mirroreó todo el material nuevo de `docs-source/` a
 `public/images/docs/produccion-electronica/...` (mismas rutas relativas). `npm run lint`
 (`astro check`) sin errores. Página verificada viva en local
 (`http://localhost:4321/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`).
-**Todavía sin commitear** — pendiente de que Alessandro revise cómo se ve antes de guardar.
+
+### 2026-09-18 — Merge a `main` y deploy
+
+Alessandro pidió subir todo lo anterior a `main`. Se commiteó en
+`docs/materias-produccion-electronica` (commit `108dcd2`, 123 archivos: el `.astro` actualizado +
+todas las imágenes nuevas de `docs-source/` y su espejo en `public/images/`), se excluyó
+`_scratch/` (contenido ajeno a esta materia). Push de la rama a `origin`, merge a `main`
+(fast-forward limpio, sin conflictos — la rama ya partía de la punta de `main`) y push de `main`
+a `origin`, lo que dispara el deploy vía `.github/workflows/ci-cd.yml`.
+
+URL pública actualizada:
+`https://alesso-24.github.io/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad`.
+
+Nota aparte (no relacionada a este trabajo): GitHub reporta 29 vulnerabilidades de Dependabot en
+el repo (1 crítica, 19 altas, 8 moderadas, 1 baja) — son de dependencias existentes, no de estos
+cambios; queda como pendiente revisar cuando Alessandro tenga tiempo
+(`https://github.com/Alesso-24/portfolio/security/dependabot`).
