@@ -1,5 +1,21 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🌿 Rama activa: `feat/kicad-imagenes-generales` (2026-09-20) — pendiente de revisión de Alessandro, NO mergeada
+> Sale de `main`. Dos cosas que pidió Alessandro tras ver la guía de mods:
+> 1. **Fix de recuadros desalineados** (los del paso 7.1 "Cambiar a 0.4mm / Clic aquí"): causa real = capturas anotadas que son hijas
+>    directas de `.shot-grid` se estiraban a la altura de la celda vecina (la del pie de foto) y los recuadros (en %) se corrían.
+>    Solución: `align-items: start` en `.shot-grid`. Verificado midiendo contenedor = imagen en las 87 capturas anotadas, en móvil/tableta/escritorio
+>    (antes fallaban 3 casos, ahora 0). Commit `f8c8573`.
+> 2. **Todo lo de KiCad anterior a mods** ahora también lleva "Dónde está": imagen general de la ventana + recuadros naranjas sobre el
+>    botón/menú/panel de cada paso (misma idea que en mods). 13 bloques (`<KicadWhere>`): menú Herramientas y Administrador de complementos (FabLib),
+>    menú Archivo (nuevo proyecto), Editor de esquemas y Editor de placas en la ventana principal, barra de herramientas del esquemático
+>    (5 íconos, con acercamiento numerado), Config. de la placa, barra del editor de placas (9 herramientas, con acercamiento), panel de Capas
+>    (F.Cu / Edge.Cuts), Enrutar pistas, Zona rellena, Edge.Cuts, Círculo (User.4) y menú Archivo para Gerber.
+>    Datos: `src/data/kicad-where.ts` (vistas + zooms, coords en px de la captura original) · componente `src/components/docs/KicadWhere.astro`.
+>    Recortes nuevos (nativos, sin escalar): `00-editor-de-esquemas-barra`, `03-editor-barra-herramientas`, `04-editor-panel-capas`
+>    (fuente en docs-source, WebP en public).
+> - Falta: visto bueno de Alessandro → merge a `main` → push/deploy.
+>
 > ## 🚀 Estado al 2026-09-20 — guía completa de mods integrada y desplegada
 > El paso **"9. Toolpaths con mods"** de `primera-placa-kicad.astro` se **reemplazó por completo** (lo anterior
 > no gustaba) por una guía paso a paso pensada para que **cualquiera, en el futuro, la siga sin recordar nada**:

@@ -2,6 +2,7 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro'
 import AnnotatedShot from '../../../../components/docs/AnnotatedShot.astro'
 import ModsStep from '../../../../components/docs/ModsStep.astro'
+import KicadWhere from '../../../../components/docs/KicadWhere.astro'
 import { MODS_GENERAL, MODS_IMG_BASE, MODS_MAP, MODS_MAP_LEGEND, MODS_OPEN, MODS_FLOWS, MODS_SUMMARY, MODS_FINAL } from '../../../../data/mods-flow'
 import { getSubject } from '../../../../data/docs'
 
@@ -99,6 +100,12 @@ const tools = [
       piezas del inventario oficial de Fab Lab — reduce la fricción de aprender electrónica y da más
       confianza al prototipar rápido.
     </p>
+    <KicadWhere
+      view="main"
+      items={['Menú Herramientas', 'Administrador de complementos y contenido']}
+      numbered
+      caption="Dos formas de llegar: menú Herramientas → Administrador de complementos y contenido, o la última opción de la lista de la ventana principal"
+    />
     <div class="tool-row" style="border-top:none; padding-top:0;">
       <div style="flex:1;">
         <AnnotatedShot
@@ -162,6 +169,8 @@ const tools = [
     <span class="step-num">2</span>Desde el menú <strong>Archivo → Nuevo proyecto...</strong> (Ctrl+N) se crea
     un proyecto nuevo.
   </p>
+  <KicadWhere view="main" items={['Menú Archivo']} />
+
   <AnnotatedShot
     src={img('00-preparacion/02-menu-archivo-nuevo-proyecto.png')}
     alt="Menú Archivo de KiCad con la opción Nuevo proyecto"
@@ -191,6 +200,8 @@ const tools = [
     Se entra al <strong>Editor de esquemas</strong> (Ctrl+E) para empezar el esquemático del circuito.
     Arranca con la hoja en blanco, formato A4, con el cuadro de título en la esquina inferior derecha.
   </p>
+  <KicadWhere view="main" items={['Editor de esquemas']} />
+
   <img
     src={img('01-esquematico/00-editor-de-esquemas-vacio.webp')}
     alt="Editor de esquemas de KiCad con una hoja en blanco formato A4"
@@ -201,6 +212,7 @@ const tools = [
 
   <div class="callout" data-reveal>
     <strong>Herramientas utilizadas en el esquemático</strong>
+    <KicadWhere zoom="esquemas-barra" caption="Barra de herramientas de la derecha del editor de esquemas: ventana completa (izquierda) y acercamiento (derecha)" />
     <div class="tool-list">
       {tools.map((tool) => (
         <div class="tool-row">
@@ -368,6 +380,8 @@ const tools = [
   <p class="prose" data-reveal data-reveal-delay="60">
     Con el esquemático listo, se pasa al <strong>Editor de placas</strong> para diseñar el PCB físico.
   </p>
+  <KicadWhere view="main" items={['Editor de placas']} />
+
   <div class="tool-row" style="border-top:none; padding-top:0;">
     <div class="tool-icon-box"><img src={img('06-editor-placas/00-icono-abrir-editor-placas.png')} alt="" loading="lazy" decoding="async" /></div>
     <div>
@@ -381,6 +395,8 @@ const tools = [
     al material y proceso de fresado de la placa — y se deja el ancho de pista predefinido también en
     0.4 mm (con una opción alternativa de 0.8 mm para pistas de más corriente).
   </p>
+  <KicadWhere view="placas" items={['Configuración de la placa']} caption="Ícono de la barra superior del editor de placas que abre Configuración de la placa" />
+
   <details class="step-group">
     <summary>Ver capturas (2)</summary>
     <div class="step-group__body shot-grid">
@@ -409,6 +425,7 @@ const tools = [
 
   <div class="callout" data-reveal data-reveal-delay="100">
     <strong>Herramientas de dibujo del editor de placas</strong>
+    <KicadWhere zoom="placas-barra" caption="Barra de herramientas de la derecha del editor de placas: ventana completa (izquierda) y acercamiento (derecha)" />
     <div class="tool-list">
       {[
         { icon: img('06-editor-placas/01-herramientas/01-enrutar-pistas.png'), name: 'Enrutar pistas', desc: 'Traza las conexiones de cobre entre pads sobre una capa.' },
@@ -438,6 +455,12 @@ const tools = [
     agregar etiquetas y tener más control a la hora de exportar. <code>Edge.Cuts</code> define el
     contorno físico/corte de la placa.
   </p>
+  <KicadWhere
+    zoom="placas-capas"
+    caption="Panel Apariencia (a la derecha del editor de placas), pestaña Capas"
+    note="Las capas User.1 a User.4 están más abajo en la misma lista: desplázala para verlas."
+  />
+
   <details class="step-group">
     <summary>Ver capturas (3)</summary>
     <div class="step-group__body shot-grid">
@@ -460,6 +483,8 @@ const tools = [
     <span class="step-num">3</span>Se acomodan primero todos los componentes y se rutean las pistas
     completas sobre <code>F.Cu</code>:
   </p>
+  <KicadWhere view="placas" items={['Enrutar pistas']} caption="Herramienta Enrutar pistas (barra de la derecha)" />
+
   <details class="step-group">
     <summary>Ver captura</summary>
     <div class="step-group__body">
@@ -472,6 +497,8 @@ const tools = [
     se usa la herramienta de <strong>zona rellena</strong> — todo el cobre no usado por las pistas
     queda como un plano sólido (se ve todo en rojo):
   </p>
+  <KicadWhere view="placas" items={['Zona rellena']} caption="Herramienta Dibujar zona rellena (barra de la derecha)" />
+
   <details class="step-group">
     <summary>Ver captura</summary>
     <div class="step-group__body">
@@ -484,6 +511,8 @@ const tools = [
     octagonal) en <code>Edge.Cuts</code>, con <strong>2 mm de ancho de línea</strong> — es el trazo que
     sigue la fresadora al cortar el contorno físico de la placa.
   </p>
+  <KicadWhere view="placas" items={['Capa Edge.Cuts']} caption="Selecciona la capa Edge.Cuts en el panel de capas antes de dibujar el borde" />
+
   <details class="step-group">
     <summary>Ver capturas (2)</summary>
     <div class="step-group__body shot-grid">
@@ -506,6 +535,8 @@ const tools = [
     <span class="step-num">6</span>Se marcan las perforaciones en <code>User.4</code> con círculos de
     0.7 mm de radio y relleno <strong>sólido</strong> (junto a los pads de salidas, por ejemplo):
   </p>
+  <KicadWhere view="placas" items={['Círculo']} caption="Herramienta Círculo (barra de la derecha); se dibuja en la capa User.4" />
+
   <details class="step-group">
     <summary>Ver capturas (3)</summary>
     <div class="step-group__body shot-grid">
@@ -560,6 +591,8 @@ const tools = [
   <p class="prose" data-reveal data-reveal-delay="60">
     <span class="step-num">1</span>Desde <strong>Archivo → Salidas de fabricación → Gerbers...</strong>
   </p>
+  <KicadWhere view="placas" items={['Menú Archivo']} />
+
   <AnnotatedShot
     src={img('06-editor-placas/09-exportacion-gerbers/01-menu-salidas-fabricacion.png')}
     alt="Menú Archivo, Salidas de fabricación, con la opción Gerbers"

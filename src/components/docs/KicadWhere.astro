@@ -1,0 +1,79 @@
+---
+import AnnotatedShot from './AnnotatedShot.astro'
+import { KICAD_BASE, KICAD_VIEWS, KICAD_ZOOMS, type KicadViewKey, type KicadZoomKey } from '../../data/kicad-where'
+
+interface Props {
+  /** vista general de KiCad (modo simple: recuadros sobre la captura completa) */
+  view?: KicadViewKey
+  /** claves de KICAD_VIEWS[view].items */
+  items?: string[]
+  /** varios elementos: recuadros numerados + leyenda debajo */
+  numbered?: boolean
+  /** modo acercamiento: general con la zona marcada + recorte ampliado con recuadros numerados */
+  zoom?: KicadZoomKey
+  caption?: string
+  /** nota extra bajo la leyenda (texto simple) */
+  note?: string
+}
+
+const { view, items = [], numbered = false, zoom, caption, note } = Astro.props
+type Pos = 'top' | 'bottom' | 'left' | 'right'
+type Rect = { x: number; y: number; w: number; h: number }
+
+// —— modo acercamiento ——
+const z = zoom ? KICAD_ZOOMS[zoom] : null
+const zv = z ? KICAD_VIEWS[z.view] : null
+const zoomNames = z ? Object.keys(z.items) : []
+const overviewBoxes = z ? [{ ...z.overview }] : []
+const zoomBoxes = z
+  ? zoomNames.map((n, i) => ({ ...(z.items as Record<string, Rect>)[n], label: String(i + 1), pos: 'left' as Pos }))
+  : []
+
+// —— modo simple ——
+const v = view ? KICAD_VIEWS[view] : null
+const catalog = (v?.items ?? {}) as Record<string, Rect & { pos: Pos; short?: string }>
+const boxes = items.map((name, i) => {
+  const it = catalog[name]
+  if (!it) throw new Error(`KicadWhere: "${name}" no existe en la vista "${view}"`)
+  return { x: it.x, y: it.y, w: it.w, h: it.h, pos: it.pos, label: numbered ? String(i + 1) : `Aquí: ${it.short ?? name}` }
+})
+const defaultCaption = z
+  ? 'Dónde está, en la ventana completa (izquierda) y ampliado (derecha)'
+  : numbered
+    ? 'Dónde están, en la ventana completa'
+    : `Dónde está: ${items[0]}`
+const legend = z ? zoomNames : numbered ? items : []
+---
+
+{z && zv ? (
+  <div class={`kicad-where kicad-where--zoom kicad-where--${z.layout}`}>
+    <div class="kicad-where__pair">
+      <div class="kicad-where__main">
+        <AnnotatedShot src={KICAD_BASE + zv.file} alt={`${zv.alt}. Recuadro naranja: ${z.overview.label}.`} size={zv.size} boxes={overviewBoxes} wide />
+      </div>
+      <div class="kicad-where__zoom">
+        <AnnotatedShot src={KICAD_BASE + z.file} alt={`${z.alt}. Recuadros numerados: ${zoomNames.join(', ')}.`} size={z.size} boxes={zoomBoxes} wide />
+      </div>
+    </div>
+    <span class="screenshot-caption">{caption ?? defaultCaption}</span>
+    <ol class="mods-legend">
+      {legend.map((n, i) => (
+        <li><b>{i + 1}</b> {n}</li>
+      ))}
+    </ol>
+    {note && <p class="prose" style="margin:12px 0 0; font-size:13.5px; color:#6f6a5f;">{note}</p>}
+  </div>
+) : v ? (
+  <div class="kicad-where">
+    <AnnotatedShot src={KICAD_BASE + v.file} alt={`${v.alt}. Recuadros naranjas: ${items.join(', ')}.`} size={v.size} boxes={boxes} wide />
+    <span class="screenshot-caption">{caption ?? defaultCaption}</span>
+    {numbered && (
+      <ol class="mods-legend">
+        {legend.map((n, i) => (
+          <li><b>{i + 1}</b> {n}</li>
+        ))}
+      </ol>
+    )}
+    {note && <p class="prose" style="margin:12px 0 0; font-size:13.5px; color:#6f6a5f;">{note}</p>}
+  </div>
+) : null}
