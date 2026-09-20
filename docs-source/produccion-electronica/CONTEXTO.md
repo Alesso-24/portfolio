@@ -1,6 +1,33 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ⚡ Estado al 2026-09-20 — página interactiva + auditoría responsive/rendimiento, MERGEADA y DESPLEGADA
+> ## ✅ Estado actual — 2026-09-20 (cierre de sesión): sitio listo para entrega, TODO en `main` y desplegado
+> Fuente de verdad del estado: este bloque. Lo de abajo ("Historial de estados") es bitácora de cómo se llegó aquí.
+>
+> - **Sitio en producción:** `https://alesso-24.github.io/portfolio/` · práctica: `/docs/produccion-electronica/practicas/primera-placa-kicad/`.
+>   Deploy automático al hacer push a `main` (`.github/workflows/ci-cd.yml`, ~1 min). Un solo `main`; ya no hay ramas de trabajo abiertas.
+> - **Contenido de la práctica (todo integrado):** página interactiva con pestañas **KiCad · MonoFab · Altium**; KiCad = 30 pasos en 9 secciones
+>   (preparación, esquemático, PCB, Gerber) y MonoFab = 31 pasos en 6 secciones (mods.org: PERIFERIA, PISTAS, ORIFICIOS, resumen, fabricación con vPanel).
+>   Recuadros naranjas sobre imagen general + captura de detalle, capturas en carrusel, clic para ampliar.
+> - **Qué se editó en esta última pasada:** (1) **dependencias** actualizadas dentro de sus rangos semver (astro 7.0.3→7.3.3, sharp 0.34→0.35.4,
+>   react/react-dom 19.3.0, tailwind 4.3.3, gsap 3.15, etc.) → `npm audit` pasó de **15 vulnerabilidades (1 crítica, 8 altas) a 0**; reemplaza los 9 PRs de dependabot;
+>   (2) **ramas** limpiadas (ver abajo); (3) esta bitácora reordenada.
+> - **Verificación previa al deploy (build de producción con las dependencias nuevas):** `astro check` 0 errores · 10 páginas × escritorio/móvil: 0 errores de consola,
+>   0 imágenes rotas, 0 desbordes · recorrido de los 61 pasos (KiCad + MonoFab) en escritorio y móvil: 0 imágenes rotas, 0 recuadros desalineados.
+> - **Decisiones que siguen vigentes:** solo español en `/docs`; la tarjeta de Alexa va **sin bio a propósito**; no se documenta la diferencia de medidas entre SVG;
+>   la pestaña Altium queda como "pendiente" (aún no migran a Altium); sin efectos vistosos (se descartó el glow/tilt de la foto SRM-20).
+> - **Ramas (2026-09-20):** solo queda `main`. Se borraron las locales y remotas ya integradas (`docs/*`, `feat/*`, `fix/*`, `perf/*`, `redesign`, `master`) —
+>   las 5 "sin mergear" (`feat/bdai-update-nav-fix`, `feat/case-update-and-copyedit`, `feat/quantum-hackathon-project`, `fix/hero-mobile-overlap`,
+>   `fix/last-em-dash-comment`) ya estaban en `main` como PRs squash #27–#31 — y se cerraron los PRs de dependabot #36, #39–#42, #44–#47 por quedar superados.
+>   `gh-pages` (rama legacy del deploy manual, sin uso: Pages ya publica con Actions) se dejó sin tocar.
+> - **Pendiente real (necesita material o decisión de Alessandro):** (a) fresado físico en la SRM-20 → fotos/resultados (las secciones "Resultados" se quitaron
+>   por no haber material; agregarlas cuando exista); (b) cuando eso esté, cambiar la práctica a "completa" en `src/data/docs.ts`; (c) valores reales de
+>   R1–R8 y del LED; (d) nombre final de la placa (Hola_Mundo fue solo de prueba); (e) opcionales: páginas "¿Qué es KiCad/MonoFab/Altium?" y guía de Altium.
+> - **Dónde editar:** `src/data/kicad-flow.ts` (KiCad), `src/data/mods-flow.ts` + `mods-adapter.ts` (MonoFab), `src/data/kicad-where.ts` (vistas y recuadros),
+>   `src/data/docs.ts` (equipo/prácticas). Al agregar imágenes a `public/`: `node scripts/gen-image-sizes.mjs`. `npm run build` ya genera las variantes responsivas.
+>
+> ## 📜 Historial de estados (más reciente primero)
+>
+> ### ⚡ Estado al 2026-09-20 — página interactiva + auditoría responsive/rendimiento, MERGEADA y DESPLEGADA
 > Se integraron `feat/kicad-imagenes-generales`, `feat/docs-lectura-interactiva` y `perf/auditoria-responsive` a `main` (todo lo de abajo ya está en producción).
 > **Auditoría** (10 páginas × 11 anchos de 320 a 2560 px, con red y DOM medidos con Playwright): 0 desbordes horizontales, 0 imágenes rotas, 0 errores de consola.
 > - **YouTube bajo demanda** (`src/components/ui/YouTubeFacade.astro`): los 2 videos cargaban ≈4 MB de JS de YouTube al abrir la página; ahora es una portada
@@ -13,7 +40,7 @@
 > - Verificado tras los cambios: recorrido de los 61 pasos (escritorio/tableta/móvil), teclado, carrusel, lightbox, pestañas, video bajo demanda, menú móvil, formulario e idioma.
 > - Pendiente conocido: los títulos en mayúsculas de 11 px de las páginas de proyecto (estilos en línea) se dejaron como están.
 >
-> ## 🧭 Rama activa: `feat/docs-lectura-interactiva` (2026-09-20) — LISTA para revisión local, NO mergeada ni desplegada
+> ### 🧭 Rama `feat/docs-lectura-interactiva` (2026-09-20) — ya mergeada y desplegada
 > Sale de `feat/kicad-imagenes-generales` (que a su vez sale de `main`). Plan: `PLAN-lectura-interactiva.md` (esta carpeta).
 > La página de la práctica se **rehízo para lectura**: de ~57 000 px de alto a **un paso por pantalla** (~750 px de media).
 > - **Pestañas** arriba: **KiCad · MonoFab · Altium (pendiente)**, cada una con su logo/ícono y título; al elegir una cambia el contenido.
@@ -30,9 +57,8 @@
 > - Assets nuevos en `public/images/docs/produccion-electronica/brand/` (KiCad logo/ícono desde el SVG oficial, Altium sin fondo, MonoFab = foto SRM-20 en mosaico oscuro).
 > - Verificación: `astro check` 0 errores · build · recorrido automático de los 61 pasos en escritorio/tableta/móvil (0 imágenes rotas, 0 recuadros desalineados,
 >   0 desbordes, 0 errores de consola) · hashes, teclado, carrusel, lightbox, pestañas por teclado · barrido de las 10 páginas del sitio.
-> - Falta: visto bueno de Alessandro → merge a `main` → push/deploy. Cambios previos aún sin mergear: `feat/kicad-imagenes-generales` (fix de recuadros en `.shot-grid`) va incluido en esta rama.
 >
-> ## 🌿 Rama activa: `feat/kicad-imagenes-generales` (2026-09-20) — pendiente de revisión de Alessandro, NO mergeada
+> ### 🌿 Rama `feat/kicad-imagenes-generales` (2026-09-20) — ya mergeada y desplegada
 > Sale de `main`. Dos cosas que pidió Alessandro tras ver la guía de mods:
 > 1. **Fix de recuadros desalineados** (los del paso 7.1 "Cambiar a 0.4mm / Clic aquí"): causa real = capturas anotadas que son hijas
 >    directas de `.shot-grid` se estiraban a la altura de la celda vecina (la del pie de foto) y los recuadros (en %) se corrían.
@@ -46,9 +72,8 @@
 >    Datos: `src/data/kicad-where.ts` (vistas + zooms, coords en px de la captura original) · componente `src/components/docs/KicadWhere.astro`.
 >    Recortes nuevos (nativos, sin escalar): `00-editor-de-esquemas-barra`, `03-editor-barra-herramientas`, `04-editor-panel-capas`
 >    (fuente en docs-source, WebP en public).
-> - Falta: visto bueno de Alessandro → merge a `main` → push/deploy.
 >
-> ## 🚀 Estado al 2026-09-20 — guía completa de mods integrada y desplegada
+> ### 🚀 Estado al 2026-09-20 — guía completa de mods integrada y desplegada
 > El paso **"9. Toolpaths con mods"** de `primera-placa-kicad.astro` se **reemplazó por completo** (lo anterior
 > no gustaba) por una guía paso a paso pensada para que **cualquiera, en el futuro, la siga sin recordar nada**:
 > - **Cada paso** = grafo completo de mods con **recuadro naranja sobre el nodo** ("Aquí: <nodo>") + captura de
@@ -57,7 +82,7 @@
 >   · 9.3 PISTAS · 9.4 ORIFICIOS · 9.5 resumen (tabla comparativa + los 3 `.rml`). Sección "Fabricación en MonoFab"
 >   ahora menciona el **vPanel** (software que controla la MonoFab).
 > - **Datos de la guía** (fuente de verdad): `src/data/mods-flow.ts` (nodos, pasos, recuadros en px). Componente:
->   `src/components/docs/ModsStep.astro` (usa `AnnotatedShot` con recuadros en px). Estilos: `DocsLayout.astro`.
+>   `ModsStep.astro` (**eliminado después**: hoy lo reemplazan `Flow`/`FlowBlock`, ver más abajo). Estilos: `DocsLayout.astro`.
 > - Imágenes servidas: solo las 31 usadas, en **WebP** (~1 MB total, antes 3 MB) en
 >   `public/images/.../07-monofab-mods/`. Material crudo y bitácora del proceso:
 >   `docs-source/.../07-monofab-mods/` (`ACTUALIZACION-CONTEXTO.md` = qué dijo Alessandro bloque por bloque,
@@ -74,7 +99,7 @@
 >   mismo. **Decisión: no documentar esas medidas en el sitio** (la página no las menciona).
 > - Numeración de Alessandro salta #35, #43, #59, #61, #63: sin importancia (Alessandro confirmó que no falta nada).
 >
-> ## ✅ Estado al 2026-09-19 — pulido para entrega
+> ### ✅ Estado al 2026-09-19 — pulido para entrega
 > Se quitaron todos los TODO / avisos de "pendiente" / placeholders visibles del sitio: objetivo de
 > la práctica redactado a partir de lo ya documentado, secciones "Resultados" y el TODO de
 > fabricación física removidas (no hay material real todavía — **si se consigue, volver a
@@ -85,7 +110,7 @@
 > Nota: en dev (`npm run dev`) puede aparecer `_jsxDEV is not a function` si se corrió
 > `npm run build` con el servidor abierto — es solo de dev, reiniciar el servidor lo arregla.
 >
-> ## Estado al 2026-09-18 (sesión mods.org)
+> ### Estado al 2026-09-18 (sesión mods.org)
 > **Mergeado a `main` y desplegado** (esquemático + PCB completos en KiCad, ver detalle más abajo).
 > Además, en esta sesión se organizó material crudo nuevo de **mods.org** (generación de
 > toolpaths para la Roland SRM-20 a partir de los 3 SVG exportados de KiCad) en
@@ -147,13 +172,14 @@
 
 | Pieza | Estado | Dónde |
 |---|---|---|
-| Sección "Documentación" (hub, nav, i18n=es) | 🟢 Live en local | `/docs` |
-| Portada Producción Electrónica (equipo) | 🟢 Live en local — nombre y foto de Alexa ya reales, falta su bio | `/docs/produccion-electronica` |
-| Lista de prácticas | 🟢 Live en local (1 práctica listada) | `/docs/produccion-electronica/practicas` |
-| Práctica 1 — primera placa en KiCad | 🟢 Live en local: preparación, esquemático completo (organización, 4 pulsadores, conectores I/O, vista general) y PCB completo (configuración, herramientas, capas, ruteo, borde, zona de cobre, perforaciones, etiquetas, exportación a Gerber) ya están en la página real. Falta objetivo de la práctica, valores reales de componentes, fabricación física en MonoFab y resultados. | `/docs/produccion-electronica/practicas/primera-placa-kicad` |
-| Página "¿Qué es KiCad?" | 🔲 No iniciada — ruta sin crear, esperando contenido | — |
-| Página "¿Qué es MonoFab?" | 🔲 No iniciada — ruta sin crear. Ya identificada: es la **fresadora Roland SRM-20**, usada aquí para fabricar PCBs (foto de referencia guardada en `monofab/`) | — |
-| Página "¿Qué es Altium?" | 🔲 No iniciada — se hará más adelante (aún no migran a Altium) | — |
+| Sección "Documentación" (hub, nav, i18n=es) | 🟢 En producción | `/docs` |
+| Portada Producción Electrónica (equipo) | 🟢 En producción — Alessandro y Alexa con foto; la de Alexa sin bio a propósito | `/docs/produccion-electronica` |
+| Lista de prácticas | 🟢 En producción (1 práctica, estado "en progreso") | `/docs/produccion-electronica/practicas` |
+| Práctica 1 — KiCad (esquemático + PCB + Gerber) | 🟢 En producción: 30 pasos en pestaña KiCad | `/docs/produccion-electronica/practicas/primera-placa-kicad` |
+| Práctica 1 — MonoFab (mods.org → .rml, vPanel) | 🟢 En producción: 31 pasos en pestaña MonoFab | ídem |
+| Práctica 1 — Altium | 🟡 Pestaña "pendiente" a propósito (aún no migran a Altium) | ídem |
+| Práctica 1 — fresado físico y resultados | 🔲 Sin material (fotos/resultados de la SRM-20) | — |
+| Páginas "¿Qué es KiCad / MonoFab / Altium?" | 🔲 Opcionales, no creadas (ruta `/herramientas/<nombre>` reservada) | — |
 
 ## Decisiones de estructura tomadas
 
@@ -297,28 +323,21 @@ una a la página real.**
 
 ## Pendientes consolidados
 
-- **Bio de Alexa:** nombre (Alexa Groot) y foto ya son reales en `src/data/docs.ts`
-  (`DOCS_SUBJECTS[0].team[1]`) — falta solo su breve descripción/bio.
-- **Objetivo de la práctica 1:** qué circuito se diseña, qué problema resuelve, qué aprendizaje
-  busca — sigue como `TODO` en la página.
-- **Valores reales de componentes:** ohmiaje de las resistencias (pull-down R1/R3/R5/R7 y
-  limitadoras R2/R4/R6/R8) y color/referencia exacta del LED — no vienen en las capturas
-  (`R_1206`/`LED_1206` son el nombre de la huella, no el valor).
-- **Resto del flujo de la práctica 1:** el flujo de generación de toolpaths en mods.org
-  (`PERIFERIA.rml`, `PISTAS.rml`, `ORIFICIOS.rml`) ya está organizado en `docs-source/` — falta
-  (a) integrarlo a la página real y (b) el fresado físico real en la SRM-20 con esos archivos →
-  resultados y pruebas.
-- **Integrar el material de mods.org a la página real:** organizado en
-  `07-monofab-mods/`, pendiente de volcar a `primera-placa-kicad.astro` (nueva sección antes de
-  "Fabricación en MonoFab", algo como "Generación de toolpaths con mods").
-- **Logo/asset de MonoFab (Roland/SRM-20)** si existe uno oficial además de la foto ya guardada
-  en `monofab/srm-20-roland.png`, o confirmar que la foto del equipo es suficiente.
-- **Nombre final de la placa real** — "Hola_Mundo" fue solo el proyecto de prueba para aprender
-  el flujo de KiCad.
-- Crear las rutas `/docs/produccion-electronica/herramientas/kicad` y `.../monofab` cuando haya
-  contenido suficiente para no dejarlas vacías.
-- **(No relacionado a esta materia)** 29 vulnerabilidades de Dependabot reportadas por GitHub en
-  el repo (1 crítica, 19 altas, 8 moderadas, 1 baja) — revisar cuando Alessandro tenga tiempo.
+**Abiertos**
+- **Fresado físico real en la SRM-20** con `PERIFERIA.rml`, `PISTAS.rml` y `ORIFICIOS.rml` → fotos y resultados. Al tenerlos: agregar sección "Resultados" y pasar la práctica a
+  `completa` en `src/data/docs.ts`. (Recordatorio de la guía: verificar en el render 3D que las pistas sean de cobre; si no, re-invertir.)
+- **Valores reales de componentes:** ohmiaje de R1/R3/R5/R7 (pull-down) y R2/R4/R6/R8 (limitadoras) y color/referencia del LED (`R_1206`/`LED_1206` son solo la huella).
+- **Nombre final de la placa** — "Hola_Mundo" fue solo el proyecto de prueba para aprender el flujo de KiCad.
+- **Opcionales:** páginas de herramientas `/docs/produccion-electronica/herramientas/{kicad,monofab,altium}` y la guía de Altium (cuando migren).
+
+**Resueltos** (se dejan como registro)
+- Bio de Alexa → decisión: sin bio, a propósito.
+- Objetivo de la práctica → redactado el 2026-09-19 con lo ya documentado.
+- Integrar mods.org a la página → hecho (2026-09-20), ahora es la pestaña MonoFab.
+- Logo/asset de MonoFab → se usa la foto de la SRM-20 en mosaico oscuro (no hay logo oficial).
+- Duda de velocidad por archivo (4 mm/s vs 0.3 mm/s) → confirmada: 0.3 mm/s solo en ORIFICIOS (taladrado).
+- Dependabot (29 alertas de GitHub / 15 de `npm audit`) → resueltas el 2026-09-20 con la actualización de dependencias; `npm audit` = 0.
+- Ramas viejas y PRs de dependabot → limpiados el 2026-09-20 (solo queda `main`).
 
 ---
 
@@ -478,3 +497,19 @@ a la página real** (`primera-placa-kicad.astro`); queda pendiente para cuando A
 volcarlo. Queda una duda para confirmar con Alessandro antes de integrar: si la velocidad distinta
 por archivo (4 mm/s vs 0.3 mm/s para taladrado) es una convención fija del flujo o un ajuste
 manual de esa sesión puntual.
+
+### 2026-09-19 → 2026-09-20 — Pulido para entrega, guía de mods, página interactiva y auditoría (resumen retroactivo)
+Registro reconstruido desde el historial de git (estas sesiones no se anotaron en su momento; el detalle está en los banners de arriba y en `PLAN-lectura-interactiva.md`).
+- **09-19** — se quitaron TODOs/placeholders visibles; objetivo de la práctica redactado; tarjeta de Alexa sin bio a propósito; se descartó el efecto glow/tilt de la SRM-20.
+- **09-20 00:16–00:46** — mods bloques 1–4 (PERIFERIA, PISTAS, ORIFICIOS) organizados y luego integrados como guía completa (reemplazó el antiguo paso 9); cierre de la duda de medidas SVG; fix de recuadros desalineados dentro de `.shot-grid`.
+- **09-20 01:02** — mapas "Dónde está" en la parte de KiCad (imagen general + recuadros naranjas).
+- **09-20 01:10–01:33** — rediseño para lectura: pestañas KiCad/MonoFab/Altium, un paso por pantalla (de ~57 000 px de alto a ~750 px por paso).
+- **09-20 02:01** — auditoría responsive/rendimiento móvil (YouTube bajo demanda, imágenes responsivas, áreas de toque de 44 px). Todo desplegado.
+
+### 2026-09-20 — Cierre: dependencias, ramas y verificación final
+Alessandro pidió "arregla todo": contexto, página lista para entrega, ramas y deploy.
+- **Dependencias:** `npm update` + `npm audit fix` (rama `chore/actualizar-dependencias`, commit `cf9ad47`): 15 vulnerabilidades → 0; astro 7.3.3, sharp 0.35.4, react 19.3.0, tailwind 4.3.3.
+  No se tomaron los saltos mayores (lucide-react 1.x, motion 13, typescript 7) por riesgo de romper la UI sin necesidad.
+- **Verificación con las dependencias nuevas** (build de producción + Playwright): 10 páginas × escritorio/móvil sin errores de consola, imágenes rotas ni desbordes; 61 pasos de las pestañas KiCad y MonoFab sin imágenes rotas ni recuadros desalineados.
+- **Ramas:** ver "Estado actual" arriba. Solo queda `main` (+ `gh-pages` legacy).
+- Merge a `main` (fast-forward) y push → deploy por GitHub Actions.
