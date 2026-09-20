@@ -1,0 +1,22 @@
+---
+import AnnotatedShot from './AnnotatedShot.astro'
+import { imgUrl, sizeOf } from '../../data/flow-utils'
+import type { Shot } from '../../data/flow-types'
+
+interface Props {
+  shot: Shot
+}
+
+const { shot } = Astro.props
+---
+
+<figure class="shot">
+  <AnnotatedShot
+    src={imgUrl(shot.file)}
+    alt={shot.alt}
+    size={sizeOf(shot.file, shot.size)}
+    boxes={shot.boxes ?? []}
+    wide={shot.wide}
+  />
+  {shot.caption && <figcaption class="screenshot-caption">{shot.caption}</figcaption>}
+</figure>

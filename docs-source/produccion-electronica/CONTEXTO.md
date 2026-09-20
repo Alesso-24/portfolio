@@ -1,5 +1,24 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🧭 Rama activa: `feat/docs-lectura-interactiva` (2026-09-20) — LISTA para revisión local, NO mergeada ni desplegada
+> Sale de `feat/kicad-imagenes-generales` (que a su vez sale de `main`). Plan: `PLAN-lectura-interactiva.md` (esta carpeta).
+> La página de la práctica se **rehízo para lectura**: de ~57 000 px de alto a **un paso por pantalla** (~750 px de media).
+> - **Pestañas** arriba: **KiCad · MonoFab · Altium (pendiente)**, cada una con su logo/ícono y título; al elegir una cambia el contenido.
+>   Deep links: `#kicad`, `#monofab`, `#altium` y las anclas viejas (`#paso-7`, `#mods-pistas`, `#fabricacion`…).
+> - **Flujo paso a paso** (KiCad = 30 pasos en 9 secciones; MonoFab = 31 pasos en 6): chips de sección, barra de progreso, Anterior/Siguiente,
+>   flechas del teclado, hash por paso. Las capturas de un paso: 1–2 en fila, 3+ en **carrusel** (flechas/puntos); **clic = ampliar** (lightbox con recuadros).
+> - **Herramientas**: señaladas **sobre la imagen general** con recuadros numerados + leyenda con **íconos grandes** (78 px). Se quitó el modo "zoom/recorte".
+> - **Editores de KiCad** con íconos (9, recortados de la ventana principal) en "Antes de empezar"; el ícono del Editor de placas ya no es el diminuto.
+> - **Componentes**: símbolo + huella de los 5 componentes agrupados en tarjetas compactas (miniaturas ampliables) — ya no ocupan pantalla completa.
+> - **Datos = fuente de verdad** (editar aquí, no el .astro): `src/data/kicad-flow.ts` (KiCad), `src/data/mods-flow.ts` + `mods-adapter.ts` (MonoFab),
+>   `src/data/kicad-where.ts` (vistas generales y recuadros), `src/data/flow-types.ts`. Componentes: `Flow`, `FlowSlide`, `FlowBlock`, `Shot`,
+>   `DocsInteractive` (JS + estilos). Tamaños de imágenes: `src/data/image-sizes.json` → regenerar con `node scripts/gen-image-sizes.mjs`
+>   cada vez que se agreguen imágenes a `public/`.
+> - Assets nuevos en `public/images/docs/produccion-electronica/brand/` (KiCad logo/ícono desde el SVG oficial, Altium sin fondo, MonoFab = foto SRM-20 en mosaico oscuro).
+> - Verificación: `astro check` 0 errores · build · recorrido automático de los 61 pasos en escritorio/tableta/móvil (0 imágenes rotas, 0 recuadros desalineados,
+>   0 desbordes, 0 errores de consola) · hashes, teclado, carrusel, lightbox, pestañas por teclado · barrido de las 10 páginas del sitio.
+> - Falta: visto bueno de Alessandro → merge a `main` → push/deploy. Cambios previos aún sin mergear: `feat/kicad-imagenes-generales` (fix de recuadros en `.shot-grid`) va incluido en esta rama.
+>
 > ## 🌿 Rama activa: `feat/kicad-imagenes-generales` (2026-09-20) — pendiente de revisión de Alessandro, NO mergeada
 > Sale de `main`. Dos cosas que pidió Alessandro tras ver la guía de mods:
 > 1. **Fix de recuadros desalineados** (los del paso 7.1 "Cambiar a 0.4mm / Clic aquí"): causa real = capturas anotadas que son hijas

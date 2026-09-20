@@ -1,0 +1,225 @@
+---
+import AnnotatedShot from './AnnotatedShot.astro'
+import Shot from './Shot.astro'
+import { KICAD_VIEWS } from '../../data/kicad-where'
+import { KICAD_COMPONENTS, KICAD_EDITORS } from '../../data/kicad-flow'
+import { MODS_GENERAL, MODS_NODES, MODS_NODE_LABEL, MODS_MAP, MODS_MAP_LEGEND, MODS_SUMMARY } from '../../data/mods-flow'
+import { MODS_DIR } from '../../data/mods-adapter'
+import { imgUrl, sizeOf, MONOFAB_PHOTO, PRACTICA_BASE } from '../../data/flow-utils'
+import type { Block } from '../../data/flow-types'
+
+interface Props {
+  block: Block
+}
+
+type Pos = 'top' | 'bottom' | 'left' | 'right'
+type Rect = { x: number; y: number; w: number; h: number; pos: Pos; short?: string }
+
+const { block } = Astro.props
+
+// —— where: vista general de KiCad con recuadros sobre lo que se toca ——
+let whereBoxes: { x: number; y: number; w: number; h: number; pos: Pos; label: string }[] = []
+let whereView: (typeof KICAD_VIEWS)[keyof typeof KICAD_VIEWS] | null = null
+let whereLegend: string[] = []
+let whereCaption = ''
+if (block.kind === 'where') {
+  whereView = KICAD_VIEWS[block.view]
+  const cat = whereView.items as Record<string, Rect>
+  whereBoxes = block.items.map((name, i) => {
+    const it = cat[name]
+    if (!it) throw new Error(`where: "${name}" no existe en la vista "${block.view}"`)
+    return { x: it.x, y: it.y, w: it.w, h: it.h, pos: it.pos, label: block.numbered ? String(i + 1) : `Aquí: ${it.short ?? name}` }
+  })
+  whereLegend = block.numbered ? block.items : []
+  whereCaption = block.caption ?? (block.numbered ? 'Dónde están, en la ventana completa' : `Dónde está: ${block.items[0]}`)
+}
+
+// —— tools: ventana completa con números + leyenda con íconos grandes ——
+let toolBoxes: { x: number; y: number; w: number; h: number; pos: Pos; label: string }[] = []
+let toolView: (typeof KICAD_VIEWS)[keyof typeof KICAD_VIEWS] | null = null
+let toolLegend: { name: string; desc: string; icon: string; num: number | null; hint?: string }[] = []
+if (block.kind === 'tools') {
+  toolView = KICAD_VIEWS[block.view]
+  const cat = toolView.items as Record<string, Rect>
+  let n = 0
+  toolLegend = block.tools.map((t) => {
+    const it = cat[t.key ?? t.name]
+    const num = it ? ++n : null
+    if (it) toolBoxes.push({ x: it.x, y: it.y, w: it.w, h: it.h, pos: it.pos, label: String(num) })
+    return { name: t.name, desc: t.desc, icon: t.icon, num, hint: t.hint }
+  })
+}
+
+// —— shots ——
+let shotsLayout: 'single' | 'row' | 'thumbs' | 'carousel' = 'single'
+if (block.kind === 'shots') {
+  const n = block.shots.length
+  shotsLayout = !block.layout || block.layout === 'auto' ? (n === 1 ? 'single' : n === 2 ? 'row' : 'carousel') : block.layout
+}
+
+// —— node (mods) ——
+const nodeBox = block.kind === 'node' ? [{ ...(MODS_NODES as Record<string, { x: number; y: number; w: number; h: number }>)[block.node], label: `Aquí: ${(MODS_NODE_LABEL as Record<string, string>)[block.node] ?? block.node}`, pos: 'top' as Pos }] : []
+const generalFile = MODS_DIR + MODS_GENERAL.file
+---
+
+{block.kind === 'where' && whereView && (
+  <div class="flow-where">
+    <figure class="shot shot--lead">
+      <AnnotatedShot src={imgUrl(whereView.file)} alt={`${whereView.alt}. Recuadros naranjas: ${block.items.join(', ')}.`} size={whereView.size} boxes={whereBoxes} wide />
+      <figcaption class="screenshot-caption">{whereCaption}</figcaption>
+    </figure>
+    {whereLegend.length > 0 && (
+      <ol class="mods-legend">
+        {whereLegend.map((n, i) => (
+          <li><b>{i + 1}</b> {n}</li>
+        ))}
+      </ol>
+    )}
+    {block.note && <p class="lead-note">{block.note}</p>}
+  </div>
+)}
+
+{block.kind === 'node' && (
+  <figure class="shot shot--lead">
+    <AnnotatedShot src={imgUrl(generalFile)} alt={`${MODS_GENERAL.alt}. Recuadro naranja sobre el nodo ${block.node}.`} size={MODS_GENERAL.size} boxes={nodeBox} wide />
+    <figcaption class="screenshot-caption">Dónde está: nodo <strong>{block.node}</strong> en el grafo completo</figcaption>
+  </figure>
+)}
+
+{block.kind === 'shots' && shotsLayout === 'single' && <Shot shot={block.shots[0]} />}
+{block.kind === 'shots' && (shotsLayout === 'row' || shotsLayout === 'thumbs') && (
+  <div class={`shots shots--${shotsLayout}`}>
+    {block.shots.map((s) => <Shot shot={s} />)}
+  </div>
+)}
+{block.kind === 'shots' && shotsLayout === 'carousel' && (
+  <div class="carousel" data-carousel>
+    <div class="carousel__viewport">
+      {block.shots.map((s, i) => (
+        <div class={`carousel__slide${i === 0 ? ' is-active' : ''}`}>
+          <Shot shot={s} />
+        </div>
+      ))}
+    </div>
+    <div class="carousel__bar">
+      <button type="button" class="carousel__btn" data-cdir="-1" aria-label="Imagen anterior">‹</button>
+      <span class="carousel__dots" aria-hidden="true">
+        {block.shots.map((_, i) => <i class={i === 0 ? 'is-active' : ''}></i>)}
+      </span>
+      <span class="carousel__count" aria-live="polite">1 / {block.shots.length}</span>
+      <button type="button" class="carousel__btn" data-cdir="1" aria-label="Imagen siguiente">›</button>
+    </div>
+  </div>
+)}
+
+{block.kind === 'tools' && toolView && (
+  <div class="flow-tools">
+    <figure class="shot shot--lead">
+      <AnnotatedShot src={imgUrl(toolView.file)} alt={`${toolView.alt}. Recuadros naranjas numerados sobre cada herramienta.`} size={toolView.size} boxes={toolBoxes} wide />
+      {block.caption && <figcaption class="screenshot-caption">{block.caption}</figcaption>}
+    </figure>
+    <ul class="tools-legend">
+      {toolLegend.map((t) => (
+        <li>
+          <span class={`legend-num${t.num ? '' : ' legend-num--none'}`}>{t.num ?? '·'}</span>
+          <span class="legend-icon"><img src={imgUrl(t.icon)} alt="" loading="lazy" decoding="async" /></span>
+          <span class="legend-text"><strong>{t.name}</strong>{t.desc}{t.hint && <em class="legend-hint">{t.hint}</em>}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{block.kind === 'toolrow' && (
+  <div class="tool-feature">
+    <span class="legend-icon legend-icon--lg"><img src={imgUrl(block.icon)} alt="" loading="lazy" decoding="async" /></span>
+    <span class="legend-text"><strong>{block.name}</strong>{block.desc}</span>
+  </div>
+)}
+
+{block.kind === 'editors' && (
+  <ul class="editors-grid">
+    {KICAD_EDITORS.map((e) => (
+      <li class={e.used ? 'is-used' : ''}>
+        <img src={`${PRACTICA_BASE}00-preparacion/editores/${e.key}.webp`} alt="" width="72" height="72" loading="lazy" decoding="async" />
+        <span><strong>{e.name}</strong>{e.desc}{e.used && <em class="used-chip">se usa aquí</em>}</span>
+      </li>
+    ))}
+  </ul>
+)}
+
+{block.kind === 'components' && (
+  <div class="components-grid">
+    {KICAD_COMPONENTS.map((c) => (
+      <article class="component-card">
+        <header><h4>{c.name}</h4><span class="used-chip">{c.used}</span></header>
+        <div class="component-card__pair">
+          <figure>
+            <button type="button" class="thumb-zoom" data-zoom={imgUrl(c.sym.file)} data-zoom-alt={c.sym.alt}>
+              <img src={imgUrl(c.sym.file)} alt={c.sym.alt} width={sizeOf(c.sym.file)[0]} height={sizeOf(c.sym.file)[1]} loading="lazy" decoding="async" />
+            </button>
+            <figcaption><b>Símbolo</b>{c.sym.label}</figcaption>
+          </figure>
+          <figure>
+            <button type="button" class="thumb-zoom" data-zoom={imgUrl(c.fp.file)} data-zoom-alt={c.fp.alt}>
+              <img src={imgUrl(c.fp.file)} alt={c.fp.alt} width={sizeOf(c.fp.file)[0]} height={sizeOf(c.fp.file)[1]} loading="lazy" decoding="async" />
+            </button>
+            <figcaption><b>Huella</b>{c.fp.label}</figcaption>
+          </figure>
+        </div>
+      </article>
+    ))}
+  </div>
+)}
+
+{block.kind === 'callout' && (
+  <div class="callout">
+    <strong>{block.title}</strong>
+    <Fragment set:html={block.html} />
+  </div>
+)}
+
+{block.kind === 'important' && (
+  <div class="todo-callout">
+    <strong>⚠ Importante</strong>
+    <Fragment set:html={block.html} />
+  </div>
+)}
+
+{block.kind === 'note' && <p class="lead-note" set:html={block.html} />}
+
+{block.kind === 'map' && (
+  <div class="flow-where">
+    <figure class="shot shot--lead">
+      <AnnotatedShot src={imgUrl(generalFile)} alt={MODS_GENERAL.alt} size={MODS_GENERAL.size} boxes={MODS_MAP} wide />
+      <figcaption class="screenshot-caption">Grafo "Roland Monofab PCB" — los nodos que se tocan, numerados</figcaption>
+    </figure>
+    <ol class="mods-legend">
+      {MODS_MAP_LEGEND.map((n, i) => (
+        <li><b>{i + 1}</b> {n}</li>
+      ))}
+    </ol>
+  </div>
+)}
+
+{block.kind === 'summary' && (
+  <div class="mods-table-wrap">
+    <table class="mods-table">
+      <thead>
+        <tr>{MODS_SUMMARY.head.map((h) => <th>{h}</th>)}</tr>
+      </thead>
+      <tbody>
+        {MODS_SUMMARY.rows.map((row) => (
+          <tr>{row.map((c, k) => (k === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+
+{block.kind === 'machine' && (
+  <figure class="machine-figure">
+    <img src={MONOFAB_PHOTO} alt="Fresadora Roland SRM-20 (MonoFab)" width="800" height="533" loading="lazy" decoding="async" />
+    <figcaption class="screenshot-caption">Roland SRM-20 (MonoFab)</figcaption>
+  </figure>
+)}

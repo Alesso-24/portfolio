@@ -1,63 +1,14 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro'
-import AnnotatedShot from '../../../../components/docs/AnnotatedShot.astro'
-import ModsStep from '../../../../components/docs/ModsStep.astro'
-import KicadWhere from '../../../../components/docs/KicadWhere.astro'
-import { MODS_GENERAL, MODS_IMG_BASE, MODS_MAP, MODS_MAP_LEGEND, MODS_OPEN, MODS_FLOWS, MODS_SUMMARY, MODS_FINAL } from '../../../../data/mods-flow'
+import Flow from '../../../../components/docs/Flow.astro'
+import DocsInteractive from '../../../../components/docs/DocsInteractive.astro'
+import { KICAD_FLOW } from '../../../../data/kicad-flow'
+import { MODS_FLOW } from '../../../../data/mods-adapter'
+import { BRAND_BASE } from '../../../../data/flow-utils'
 import { getSubject } from '../../../../data/docs'
 
 const subject = getSubject('produccion-electronica')!
 const teamNames = subject.team.map((m) => m.name).join(' + ')
-
-const img = (path: string) => `/portfolio/images/docs/produccion-electronica/practicas/01-primera-placa/${path}`
-const monofabImg = '/portfolio/images/docs/produccion-electronica/monofab/srm-20-roland.webp'
-
-const steps = [
-  { href: '#objetivo', label: 'Objetivo' },
-  { href: '#paso-1', label: '1. Preparación' },
-  { href: '#paso-2', label: '2. Editor de esquemas' },
-  { href: '#paso-3', label: '3. Organización' },
-  { href: '#paso-4', label: '4. Pulsadores' },
-  { href: '#paso-5', label: '5. Conectores' },
-  { href: '#paso-6', label: '6. Esquemático completo' },
-  { href: '#paso-7', label: '7. Editor de placas' },
-  { href: '#paso-8', label: '8. Exportación a Gerber' },
-  { href: '#paso-9', label: '9. Toolpaths con mods' },
-  { href: '#mods-abrir', label: '9.1 Abrir mods' },
-  { href: '#mods-periferia', label: '9.2 Periferia' },
-  { href: '#mods-pistas', label: '9.3 Pistas' },
-  { href: '#mods-orificios', label: '9.4 Orificios' },
-  { href: '#mods-resumen', label: '9.5 Resumen' },
-  { href: '#fabricacion', label: 'Fabricación en MonoFab' },
-]
-
-const tools = [
-  {
-    icon: img('01-esquematico/herramientas/01-icono-seleccionar-componente.png'),
-    name: 'Seleccionar componente',
-    desc: 'Abre el buscador de símbolos (22,987 elementos cargados en las librerías) para colocar cualquier componente en el esquemático.',
-  },
-  {
-    icon: img('01-esquematico/herramientas/03-icono-simbolo-alimentacion.png'),
-    name: 'Símbolo de alimentación',
-    desc: 'Abre el buscador de símbolos de alimentación: tierra, +3V3, +5V, +9V, +12V, +24V, +36V, +48V — incluye los símbolos de la librería PCM_fab que vino con KiCad FabLib.',
-  },
-  {
-    icon: img('01-esquematico/herramientas/05-icono-dibujar-cable.png'),
-    name: 'Dibujar cable',
-    desc: 'Traza las conexiones eléctricas (wires) entre los pines de los componentes.',
-  },
-  {
-    icon: img('01-esquematico/herramientas/06-icono-etiqueta-de-red.png'),
-    name: 'Etiqueta de red',
-    desc: 'Nombra una red eléctrica para conectar puntos del esquemático sin necesidad de dibujar un cable físico entre ellos.',
-  },
-  {
-    icon: img('01-esquematico/herramientas/07-icono-texto.png'),
-    name: 'Texto',
-    desc: 'Agrega texto libre al esquemático (notas, títulos) — abre un diálogo de propiedades con fuente, tamaño, alineación y color.',
-  },
-]
 ---
 
 <DocsLayout
@@ -69,8 +20,11 @@ const tools = [
     { label: subject.name, href: `/portfolio/docs/${subject.slug}` },
     { label: 'Prácticas', href: `/portfolio/docs/${subject.slug}/practicas` },
   ]}
+  wide
 >
-  <!-- Meta row -->
+  <DocsInteractive />
+
+  <!-- Ficha -->
   <div class="callout" data-reveal>
     <strong>Ficha de la práctica</strong>
     <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:4px;">
@@ -83,58 +37,7 @@ const tools = [
     </div>
   </div>
 
-  <nav class="step-toc" data-reveal data-reveal-delay="100" aria-label="Pasos de esta práctica">
-    {steps.map((s) => (
-      <a href={s.href}>{s.label}</a>
-    ))}
-  </nav>
-
-  <hr class="divider" />
-
-  <!-- ── Nota aparte: instalación de librería, antes del flujo principal ── -->
-  <div class="callout" data-reveal>
-    <strong>Antes de empezar · Instalar una librería de componentes</strong>
-    <p class="prose" style="margin:0 0 14px; font-size:14.5px;">
-      Antes de dibujar cualquier esquemático hace falta instalar <strong>KiCad FabLib</strong>: una
-      librería de componentes pensada para fabricar PCBs en un Fab Lab estándar, con mapeo 1:1 a las
-      piezas del inventario oficial de Fab Lab — reduce la fricción de aprender electrónica y da más
-      confianza al prototipar rápido.
-    </p>
-    <KicadWhere
-      view="main"
-      items={['Menú Herramientas', 'Administrador de complementos y contenido']}
-      numbered
-      caption="Dos formas de llegar: menú Herramientas → Administrador de complementos y contenido, o la última opción de la lista de la ventana principal"
-    />
-    <div class="tool-row" style="border-top:none; padding-top:0;">
-      <div style="flex:1;">
-        <AnnotatedShot
-          src={img('00-preparacion/04-menu-herramientas-administrador-complementos.png')}
-          alt="Menú Herramientas de KiCad con la opción Administrador de complementos y contenido"
-          size={[528, 402]}
-          boxes={[
-          { x: 6, y: 317, w: 516, h: 34, label: 'Clic aquí' },
-          ]}
-        />
-        <span class="screenshot-caption">Herramientas → Administrador de complementos y contenido (Ctrl+M)</span>
-      </div>
-    </div>
-    <img
-      src={img('00-preparacion/05-instalar-kicad-fablib.png')}
-      alt="Panel de instalación del complemento KiCad FabLib con sus metadatos"
-      class="screenshot"
-      loading="lazy"
-      decoding="async"
-    />
-    <p class="prose" style="margin:0; font-size:13px; color:#6f6a5f;">
-      Licencia CC-BY-4.0 · Autor: Krisjanis Rijnieks y Fab Academy Community
-      (<a href="https://fabacademy.org" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">fabacademy.org</a>) ·
-      Fuente: <a href="https://gitlab.fabcloud.org/pub/libraries/electronics/kicad" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">gitlab.fabcloud.org/pub/libraries/electronics/kicad</a>
-    </p>
-  </div>
-
-  <hr class="divider" />
-
+  <!-- Objetivo -->
   <h2 id="objetivo" class="section-h2" data-reveal>Objetivo de la práctica.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
     Recorrer el flujo completo de fabricación de una PCB: diseñar un circuito en <strong>KiCad</strong>{' '}
@@ -147,665 +50,68 @@ const tools = [
     el estado de cada botón hacia un microcontrolador externo.
   </p>
 
-  <hr class="divider" />
+  <!-- Herramientas: al elegir una pestaña cambia el contenido -->
+  <div class="tool-tabs" data-tabs id="herramientas">
+    <div class="tool-tabs__list" role="tablist" aria-label="Herramientas de la práctica">
+      <button type="button" role="tab" class="tool-tab" id="tab-kicad" data-tab="kicad" aria-controls="panel-kicad" aria-selected="true">
+        <span class="tool-tab__icon tool-tab__icon--kicad"><img src={`${BRAND_BASE}kicad-icon.webp`} alt="" width="60" height="60" /></span>
+        <span class="tool-tab__text">
+          <span class="tool-tab__title">KiCad</span>
+          <span class="tool-tab__sub">Esquemático, PCB y archivos de fabricación</span>
+        </span>
+      </button>
+      <button type="button" role="tab" class="tool-tab" id="tab-monofab" data-tab="monofab" aria-controls="panel-monofab" aria-selected="false" tabindex="-1">
+        <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--cover"><img src={`${BRAND_BASE}monofab-icon.webp`} alt="" width="60" height="60" /></span>
+        <span class="tool-tab__text">
+          <span class="tool-tab__title">MonoFab</span>
+          <span class="tool-tab__sub">Roland SRM-20 y mods: de los SVG al fresado</span>
+        </span>
+      </button>
+      <button type="button" role="tab" class="tool-tab tool-tab--pending" id="tab-altium" data-tab="altium" aria-controls="panel-altium" aria-selected="false" tabindex="-1">
+        <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--altium"><img src={`${BRAND_BASE}altium-logo.webp`} alt="" width="60" height="60" /></span>
+        <span class="tool-tab__text">
+          <span class="tool-tab__title">Altium<span class="tool-tab__badge">Pendiente</span></span>
+          <span class="tool-tab__sub">Aún no migran a Altium</span>
+        </span>
+      </button>
+    </div>
 
-  <h2 id="paso-1" class="section-h2" data-reveal>1. Preparación: abrir KiCad y crear el proyecto.</h2>
+    <!-- KiCad -->
+    <section class="tool-panel is-active" id="panel-kicad" role="tabpanel" aria-labelledby="tab-kicad" data-tab-panel="kicad">
+      <div class="tool-panel__head">
+        <img class="tool-panel__logo" src={`${BRAND_BASE}kicad-logo.webp`} alt="KiCad" width="132" height="54" />
+        <p>De un proyecto vacío al esquemático completo, el PCB ruteado y los archivos de fabricación (Gerber/SVG). Ve paso a paso con las flechas (o las del teclado), salta a una sección y toca o haz clic en cualquier captura para ampliarla.</p>
+      </div>
+      <Flow flow={KICAD_FLOW} />
+    </section>
 
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">1</span>Se abre KiCad — se trabaja con <strong>KiCad 10.0</strong>. La ventana
-    principal del proyecto muestra los editores disponibles: Editor de esquemas, Editor de símbolos, Editor
-    de placas, Editor de huellas, Visor Gerber, Conversor de imágenes, Herramientas de cálculo, Editor de
-    hoja de trabajo, y el Administrador de complementos y contenido.
-  </p>
-  <img
-    src={img('00-preparacion/01-abrir-kicad-ventana-principal.webp')}
-    alt="Ventana principal de KiCad 10.0 mostrando los editores disponibles del proyecto"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-  />
+    <!-- MonoFab -->
+    <section class="tool-panel" id="panel-monofab" role="tabpanel" aria-labelledby="tab-monofab" data-tab-panel="monofab">
+      <div class="tool-panel__head">
+        <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}monofab-icon.webp`} alt="Roland SRM-20 (MonoFab)" width="62" height="62" />
+        <p>La MonoFab es la fresadora <strong>Roland SRM-20</strong>. Aquí se generan, con <strong>mods</strong>, los tres archivos <code>.rml</code> (periferia, pistas y orificios) que se le cargan.</p>
+      </div>
+      <div class="callout">
+        <strong>Cómo leer esta guía</strong>
+        <p class="prose" style="margin:0; font-size:14.5px;">
+          Cada paso muestra el <b>grafo completo</b> de mods con un <b>recuadro naranja sobre el nodo</b> que hay que
+          tocar y, al lado, la captura de detalle con recuadros sobre el <b>botón o campo exacto</b>. El proceso se repite
+          <b>tres veces, una por SVG</b>, recargando la página de mods entre uno y otro. Si alguien lo hace más adelante
+          sin acordarse de nada, basta con seguir los recuadros naranjas. Haz clic en cualquier captura para ampliarla.
+        </p>
+      </div>
+      <Flow flow={MODS_FLOW} />
+    </section>
 
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">2</span>Desde el menú <strong>Archivo → Nuevo proyecto...</strong> (Ctrl+N) se crea
-    un proyecto nuevo.
-  </p>
-  <KicadWhere view="main" items={['Menú Archivo']} />
-
-  <AnnotatedShot
-    src={img('00-preparacion/02-menu-archivo-nuevo-proyecto.png')}
-    alt="Menú Archivo de KiCad con la opción Nuevo proyecto"
-    size={[580, 588]}
-    boxes={[
-    { x: 8, y: 35, w: 564, h: 34, label: 'Clic aquí' },
-    ]}
-  />
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">3</span>Se nombra el proyecto <strong>"Hola_Mundo"</strong> — el primer proyecto
-    de prueba en KiCad, para familiarizarse con el flujo antes de ir por la placa real. Al crearlo, KiCad
-    genera automáticamente <code>Hola_Mundo.kicad_pro</code>, <code>Hola_Mundo.kicad_pcb</code> y <code>Hola_Mundo.kicad_sch</code>.
-  </p>
-  <img
-    src={img('00-preparacion/03-proyecto-hola-mundo-creado.png')}
-    alt="Árbol de archivos del proyecto Hola_Mundo recién creado en KiCad"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-  />
-
-  <hr class="divider" />
-
-  <h2 id="paso-2" class="section-h2" data-reveal>2. Editor de esquemas.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Se entra al <strong>Editor de esquemas</strong> (Ctrl+E) para empezar el esquemático del circuito.
-    Arranca con la hoja en blanco, formato A4, con el cuadro de título en la esquina inferior derecha.
-  </p>
-  <KicadWhere view="main" items={['Editor de esquemas']} />
-
-  <img
-    src={img('01-esquematico/00-editor-de-esquemas-vacio.webp')}
-    alt="Editor de esquemas de KiCad con una hoja en blanco formato A4"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-  />
-
-  <div class="callout" data-reveal>
-    <strong>Herramientas utilizadas en el esquemático</strong>
-    <KicadWhere zoom="esquemas-barra" caption="Barra de herramientas de la derecha del editor de esquemas: ventana completa (izquierda) y acercamiento (derecha)" />
-    <div class="tool-list">
-      {tools.map((tool) => (
-        <div class="tool-row">
-          <div class="tool-icon-box"><img src={tool.icon} alt="" loading="lazy" decoding="async" /></div>
-          <div>
-            <h4>{tool.name}</h4>
-            <p>{tool.desc}</p>
-          </div>
+    <!-- Altium -->
+    <section class="tool-panel" id="panel-altium" role="tabpanel" aria-labelledby="tab-altium" data-tab-panel="altium">
+      <div class="altium-pending">
+        <img src={`${BRAND_BASE}altium-logo.webp`} alt="Altium" width="70" height="96" />
+        <div>
+          <h3>Altium — pendiente</h3>
+          <p>Todavía no migran a Altium: por ahora la materia se trabaja con KiCad. Cuando se empiece a usar, aquí irá la misma guía paso a paso (esquemático, PCB y fabricación) para comparar ambos flujos.</p>
         </div>
-      ))}
-    </div>
+      </div>
+    </section>
   </div>
-
-  <AnnotatedShot
-    src={img('01-esquematico/herramientas/02-dialogo-elegir-simbolo.png')}
-    alt="Diálogo Elegir símbolo del editor de esquemas, con 22,987 elementos cargados"
-    wide
-    size={[1633, 1036]}
-    boxes={[
-    { x: 6, y: 52, w: 772, h: 38, label: 'Buscar aquí' },
-    ]}
-  />
-  <span class="screenshot-caption">Buscador de símbolos — herramienta "Seleccionar componente"</span>
-
-  <img
-    src={img('01-esquematico/herramientas/04-dialogo-elegir-simbolo-alimentacion.png')}
-    alt="Diálogo Elegir símbolo de alimentación, con la librería PCM_fab expandida"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-  />
-  <span class="screenshot-caption">Buscador de símbolos de alimentación — incluye la librería PCM_fab de KiCad FabLib</span>
-
-  <img
-    src={img('01-esquematico/herramientas/08-dialogo-propiedades-texto.png')}
-    alt="Diálogo de propiedades del texto en el editor de esquemas"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-  />
-  <span class="screenshot-caption">Propiedades del texto — fuente, tamaño, alineación y color</span>
-
-  <hr class="divider" />
-
-  <h2 id="paso-3" class="section-h2" data-reveal>3. Organización del esquema.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Antes de seguir colocando componentes conviene organizar visualmente el esquema. La herramienta <strong>Dibujar rectángulo</strong> agrega un cuadro puramente gráfico — sin ningún efecto
-    eléctrico — para delimitar y agrupar visualmente un bloque de componentes relacionados. Se usa
-    para separar "Entradas y Salidas" de "Pulsadores" en la vista completa más abajo.
-  </p>
-  <div class="tool-row" style="border-top:none; padding-top:0;">
-    <div class="tool-icon-box"><img src={img('02-organizacion/01-icono-dibujar-cuadro-delimitador.png')} alt="" loading="lazy" decoding="async" /></div>
-    <div>
-      <h4>Dibujar rectángulo</h4>
-      <p>Agrega un cuadro gráfico de organización visual — no genera ninguna conexión eléctrica.</p>
-    </div>
-  </div>
-
-  <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>Atajos de teclado usados seguido</strong>
-    <p class="prose" style="margin:0 0 10px; font-size:14.5px;">
-      <code>E</code> edita las propiedades de lo seleccionado (o doble click) — sirve para símbolos,
-      texto y hasta el propio cuadro delimitador.
-    </p>
-    <p class="prose" style="margin:0; font-size:14.5px;">
-      <code>R</code> rota 90° lo seleccionado — clave para acomodar el layout (switches y
-      resistencias en vertical, LEDs en la orientación correcta).
-    </p>
-  </div>
-
-  <hr class="divider" />
-
-  <h2 id="paso-4" class="section-h2" data-reveal>4. Los pulsadores.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Se construyen <strong>4 módulos idénticos</strong> (S1–S4), uno por cada botón. Cada módulo combina
-    un switch táctil, dos resistencias y un LED indicador — este es el circuito completo del módulo
-    S3, como ejemplo:
-  </p>
-  <img
-    src={img('03-pulsadores/01-circuito-pulsador-s3-completo.png')}
-    alt="Circuito completo de un módulo pulsador: switch SW3, resistencias R5 y R6, LED D4"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-  />
-  <p class="prose" data-reveal data-reveal-delay="60">
-    El switch conecta <strong>V3.3</strong> al nodo <code>s3</code>. Desde ahí, una resistencia baja a <strong>GND</strong> — es una <strong>pull-down</strong>: mantiene el nodo en LOW cuando el botón no
-    está presionado, en vez de dejarlo flotando. La otra rama sale del mismo nodo por una resistencia
-    limitadora hacia un <strong>LED</strong> a GND — se enciende cada vez que el botón está presionado,
-    como indicador visual. El nodo <code>sN</code> de cada módulo es lo que sale hacia el conector de
-    salidas (siguiente sección).
-  </p>
-  <div class="callout" data-reveal data-reveal-delay="140">
-    <strong>Componentes del módulo pulsador</strong>
-    <p class="prose" style="margin:0; font-size:14.5px;">
-      Resistencia y LED usan símbolos genéricos de KiCad con huella asignada de la librería del
-      proyecto (<code>PCM_fab</code>); el switch usa símbolo y huella propios del proyecto.
-    </p>
-  </div>
-
-  <p class="prose" data-reveal data-reveal-delay="60"><strong>Resistencia</strong></p>
-  <img src={img('referencia-componentes/resistencia/01-simbolo-r-1206.png')} alt="Símbolo genérico de resistencia en KiCad" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Símbolo — R</span>
-  <img src={img('referencia-componentes/resistencia/02-footprint-r-1206.png')} alt="Huella R_1206 SMD de dos pads" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Huella — R_1206 (SMD, 2 pads)</span>
-
-  <p class="prose" data-reveal data-reveal-delay="60"><strong>LED</strong></p>
-  <img src={img('referencia-componentes/led/01-simbolo-led-1206.png')} alt="Símbolo genérico de LED en KiCad" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Símbolo — D (LED)</span>
-  <img src={img('referencia-componentes/led/02-footprint-led-1206.png')} alt="Huella LED_1206 SMD de dos pads" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Huella — LED_1206 (SMD, 2 pads — ojo con la polaridad ánodo/cátodo)</span>
-
-  <p class="prose" data-reveal data-reveal-delay="60"><strong>Switch táctil</strong></p>
-  <img src={img('referencia-componentes/switch/01-simbolo-switch-tactile-omron.png')} alt="Símbolo del switch táctil Omron en KiCad" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Símbolo — Switch_Tactile_Omron</span>
-  <img src={img('referencia-componentes/switch/02-footprint-button-omron-b3sn.png')} alt="Huella del switch Button_Omron_B3SN de 6x6mm, 4 pads THT" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Huella — Button_Omron_B3SN_6.0x6.0mm (THT, 4 pads en 2 pares)</span>
-
-  <hr class="divider" />
-
-  <h2 id="paso-5" class="section-h2" data-reveal>5. Conectores de entrada y salida.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    La placa se conecta al exterior por dos headers: <strong>J1 "Entradas"</strong> trae la
-    alimentación externa (pin 1 = V3.3 vía el símbolo de red <code>PWR_3V3</code>, pin 2 = GND), y <strong>J2 "Salidas"</strong> expone el estado de los 4 pulsadores (pines <code>s1</code>–<code>s4</code>)
-    hacia afuera — por ejemplo, a un microcontrolador que los lea.
-  </p>
-  <img src={img('04-conectores/01-j1-entradas-alimentacion.png')} alt="Conector J1 Entradas: header de 2 pines con V3.3 y GND" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">J1 "Entradas" — alimentación de la placa</span>
-  <img src={img('04-conectores/02-j2-salidas-s1-s4.png')} alt="Conector J2 Salidas: header de 4 pines con las señales s1 a s4" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">J2 "Salidas" — estado de los 4 pulsadores</span>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Ambos headers usan la misma huella base (paso 2.54 mm, THT), solo cambia el número de pines:
-  </p>
-
-  <p class="prose" data-reveal data-reveal-delay="60"><strong>Pin header 1×02 (usado en J1)</strong></p>
-  <img src={img('referencia-componentes/pin-header-1x02/01-simbolo-pinheader-1x02.png')} alt="Símbolo de pin header de 2 pines en KiCad" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Símbolo — PinHeader 1×02</span>
-  <img src={img('referencia-componentes/pin-header-1x02/02-footprint-pinheader-1x02.png')} alt="Huella de pin header vertical THT de 2 pines, paso 2.54mm" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Huella — PinHeader_01x02_P2.54mm_Vertical_THT_D1.4mm</span>
-
-  <p class="prose" data-reveal data-reveal-delay="60"><strong>Pin header 1×04 (usado en J2)</strong></p>
-  <img src={img('referencia-componentes/pin-header-1x04/01-simbolo-pinheader-1x04.png')} alt="Símbolo de pin header de 4 pines en KiCad" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Símbolo — PinHeader 1×04</span>
-  <img src={img('referencia-componentes/pin-header-1x04/02-footprint-pinheader-1x04.png')} alt="Huella de pin header vertical THT de 4 pines, paso 2.54mm" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Huella — PinHeader_01x04_P2.54mm_Vertical_THT_D1.4mm</span>
-
-  <hr class="divider" />
-
-  <h2 id="paso-6" class="section-h2" data-reveal>6. Esquemático completo.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Con los 4 pulsadores y los conectores de entrada/salida ya armados, así queda el esquemático
-    completo de <code>Hola_Mundo.kicad_sch</code> — dos bloques delimitados con cuadros: "Entradas y
-    Salidas" arriba, "Pulsadores" (los 4 módulos en cuadrícula 2×2) debajo.
-  </p>
-  <img src={img('05-vista-general/01-esquematico-completo-dos-bloques.png')} alt="Esquemático completo con los bloques Entradas y Salidas y Pulsadores delimitados" class="screenshot" loading="lazy" decoding="async" />
-  <img src={img('05-vista-general/02-bloque-entradas-y-salidas-zoom.png')} alt="Zoom del bloque Entradas y Salidas con J1 y J2" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Bloque "Entradas y Salidas"</span>
-  <img src={img('05-vista-general/03-bloque-pulsadores-4x-zoom.png')} alt="Zoom del bloque Pulsadores con los 4 módulos S1 a S4" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">Bloque "Pulsadores" — los 4 módulos S1–S4</span>
-
-  <hr class="divider" />
-
-  <h2 id="paso-7" class="section-h2" data-reveal>7. Editor de placas (PCB).</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Con el esquemático listo, se pasa al <strong>Editor de placas</strong> para diseñar el PCB físico.
-  </p>
-  <KicadWhere view="main" items={['Editor de placas']} />
-
-  <div class="tool-row" style="border-top:none; padding-top:0;">
-    <div class="tool-icon-box"><img src={img('06-editor-placas/00-icono-abrir-editor-placas.png')} alt="" loading="lazy" decoding="async" /></div>
-    <div>
-      <h4>Editor de placas</h4>
-      <p>Abre el diseño físico del PCB — colocación de componentes, ruteo de pistas, capas y exportación de fabricación.</p>
-    </div>
-  </div>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">1</span>Antes de colocar nada se configuran las reglas de diseño en <strong>Configuración de la placa → Reglas de diseño → Requerimientos</strong>: se fija el <strong>margen mínimo de cobre en 0.4 mm</strong> — la separación mínima entre conductores, acorde
-    al material y proceso de fresado de la placa — y se deja el ancho de pista predefinido también en
-    0.4 mm (con una opción alternativa de 0.8 mm para pistas de más corriente).
-  </p>
-  <KicadWhere view="placas" items={['Configuración de la placa']} caption="Ícono de la barra superior del editor de placas que abre Configuración de la placa" />
-
-  <details class="step-group">
-    <summary>Ver capturas (2)</summary>
-    <div class="step-group__body shot-grid">
-      <AnnotatedShot
-        src={img('06-editor-placas/00-configuracion-inicial/02-configuracion-placa-reglas-diseno.png')}
-        alt="Diálogo Configuración de la placa, Reglas de diseño, Requerimientos"
-        size={[1531, 736]}
-        boxes={[
-        { x: 0, y: 354, w: 412, h: 29, label: 'Clic aquí' },
-        { x: 744, y: 94, w: 150, h: 37, label: 'Cambiar a 0.4mm' },
-        ]}
-      />
-      <div>
-        <AnnotatedShot
-          src={img('06-editor-placas/00-configuracion-inicial/01-ancho-pista-predefinido.png')}
-          alt="Menú desplegable de anchos de pista predefinidos: 0.400mm y 0.800mm"
-          size={[327, 174]}
-          boxes={[
-          { x: 8, y: 72, w: 310, h: 19, label: 'Elegir este ancho' },
-          ]}
-        />
-        <span class="screenshot-caption">Anchos de pista predefinidos</span>
-      </div>
-    </div>
-  </details>
-
-  <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>Herramientas de dibujo del editor de placas</strong>
-    <KicadWhere zoom="placas-barra" caption="Barra de herramientas de la derecha del editor de placas: ventana completa (izquierda) y acercamiento (derecha)" />
-    <div class="tool-list">
-      {[
-        { icon: img('06-editor-placas/01-herramientas/01-enrutar-pistas.png'), name: 'Enrutar pistas', desc: 'Traza las conexiones de cobre entre pads sobre una capa.' },
-        { icon: img('06-editor-placas/01-herramientas/02-zonas-rellenas.png'), name: 'Dibujar zona rellena', desc: 'Crea un plano de cobre sólido dentro de un contorno (ej. relleno de GND o del resto de la placa).' },
-        { icon: img('06-editor-placas/01-herramientas/03-rectangulo.png'), name: 'Rectángulo', desc: 'Para cuando la placa se quiere de forma cuadrada o rectangular.' },
-        { icon: img('06-editor-placas/01-herramientas/04-poligono.png'), name: 'Polígono', desc: 'Dibuja formas de varios lados (bordes personalizados, zonas irregulares).' },
-        { icon: img('06-editor-placas/01-herramientas/05-linea.png'), name: 'Línea', desc: 'Segmento recto simple, en cualquier capa gráfica.' },
-        { icon: img('06-editor-placas/01-herramientas/06-arco.png'), name: 'Arco', desc: 'Dibuja arcos — útil para bordes redondeados o rutas curvas.' },
-        { icon: img('06-editor-placas/01-herramientas/07-curva-bezier.png'), name: 'Curva Bézier', desc: 'Curvas suaves con puntos de control, para formas más orgánicas.' },
-        { icon: img('06-editor-placas/01-herramientas/08-imagen-referencia.png'), name: 'Imagen de referencia', desc: 'Agrega una imagen de referencia sobre el lienzo (ej. para calcar una forma).' },
-        { icon: img('06-editor-placas/01-herramientas/09-texto.png'), name: 'Texto', desc: 'Agrega texto libre a cualquier capa (etiquetas, serigrafía).' },
-      ].map((tool) => (
-        <div class="tool-row">
-          <div class="tool-icon-box"><img src={tool.icon} alt="" loading="lazy" decoding="async" /></div>
-          <div>
-            <h4>{tool.name}</h4>
-            <p>{tool.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">2</span><strong>Capas.</strong> <code>F.Cu</code> (cobre superior) es la
-    capa principal — ahí vive todo el cobre de este diseño de una sola cara. Las capas <code>User.1</code>–<code>User.4</code> son auxiliares: se usan para marcar perforaciones,
-    agregar etiquetas y tener más control a la hora de exportar. <code>Edge.Cuts</code> define el
-    contorno físico/corte de la placa.
-  </p>
-  <KicadWhere
-    zoom="placas-capas"
-    caption="Panel Apariencia (a la derecha del editor de placas), pestaña Capas"
-    note="Las capas User.1 a User.4 están más abajo en la misma lista: desplázala para verlas."
-  />
-
-  <details class="step-group">
-    <summary>Ver capturas (3)</summary>
-    <div class="step-group__body shot-grid">
-      <div>
-        <img src={img('06-editor-placas/02-capas/01-fcu-capa-principal.png')} alt="Capa F.Cu activa en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">F.Cu — capa principal</span>
-      </div>
-      <div>
-        <img src={img('06-editor-placas/02-capas/03-capas-usuario.png')} alt="Capas User.1 a User.4 en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">User.1–User.4 — capas auxiliares</span>
-      </div>
-      <div>
-        <img src={img('06-editor-placas/02-capas/04-edge-cuts.png')} alt="Capa Edge.Cuts en el panel de capas" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">Edge.Cuts — contorno de la placa</span>
-      </div>
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">3</span>Se acomodan primero todos los componentes y se rutean las pistas
-    completas sobre <code>F.Cu</code>:
-  </p>
-  <KicadWhere view="placas" items={['Enrutar pistas']} caption="Herramienta Enrutar pistas (barra de la derecha)" />
-
-  <details class="step-group">
-    <summary>Ver captura</summary>
-    <div class="step-group__body">
-      <img src={img('06-editor-placas/03-componentes-y-rutas/01-board-componentes-y-rutas.png')} alt="PCB con todos los componentes colocados y las pistas ya ruteadas" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">4</span>Se dibuja la forma de la placa en <code>F.Cu</code> y
-    se usa la herramienta de <strong>zona rellena</strong> — todo el cobre no usado por las pistas
-    queda como un plano sólido (se ve todo en rojo):
-  </p>
-  <KicadWhere view="placas" items={['Zona rellena']} caption="Herramienta Dibujar zona rellena (barra de la derecha)" />
-
-  <details class="step-group">
-    <summary>Ver captura</summary>
-    <div class="step-group__body">
-      <img src={img('06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.webp')} alt="PCB completo con la zona de cobre rellena en F.Cu, todo en rojo" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">5</span>Se le da a la placa un borde con esquinas cortadas (forma
-    octagonal) en <code>Edge.Cuts</code>, con <strong>2 mm de ancho de línea</strong> — es el trazo que
-    sigue la fresadora al cortar el contorno físico de la placa.
-  </p>
-  <KicadWhere view="placas" items={['Capa Edge.Cuts']} caption="Selecciona la capa Edge.Cuts en el panel de capas antes de dibujar el borde" />
-
-  <details class="step-group">
-    <summary>Ver capturas (2)</summary>
-    <div class="step-group__body shot-grid">
-      <img src={img('06-editor-placas/04-borde-placa-edge-cuts/01-zoom-borde-octagonal.png')} alt="Zoom del borde octagonal de la placa en Edge.Cuts" class="screenshot" loading="lazy" decoding="async" />
-      <div>
-        <AnnotatedShot
-          src={img('06-editor-placas/04-borde-placa-edge-cuts/02-propiedades-segmento-2mm.png')}
-          alt="Propiedades del segmento del borde: ancho de línea 2mm, capa Edge.Cuts"
-          size={[654, 540]}
-          boxes={[
-          { x: 136, y: 256, w: 152, h: 37, label: 'Poner en 2mm' },
-          ]}
-        />
-        <span class="screenshot-caption">Propiedades del segmento — 2 mm, capa Edge.Cuts</span>
-      </div>
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">6</span>Se marcan las perforaciones en <code>User.4</code> con círculos de
-    0.7 mm de radio y relleno <strong>sólido</strong> (junto a los pads de salidas, por ejemplo):
-  </p>
-  <KicadWhere view="placas" items={['Círculo']} caption="Herramienta Círculo (barra de la derecha); se dibuja en la capa User.4" />
-
-  <details class="step-group">
-    <summary>Ver capturas (3)</summary>
-    <div class="step-group__body shot-grid">
-      <img src={img('06-editor-placas/06-perforaciones-user4/02-zoom-salidas-perforacion.png')} alt="Zoom de los pads de J2 Salidas con un círculo blanco marcando una perforación en User.4" class="screenshot" loading="lazy" decoding="async" />
-      <div>
-        <img src={img('06-editor-placas/06-perforaciones-user4/01-propiedades-circulo-user4.png')} alt="Propiedades del círculo: capa User.4, radio 0.7mm, relleno sólido" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">Propiedades del círculo — User.4, radio 0.7 mm</span>
-      </div>
-      <div>
-        <AnnotatedShot
-          src={img('06-editor-placas/06-perforaciones-user4/03-opciones-relleno-solido.png')}
-          alt="Opciones de relleno: Ninguno, Sólida, Rayado, Rayado inverso, Rayado cruzado"
-          size={[439, 216]}
-          boxes={[
-          { x: 223, y: 76, w: 214, h: 35, label: 'Elegir Sólida', pos: 'left' },
-          ]}
-        />
-        <span class="screenshot-caption">Relleno — Sólida</span>
-      </div>
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">7</span>Las etiquetas (<code>VCC</code>, <code>GND</code>, <code>S1</code>–<code>S4</code>)
-    se ponen directo en <code>F.Cu</code>:
-  </p>
-  <details class="step-group">
-    <summary>Ver captura</summary>
-    <div class="step-group__body">
-      <img src={img('06-editor-placas/07-etiquetas-fcu/01-zoom-vcc-gnd.png')} alt="Zoom de las etiquetas VCC y GND junto al conector J1, en F.Cu" class="screenshot" loading="lazy" decoding="async" />
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">8</span>Y así queda el resultado final del PCB: forma octagonal, plano de
-    cobre, pistas, etiquetas y los headers J1/J2.
-  </p>
-  <details class="step-group" open>
-    <summary>Ver capturas (2)</summary>
-    <div class="step-group__body shot-grid">
-      <img src={img('06-editor-placas/08-resultado-final/01-board-final.png')} alt="PCB terminado: forma octagonal, cobre rojo, pistas, etiquetas VCC/GND/S1-S4" class="screenshot" loading="lazy" decoding="async" />
-      <div>
-        <img src={img('06-editor-placas/08-resultado-final/02-board-final-editor-completo.webp')} alt="Vista del editor de placas completo con el PCB terminado" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">Editor de placas — resultado final</span>
-      </div>
-    </div>
-  </details>
-
-  <hr class="divider" />
-
-  <h2 id="paso-8" class="section-h2" data-reveal>8. Exportación a Gerber.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">1</span>Desde <strong>Archivo → Salidas de fabricación → Gerbers...</strong>
-  </p>
-  <KicadWhere view="placas" items={['Menú Archivo']} />
-
-  <AnnotatedShot
-    src={img('06-editor-placas/09-exportacion-gerbers/01-menu-salidas-fabricacion.png')}
-    alt="Menú Archivo, Salidas de fabricación, con la opción Gerbers"
-    wide
-    size={[838, 276]}
-    boxes={[
-    { x: 346, y: 5, w: 488, h: 33, label: 'Clic aquí' },
-    ]}
-  />
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">2</span>En el diálogo <strong>Trazar</strong>, se cambia el formato de
-    trazado a <strong>SVG</strong> y se incluyen solo las capas que se usaron en cada archivo: pistas
-    (<code>F.Cu</code> + <code>Edge.Cuts</code>) y perforaciones/periferia
-    (<code>Edge.Cuts</code> + <code>User.4</code>).
-  </p>
-  <details class="step-group">
-    <summary>Ver capturas (4)</summary>
-    <div class="step-group__body shot-grid">
-      <AnnotatedShot
-        src={img('06-editor-placas/09-exportacion-gerbers/02-dialogo-trazar-gerber.png')}
-        alt="Diálogo Trazar, con formato Gerber y las opciones generales"
-        wide
-        size={[1401, 841]}
-        boxes={[
-        { x: 861, y: 789, w: 116, h: 37, label: 'Trazar' },
-        ]}
-      />
-      <div>
-        <AnnotatedShot
-          src={img('06-editor-placas/09-exportacion-gerbers/03-formato-svg.png')}
-          alt="Menú de formato de trazado con SVG seleccionado"
-          size={[306, 178]}
-          boxes={[
-          { x: 171, y: 88, w: 114, h: 27, label: 'Elegir SVG', pos: 'left', nudge: -12 },
-          ]}
-        />
-        <span class="screenshot-caption">Formato de trazado — SVG</span>
-      </div>
-      <div>
-        <AnnotatedShot
-          src={img('06-editor-placas/09-exportacion-gerbers/04-capas-fcu-edgecuts.png')}
-          alt="Selección de capas F.Cu y Edge.Cuts para el archivo de pistas"
-          size={[247, 462]}
-          boxes={[
-          { x: 17, y: 36, w: 210, h: 22, label: 'Marcar F.Cu' },
-          { x: 17, y: 414, w: 210, h: 22, label: 'Marcar Edge.Cuts' },
-          ]}
-        />
-        <span class="screenshot-caption">Capas para "Pistas" — F.Cu + Edge.Cuts</span>
-      </div>
-      <div>
-        <AnnotatedShot
-          src={img('06-editor-placas/09-exportacion-gerbers/05-capas-edgecuts-user4.png')}
-          alt="Selección de capas Edge.Cuts y User.4 para los archivos de periferia y horificios"
-          size={[244, 459]}
-          boxes={[
-          { x: 23, y: 170, w: 184, h: 21, label: 'Marcar Edge.Cuts' },
-          { x: 23, y: 412, w: 184, h: 22, label: 'Marcar User.4' },
-          ]}
-        />
-        <span class="screenshot-caption">Capas para "Periferia"/"Horificios" — Edge.Cuts + User.4</span>
-      </div>
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">3</span>Muy importante: activar <strong>"Ajustar página a la placa"</strong> en las opciones de SVG.
-  </p>
-  <AnnotatedShot
-    src={img('06-editor-placas/09-exportacion-gerbers/06-opciones-svg-ajustar-pagina.png')}
-    alt="Opciones SVG con Ajustar página a la placa activado"
-    size={[457, 166]}
-    boxes={[
-    { x: 9, y: 118, w: 222, h: 27, label: 'Activar esto', pos: 'right' },
-    ]}
-  />
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">4</span>Se da <strong>Trazar</strong> y luego <strong>Guardar</strong> — los
-    archivos se generan en la carpeta del proyecto:
-  </p>
-  <details class="step-group">
-    <summary>Ver captura</summary>
-    <div class="step-group__body">
-      <img src={img('06-editor-placas/09-exportacion-gerbers/09-archivos-generados.png')} alt="Archivos SVG generados en la carpeta del proyecto: Edge_Cuts, F_Cu, User_4" class="screenshot" loading="lazy" decoding="async" />
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">5</span>Como buena práctica, se les cambia el nombre a algo descriptivo: <strong>HORIFICIOS</strong> (perforaciones, capa User.4), <strong>PERIFERIA</strong> (contorno,
-    Edge.Cuts) y <strong>PISTAS</strong> (cobre, F.Cu).
-  </p>
-  <img src={img('06-editor-placas/09-exportacion-gerbers/10-archivos-renombrados.png')} alt="Archivos renombrados: HORIFICIOS, PERIFERIA, PISTAS" class="screenshot" loading="lazy" decoding="async" />
-  <div class="shot-grid" style="margin-top:-8px;">
-    <div>
-      <img src={img('06-editor-placas/09-exportacion-gerbers/11-horificios-preview.png')} alt="Vista previa del SVG de horificios: puntos de perforación" class="screenshot" style="max-height:180px;" loading="lazy" decoding="async" />
-      <span class="screenshot-caption">HORIFICIOS</span>
-    </div>
-    <div>
-      <img src={img('06-editor-placas/09-exportacion-gerbers/12-periferia-preview.png')} alt="Vista previa del SVG de periferia: contorno octagonal de la placa" class="screenshot" style="max-height:180px;" loading="lazy" decoding="async" />
-      <span class="screenshot-caption">PERIFERIA</span>
-    </div>
-    <div>
-      <img src={img('06-editor-placas/09-exportacion-gerbers/13-pistas-preview.png')} alt="Vista previa del SVG de pistas: cobre y trazas del circuito" class="screenshot" style="max-height:180px;" loading="lazy" decoding="async" />
-      <span class="screenshot-caption">PISTAS</span>
-    </div>
-  </div>
-
-  <hr class="divider" />
-
-  <h2 id="paso-9" class="section-h2" data-reveal>9. Generación de toolpaths con mods.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Con los 3 SVG ya exportados de KiCad (periferia, pistas y orificios), el siguiente paso es
-    convertirlos en las trayectorias de fresado que la Roland SRM-20 puede ejecutar. Para eso se usa{' '}
-    <strong><a href="https://modsproject.org/" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">mods.org</a></strong>,{' '}
-    la herramienta CAM basada en nodos del CBA/MIT que se usa en los Fab Labs. El resultado son tres
-    archivos <code>.rml</code>.
-  </p>
-  <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>Cómo leer esta guía</strong>
-    <p class="prose" style="margin:0; font-size:14.5px;">
-      Cada paso muestra el <b>grafo completo</b> de mods con un <b>recuadro naranja sobre el nodo</b> que hay que
-      tocar — para ubicarlo de un vistazo — y debajo la captura de detalle con recuadros sobre el <b>botón o campo
-      exacto</b>. El proceso se repite <b>tres veces, una por SVG</b>, recargando la página de mods entre uno y otro.
-      Si alguien lo hace más adelante sin acordarse de nada, basta con seguir los recuadros naranjas.
-    </p>
-  </div>
-
-  <h3 id="mods-abrir" class="mods-h3" data-reveal>9.1 Abrir mods y cargar el programa</h3>
-  {MODS_OPEN.map((step, i) => <ModsStep step={step} n={i + 1} />)}
-  <div class="mods-step" data-reveal>
-    <p class="prose">
-      <span class="step-num">{MODS_OPEN.length + 1}</span>Se carga el grafo <strong>Roland Monofab PCB</strong>: todos los nodos
-      vienen ya conectados. Estos son los <strong>nodos que se tocan</strong> (el 2 solo en las pistas). Tenlos
-      ubicados: en los pasos siguientes se señalan sobre esta misma vista.
-    </p>
-    <AnnotatedShot
-      src={MODS_IMG_BASE + MODS_GENERAL.file}
-      alt={MODS_GENERAL.alt}
-      size={MODS_GENERAL.size}
-      boxes={MODS_MAP}
-      wide
-    />
-    <span class="screenshot-caption">Grafo "Roland Monofab PCB" — los nodos que se tocan, numerados</span>
-    <ol class="mods-legend">
-      {MODS_MAP_LEGEND.map((n, i) => (
-        <li><b>{i + 1}</b> {n}</li>
-      ))}
-    </ol>
-  </div>
-
-  {MODS_FLOWS.map((flow, i) => (
-    <>
-      <h3 id={flow.id} class="mods-h3" data-reveal>{`9.${i + 2} ${flow.title}`}</h3>
-      <p class="prose" data-reveal set:html={flow.intro} />
-      <div class="mods-values" data-reveal>
-        {flow.values.map((v) => (
-          <span class="mods-chip"><small>{v.k}</small>{v.v}</span>
-        ))}
-      </div>
-      {flow.steps.map((step, j) => <ModsStep step={step} n={j + 1} />)}
-    </>
-  ))}
-
-  <h3 id="mods-resumen" class="mods-h3" data-reveal>9.5 Resumen de los tres archivos</h3>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Lo único que cambia entre un archivo y otro. El origen siempre va en 0, 0, 0 (con una sola placa) y
-    la velocidad es 4 mm/s en todos menos en el taladrado.
-  </p>
-  <div class="mods-table-wrap" data-reveal>
-    <table class="mods-table">
-      <thead>
-        <tr>{MODS_SUMMARY.head.map((h) => <th>{h}</th>)}</tr>
-      </thead>
-      <tbody>
-        {MODS_SUMMARY.rows.map((row) => (
-          <tr>{row.map((c, k) => (k === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-  <img
-    src={MODS_IMG_BASE + MODS_FINAL.file}
-    alt={MODS_FINAL.alt}
-    width={MODS_FINAL.size[0]}
-    height={MODS_FINAL.size[1]}
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-  />
-  <span class="screenshot-caption">{MODS_FINAL.caption}</span>
-
-  <hr class="divider" />
-
-  <h2 id="fabricacion" class="section-h2" data-reveal>Fabricación en MonoFab.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <strong>MonoFab</strong> es la <strong>Roland SRM-20</strong>: una fresadora CNC de escritorio que
-    se usa para fabricar PCBs por fresado a partir de los archivos <code>.rml</code> generados
-    arriba con mods (<code>PERIFERIA.rml</code>, <code>PISTAS.rml</code>, <code>ORIFICIOS.rml</code>).
-  </p>
-  <img
-    src={monofabImg}
-    alt="Fresadora Roland SRM-20 (MonoFab)"
-    class="screenshot"
-    loading="lazy"
-    decoding="async"
-    style="max-width:min(420px, 100%);"
-  />
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Con los tres archivos <code>.rml</code> listos, la placa queda preparada para pasar al fresado en
-    la SRM-20. Los archivos se cargan en el <strong>vPanel</strong>, el software que controla la MonoFab:
-    las periferias con <code>PERIFERIA.rml</code>, las pistas con <code>PISTAS.rml</code> y los orificios
-    con <code>ORIFICIOS.rml</code>.
-  </p>
 </DocsLayout>

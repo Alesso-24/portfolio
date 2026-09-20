@@ -1,0 +1,73 @@
+---
+import FlowBlock from './FlowBlock.astro'
+import type { Block, FlowSection, FlowStep } from '../../data/flow-types'
+
+interface Props {
+  step: FlowStep
+  section: FlowSection
+  sectionIndex: number
+  stepIndex: number
+  flat: number
+  id: string
+  active?: boolean
+}
+
+const { step, section, sectionIndex, stepIndex, flat, id, active = false } = Astro.props
+const total = section.steps.length
+
+// Un recurso "guía" (vista general / nodo) seguido de UNA sola captura de detalle va en dos columnas;
+// en cualquier otro caso los bloques van uno debajo del otro.
+type Group = { split: [Block, Block]; row?: boolean } | { single: Block }
+const groups: Group[] = []
+for (let i = 0; i < step.blocks.length; i++) {
+  const b = step.blocks[i]
+  const n = step.blocks[i + 1]
+  if ((b.kind === 'where' || b.kind === 'node') && n?.kind === 'shots' && n.shots.length === 1 && (!n.layout || n.layout === 'auto')) {
+    groups.push({ split: [b, n] })
+    i++
+  } else if (b.kind === 'node' && n?.kind === 'shots' && n.shots.length === 2 && (!n.layout || n.layout === 'auto' || n.layout === 'row')) {
+    groups.push({ split: [b, n], row: true })
+    i++
+  } else {
+    groups.push({ single: b })
+  }
+}
+const alias = section.alias && stepIndex === 0 ? section.alias.join(' ') : undefined
+---
+
+<article
+  class={`flow-slide${active ? ' is-active' : ''}`}
+  id={id}
+  data-flat={flat}
+  data-section={sectionIndex}
+  data-step={stepIndex}
+  data-alias={alias}
+>
+  <header class="slide-head">
+    <div class="slide-meta">
+      <span>{section.chip}</span>
+      <span>Paso {stepIndex + 1} de {total}</span>
+    </div>
+    <h3 class="slide-title">{section.title}</h3>
+    {section.values && (
+      <div class="slide-values">
+        {section.values.map((v) => (
+          <span class="mods-chip"><small>{v.k}</small>{v.v}</span>
+        ))}
+      </div>
+    )}
+  </header>
+
+  <p class="prose slide-text"><span class="step-num">{stepIndex + 1}</span><Fragment set:html={step.html} /></p>
+
+  {groups.map((g) =>
+    'split' in g ? (
+      <div class={`step-media step-media--split${g.row ? ' step-media--splitrow' : ''}`}>
+        <div class="step-media__lead"><FlowBlock block={g.split[0]} /></div>
+        <div class="step-media__detail"><FlowBlock block={g.split[1]} /></div>
+      </div>
+    ) : (
+      <div class="step-block"><FlowBlock block={g.single} /></div>
+    )
+  )}
+</article>

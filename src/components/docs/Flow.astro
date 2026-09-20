@@ -1,0 +1,47 @@
+---
+import FlowSlide from './FlowSlide.astro'
+import type { Flow } from '../../data/flow-types'
+
+interface Props {
+  flow: Flow
+}
+
+const { flow } = Astro.props
+const total = flow.sections.reduce((a, s) => a + s.steps.length, 0)
+let flat = -1
+const slides = flow.sections.flatMap((section, si) =>
+  section.steps.map((step, ti) => {
+    flat++
+    return { step, section, si, ti, flat, id: ti === 0 ? section.id : `${section.id}-${ti + 1}` }
+  })
+)
+---
+
+<div class="flow" data-flow={flow.id}>
+  <nav class="flow__chips" aria-label="Secciones">
+    {flow.sections.map((s, i) => (
+      <button type="button" class={`flow__chip${i === 0 ? ' is-active' : ''}`} data-goto={i}>{s.chip}</button>
+    ))}
+  </nav>
+
+  <div class="flow__top">
+    <span class="flow__pos">Paso 1 de {total}</span>
+    <div class="flow__bar" aria-hidden="true"><span class="flow__bar-fill" style={`width:${(100 / total).toFixed(2)}%`}></span></div>
+    <div class="flow__arrows">
+      <button type="button" class="flow__btn flow__btn--icon" data-dir="-1" aria-label="Paso anterior">←</button>
+      <button type="button" class="flow__btn flow__btn--icon" data-dir="1" aria-label="Paso siguiente">→</button>
+    </div>
+  </div>
+
+  <div class="flow__stage" aria-live="polite">
+    {slides.map((s) => (
+      <FlowSlide step={s.step} section={s.section} sectionIndex={s.si} stepIndex={s.ti} flat={s.flat} id={s.id} active={s.flat === 0} />
+    ))}
+  </div>
+
+  <div class="flow__foot">
+    <button type="button" class="flow__btn" data-dir="-1"><span aria-hidden="true">←</span> Anterior</button>
+    <span class="flow__pos flow__pos--foot">Paso 1 de {total}</span>
+    <button type="button" class="flow__btn flow__btn--primary" data-dir="1">Siguiente <span aria-hidden="true">→</span></button>
+  </div>
+</div>

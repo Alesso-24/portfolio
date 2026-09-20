@@ -9,9 +9,11 @@ interface Props {
   badge: string
   breadcrumbs: Crumb[]
   ogImage?: string
+  /** columna de lectura más ancha (guías paso a paso con capturas en dos columnas) */
+  wide?: boolean
 }
 
-const { title, description, badge, breadcrumbs, ogImage } = Astro.props
+const { title, description, badge, breadcrumbs, ogImage, wide = false } = Astro.props
 const backHref = breadcrumbs[breadcrumbs.length - 1]?.href ?? '/portfolio/docs'
 const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
 ---
@@ -42,7 +44,7 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
       )}
     </header>
 
-    <div class="docs-body">
+    <div class={`docs-body${wide ? ' docs-body--wide' : ''}`}>
       <slot />
     </div>
   </article>
@@ -101,6 +103,8 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     margin: 0 auto;
     padding: 0 clamp(24px, 5vw, 80px) clamp(80px, 12vh, 140px);
   }
+
+  .docs-body.docs-body--wide { max-width: 1080px; }
 
   .docs-body h2.section-h2 {
     font-family: 'Instrument Serif', serif;

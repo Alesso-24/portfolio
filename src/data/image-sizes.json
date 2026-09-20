@@ -1,0 +1,454 @@
+{
+ "00-preparacion/01-abrir-kicad-ventana-principal.webp": [
+  1400,
+  787
+ ],
+ "00-preparacion/02-menu-archivo-nuevo-proyecto.png": [
+  580,
+  588
+ ],
+ "00-preparacion/03-proyecto-hola-mundo-creado.png": [
+  426,
+  244
+ ],
+ "00-preparacion/04-menu-herramientas-administrador-complementos.png": [
+  528,
+  402
+ ],
+ "00-preparacion/05-instalar-kicad-fablib.png": [
+  1351,
+  589
+ ],
+ "00-preparacion/editores/calculo.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/complementos.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/esquemas.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/gerber.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/hoja.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/huellas.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/imagenes.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/placas.webp": [
+  72,
+  72
+ ],
+ "00-preparacion/editores/simbolos.webp": [
+  72,
+  72
+ ],
+ "01-esquematico/00-editor-de-esquemas-vacio.webp": [
+  1400,
+  787
+ ],
+ "01-esquematico/herramientas/01-icono-seleccionar-componente.png": [
+  49,
+  55
+ ],
+ "01-esquematico/herramientas/02-dialogo-elegir-simbolo.png": [
+  1633,
+  1036
+ ],
+ "01-esquematico/herramientas/03-icono-simbolo-alimentacion.png": [
+  49,
+  57
+ ],
+ "01-esquematico/herramientas/04-dialogo-elegir-simbolo-alimentacion.png": [
+  1654,
+  1027
+ ],
+ "01-esquematico/herramientas/05-icono-dibujar-cable.png": [
+  49,
+  48
+ ],
+ "01-esquematico/herramientas/06-icono-etiqueta-de-red.png": [
+  49,
+  58
+ ],
+ "01-esquematico/herramientas/07-icono-texto.png": [
+  46,
+  54
+ ],
+ "01-esquematico/herramientas/08-dialogo-propiedades-texto.png": [
+  933,
+  442
+ ],
+ "02-organizacion/01-icono-dibujar-cuadro-delimitador.png": [
+  52,
+  34
+ ],
+ "03-pulsadores/01-circuito-pulsador-s3-completo.png": [
+  717,
+  622
+ ],
+ "04-conectores/01-j1-entradas-alimentacion.png": [
+  447,
+  202
+ ],
+ "04-conectores/02-j2-salidas-s1-s4.png": [
+  225,
+  210
+ ],
+ "05-vista-general/01-esquematico-completo-dos-bloques.png": [
+  1149,
+  808
+ ],
+ "05-vista-general/02-bloque-entradas-y-salidas-zoom.png": [
+  378,
+  390
+ ],
+ "05-vista-general/03-bloque-pulsadores-4x-zoom.png": [
+  988,
+  829
+ ],
+ "06-editor-placas/00-configuracion-inicial/01-ancho-pista-predefinido.png": [
+  327,
+  174
+ ],
+ "06-editor-placas/00-configuracion-inicial/02-configuracion-placa-reglas-diseno.png": [
+  1531,
+  736
+ ],
+ "06-editor-placas/00-icono-abrir-editor-placas.png": [
+  100,
+  42
+ ],
+ "06-editor-placas/01-herramientas/01-enrutar-pistas.png": [
+  45,
+  57
+ ],
+ "06-editor-placas/01-herramientas/02-zonas-rellenas.png": [
+  51,
+  57
+ ],
+ "06-editor-placas/01-herramientas/03-rectangulo.png": [
+  45,
+  57
+ ],
+ "06-editor-placas/01-herramientas/04-poligono.png": [
+  36,
+  48
+ ],
+ "06-editor-placas/01-herramientas/05-linea.png": [
+  49,
+  54
+ ],
+ "06-editor-placas/01-herramientas/06-arco.png": [
+  46,
+  57
+ ],
+ "06-editor-placas/01-herramientas/07-curva-bezier.png": [
+  48,
+  58
+ ],
+ "06-editor-placas/01-herramientas/08-imagen-referencia.png": [
+  46,
+  52
+ ],
+ "06-editor-placas/01-herramientas/09-texto.png": [
+  52,
+  43
+ ],
+ "06-editor-placas/01-herramientas/10-circulo.webp": [
+  46,
+  52
+ ],
+ "06-editor-placas/02-capas/01-fcu-capa-principal.png": [
+  355,
+  33
+ ],
+ "06-editor-placas/02-capas/02-fcu-referencia.png": [
+  351,
+  30
+ ],
+ "06-editor-placas/02-capas/03-capas-usuario.png": [
+  358,
+  115
+ ],
+ "06-editor-placas/02-capas/04-edge-cuts.png": [
+  354,
+  34
+ ],
+ "06-editor-placas/03-componentes-y-rutas/01-board-componentes-y-rutas.png": [
+  897,
+  814
+ ],
+ "06-editor-placas/04-borde-placa-edge-cuts/01-zoom-borde-octagonal.png": [
+  232,
+  756
+ ],
+ "06-editor-placas/04-borde-placa-edge-cuts/02-propiedades-segmento-2mm.png": [
+  654,
+  540
+ ],
+ "06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.webp": [
+  1400,
+  666
+ ],
+ "06-editor-placas/06-perforaciones-user4/01-propiedades-circulo-user4.png": [
+  582,
+  745
+ ],
+ "06-editor-placas/06-perforaciones-user4/02-zoom-salidas-perforacion.png": [
+  447,
+  816
+ ],
+ "06-editor-placas/06-perforaciones-user4/03-opciones-relleno-solido.png": [
+  439,
+  216
+ ],
+ "06-editor-placas/07-etiquetas-fcu/01-zoom-vcc-gnd.png": [
+  658,
+  544
+ ],
+ "06-editor-placas/07-etiquetas-fcu/02-propiedades-texto-vcc-editor.png": [
+  1918,
+  915
+ ],
+ "06-editor-placas/07-etiquetas-fcu/03-propiedades-texto-vcc-panel.png": [
+  450,
+  829
+ ],
+ "06-editor-placas/08-resultado-final/01-board-final.png": [
+  945,
+  810
+ ],
+ "06-editor-placas/08-resultado-final/02-board-final-editor-completo.webp": [
+  1400,
+  787
+ ],
+ "06-editor-placas/09-exportacion-gerbers/01-menu-salidas-fabricacion.png": [
+  838,
+  276
+ ],
+ "06-editor-placas/09-exportacion-gerbers/02-dialogo-trazar-gerber.png": [
+  1401,
+  841
+ ],
+ "06-editor-placas/09-exportacion-gerbers/03-formato-svg.png": [
+  306,
+  178
+ ],
+ "06-editor-placas/09-exportacion-gerbers/04-capas-fcu-edgecuts.png": [
+  247,
+  462
+ ],
+ "06-editor-placas/09-exportacion-gerbers/05-capas-edgecuts-user4.png": [
+  244,
+  459
+ ],
+ "06-editor-placas/09-exportacion-gerbers/06-opciones-svg-ajustar-pagina.png": [
+  457,
+  166
+ ],
+ "06-editor-placas/09-exportacion-gerbers/07-boton-trazar.png": [
+  169,
+  75
+ ],
+ "06-editor-placas/09-exportacion-gerbers/08-boton-guardar.png": [
+  150,
+  61
+ ],
+ "06-editor-placas/09-exportacion-gerbers/09-archivos-generados.png": [
+  1144,
+  141
+ ],
+ "06-editor-placas/09-exportacion-gerbers/10-archivos-renombrados.png": [
+  352,
+  130
+ ],
+ "06-editor-placas/09-exportacion-gerbers/11-horificios-preview.png": [
+  349,
+  229
+ ],
+ "06-editor-placas/09-exportacion-gerbers/12-periferia-preview.png": [
+  348,
+  318
+ ],
+ "06-editor-placas/09-exportacion-gerbers/13-pistas-preview.png": [
+  351,
+  310
+ ],
+ "07-monofab-mods/00-programa-mill-2d-pcb/01-canvas-vacio.webp": [
+  1918,
+  1078
+ ],
+ "07-monofab-mods/00-programa-mill-2d-pcb/05-buscar-srm-completo.webp": [
+  418,
+  805
+ ],
+ "07-monofab-mods/00-programa-mill-2d-pcb/07-grafo-completo-cargado.webp": [
+  1918,
+  1078
+ ],
+ "07-monofab-mods/00-programa-mill-2d-pcb/08-nodo-read-svg-vacio-start-here.webp": [
+  885,
+  916
+ ],
+ "07-monofab-mods/01-periferia-contorno/01-abrir-periferia-svg.webp": [
+  1402,
+  985
+ ],
+ "07-monofab-mods/01-periferia-contorno/02-read-svg-periferia-cargado.webp": [
+  1918,
+  1078
+ ],
+ "07-monofab-mods/01-periferia-contorno/03-set-pcb-defaults-catalogo-completo.webp": [
+  658,
+  756
+ ],
+ "07-monofab-mods/01-periferia-contorno/04-set-pcb-defaults-cutout-1-59mm-seleccionado.webp": [
+  612,
+  745
+ ],
+ "07-monofab-mods/01-periferia-contorno/06-mill-raster-2d-config-contorno-a.webp": [
+  1207,
+  739
+ ],
+ "07-monofab-mods/01-periferia-contorno/07-roland-srm20-config-contorno.webp": [
+  804,
+  862
+ ],
+ "07-monofab-mods/01-periferia-contorno/07b-roland-srm20-origen-0-0-0.png": [
+  472,
+  594
+ ],
+ "07-monofab-mods/01-periferia-contorno/08-mill-raster-2d-config-contorno-b.webp": [
+  999,
+  945
+ ],
+ "07-monofab-mods/01-periferia-contorno/10-toolpath-simulado-contorno.webp": [
+  1918,
+  1078
+ ],
+ "07-monofab-mods/01-periferia-contorno/11-guardar-periferia-rml.webp": [
+  340,
+  285
+ ],
+ "07-monofab-mods/02-pistas-trazas/01-abrir-pistas-svg.webp": [
+  1405,
+  985
+ ],
+ "07-monofab-mods/02-pistas-trazas/03-set-pcb-defaults-flat-0-40mm-a.webp": [
+  660,
+  780
+ ],
+ "07-monofab-mods/02-pistas-trazas/07-roland-srm20-config-pistas.webp": [
+  642,
+  709
+ ],
+ "07-monofab-mods/02-pistas-trazas/08-mill-raster-2d-config-pistas-b.webp": [
+  901,
+  888
+ ],
+ "07-monofab-mods/02-pistas-trazas/12-toolpath-simulado-pistas.webp": [
+  1080,
+  652
+ ],
+ "07-monofab-mods/02-pistas-trazas/15-read-svg-pistas-cargado.webp": [
+  837,
+  882
+ ],
+ "07-monofab-mods/02-pistas-trazas/16-convert-svg-image-antes-de-invert.webp": [
+  456,
+  699
+ ],
+ "07-monofab-mods/02-pistas-trazas/17-convert-svg-image-despues-de-invert.webp": [
+  468,
+  652
+ ],
+ "07-monofab-mods/02-pistas-trazas/18-guardar-pistas-rml.webp": [
+  394,
+  336
+ ],
+ "07-monofab-mods/03-orificios-taladrado/01-read-svg-vacio.webp": [
+  796,
+  769
+ ],
+ "07-monofab-mods/03-orificios-taladrado/02-set-pcb-defaults-drill-0-79mm.webp": [
+  565,
+  757
+ ],
+ "07-monofab-mods/03-orificios-taladrado/04-mill-raster-2d-config-orificios-a.webp": [
+  981,
+  921
+ ],
+ "07-monofab-mods/03-orificios-taladrado/05-roland-srm20-config-orificios-b.webp": [
+  669,
+  748
+ ],
+ "07-monofab-mods/03-orificios-taladrado/10-toolpath-simulado-orificios-lejos.webp": [
+  981,
+  748
+ ],
+ "07-monofab-mods/03-orificios-taladrado/12-guardar-orificios-rml.webp": [
+  417,
+  375
+ ],
+ "07-monofab-mods/03-orificios-taladrado/13-read-svg-orificios-cargado.webp": [
+  736,
+  762
+ ],
+ "07-monofab-mods/04-archivos-finales/01-tres-rml-generados.png": [
+  585,
+  223
+ ],
+ "referencia-componentes/led/01-simbolo-led-1206.png": [
+  645,
+  429
+ ],
+ "referencia-componentes/led/02-footprint-led-1206.png": [
+  805,
+  463
+ ],
+ "referencia-componentes/pin-header-1x02/01-simbolo-pinheader-1x02.png": [
+  741,
+  228
+ ],
+ "referencia-componentes/pin-header-1x02/02-footprint-pinheader-1x02.png": [
+  778,
+  463
+ ],
+ "referencia-componentes/pin-header-1x04/01-simbolo-pinheader-1x04.png": [
+  718,
+  270
+ ],
+ "referencia-componentes/pin-header-1x04/02-footprint-pinheader-1x04.png": [
+  796,
+  462
+ ],
+ "referencia-componentes/resistencia/01-simbolo-r-1206.png": [
+  651,
+  414
+ ],
+ "referencia-componentes/resistencia/02-footprint-r-1206.png": [
+  801,
+  456
+ ],
+ "referencia-componentes/switch/01-simbolo-switch-tactile-omron.png": [
+  748,
+  400
+ ],
+ "referencia-componentes/switch/02-footprint-button-omron-b3sn.png": [
+  805,
+  463
+ ]
+}

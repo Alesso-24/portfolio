@@ -1,0 +1,470 @@
+---
+// Interactividad de la página de práctica: pestañas (KiCad / MonoFab / Altium), flujo paso a paso,
+// carruseles de capturas y ampliación (lightbox). Mejora progresiva: sin JS todo queda visible.
+---
+
+<script is:inline>
+  document.documentElement.classList.add('docs-js')
+</script>
+
+<script>
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const clamp = (n: number, min: number, max: number) => Math.max(min, Math.min(max, n))
+
+  type FlowApi = { show: (i: number, o?: { scroll?: boolean; hash?: boolean }) => void }
+  type Target = { tab: string; flow: HTMLElement; idx: number }
+  const registry = new Map<string, Target>()
+  const flows = new Map<HTMLElement, FlowApi>()
+  let selectTab: (id: string) => void = () => {}
+
+  // ───────────── flujo paso a paso
+  function initFlow(root: HTMLElement) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>(':scope > .flow__stage > .flow-slide'))
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('.flow__chip'))
+    const chipBar = root.querySelector<HTMLElement>('.flow__chips')
+    const fill = root.querySelector<HTMLElement>('.flow__bar-fill')
+    const pos = root.querySelectorAll<HTMLElement>('.flow__pos')
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-dir]'))
+    const tab = root.closest<HTMLElement>('[data-tab-panel]')?.dataset.tabPanel ?? ''
+    let cur = Math.max(0, slides.findIndex((s) => s.classList.contains('is-active')))
+
+    slides.forEach((s, i) => {
+      registry.set(s.id, { tab, flow: root, idx: i })
+      ;(s.dataset.alias ?? '').split(' ').filter(Boolean).forEach((a) => registry.set(a, { tab, flow: root, idx: i }))
+    })
+
+    function scrollToFlow() {
+      const top = root.getBoundingClientRect().top
+      if (top < 70 || top > window.innerHeight * 0.55) {
+        window.scrollTo({ top: Math.max(0, window.scrollY + top - 96), behavior: REDUCED ? 'auto' : 'smooth' })
+      }
+    }
+
+    function show(i: number, o: { scroll?: boolean; hash?: boolean } = {}) {
+      i = clamp(i, 0, slides.length - 1)
+      slides.forEach((s, k) => s.classList.toggle('is-active', k === i))
+      const sec = slides[i].dataset.section
+      chips.forEach((c) => {
+        const on = c.dataset.goto === sec
+        c.classList.toggle('is-active', on)
+        if (on) {
+          c.setAttribute('aria-current', 'step')
+          if (chipBar) chipBar.scrollTo({ left: c.offsetLeft - chipBar.clientWidth / 2 + c.clientWidth / 2, behavior: REDUCED ? 'auto' : 'smooth' })
+        } else c.removeAttribute('aria-current')
+      })
+      if (fill) fill.style.width = `${((i + 1) / slides.length) * 100}%`
+      pos.forEach((p) => (p.textContent = `Paso ${i + 1} de ${slides.length}`))
+      buttons.forEach((b) => {
+        const d = Number(b.dataset.dir)
+        b.disabled = (d < 0 && i === 0) || (d > 0 && i === slides.length - 1)
+      })
+      cur = i
+      if (o.hash) history.replaceState(null, '', '#' + slides[i].id)
+      if (o.scroll) scrollToFlow()
+    }
+
+    buttons.forEach((b) => b.addEventListener('click', () => show(cur + Number(b.dataset.dir), { scroll: true, hash: true })))
+    chips.forEach((c) =>
+      c.addEventListener('click', () => {
+        const i = slides.findIndex((s) => s.dataset.section === c.dataset.goto)
+        if (i >= 0) show(i, { scroll: true, hash: true })
+      })
+    )
+    root.addEventListener('keydown', (e) => {
+      const t = e.target as HTMLElement
+      if (t.closest('input, textarea, select') || e.altKey || e.ctrlKey || e.metaKey) return
+      if (e.key === 'ArrowRight') { show(cur + 1, { scroll: true, hash: true }); e.preventDefault() }
+      if (e.key === 'ArrowLeft') { show(cur - 1, { scroll: true, hash: true }); e.preventDefault() }
+    })
+
+    flows.set(root, { show })
+    show(cur)
+  }
+
+  // ───────────── pestañas
+  function initTabs(root: HTMLElement) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'))
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-tab-panel]'))
+    const select = (id: string) => {
+      tabs.forEach((t) => {
+        const on = t.dataset.tab === id
+        t.setAttribute('aria-selected', String(on))
+        t.tabIndex = on ? 0 : -1
+      })
+      panels.forEach((p) => p.classList.toggle('is-active', p.dataset.tabPanel === id))
+    }
+    selectTab = select
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => {
+        select(t.dataset.tab!)
+        history.replaceState(null, '', '#' + t.dataset.tab)
+      })
+      t.addEventListener('keydown', (e) => {
+        let n = -1
+        if (e.key === 'ArrowRight') n = (i + 1) % tabs.length
+        if (e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length
+        if (e.key === 'Home') n = 0
+        if (e.key === 'End') n = tabs.length - 1
+        if (n >= 0) { tabs[n].focus(); tabs[n].click(); e.preventDefault() }
+      })
+    })
+  }
+
+  // ───────────── carruseles de capturas
+  function initCarousel(root: HTMLElement) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>(':scope > .carousel__viewport > .carousel__slide'))
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('.carousel__dots i'))
+    const count = root.querySelector<HTMLElement>('.carousel__count')
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-cdir]'))
+    let cur = 0
+    const show = (i: number) => {
+      cur = clamp(i, 0, slides.length - 1)
+      slides.forEach((s, k) => s.classList.toggle('is-active', k === cur))
+      dots.forEach((d, k) => d.classList.toggle('is-active', k === cur))
+      if (count) count.textContent = `${cur + 1} / ${slides.length}`
+      btns.forEach((b) => (b.disabled = (Number(b.dataset.cdir) < 0 && cur === 0) || (Number(b.dataset.cdir) > 0 && cur === slides.length - 1)))
+    }
+    btns.forEach((b) => b.addEventListener('click', () => show(cur + Number(b.dataset.cdir))))
+    show(0)
+  }
+
+  // ───────────── ampliar imágenes
+  let overlay: HTMLElement | null = null
+  let lastFocus: HTMLElement | null = null
+  function closeLightbox() {
+    if (!overlay) return
+    overlay.remove()
+    overlay = null
+    document.body.style.overflow = ''
+    lastFocus?.focus()
+  }
+  function openLightbox(content: HTMLElement, caption: string) {
+    closeLightbox()
+    lastFocus = document.activeElement as HTMLElement
+    overlay = document.createElement('div')
+    overlay.className = 'lightbox'
+    overlay.setAttribute('role', 'dialog')
+    overlay.setAttribute('aria-modal', 'true')
+    overlay.setAttribute('aria-label', 'Imagen ampliada')
+    overlay.innerHTML = '<button type="button" class="lightbox__close" aria-label="Cerrar">✕</button><div class="lightbox__body"></div><p class="lightbox__caption"></p>'
+    overlay.querySelector('.lightbox__body')!.appendChild(content)
+    overlay.querySelector('.lightbox__caption')!.textContent = caption
+    overlay.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('.shot-annotated, .lightbox__img')) closeLightbox()
+    })
+    overlay.querySelector('.lightbox__close')!.addEventListener('click', closeLightbox)
+    const host = document.querySelector('.docs-body') ?? document.body
+    host.appendChild(overlay)
+    document.body.style.overflow = 'hidden'
+    overlay.querySelector<HTMLElement>('.lightbox__close')!.focus()
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox()
+  })
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement
+    const thumb = t.closest<HTMLElement>('.thumb-zoom')
+    if (thumb) {
+      const img = document.createElement('img')
+      img.src = thumb.dataset.zoom!
+      img.alt = thumb.dataset.zoomAlt ?? ''
+      img.className = 'lightbox__img'
+      openLightbox(img, thumb.dataset.zoomAlt ?? '')
+      return
+    }
+    const shot = t.closest<HTMLElement>('.flow-slide .shot-annotated')
+    if (shot && !t.closest('button, a')) {
+      const clone = shot.cloneNode(true) as HTMLElement
+      clone.querySelectorAll('img').forEach((im) => im.setAttribute('loading', 'eager'))
+      openLightbox(clone, shot.closest('figure')?.querySelector('figcaption')?.textContent ?? '')
+    }
+  })
+
+  // ───────────── enlaces profundos (#paso-7, #mods-pistas, #kicad, #monofab…)
+  function applyHash(scroll: boolean) {
+    const id = decodeURIComponent(location.hash.slice(1))
+    if (!id) return
+    const t = registry.get(id)
+    if (t) {
+      selectTab(t.tab)
+      flows.get(t.flow)?.show(t.idx, { scroll })
+      return
+    }
+    if (['kicad', 'monofab', 'altium'].includes(id)) selectTab(id)
+  }
+
+  const start = () => {
+    const tabsRoot = document.querySelector<HTMLElement>('[data-tabs]')
+    if (tabsRoot) initTabs(tabsRoot)
+    document.querySelectorAll<HTMLElement>('[data-flow]').forEach(initFlow)
+    document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(initCarousel)
+    applyHash(true)
+    window.addEventListener('hashchange', () => applyHash(true))
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start)
+  else start()
+</script>
+
+<style is:global>
+  /* ── Pestañas de herramienta ── */
+  .docs-body .tool-tabs__list {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+    margin: clamp(20px, 3vh, 32px) 0 clamp(20px, 3vh, 28px);
+  }
+  .docs-body .tool-tab {
+    display: flex; align-items: center; gap: 14px; text-align: left; cursor: pointer;
+    padding: 14px 16px; border-radius: 18px; color: #211f1a;
+    background: #efe7d8; border: 1px solid rgba(33, 31, 26, 0.12);
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .docs-body .tool-tab:hover { background: #f6f0e3; transform: translateY(-1px); }
+  .docs-body .tool-tab:focus-visible { outline: 2px solid #2540c0; outline-offset: 3px; }
+  .docs-body .tool-tab[aria-selected='true'] {
+    background: #fffdf8; border-color: #2540c0;
+    box-shadow: 0 0 0 3px rgba(37, 64, 192, 0.12), 0 22px 44px -30px rgba(33, 31, 26, 0.45);
+  }
+  .docs-body .tool-tab__icon {
+    flex: none; width: 60px; height: 60px; border-radius: 15px; overflow: hidden;
+    display: grid; place-items: center; background: #fff; border: 1px solid rgba(33, 31, 26, 0.08);
+  }
+  .docs-body .tool-tab__icon--dark { background: #0a0a0d; border-color: #0a0a0d; }
+  .docs-body .tool-tab__icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .docs-body .tool-tab__icon--kicad img { width: 78%; height: 78%; }
+  .docs-body .tool-tab__icon--altium img { width: 62%; height: 78%; }
+  .docs-body .tool-tab__icon--cover img { object-fit: cover; }
+  .docs-body .tool-tab__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .docs-body .tool-tab__title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .docs-body .tool-tab__sub { font-size: 12.5px; color: #6f6a5f; line-height: 1.35; }
+  .docs-body .tool-tab__badge {
+    display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 100px; vertical-align: middle;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    background: rgba(234, 106, 46, 0.14); color: #c2410c;
+  }
+  .docs-body .tool-tab--pending .tool-tab__icon { opacity: 0.8; }
+
+  .docs-body .tool-panel__head {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    margin: 0 0 clamp(18px, 2.4vh, 26px);
+  }
+  .docs-body .tool-panel__logo { height: 54px; width: auto; display: block; }
+  .docs-body .tool-panel__logo--icon { height: 62px; border-radius: 14px; }
+  .docs-body .tool-panel__head p { margin: 0; max-width: 56ch; font-size: 15px; line-height: 1.6; color: #534f46; }
+
+  .docs-js .docs-body .tool-panel:not(.is-active) { display: none; }
+  .docs-js .docs-body .tool-panel.is-active { animation: docs-fade 0.3s ease both; }
+
+  /* ── Flujo paso a paso ── */
+  .docs-body .flow__chips, .docs-body .flow__top, .docs-body .flow__foot, .docs-body .carousel__bar { display: none; }
+  .docs-js .docs-body .flow__chips {
+    display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 10px; margin: 0 0 6px;
+    scrollbar-width: thin; scroll-snap-type: x proximity;
+  }
+  .docs-body .flow__chip {
+    flex: none; scroll-snap-align: center; cursor: pointer; white-space: nowrap;
+    padding: 9px 15px; border-radius: 100px; font: 600 13px 'Hanken Grotesk', system-ui, sans-serif;
+    color: #534f46; background: rgba(33, 31, 26, 0.05); border: 1px solid transparent;
+    transition: background 0.2s, color 0.2s;
+  }
+  .docs-body .flow__chip:hover { background: rgba(33, 31, 26, 0.1); }
+  .docs-body .flow__chip:focus-visible { outline: 2px solid #2540c0; outline-offset: 2px; }
+  .docs-body .flow__chip.is-active { background: #211f1a; color: #f3ede1; }
+
+  .docs-js .docs-body .flow__top { display: flex; align-items: center; gap: 14px; margin: 4px 0 14px; }
+  .docs-body .flow__pos { flex: none; font: 700 11px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: #6f6a5f; }
+  .docs-body .flow__bar { flex: 1; height: 4px; border-radius: 4px; background: rgba(33, 31, 26, 0.1); overflow: hidden; }
+  .docs-body .flow__bar-fill { display: block; height: 100%; background: #ea6a2e; border-radius: 4px; transition: width 0.35s ease; }
+  .docs-body .flow__arrows { display: flex; gap: 6px; }
+  .docs-body .flow__btn {
+    display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
+    padding: 11px 20px; border-radius: 100px; border: 1px solid rgba(33, 31, 26, 0.18);
+    background: #fffdf8; color: #211f1a; font: 700 14px 'Hanken Grotesk', system-ui, sans-serif;
+    transition: background 0.2s, transform 0.15s, opacity 0.2s;
+  }
+  .docs-body .flow__btn:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
+  .docs-body .flow__btn:focus-visible { outline: 2px solid #2540c0; outline-offset: 2px; }
+  .docs-body .flow__btn:disabled { opacity: 0.35; cursor: default; }
+  .docs-body .flow__btn--icon { width: 38px; height: 38px; padding: 0; justify-content: center; font-size: 17px; }
+  .docs-body .flow__btn--primary { background: #2540c0; border-color: #2540c0; color: #f3ede1; }
+  .docs-body .flow__btn--primary:hover:not(:disabled) { background: #1d34a3; }
+  .docs-js .docs-body .flow__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+  .docs-body .flow__pos--foot { display: none; }
+
+  .docs-js .docs-body .flow .flow-slide { display: none; }
+  .docs-js .docs-body .flow .flow-slide.is-active { display: block; animation: docs-fade 0.3s ease both; }
+  .docs-body .flow-slide {
+    background: rgba(255, 255, 255, 0.45); border: 1px solid rgba(33, 31, 26, 0.09); border-radius: 22px;
+    padding: clamp(18px, 2.6vw, 32px); margin-bottom: 18px;
+    box-shadow: 0 30px 60px -48px rgba(33, 31, 26, 0.5);
+    scroll-margin-top: 96px;
+  }
+  @keyframes docs-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .docs-body .slide-meta {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px;
+    font: 700 11px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: #ea6a2e;
+  }
+  .docs-body .slide-meta span:last-child { color: #8a8579; }
+  .docs-body .slide-title {
+    margin: 0 0 12px; font-family: 'Instrument Serif', serif; font-weight: 400;
+    font-size: clamp(24px, 2.6vw, 34px); line-height: 1.1; letter-spacing: -0.015em; color: #211f1a;
+  }
+  .docs-body .slide-values { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+  .docs-body .slide-text { max-width: 78ch; margin-bottom: clamp(14px, 2vh, 20px); }
+  .docs-body .step-block { margin-top: 14px; }
+  .docs-body .step-media--split {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 22px; align-items: start; margin-top: 14px;
+  }
+  .docs-body .step-media--splitrow { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); }
+  .docs-body .step-media--splitrow .shots--row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 900px) {
+    .docs-body .step-media--split, .docs-body .step-media--splitrow { grid-template-columns: 1fr; gap: 14px; }
+    .docs-body .step-media--splitrow .shots--row { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  }
+
+  /* capturas dentro de un paso */
+  .docs-body .flow-slide figure { margin: 0; }
+  .docs-body .flow-slide .shot-annotated { margin: 0 auto; cursor: zoom-in; }
+  .docs-body .flow-slide .screenshot-caption { margin: 8px 0 0; }
+  .docs-body .flow-slide .shot--lead .screenshot { max-height: 400px; }
+  .docs-body .flow-slide .step-media__detail .screenshot { max-height: 460px; }
+  .docs-body .lead-note { margin: 10px 0 0; font-size: 13.5px; line-height: 1.6; color: #6f6a5f; max-width: 78ch; }
+  .docs-body .flow-slide ol.mods-legend { margin: 12px 0 0; }
+  .docs-body .shots { display: grid; gap: 16px; align-items: start; }
+  .docs-body .shots--row { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .docs-body .shots--thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px; }
+  .docs-body .shots--thumbs .screenshot { max-height: 170px; }
+  @media (max-width: 560px) { .docs-body .shots--thumbs { grid-template-columns: 1fr; } }
+
+  /* carrusel */
+  .docs-js .docs-body .carousel__slide { display: none; }
+  .docs-js .docs-body .carousel__slide.is-active { display: block; animation: docs-fade 0.25s ease both; }
+  .docs-body .carousel:not(.x) .carousel__slide { margin-bottom: 14px; }
+  .docs-js .docs-body .carousel .carousel__slide { margin-bottom: 0; }
+  .docs-js .docs-body .carousel__bar { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 12px; }
+  .docs-body .carousel__btn {
+    width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 22px; line-height: 1;
+    border: 1px solid rgba(33, 31, 26, 0.2); background: #fffdf8; color: #211f1a;
+  }
+  .docs-body .carousel__btn:hover:not(:disabled) { background: #fff; }
+  .docs-body .carousel__btn:focus-visible { outline: 2px solid #2540c0; outline-offset: 2px; }
+  .docs-body .carousel__btn:disabled { opacity: 0.3; cursor: default; }
+  .docs-body .carousel__dots { display: inline-flex; gap: 7px; }
+  .docs-body .carousel__dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(33, 31, 26, 0.2); transition: background 0.2s, transform 0.2s; }
+  .docs-body .carousel__dots i.is-active { background: #ea6a2e; transform: scale(1.3); }
+  .docs-body .carousel__count { font: 700 12px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.08em; color: #6f6a5f; min-width: 42px; text-align: center; }
+
+  /* leyenda de herramientas con íconos grandes */
+  .docs-body .tools-legend {
+    list-style: none; margin: 16px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px 20px;
+  }
+  .docs-body .tools-legend li { display: flex; align-items: center; gap: 12px; }
+  .docs-body .legend-num {
+    flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    background: #ea6a2e; color: #f3ede1; font: 700 12px 'Hanken Grotesk', system-ui, sans-serif;
+  }
+  .docs-body .legend-num--none { background: rgba(33, 31, 26, 0.18); color: #534f46; }
+  .docs-body .legend-icon {
+    flex: none; width: 78px; height: 78px; border-radius: 16px; display: grid; place-items: center;
+    background: #efe7d8; border: 1px solid rgba(33, 31, 26, 0.08);
+  }
+  .docs-body .legend-icon img { height: 62px; width: auto; max-width: 66px; object-fit: contain; display: block; border-radius: 6px; }
+  .docs-body .legend-icon--lg { width: 96px; height: 96px; border-radius: 20px; }
+  .docs-body .legend-icon--lg img { height: 76px; max-width: 80px; }
+  .docs-body .legend-text { font-size: 14px; line-height: 1.5; color: #534f46; }
+  .docs-body .legend-text strong { display: block; margin-bottom: 2px; font-size: 15.5px; color: #211f1a; }
+  .docs-body .legend-hint { display: block; margin-top: 3px; font-size: 12.5px; color: #8a8579; }
+  .docs-body .tool-feature { display: flex; align-items: center; gap: 16px; margin: 0 0 4px; }
+
+  /* editores de KiCad */
+  .docs-body .editors-grid {
+    list-style: none; margin: 0 0 18px; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px 16px;
+  }
+  .docs-body .editors-grid li {
+    display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px;
+    background: rgba(33, 31, 26, 0.04); border: 1px solid transparent; font-size: 12.5px; line-height: 1.4; color: #6f6a5f;
+  }
+  .docs-body .editors-grid li.is-used { background: rgba(234, 106, 46, 0.07); border-color: rgba(234, 106, 46, 0.35); }
+  .docs-body .editors-grid img { flex: none; width: 60px; height: 60px; border-radius: 12px; display: block; }
+  .docs-body .editors-grid strong { display: block; font-size: 14px; color: #211f1a; }
+  .docs-body .used-chip {
+    display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 100px; font-style: normal;
+    font: 700 10px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
+    background: rgba(234, 106, 46, 0.14); color: #c2410c;
+  }
+  .docs-body .editors-grid .used-chip { display: block; width: fit-content; }
+
+  /* referencia de componentes (símbolo + huella, en miniatura) */
+  .docs-body .components-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .docs-body .component-card { padding: 14px; border-radius: 16px; background: #efe7d8; border: 1px solid rgba(33, 31, 26, 0.08); }
+  .docs-body .component-card header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .docs-body .component-card h4 { margin: 0; font: 700 15px 'Hanken Grotesk', system-ui, sans-serif; color: #211f1a; }
+  .docs-body .component-card .used-chip { margin: 0; }
+  .docs-body .component-card__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .docs-body .component-card figure { margin: 0; }
+  .docs-body .component-card figcaption { margin-top: 6px; font-size: 11.5px; line-height: 1.35; color: #6f6a5f; word-break: break-word; }
+  .docs-body .component-card figcaption b { display: block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #ea6a2e; }
+  .docs-body .thumb-zoom {
+    display: grid; place-items: center; width: 100%; height: 118px; padding: 6px; cursor: zoom-in;
+    border-radius: 10px; border: 1px solid rgba(33, 31, 26, 0.1); background: #fff; overflow: hidden;
+  }
+  .docs-body .thumb-zoom:hover { border-color: #2540c0; }
+  .docs-body .thumb-zoom:focus-visible { outline: 2px solid #2540c0; outline-offset: 2px; }
+  .docs-body .thumb-zoom img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+
+  /* Altium (pendiente) */
+  .docs-body .altium-pending {
+    display: flex; align-items: center; gap: 22px; padding: clamp(22px, 3vw, 36px); border-radius: 22px;
+    background: rgba(255, 255, 255, 0.45); border: 1.5px dashed rgba(33, 31, 26, 0.25);
+  }
+  .docs-body .altium-pending img { flex: none; height: 96px; width: auto; display: block; }
+  .docs-body .altium-pending h3 { margin: 0 0 8px; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); color: #211f1a; }
+  .docs-body .altium-pending p { margin: 0; max-width: 58ch; font-size: 15px; line-height: 1.65; color: #534f46; }
+  @media (max-width: 560px) { .docs-body .altium-pending { flex-direction: column; align-items: flex-start; } }
+
+  /* MonoFab */
+  .docs-body .machine-figure img {
+    display: block; width: 100%; max-width: 520px; height: auto; margin: 8px auto 0; border-radius: 18px; background: #000;
+  }
+
+  /* ── Lightbox ── */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; padding: 24px; background: rgba(15, 14, 12, 0.88); backdrop-filter: blur(6px);
+    animation: docs-fade 0.2s ease both;
+  }
+  .lightbox__body { max-width: 96vw; max-height: 84vh; display: flex; }
+  .lightbox .shot-annotated { margin: 0; cursor: default; }
+  .lightbox .screenshot, .lightbox__img {
+    max-width: 94vw !important; max-height: 82vh !important; width: auto; height: auto; border-radius: 12px; background: #fff;
+  }
+  .lightbox__caption { margin: 0; max-width: 80ch; text-align: center; font: 500 13.5px 'Hanken Grotesk', system-ui, sans-serif; color: rgba(243, 237, 225, 0.85); }
+  .lightbox__close {
+    position: absolute; top: 16px; right: 16px; width: 42px; height: 42px; border-radius: 50%; cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.12); color: #fff; font-size: 18px;
+  }
+  .lightbox__close:hover { background: rgba(255, 255, 255, 0.25); }
+  .lightbox__close:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+  @media (max-width: 720px) {
+    .docs-body .tool-tab { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px; }
+    .docs-body .tool-tab__icon { width: 46px; height: 46px; border-radius: 12px; }
+    .docs-body .tool-tab__title { font-size: 15px; }
+    .docs-body .tool-tab__sub { display: none; }
+    .docs-body .tool-tab__badge { display: block; margin: 4px 0 0; width: fit-content; }
+    .docs-body .tool-tabs__list { gap: 8px; }
+    .docs-body .legend-icon { width: 64px; height: 64px; }
+    .docs-body .legend-icon img { height: 50px; max-width: 54px; }
+    .docs-body .tools-legend { grid-template-columns: 1fr; }
+    .docs-body .flow-slide { padding: 16px 14px; border-radius: 18px; }
+    .docs-body .flow__btn { padding: 10px 16px; }
+    .docs-body .flow__pos--foot { display: inline; }
+    .docs-body .flow__top .flow__arrows { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .docs-body .flow-slide, .docs-body .tool-panel, .docs-body .carousel__slide, .lightbox { animation: none !important; }
+    .docs-body .flow__bar-fill { transition: none; }
+  }
+</style>
