@@ -1,52 +1,446 @@
 {
   "_nota": "Especificación de recuadros naranjas para la doc de mods. NO está integrada a la página. Coordenadas en PÍXELES de cada captura (x,y,w,h), mismo formato que <AnnotatedShot size boxes> del sitio. 'pos' = lado de la etiqueta (top|bottom|left|right).",
-
   "capturas": {
     "00-programa-mill-2d-pcb/01-canvas-vacio.png": {
-      "size": [1918, 1078],
+      "size": [
+        1918,
+        1078
+      ],
       "paso": "Abrir https://modsproject.org/ → aparece el lienzo vacío. Señalar Programs (arriba a la izquierda).",
       "boxes": [
-        { "x": 24, "y": 56, "w": 156, "h": 58, "label": "Clic en Programs", "pos": "right" }
+        {
+          "x": 24,
+          "y": 56,
+          "w": 156,
+          "h": 58,
+          "label": "Clic en Programs",
+          "pos": "right"
+        }
       ],
       "alternativa": "00-programa-mill-2d-pcb/02-menu-programs-abriendo.png (351x145) es el acercamiento al botón Programs; se puede usar en vez de/además del recuadro."
     },
     "00-programa-mill-2d-pcb/05-buscar-srm-completo.png": {
-      "size": [418, 805],
+      "size": [
+        418,
+        805
+      ],
       "paso": "Menú Programs: escribir SRM en el buscador y elegir 'mill 2D PCB' dentro de 'SRM-20 mill'.",
       "boxes": [
-        { "x": 16, "y": 200, "w": 386, "h": 49, "label": "Escribir SRM", "pos": "top" },
-        { "x": 14, "y": 455, "w": 386, "h": 65, "label": "Elegir mill 2D PCB", "pos": "top" }
+        {
+          "x": 16,
+          "y": 200,
+          "w": 386,
+          "h": 49,
+          "label": "Escribir SRM",
+          "pos": "top"
+        },
+        {
+          "x": 14,
+          "y": 455,
+          "w": 386,
+          "h": 65,
+          "label": "Elegir mill 2D PCB",
+          "pos": "top"
+        }
       ]
     }
   },
-
   "grafo_general": {
     "archivo": "00-programa-mill-2d-pcb/07-grafo-completo-cargado.png",
-    "size": [1918, 1078],
+    "size": [
+      1918,
+      1078
+    ],
     "_nota": "Mapa de nodos del grafo 'Roland Monofab PCB'. Para cada paso de edición se usa esta imagen general con UN recuadro sobre el nodo que se toca. Medidas aproximadas (±5 px) — verificar/afinar al integrar. Incluye pestañas de inputs/outputs.",
     "nodos": {
-      "titulo (label simple)":            { "x": 36,   "y": 146, "w": 248, "h": 68 },
-      "read SVG":                         { "x": 38,   "y": 218, "w": 226, "h": 236 },
-      "note START HERE":                  { "x": 230,  "y": 338, "w": 82,  "h": 72 },
-      "convert SVG image":                { "x": 300,  "y": 252, "w": 246, "h": 224 },
-      "image threshold":                  { "x": 574,  "y": 291, "w": 226, "h": 178 },
-      "distance transform":               { "x": 784,  "y": 334, "w": 236, "h": 175 },
-      "offset":                           { "x": 1016, "y": 365, "w": 236, "h": 178 },
-      "edge detect":                      { "x": 1248, "y": 403, "w": 228, "h": 170 },
-      "orient edges":                     { "x": 1458, "y": 444, "w": 228, "h": 170 },
-      "vectorize":                        { "x": 1684, "y": 482, "w": 234, "h": 188 },
-      "read png":                         { "x": 92,   "y": 473, "w": 196, "h": 241 },
-      "mill raster 2D":                   { "x": 588,  "y": 526, "w": 280, "h": 282 },
-      "simulate toolpath":                { "x": 826,  "y": 615, "w": 240, "h": 165 },
-      "Roland SRM-20 milling machine":    { "x": 1034, "y": 714, "w": 146, "h": 180 },
-      "Roland SRM-20 RML":                { "x": 1054, "y": 903, "w": 128, "h": 94 },
-      "on/off (arriba)":                  { "x": 1238, "y": 710, "w": 124, "h": 60 },
-      "WebUSB":                           { "x": 1420, "y": 710, "w": 198, "h": 84 },
-      "on/off (abajo)":                   { "x": 1229, "y": 804, "w": 126, "h": 60 },
-      "save file":                        { "x": 1356, "y": 852, "w": 122, "h": 80 },
-      "note (optional: connect module)":  { "x": 1503, "y": 849, "w": 84,  "h": 72 },
-      "set PCB defaults":                 { "x": 107,  "y": 742, "w": 130, "h": 195 },
-      "V-bit calculator":                 { "x": 379,  "y": 736, "w": 135, "h": 264 }
+      "titulo (label simple)": {
+        "x": 36,
+        "y": 146,
+        "w": 248,
+        "h": 68
+      },
+      "read SVG": {
+        "x": 38,
+        "y": 218,
+        "w": 226,
+        "h": 236
+      },
+      "note START HERE": {
+        "x": 230,
+        "y": 338,
+        "w": 82,
+        "h": 72
+      },
+      "convert SVG image": {
+        "x": 300,
+        "y": 252,
+        "w": 246,
+        "h": 224
+      },
+      "image threshold": {
+        "x": 574,
+        "y": 291,
+        "w": 226,
+        "h": 178
+      },
+      "distance transform": {
+        "x": 784,
+        "y": 334,
+        "w": 236,
+        "h": 175
+      },
+      "offset": {
+        "x": 1016,
+        "y": 365,
+        "w": 236,
+        "h": 178
+      },
+      "edge detect": {
+        "x": 1248,
+        "y": 403,
+        "w": 228,
+        "h": 170
+      },
+      "orient edges": {
+        "x": 1458,
+        "y": 444,
+        "w": 228,
+        "h": 170
+      },
+      "vectorize": {
+        "x": 1684,
+        "y": 482,
+        "w": 234,
+        "h": 188
+      },
+      "read png": {
+        "x": 92,
+        "y": 473,
+        "w": 196,
+        "h": 241
+      },
+      "mill raster 2D": {
+        "x": 588,
+        "y": 526,
+        "w": 280,
+        "h": 282
+      },
+      "simulate toolpath": {
+        "x": 826,
+        "y": 615,
+        "w": 240,
+        "h": 165
+      },
+      "Roland SRM-20 milling machine": {
+        "x": 1034,
+        "y": 714,
+        "w": 146,
+        "h": 180
+      },
+      "Roland SRM-20 RML": {
+        "x": 1054,
+        "y": 903,
+        "w": 128,
+        "h": 94
+      },
+      "on/off (arriba)": {
+        "x": 1238,
+        "y": 710,
+        "w": 124,
+        "h": 60
+      },
+      "WebUSB": {
+        "x": 1420,
+        "y": 710,
+        "w": 198,
+        "h": 84
+      },
+      "on/off (abajo)": {
+        "x": 1229,
+        "y": 804,
+        "w": 126,
+        "h": 60
+      },
+      "save file": {
+        "x": 1356,
+        "y": 852,
+        "w": 122,
+        "h": 80
+      },
+      "note (optional: connect module)": {
+        "x": 1503,
+        "y": 849,
+        "w": 84,
+        "h": 72
+      },
+      "set PCB defaults": {
+        "x": 107,
+        "y": 742,
+        "w": 130,
+        "h": 195
+      },
+      "V-bit calculator": {
+        "x": 379,
+        "y": 736,
+        "w": 135,
+        "h": 264
+      }
     }
+  },
+  "flujo_periferia": {
+    "_nota": "Bloque 2 (2026-09-19): generar PERIFERIA.rml (contorno de la placa). Cada paso = imagen GENERAL (grafo_general.archivo) con recuadro sobre el nodo (ver grafo_general.nodos) + captura de detalle con recuadros sobre el/los campos. 'pos' de etiqueta es aproximado: afinar al integrar (algunas etiquetas pueden tapar texto). La captura #38 de Alessandro es idéntica pixel a pixel a #37 (mismo archivo 06-mill-raster...-a).",
+    "carpeta": "01-periferia-contorno/",
+    "pasos": [
+      {
+        "n": 1,
+        "texto": "En el primer bloque (read SVG) se selecciona 'select SVG file' para importar el SVG.",
+        "nodo_general": "read SVG",
+        "detalle": {
+          "archivo": "00-programa-mill-2d-pcb/08-nodo-read-svg-vacio-start-here.png",
+          "size": [
+            885,
+            916
+          ],
+          "boxes": [
+            {
+              "x": 298,
+              "y": 602,
+              "w": 146,
+              "h": 38,
+              "label": "Clic en select SVG file",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 2,
+        "texto": "Se elige el SVG de periferia (PERIFERIA.svg, en KiCAD/Hola_Mundo) y se da Abrir. El orden de los 3 archivos no importa: el punto es obtener los tres .rml.",
+        "nodo_general": "read SVG",
+        "detalle": {
+          "archivo": "01-periferia-contorno/01-abrir-periferia-svg.png",
+          "size": [
+            1402,
+            985
+          ],
+          "boxes": [
+            {
+              "x": 333,
+              "y": 452,
+              "w": 1067,
+              "h": 42,
+              "label": "Elegir PERIFERIA",
+              "pos": "top"
+            },
+            {
+              "x": 1099,
+              "y": 914,
+              "w": 106,
+              "h": 38,
+              "label": "Abrir",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 3,
+        "texto": "Debe verse el contorno octagonal cargado en read SVG y en convert SVG image (file: PERIFERIA.svg, 57.9882 x 53.975 mm, 2283 x 2125 px, dpi 1000).",
+        "nodo_general": "read SVG",
+        "detalle": {
+          "archivo": "01-periferia-contorno/02-read-svg-periferia-cargado.png",
+          "size": [
+            1918,
+            1078
+          ],
+          "boxes": []
+        },
+        "nota": "Captura de verificación; sin recuadros necesarios (opcional: uno sobre 'file: PERIFERIA.svg')."
+      },
+      {
+        "n": 4,
+        "texto": "En set PCB defaults se cambia a mm (interruptor in/mm) …",
+        "nodo_general": "set PCB defaults",
+        "detalle": {
+          "archivo": "01-periferia-contorno/03-set-pcb-defaults-catalogo-completo.png",
+          "size": [
+            658,
+            756
+          ],
+          "boxes": [
+            {
+              "x": 214,
+              "y": 154,
+              "w": 144,
+              "h": 42,
+              "label": "Cambiar a mm",
+              "pos": "left"
+            }
+          ]
+        }
+      },
+      {
+        "n": 4.1,
+        "texto": "… y se selecciona 1.59mm cutout (fresa para el corte del contorno).",
+        "nodo_general": "set PCB defaults",
+        "detalle": {
+          "archivo": "01-periferia-contorno/04-set-pcb-defaults-cutout-1-59mm-seleccionado.png",
+          "size": [
+            612,
+            745
+          ],
+          "boxes": [
+            {
+              "x": 76,
+              "y": 636,
+              "w": 262,
+              "h": 48,
+              "label": "Elegir 1.59mm cutout",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 5,
+        "texto": "En mill raster 2D: tool diameter en 1.9 mm (primera opción, campo mm) y offset number en 2. (Con el preset quedan cut depth 0.254 mm y max depth 1.7018 mm.)",
+        "nodo_general": "mill raster 2D",
+        "detalle": {
+          "archivo": "01-periferia-contorno/06-mill-raster-2d-config-contorno-a.png",
+          "size": [
+            1207,
+            739
+          ],
+          "boxes": [
+            {
+              "x": 428,
+              "y": 190,
+              "w": 152,
+              "h": 36,
+              "label": "Poner 1.9 mm",
+              "pos": "left"
+            },
+            {
+              "x": 372,
+              "y": 350,
+              "w": 290,
+              "h": 36,
+              "label": "Offset number = 2",
+              "pos": "left"
+            }
+          ]
+        }
+      },
+      {
+        "n": 6,
+        "texto": "En Roland SRM-20 milling machine se marca el origen en 0,0,0 (por defecto viene 10,10,10). Si se fabricara otra placa en la misma máquina y en la misma fenólica al mismo tiempo, se modifican X o Y del segundo archivo según las medidas de la placa para no encimarlas y aprovechar el espacio; aquí es una sola placa, así que 0 a todo.",
+        "nodo_general": "Roland SRM-20 milling machine",
+        "detalle": {
+          "archivo": "01-periferia-contorno/07-roland-srm20-config-contorno.png",
+          "size": [
+            804,
+            862
+          ],
+          "boxes": [
+            {
+              "x": 332,
+              "y": 256,
+              "w": 121,
+              "h": 132,
+              "label": "Origen x, y, z = 0",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 6.1,
+        "texto": "Resultado: origen 0,0,0 y tiempo estimado 00:16:59 (speed 4 mm/s, jog height z 2 mm, home 0 / 152.4 / 60.5 sin cambios).",
+        "nodo_general": "Roland SRM-20 milling machine",
+        "detalle": {
+          "archivo": "01-periferia-contorno/07b-roland-srm20-origen-0-0-0.png",
+          "size": [
+            472,
+            594
+          ],
+          "boxes": [
+            {
+              "x": 178,
+              "y": 178,
+              "w": 82,
+              "h": 86,
+              "label": "Origen en 0",
+              "pos": "right"
+            },
+            {
+              "x": 106,
+              "y": 540,
+              "w": 248,
+              "h": 26,
+              "label": "Tiempo estimado",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 7,
+        "texto": "Se vuelve al bloque mill raster 2D y se da calculate.",
+        "nodo_general": "mill raster 2D",
+        "detalle": {
+          "archivo": "01-periferia-contorno/08-mill-raster-2d-config-contorno-b.png",
+          "size": [
+            999,
+            945
+          ],
+          "boxes": [
+            {
+              "x": 363,
+              "y": 501,
+              "w": 112,
+              "h": 48,
+              "label": "Clic en calculate",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 8,
+        "texto": "Se carga un render (pestaña nueva) de la placa: se revisa que todo esté en orden y que el corte del contorno esté bien hecho. (Stack 57.99 x 53.98 x 1.7 mm | Tool: flat ø1.90 mm)",
+        "nodo_general": "mill raster 2D",
+        "detalle": {
+          "archivo": "01-periferia-contorno/10-toolpath-simulado-contorno.png",
+          "size": [
+            1918,
+            1078
+          ],
+          "boxes": []
+        },
+        "nota": "Captura de verificación; sin recuadros necesarios."
+      },
+      {
+        "n": 9,
+        "texto": "De vuelta en la pestaña de mods se guarda el archivo (save file): queda listo (ready, 'SVG image.rml', 4526 bytes). Este .rml es el que se carga para las periferias de la placa en el vPanel (software para controlar la MonoFab).",
+        "nodo_general": "save file",
+        "detalle": {
+          "archivo": "01-periferia-contorno/11-guardar-periferia-rml.png",
+          "size": [
+            340,
+            285
+          ],
+          "boxes": [
+            {
+              "x": 181,
+              "y": 202,
+              "w": 82,
+              "h": 35,
+              "label": "Guardar el archivo",
+              "pos": "top"
+            }
+          ]
+        }
+      }
+    ]
   }
 }
