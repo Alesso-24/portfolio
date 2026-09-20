@@ -1,6 +1,8 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro'
 import AnnotatedShot from '../../../../components/docs/AnnotatedShot.astro'
+import ModsStep from '../../../../components/docs/ModsStep.astro'
+import { MODS_GENERAL, MODS_IMG_BASE, MODS_MAP, MODS_MAP_LEGEND, MODS_OPEN, MODS_FLOWS, MODS_SUMMARY, MODS_FINAL } from '../../../../data/mods-flow'
 import { getSubject } from '../../../../data/docs'
 
 const subject = getSubject('produccion-electronica')!
@@ -20,6 +22,11 @@ const steps = [
   { href: '#paso-7', label: '7. Editor de placas' },
   { href: '#paso-8', label: '8. Exportación a Gerber' },
   { href: '#paso-9', label: '9. Toolpaths con mods' },
+  { href: '#mods-abrir', label: '9.1 Abrir mods' },
+  { href: '#mods-periferia', label: '9.2 Periferia' },
+  { href: '#mods-pistas', label: '9.3 Pistas' },
+  { href: '#mods-orificios', label: '9.4 Orificios' },
+  { href: '#mods-resumen', label: '9.5 Resumen' },
   { href: '#fabricacion', label: 'Fabricación en MonoFab' },
 ]
 
@@ -666,140 +673,85 @@ const tools = [
 
   <h2 id="paso-9" class="section-h2" data-reveal>9. Generación de toolpaths con mods.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Con los 3 SVG ya exportados (<code>PERIFERIA</code>, <code>PISTAS</code>, <code>HORIFICIOS</code>),
-    el siguiente paso es convertirlos en trayectorias de fresado que la Roland SRM-20 pueda ejecutar.
-    Para eso se usa <strong><a href="https://modsproject.org/" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">mods.org</a></strong>,
-    la herramienta CAM basada en nodos del CBA/MIT que se usa en los Fab Labs.
+    Con los 3 SVG ya exportados de KiCad (periferia, pistas y orificios), el siguiente paso es
+    convertirlos en las trayectorias de fresado que la Roland SRM-20 puede ejecutar. Para eso se usa{' '}
+    <strong><a href="https://modsproject.org/" target="_blank" rel="noopener noreferrer" style="color:#2540c0;">mods.org</a></strong>,{' '}
+    la herramienta CAM basada en nodos del CBA/MIT que se usa en los Fab Labs. El resultado son tres
+    archivos <code>.rml</code>.
   </p>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">1</span>En el menú <strong>Programs</strong> de mods se busca "SRM" y
-    se elige <strong>"mill 2D PCB"</strong> (dentro de "SRM-20 mill"). Esto carga de una sola vez un
-    grafo pre-armado con todos los nodos ya conectados: <code>read SVG</code> → <code>convert SVG image</code> → <code>image threshold</code> → <code>distance transform</code> → <code>offset</code> → <code>edge detect</code> → <code>orient edges</code> → <code>vectorize</code> → <code>mill raster 2D</code> → <code>simulate toolpath</code> → <code>Roland SRM-20 milling machine</code> → <code>save file</code> (más <code>set PCB defaults</code> y <code>V-bit calculator</code> como nodos auxiliares de configuración).
-  </p>
-  <details class="step-group">
-    <summary>Ver capturas (2)</summary>
-    <div class="step-group__body shot-grid">
-      <div>
-        <AnnotatedShot
-          src={img('07-monofab-mods/00-programa-mill-2d-pcb/05-buscar-srm-completo.png')}
-          alt="Menú Programs de mods filtrado por SRM, con la opción mill 2D PCB resaltada"
-          size={[418, 805]}
-          boxes={[
-          { x: 14, y: 455, w: 386, h: 65, label: 'Elegir este' },
-          ]}
-        />
-        <span class="screenshot-caption">Programs → filtro "SRM" → "mill 2D PCB"</span>
-      </div>
-      <div>
-        <img src={img('07-monofab-mods/00-programa-mill-2d-pcb/07-grafo-completo-cargado.webp')} alt="Grafo completo Roland Monofab PCB cargado en mods, con todos los nodos conectados" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">Grafo "Roland Monofab PCB" recién cargado</span>
-      </div>
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    Este mismo grafo se recorre <strong>tres veces, una por cada SVG</strong> — cambia el archivo
-    cargado en <code>read SVG</code>, el preset elegido en <code>set PCB defaults</code> y los
-    parámetros de <code>mill raster 2D</code> y de la máquina.
-  </p>
-
   <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>PERIFERIA — corte del contorno</strong>
+    <strong>Cómo leer esta guía</strong>
     <p class="prose" style="margin:0; font-size:14.5px;">
-      Preset <strong>"1.59mm cutout"</strong> → fresa de <strong>1.9 mm</strong> de diámetro,
-      profundidad de corte 0.254 mm, profundidad máxima 1.7018 mm, velocidad de la máquina
-      <strong>4 mm/s</strong>. Al calcular, la simulación 3D muestra el corte del contorno
-      octagonal ya trazado sobre el stock.
+      Cada paso muestra el <b>grafo completo</b> de mods con un <b>recuadro naranja sobre el nodo</b> que hay que
+      tocar — para ubicarlo de un vistazo — y debajo la captura de detalle con recuadros sobre el <b>botón o campo
+      exacto</b>. El proceso se repite <b>tres veces, una por SVG</b>, recargando la página de mods entre uno y otro.
+      Si alguien lo hace más adelante sin acordarse de nada, basta con seguir los recuadros naranjas.
     </p>
   </div>
-  <details class="step-group">
-    <summary>Ver capturas (2)</summary>
-    <div class="step-group__body shot-grid">
-      <div>
-        <AnnotatedShot
-          src={img('07-monofab-mods/01-periferia-contorno/04-set-pcb-defaults-cutout-1-59mm-seleccionado.png')}
-          alt="Nodo set PCB defaults con el preset 1.59mm cutout seleccionado"
-          size={[612, 745]}
-          boxes={[
-          { x: 76, y: 636, w: 262, h: 48, label: 'Elegir este preset', pos: 'right' },
-          ]}
-        />
-        <span class="screenshot-caption">set PCB defaults — preset "1.59mm cutout"</span>
-      </div>
-      <div>
-        <img src={img('07-monofab-mods/01-periferia-contorno/10-toolpath-simulado-contorno.webp')} alt="Simulación 3D del toolpath de contorno sobre el stock de cobre, forma octagonal" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">Toolpath simulado — PERIFERIA</span>
-      </div>
-    </div>
-  </details>
 
-  <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>PISTAS — aislamiento del cobre</strong>
-    <p class="prose" style="margin:0; font-size:14.5px;">
-      Preset <strong>"0.40mm flat"</strong> (fresa plana, no V-bit) → diámetro
-      <strong>0.396 mm</strong>, profundidad de corte 0.1016 mm — mucho más fina que el
-      contorno, porque aquí solo hay que aislar cobre, no cortar la placa. En <code>convert SVG image</code> se activa <strong>invert</strong> para que el aislamiento
-      quede del lado correcto de las pistas.
+  <h3 id="mods-abrir" class="mods-h3" data-reveal>9.1 Abrir mods y cargar el programa</h3>
+  {MODS_OPEN.map((step, i) => <ModsStep step={step} n={i + 1} />)}
+  <div class="mods-step" data-reveal>
+    <p class="prose">
+      <span class="step-num">{MODS_OPEN.length + 1}</span>Se carga el grafo <strong>Roland Monofab PCB</strong>: todos los nodos
+      vienen ya conectados. Estos son los <strong>nodos que se tocan</strong> (el 2 solo en las pistas). Tenlos
+      ubicados: en los pasos siguientes se señalan sobre esta misma vista.
     </p>
+    <AnnotatedShot
+      src={MODS_IMG_BASE + MODS_GENERAL.file}
+      alt={MODS_GENERAL.alt}
+      size={MODS_GENERAL.size}
+      boxes={MODS_MAP}
+      wide
+    />
+    <span class="screenshot-caption">Grafo "Roland Monofab PCB" — los nodos que se tocan, numerados</span>
+    <ol class="mods-legend">
+      {MODS_MAP_LEGEND.map((n, i) => (
+        <li><b>{i + 1}</b> {n}</li>
+      ))}
+    </ol>
   </div>
-  <details class="step-group">
-    <summary>Ver capturas (2)</summary>
-    <div class="step-group__body shot-grid">
-      <div>
-        <AnnotatedShot
-          src={img('07-monofab-mods/02-pistas-trazas/11-convert-svg-image-invert-pistas.png')}
-          alt="Nodo convert SVG image mostrando las pistas VCC y GND, con invert activado"
-          size={[526, 552]}
-          boxes={[
-          { x: 228, y: 353, w: 58, h: 31, label: 'Activar invert', pos: 'right' },
-          ]}
-        />
-        <span class="screenshot-caption">convert SVG image — PISTAS, con "invert" activado</span>
-      </div>
-      <div>
-        <img src={img('07-monofab-mods/02-pistas-trazas/12-toolpath-simulado-pistas.webp')} alt="Simulación 3D del toolpath de aislamiento de pistas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">Toolpath simulado — PISTAS</span>
-      </div>
-    </div>
-  </details>
 
-  <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>HORIFICIOS — perforaciones</strong>
-    <p class="prose" style="margin:0; font-size:14.5px;">
-      Preset <strong>"0.79mm drill"</strong> → broca de <strong>0.79 mm</strong> de diámetro,
-      velocidad de la máquina reducida a <strong>0.3 mm/s</strong> (mucho más lenta que el
-      contorno y las pistas, apropiado para taladrar). La simulación muestra la placa con las
-      perforaciones ya marcadas.
-    </p>
-  </div>
-  <details class="step-group">
-    <summary>Ver capturas (2)</summary>
-    <div class="step-group__body shot-grid">
-      <div>
-        <AnnotatedShot
-          src={img('07-monofab-mods/03-orificios-taladrado/02-set-pcb-defaults-drill-0-79mm.png')}
-          alt="Nodo set PCB defaults con el preset 0.79mm drill seleccionado"
-          size={[565, 757]}
-          boxes={[
-          { x: 72, y: 498, w: 273, h: 52, label: 'Elegir este preset', pos: 'right' },
-          ]}
-        />
-        <span class="screenshot-caption">set PCB defaults — preset "0.79mm drill"</span>
+  {MODS_FLOWS.map((flow, i) => (
+    <>
+      <h3 id={flow.id} class="mods-h3" data-reveal>{`9.${i + 2} ${flow.title}`}</h3>
+      <p class="prose" data-reveal set:html={flow.intro} />
+      <div class="mods-values" data-reveal>
+        {flow.values.map((v) => (
+          <span class="mods-chip"><small>{v.k}</small>{v.v}</span>
+        ))}
       </div>
-      <div>
-        <img src={img('07-monofab-mods/03-orificios-taladrado/11-toolpath-simulado-orificios-cerca.webp')} alt="Simulación 3D de las perforaciones ya marcadas sobre el stock de cobre" class="screenshot" loading="lazy" decoding="async" />
-        <span class="screenshot-caption">Toolpath simulado — HORIFICIOS</span>
-      </div>
-    </div>
-  </details>
+      {flow.steps.map((step, j) => <ModsStep step={step} n={j + 1} />)}
+    </>
+  ))}
 
+  <h3 id="mods-resumen" class="mods-h3" data-reveal>9.5 Resumen de los tres archivos</h3>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Cada pasada termina guardando el archivo correspondiente desde el nodo <code>save file</code>.
-    Al final de las tres, quedan los 3 <code>.rml</code> listos para pasarle a la SRM-20 física:
+    Lo único que cambia entre un archivo y otro. El origen siempre va en 0, 0, 0 (con una sola placa) y
+    la velocidad es 4 mm/s en todos menos en el taladrado.
   </p>
-  <img src={img('07-monofab-mods/04-archivos-finales/01-tres-rml-generados.png')} alt="Explorador de Windows con los tres archivos generados: PISTAS.rml, ORIFICIOS.rml, PERIFERIA.rml" class="screenshot" loading="lazy" decoding="async" />
-  <span class="screenshot-caption">PISTAS.rml · ORIFICIOS.rml · PERIFERIA.rml — listos para la SRM-20</span>
+  <div class="mods-table-wrap" data-reveal>
+    <table class="mods-table">
+      <thead>
+        <tr>{MODS_SUMMARY.head.map((h) => <th>{h}</th>)}</tr>
+      </thead>
+      <tbody>
+        {MODS_SUMMARY.rows.map((row) => (
+          <tr>{row.map((c, k) => (k === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <img
+    src={MODS_IMG_BASE + MODS_FINAL.file}
+    alt={MODS_FINAL.alt}
+    width={MODS_FINAL.size[0]}
+    height={MODS_FINAL.size[1]}
+    class="screenshot"
+    loading="lazy"
+    decoding="async"
+  />
+  <span class="screenshot-caption">{MODS_FINAL.caption}</span>
 
   <hr class="divider" />
 
@@ -815,10 +767,12 @@ const tools = [
     class="screenshot"
     loading="lazy"
     decoding="async"
-    style="max-width:420px;"
+    style="max-width:min(420px, 100%);"
   />
   <p class="prose" data-reveal data-reveal-delay="60">
     Con los tres archivos <code>.rml</code> listos, la placa queda preparada para pasar al fresado en
-    la SRM-20.
+    la SRM-20. Los archivos se cargan en el <strong>vPanel</strong>, el software que controla la MonoFab:
+    las periferias con <code>PERIFERIA.rml</code>, las pistas con <code>PISTAS.rml</code> y los orificios
+    con <code>ORIFICIOS.rml</code>.
   </p>
 </DocsLayout>

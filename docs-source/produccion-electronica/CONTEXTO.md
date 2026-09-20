@@ -1,16 +1,32 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## 🌿 Rama activa: `fix/anotaciones-alineacion` (2026-09-19) — pendiente de revisión, NO mergeada
-> Sale de `main` (`f3df8bb`). Corrige los recuadros naranjas (`AnnotatedShot`) mal alineados y
-> reordena los pasos 4/5 del editor de placas. Cambios:
-> - `AnnotatedShot.astro` ahora recibe `size={[w,h]}` + cajas en **píxeles reales de la captura**
->   (`x,y,w,h`), más `pos` (`top|bottom|left|right`) y `nudge` para la etiqueta. Las 17 anotaciones
->   se re-midieron una por una con rejilla de coordenadas (antes eran % a ojo).
-> - Bug real de móvil: la imagen tenía `max-width:640px` y se salía de su contenedor, así que los
->   recuadros (en % del contenedor) quedaban corridos. Fix: `.shot-annotated .screenshot {max-width:100%}`.
-> - Paso "zona rellena" pasa a ser el **4** y "borde octagonal 2 mm" el **5** (se quitó "Antes de eso").
-> - Verificado con capturas de las 17 anotaciones en escritorio y móvil. Falta: visto bueno de
->   Alessandro → merge a `main` → push/deploy.
+> ## 🚀 Estado al 2026-09-20 — guía completa de mods integrada y desplegada
+> El paso **"9. Toolpaths con mods"** de `primera-placa-kicad.astro` se **reemplazó por completo** (lo anterior
+> no gustaba) por una guía paso a paso pensada para que **cualquiera, en el futuro, la siga sin recordar nada**:
+> - **Cada paso** = grafo completo de mods con **recuadro naranja sobre el nodo** ("Aquí: <nodo>") + captura de
+>   detalle con recuadros sobre el botón/campo exacto. 29 pasos, 58 imágenes anotadas.
+> - Estructura: 9.1 abrir mods y cargar el programa (+ mapa numerado de los 6 nodos que se tocan) · 9.2 PERIFERIA
+>   · 9.3 PISTAS · 9.4 ORIFICIOS · 9.5 resumen (tabla comparativa + los 3 `.rml`). Sección "Fabricación en MonoFab"
+>   ahora menciona el **vPanel** (software que controla la MonoFab).
+> - **Datos de la guía** (fuente de verdad): `src/data/mods-flow.ts` (nodos, pasos, recuadros en px). Componente:
+>   `src/components/docs/ModsStep.astro` (usa `AnnotatedShot` con recuadros en px). Estilos: `DocsLayout.astro`.
+> - Imágenes servidas: solo las 31 usadas, en **WebP** (~1 MB total, antes 3 MB) en
+>   `public/images/.../07-monofab-mods/`. Material crudo y bitácora del proceso:
+>   `docs-source/.../07-monofab-mods/` (`ACTUALIZACION-CONTEXTO.md` = qué dijo Alessandro bloque por bloque,
+>   `anotaciones.json` = recuadros medidos, mapeo de cada captura).
+> - **Valores clave documentados:** PERIFERIA = 1.59mm cutout · tool 1.9 mm · offset 2 · origen 0,0,0 · 4 mm/s ·
+>   4526 B. PISTAS = invert + 0.40mm flat · tool 0.39624 mm · offset 2 · origen 0,0,0 · 4 mm/s · 68476 B
+>   (**verificar en el render que las pistas sean de cobre; si no, re-invertir**). ORIFICIOS = 0.79mm drill ·
+>   tool 0.79248 mm · offset 1 · origen 0,0,0 · **0.3 mm/s (única velocidad distinta)** · 10128 B.
+> - Ramas: `fix/anotaciones-alineacion` (recuadros en px + pasos 4/5 reordenados + fix móvil) y
+>   `docs/mods-actualizacion` se integraron vía `feat/docs-mods-integracion` → `main`.
+> - Fix extra: las capturas simples (`.screenshot`) ahora usan `max-width: min(640px, 100%)` (en móvil se cortaban).
+> - **⚠ Pendiente por confirmar con Alessandro:** en PISTAS el diálogo elige `PISTAS` pero `read SVG` muestra
+>   `Hola_Mundo-F_Cu.svg` (70.993 × 65.989 mm) y en ORIFICIOS `Hola_Mundo-User_4.svg` (mismo tamaño), mientras
+>   PERIFERIA es 57.988 × 53.975 mm y una captura vieja de PISTAS también 57.988 × 53.975. Si los tamaños no
+>   coinciden, las capas no se alinearían al fresar. La página **no afirma medidas** de esos SVG; solo muestra las
+>   capturas tal cual. Ver `ACTUALIZACION-CONTEXTO.md` (bloque 3).
+> - Nota: numeración de Alessandro salta #35, #43, #59, #61, #63 (no adjuntas).
 >
 > ## ✅ Estado al 2026-09-19 — pulido para entrega
 > Se quitaron todos los TODO / avisos de "pendiente" / placeholders visibles del sitio: objetivo de

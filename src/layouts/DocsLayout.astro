@@ -171,7 +171,7 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     display: block;
     width: auto;
     height: auto;
-    max-width: 640px;
+    max-width: min(640px, 100%);
     max-height: 440px;
     object-fit: contain;
     border-radius: 14px;
@@ -252,6 +252,60 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     top: 50%; left: auto; right: calc(100% + 12px);
     transform: translateY(-50%);
   }
+
+  /* ── Guía de mods: subsecciones, valores clave y tabla resumen ── */
+  .docs-body h3.mods-h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: #211f1a;
+    margin: clamp(48px, 7vh, 72px) 0 clamp(12px, 1.8vh, 18px);
+    padding-top: clamp(20px, 3vh, 28px);
+    border-top: 1px solid rgba(33, 31, 26, 0.1);
+    scroll-margin-top: 90px;
+  }
+  .docs-body .mods-step { margin: 0 0 clamp(28px, 4vh, 44px); }
+  .docs-body .mods-step > .prose { margin-bottom: clamp(12px, 1.6vh, 16px); }
+  .docs-body .mods-step .screenshot-caption strong { color: #534f46; font-weight: 700; }
+  .docs-body ol.mods-legend {
+    list-style: none; margin: -18px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 6px 18px;
+    font-size: 13.5px; color: #534f46;
+  }
+  .docs-body ol.mods-legend b {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; margin-right: 6px; border-radius: 50%;
+    background: #ea6a2e; color: #f3ede1; font-size: 11px;
+  }
+  .docs-body .mods-values {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin: 0 0 clamp(20px, 3vh, 30px);
+  }
+  .docs-body .mods-chip {
+    display: inline-flex; flex-direction: column; gap: 2px;
+    padding: 9px 14px;
+    background: #efe7d8; border: 1px solid rgba(33, 31, 26, 0.08); border-radius: 12px;
+    font: 600 14px 'Hanken Grotesk', system-ui, sans-serif; color: #211f1a;
+  }
+  .docs-body .mods-chip small {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #ea6a2e;
+  }
+  .docs-body .mods-table-wrap {
+    overflow-x: auto; margin: clamp(16px, 2.2vh, 24px) 0 clamp(24px, 3.5vh, 36px);
+    border: 1px solid rgba(33, 31, 26, 0.1); border-radius: 14px; background: #efe7d8;
+  }
+  .docs-body table.mods-table { width: 100%; border-collapse: collapse; font-size: 13.5px; line-height: 1.5; min-width: 600px; }
+  .docs-body table.mods-table th, .docs-body table.mods-table td {
+    padding: 11px 14px; text-align: left; vertical-align: top; color: #534f46;
+    border-bottom: 1px solid rgba(33, 31, 26, 0.08);
+  }
+  .docs-body table.mods-table thead th {
+    font: 700 10.5px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: #ea6a2e;
+  }
+  .docs-body table.mods-table tbody th { color: #211f1a; font-weight: 700; white-space: nowrap; }
+  .docs-body table.mods-table tbody tr:last-child th, .docs-body table.mods-table tbody tr:last-child td { border-bottom: none; }
 
   /* ── Step jump menu ── */
   .docs-body .step-toc {

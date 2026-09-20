@@ -237,3 +237,15 @@ está en `03/.../05-roland-srm20-config-orificios-b.png`) · #62 → `03/.../04-
 Numeración saltada por Alessandro (no adjuntas): #59, #61, #63.
 
 **Qué se guardó:** `anotaciones.json` → `flujo_orificios` (pasos 1–8 con recuadros en px).
+
+### 2026-09-20 — Integración a la página y deploy
+
+Con el bloque 4 Alessandro pidió **crear el sitio** (reemplazar el paso 9 anterior), verificar todo y **commit + deploy**.
+- Rama de trabajo: `feat/docs-mods-integracion` (sale de `docs/mods-actualizacion` tras mergear `fix/anotaciones-alineacion`).
+- Hecho: `src/data/mods-flow.ts` + `ModsStep.astro` + estilos; 29 pasos, 58 imágenes anotadas; mapa numerado de nodos con leyenda;
+  tabla resumen; imágenes en WebP (solo las usadas, 31 archivos ≈ 1 MB en `public/`); vPanel mencionado en "Fabricación en MonoFab".
+- Verificación: `astro check` 0 errores; build de producción; barrido de las 10 páginas en escritorio y móvil (0 errores de consola,
+  0 imágenes rotas, 0 desbordes, sin TODO visibles); todas las medidas `size` de `mods-flow.ts` coinciden con las imágenes reales.
+- Correcciones sobre la marcha: espacios perdidos por saltos de línea en JSX, `<strong>` dentro de `.callout`/`.todo-callout` toma estilo de
+  título (se usa `<b>`), etiqueta larga "Roland SRM-20 milling machine" desbordaba en móvil (nombre corto), foto SRM-20 con ancho fijo.
+- **Sin resolver:** discrepancia F_Cu/User_4 (70.993 × 65.989) vs PERIFERIA (57.988 × 53.975) — ver bloque 3.
