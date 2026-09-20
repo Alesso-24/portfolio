@@ -203,3 +203,37 @@ dibujando los recuadros sobre las capturas.
 **Al integrar (NO hecho):** la página hoy resume PISTAS en un callout ("0.40mm flat → 0.396 mm,
 profundidad 0.1016, invert"); ampliar a estos pasos, destacar la verificación del render (pistas en
 cobre / re-invertir) y resolver la discrepancia de tamaño antes de publicar cifras.
+
+### 2026-09-19 — Bloque 4: ORIFICIOS (taladrado) → `ORIFICIOS.rml` + cierre
+
+**Lo que dijo Alessandro (en orden):**
+1. **Recargar la página** de mods otra vez; en el primer bloque (`read SVG`) seleccionar el archivo de los orificios.
+2. En `set PCB defaults`: **mm** y **0.79mm drill**.
+3. **Origen también 0,0,0**, pero **este es el único archivo al que se le cambia la velocidad**: *"los otros
+   siempre van a 4, pero este va a 0.3, hay que cambiarlo"* (campo `speed` de `Roland SRM-20 milling machine`).
+   → **Queda resuelta la duda abierta:** 4 mm/s en PERIFERIA y PISTAS, **0.3 mm/s solo en taladrado** (convención fija).
+4. En `mill raster 2D`: **offset number = 1**, calcular.
+5. Verificar en el render que **los orificios queden bien hechos** (se ven 6).
+6. Guardar el archivo → ya están los **3 archivos listos para la MonoFab** (`PISTAS.rml`, `ORIFICIOS.rml`, `PERIFERIA.rml`).
+7. **Instrucción final:** *"recuerda quiero imágenes generales de todo señalando cómo ubicar cada cosa, botón o
+   configuración… reemplaza lo que ya estaba, la verdad no me gustaba; el punto es que si llego yo o alguien en
+   el futuro y no se acuerda o no sabe, pueda hacerlo con la facilidad del mundo, boxes naranjas, etc. Crea el
+   sitio, asegúrate que todo en orden y commit y deploy."* → **se integra a la página** (rama
+   `feat/docs-mods-integracion`), **reemplazando** el paso "9. Toolpaths con mods" anterior.
+
+**Datos leídos de las capturas:**
+- Archivo cargado (#57): `file: Hola_Mundo-User_4.svg`, width 70.9930, height 65.9892 (**igual que F_Cu**, distinto de PERIFERIA 57.9882 × 53.9750; ver discrepancia del bloque 3).
+- `set PCB defaults`: mm + **0.79mm drill** seleccionado.
+- `Roland SRM-20 milling machine`: **speed 0.3** (mm/s), origin 0/0/0, jog height z 2, home 0/152.4/60.5 (captura `05-roland-srm20-config-orificios-b.png`).
+- `mill raster 2D`: tool diameter **0.79248 mm** (0.0312 in), cut depth 0.254 mm (0.01 in), max depth 1.7018 mm (0.067 in), offset number **1**, stepover 0.5, climb, path merge 1, forward, sort distance ✔.
+- Render: placa de cobre con **6 perforaciones** (2 arriba + 4 en fila).
+- `save file`: `ready`, name `SVG image.rml`, size **10128** bytes.
+
+**Mapeo (#) → archivo:** #55 → `02-pistas-trazas/14-grafo-completo-checkpoint.png` · #56 → `03-orificios-taladrado/01-read-svg-vacio.png` ·
+#57 → **NUEVA** `03-orificios-taladrado/13-read-svg-orificios-cargado.png` · #58 → `03/.../02-set-pcb-defaults-drill-0-79mm.png` ·
+#60 → `02-pistas-trazas/07-roland-srm20-config-pistas.png` (captura de PISTAS reutilizada para señalar `speed`; el resultado con 0.3
+está en `03/.../05-roland-srm20-config-orificios-b.png`) · #62 → `03/.../04-mill-raster-2d-config-orificios-a.png` ·
+#64 → `03/.../10-toolpath-simulado-orificios-lejos.png` · #65 → `03/.../12-guardar-orificios-rml.png` · #66 → `04-archivos-finales/01-tres-rml-generados.png`.
+Numeración saltada por Alessandro (no adjuntas): #59, #61, #63.
+
+**Qué se guardó:** `anotaciones.json` → `flujo_orificios` (pasos 1–8 con recuadros en px).

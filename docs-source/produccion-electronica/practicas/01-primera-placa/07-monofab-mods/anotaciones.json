@@ -698,5 +698,234 @@
         }
       }
     ]
+  },
+  "flujo_orificios": {
+    "_nota": "Bloque 4 (2026-09-19): generar ORIFICIOS.rml (taladrado). Misma mecánica que los otros flujos. La velocidad 0.3 mm/s es la ÚNICA que cambia (periferia y pistas siempre 4 mm/s).",
+    "carpeta": "03-orificios-taladrado/",
+    "pasos": [
+      {
+        "n": 1,
+        "texto": "Se recarga la página de mods y en read SVG se selecciona select SVG file para elegir el SVG de los orificios.",
+        "nodo_general": "read SVG",
+        "detalle": {
+          "archivo": "03-orificios-taladrado/01-read-svg-vacio.png",
+          "size": [
+            796,
+            769
+          ],
+          "boxes": [
+            {
+              "x": 288,
+              "y": 518,
+              "w": 126,
+              "h": 36,
+              "label": "Clic en select SVG file",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 2,
+        "texto": "Queda cargado el SVG de orificios (se ven los puntos de las perforaciones).",
+        "nodo_general": "read SVG",
+        "detalle": {
+          "archivo": "03-orificios-taladrado/13-read-svg-orificios-cargado.png",
+          "size": [
+            736,
+            762
+          ],
+          "boxes": [
+            {
+              "x": 205,
+              "y": 258,
+              "w": 255,
+              "h": 253,
+              "label": "Se ven los orificios",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 3,
+        "texto": "En set PCB defaults se cambia a mm y se selecciona 0.79mm drill.",
+        "nodo_general": "set PCB defaults",
+        "detalle": {
+          "archivo": "03-orificios-taladrado/02-set-pcb-defaults-drill-0-79mm.png",
+          "size": [
+            565,
+            757
+          ],
+          "boxes": [
+            {
+              "x": 150,
+              "y": 152,
+              "w": 140,
+              "h": 42,
+              "label": "Cambiar a mm",
+              "pos": "right"
+            },
+            {
+              "x": 71,
+              "y": 497,
+              "w": 274,
+              "h": 53,
+              "label": "Elegir 0.79mm drill",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 4,
+        "texto": "En Roland SRM-20 milling machine el origen también en 0,0,0 y la velocidad (speed) se cambia de 4 a 0.3 mm/s: es el único archivo que lleva otra velocidad.",
+        "nodo_general": "Roland SRM-20 milling machine",
+        "detalle": {
+          "archivo": "02-pistas-trazas/07-roland-srm20-config-pistas.png",
+          "size": [
+            642,
+            709
+          ],
+          "boxes": [
+            {
+              "x": 180,
+              "y": 172,
+              "w": 170,
+              "h": 34,
+              "label": "Cambiar speed a 0.3",
+              "pos": "right"
+            },
+            {
+              "x": 248,
+              "y": 229,
+              "w": 90,
+              "h": 98,
+              "label": "Origen x, y, z = 0",
+              "pos": "right"
+            }
+          ]
+        },
+        "nota": "Alessandro reutilizó la captura de PISTAS (speed 4) como referencia de dónde está el campo."
+      },
+      {
+        "n": 4.1,
+        "texto": "Resultado: speed 0.3 mm/s y origen 0,0,0.",
+        "nodo_general": "Roland SRM-20 milling machine",
+        "detalle": {
+          "archivo": "03-orificios-taladrado/05-roland-srm20-config-orificios-b.png",
+          "size": [
+            669,
+            748
+          ],
+          "boxes": [
+            {
+              "x": 190,
+              "y": 158,
+              "w": 188,
+              "h": 36,
+              "label": "speed = 0.3",
+              "pos": "right"
+            },
+            {
+              "x": 266,
+              "y": 220,
+              "w": 98,
+              "h": 104,
+              "label": "Origen = 0",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 5,
+        "texto": "En mill raster 2D el offset number en 1 (con el preset: tool diameter 0.79248 mm, cut depth 0.254, max depth 1.7018) y se da calculate.",
+        "nodo_general": "mill raster 2D",
+        "detalle": {
+          "archivo": "03-orificios-taladrado/04-mill-raster-2d-config-orificios-a.png",
+          "size": [
+            981,
+            921
+          ],
+          "boxes": [
+            {
+              "x": 316,
+              "y": 278,
+              "w": 244,
+              "h": 30,
+              "label": "Offset number = 1",
+              "pos": "right"
+            },
+            {
+              "x": 364,
+              "y": 476,
+              "w": 113,
+              "h": 47,
+              "label": "Clic en calculate",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 6,
+        "texto": "Se revisa en el render que los orificios se vean bien hechos (6 perforaciones).",
+        "nodo_general": "mill raster 2D",
+        "importante": true,
+        "detalle": {
+          "archivo": "03-orificios-taladrado/10-toolpath-simulado-orificios-lejos.png",
+          "size": [
+            981,
+            748
+          ],
+          "boxes": [
+            {
+              "x": 185,
+              "y": 232,
+              "w": 100,
+              "h": 145,
+              "label": "Los 6 orificios",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 7,
+        "texto": "Se guarda el archivo (save file): ready, 'SVG image.rml', 10128 bytes.",
+        "nodo_general": "save file",
+        "detalle": {
+          "archivo": "03-orificios-taladrado/12-guardar-orificios-rml.png",
+          "size": [
+            417,
+            375
+          ],
+          "boxes": [
+            {
+              "x": 221,
+              "y": 260,
+              "w": 113,
+              "h": 48,
+              "label": "Guardar el archivo",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 8,
+        "texto": "Ya están los 3 archivos listos para la MonoFab: PISTAS.rml, ORIFICIOS.rml y PERIFERIA.rml.",
+        "nodo_general": null,
+        "detalle": {
+          "archivo": "04-archivos-finales/01-tres-rml-generados.png",
+          "size": [
+            585,
+            223
+          ],
+          "boxes": []
+        }
+      }
+    ]
   }
 }
