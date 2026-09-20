@@ -1,0 +1,36 @@
+---
+// Video de YouTube "bajo demanda": no se carga nada de YouTube (≈4 MB de JS) hasta que se pulsa play.
+interface Props {
+  id: string
+  title: string
+  /** texto del botón en cada idioma */
+  label?: { en: string; es: string }
+}
+const { id, title, label = { en: 'Play video', es: 'Reproducir video' } } = Astro.props
+---
+
+<div class="yt-embed" data-yt={id} data-yt-title={title}>
+  <button type="button" class="yt-facade" aria-label={`${label.en}: ${title}`}>
+    <img src={`/portfolio/images/yt-${id}.webp`} alt="" width="480" height="270" loading="lazy" decoding="async" />
+    <span class="yt-play" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z" /></svg>
+    </span>
+    <span class="yt-label"><span class="lang-en">{label.en}</span><span class="lang-es">{label.es}</span></span>
+  </button>
+  <noscript><a class="yt-fallback" href={`https://www.youtube.com/watch?v=${id}`} rel="noopener noreferrer" target="_blank">{title} ↗</a></noscript>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.yt-embed[data-yt]').forEach((box) => {
+    const btn = box.querySelector<HTMLButtonElement>('.yt-facade')
+    btn?.addEventListener('click', () => {
+      const f = document.createElement('iframe')
+      f.src = `https://www.youtube-nocookie.com/embed/${box.dataset.yt}?autoplay=1&rel=0`
+      f.title = box.dataset.ytTitle ?? 'Video'
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+      f.allowFullscreen = true
+      box.replaceChildren(f)
+      f.focus()
+    })
+  })
+</script>

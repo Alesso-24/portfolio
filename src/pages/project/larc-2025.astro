@@ -1,5 +1,6 @@
 ---
 import ProjectLayout from '../../layouts/ProjectLayout.astro'
+import YouTubeFacade from '../../components/ui/YouTubeFacade.astro'
 ---
 
 <ProjectLayout
@@ -39,12 +40,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal data-reveal-delay="100" class="video-embed">
-    <iframe
-      src="https://www.youtube-nocookie.com/embed/LlpaLHTaqiQ"
-      title="Tracky LARC 2025 · Line Follower Race Demo"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen loading="lazy"
-    ></iframe>
+    <YouTubeFacade id="LlpaLHTaqiQ" title="Tracky LARC 2025 · Line Follower Race Demo" />
   </div>
 
   <hr class="divider" />

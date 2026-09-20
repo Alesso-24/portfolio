@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/responsive-images.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "astro check"

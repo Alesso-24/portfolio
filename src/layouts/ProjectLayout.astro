@@ -114,7 +114,8 @@ const {
     <div
       data-reveal
       style="
-        margin: 0 clamp(24px,5vw,80px) clamp(48px,7vh,80px);
+        margin: 0 auto clamp(48px,7vh,80px);
+        width: calc(100% - 2 * clamp(24px,5vw,80px)); max-width: 1000px;
         border-radius: 20px; overflow: hidden;
         box-shadow: 0 40px 100px -40px rgba(33,31,26,0.2);
       "
@@ -143,7 +144,7 @@ const {
     font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: #6f6a5f; text-decoration: none;
-    margin-bottom: clamp(28px, 4vh, 48px);
+    min-height: 44px; margin: -12px 0 calc(clamp(28px, 4vh, 48px) - 12px);
     transition: color 0.2s;
   }
   .back-link:hover { color: #ea6a2e; }
@@ -287,6 +288,25 @@ const {
   }
   .project-body .video-embed iframe {
     position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+  }
+  .project-body .yt-embed { position: absolute; inset: 0; }
+  .project-body .yt-facade {
+    position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer;
+    background: #211f1a; color: #fff; display: block;
+  }
+  .project-body .yt-facade img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85; transition: opacity 0.25s, transform 0.5s; }
+  .project-body .yt-facade:hover img { opacity: 1; transform: scale(1.02); }
+  .project-body .yt-play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center;
+    background: #ea6a2e; color: #f3ede1; box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.6);
+    padding-left: 4px; transition: transform 0.2s;
+  }
+  .project-body .yt-facade:hover .yt-play { transform: translate(-50%, -50%) scale(1.08); }
+  .project-body .yt-facade:focus-visible { outline: 3px solid #2540c0; outline-offset: -3px; }
+  .project-body .yt-label {
+    position: absolute; left: 16px; bottom: 14px; padding: 6px 12px; border-radius: 100px;
+    background: rgba(0, 0, 0, 0.55); font: 600 13px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.02em;
   }
 
   /* ── IEEE badge ── */

@@ -129,7 +129,8 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               background: 'none', border: '1px solid transparent', cursor: 'pointer',
               color: '#6f6a5f', fontSize: 11, fontWeight: 600,
               fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-              letterSpacing: '0.1em', padding: '6px 8px', borderRadius: 100,
+              letterSpacing: '0.1em', padding: '0 10px', borderRadius: 100,
+              minHeight: 44, minWidth: 44, margin: '-7px 0', justifyContent: 'center',
               transition: 'all 0.2s',
             }}
           >
@@ -146,7 +147,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
             onClick={() => setMenu(o => !o)}
             style={{
               background: 'none', border: 'none', cursor: 'pointer',
-              color: '#211f1a', padding: 4, display: 'flex',
+              color: '#211f1a', width: 44, height: 44, margin: '-8px -10px -8px 0', display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}
           >
             {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}

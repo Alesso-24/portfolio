@@ -76,7 +76,7 @@ const {
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Navigation (React island, needs client JS for mobile menu + lang toggle) -->
-    <Nav client:load lang={lang} />
+    <Nav client:idle={{ timeout: 800 }} lang={lang} />
 
     <!-- Page content -->
     <main id="main-content" tabindex="-1">

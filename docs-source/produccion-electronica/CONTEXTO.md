@@ -1,5 +1,18 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## ⚡ Estado al 2026-09-20 — página interactiva + auditoría responsive/rendimiento, MERGEADA y DESPLEGADA
+> Se integraron `feat/kicad-imagenes-generales`, `feat/docs-lectura-interactiva` y `perf/auditoria-responsive` a `main` (todo lo de abajo ya está en producción).
+> **Auditoría** (10 páginas × 11 anchos de 320 a 2560 px, con red y DOM medidos con Playwright): 0 desbordes horizontales, 0 imágenes rotas, 0 errores de consola.
+> - **YouTube bajo demanda** (`src/components/ui/YouTubeFacade.astro`): los 2 videos cargaban ≈4 MB de JS de YouTube al abrir la página; ahora es una portada
+>   (miniatura propia `public/images/yt-<id>.webp`) y el iframe `youtube-nocookie` solo se crea al pulsar play. larc-2025: 4.6 MB → 60 KB; self-balancing: 4.6 MB → 55 KB (móvil).
+> - **Imágenes responsivas** (`scripts/responsive-images.mjs`, corre en `npm run build`): genera variantes -480/-800/-1200/-1600 (retratos -240…-720) de `dist/images/*.webp`
+>   y agrega `srcset`/`sizes`/`width`/`height` a cada `<img>`. Inicio 1.1 MB → 640 KB en móvil; páginas de proyecto 0.3–0.5 MB → 0.06–0.11 MB. (`scripts/optimize-images.mjs` es otro script, el manual de PNG/JPG→WebP; no se tocó.)
+> - **Portadas gigantes**: la portada de cada proyecto se veía a 2400×1350 en pantallas de 2560 px (con fotos de 640 px); ahora se limita a 1000 px de ancho.
+> - **Hidratación diferida**: Nav `client:idle` (timeout 800 ms) y Contact `client:visible` (≈300 KB de JS menos en la carga inicial).
+> - **Táctil/legibilidad**: áreas de toque de 44 px (menú, idioma, "volver", flechas y chips del flujo, carrusel); textos de 10–10.5 px → 11–12 px en docs; grillas con `min()` para que no desborden en 320 px; pie del flujo compacto en móvil.
+> - Verificado tras los cambios: recorrido de los 61 pasos (escritorio/tableta/móvil), teclado, carrusel, lightbox, pestañas, video bajo demanda, menú móvil, formulario e idioma.
+> - Pendiente conocido: los títulos en mayúsculas de 11 px de las páginas de proyecto (estilos en línea) se dejaron como están.
+>
 > ## 🧭 Rama activa: `feat/docs-lectura-interactiva` (2026-09-20) — LISTA para revisión local, NO mergeada ni desplegada
 > Sale de `feat/kicad-imagenes-generales` (que a su vez sale de `main`). Plan: `PLAN-lectura-interactiva.md` (esta carpeta).
 > La página de la práctica se **rehízo para lectura**: de ~57 000 px de alto a **un paso por pantalla** (~750 px de media).

@@ -62,7 +62,7 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: #6f6a5f; text-decoration: none;
-    margin-bottom: clamp(28px, 4vh, 48px);
+    min-height: 44px; margin: -12px 0 calc(clamp(28px, 4vh, 48px) - 12px);
     transition: color 0.2s;
   }
   .back-link:hover { color: #ea6a2e; }
@@ -241,7 +241,7 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     transform: translateY(-100%);
     background: #ea6a2e;
     color: #f3ede1;
-    font: 700 10.5px 'Hanken Grotesk', system-ui, sans-serif;
+    font: 700 11px 'Hanken Grotesk', system-ui, sans-serif;
     letter-spacing: 0.01em;
     padding: 4px 9px;
     border-radius: 100px;
@@ -537,6 +537,7 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
 
   @media (max-width: 640px) {
     .docs-body { padding: 0 16px clamp(60px, 10vh, 100px); }
+    .docs-header .badge-row, .docs-header .back-link, .docs-body .status-chip, .docs-body .team-card .team-role { font-size: 12px; }
     .docs-body .team-grid { grid-template-columns: 1fr; }
     .docs-body h2.section-h2 { font-size: clamp(24px, 6.5vw, 32px); margin-top: clamp(44px, 7vh, 68px); }
     .docs-body .practice-row { flex-wrap: wrap; }
@@ -550,6 +551,6 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     .docs-body .step-toc { grid-template-columns: 1fr; }
     .docs-body details.step-group summary { padding: 12px 16px; font-size: 13px; }
     .docs-body details.step-group .step-group__body { padding: 4px 16px 16px; }
-    .docs-body .shot-annotation__label { font-size: 10px; padding: 3px 7px; }
+    .docs-body .shot-annotation__label { font-size: 11px; padding: 3px 7px; }
   }
 </style>
