@@ -97,7 +97,10 @@ const tools = [
         <AnnotatedShot
           src={img('00-preparacion/04-menu-herramientas-administrador-complementos.png')}
           alt="Menú Herramientas de KiCad con la opción Administrador de complementos y contenido"
-          boxes={[{ left: 0, top: 79, width: 100, height: 9, label: 'Clic aquí' }]}
+          size={[528, 402]}
+          boxes={[
+          { x: 6, y: 317, w: 516, h: 34, label: 'Clic aquí' },
+          ]}
         />
         <span class="screenshot-caption">Herramientas → Administrador de complementos y contenido (Ctrl+M)</span>
       </div>
@@ -155,7 +158,10 @@ const tools = [
   <AnnotatedShot
     src={img('00-preparacion/02-menu-archivo-nuevo-proyecto.png')}
     alt="Menú Archivo de KiCad con la opción Nuevo proyecto"
-    boxes={[{ left: 0, top: 5, width: 45, height: 8, label: 'Clic aquí' }]}
+    size={[580, 588]}
+    boxes={[
+    { x: 8, y: 35, w: 564, h: 34, label: 'Clic aquí' },
+    ]}
   />
 
   <p class="prose" data-reveal data-reveal-delay="60">
@@ -205,7 +211,10 @@ const tools = [
     src={img('01-esquematico/herramientas/02-dialogo-elegir-simbolo.png')}
     alt="Diálogo Elegir símbolo del editor de esquemas, con 22,987 elementos cargados"
     wide
-    boxes={[{ left: 0, top: 4, width: 46, height: 4, label: 'Buscar aquí' }]}
+    size={[1633, 1036]}
+    boxes={[
+    { x: 6, y: 52, w: 772, h: 38, label: 'Buscar aquí' },
+    ]}
   />
   <span class="screenshot-caption">Buscador de símbolos — herramienta "Seleccionar componente"</span>
 
@@ -371,16 +380,20 @@ const tools = [
       <AnnotatedShot
         src={img('06-editor-placas/00-configuracion-inicial/02-configuracion-placa-reglas-diseno.png')}
         alt="Diálogo Configuración de la placa, Reglas de diseño, Requerimientos"
+        size={[1531, 736]}
         boxes={[
-          { left: 0, top: 20, width: 26, height: 5, label: 'Clic aquí' },
-          { left: 48, top: 7, width: 9, height: 5, label: 'Cambiar a 0.4mm' },
+        { x: 0, y: 354, w: 412, h: 29, label: 'Clic aquí' },
+        { x: 744, y: 94, w: 150, h: 37, label: 'Cambiar a 0.4mm' },
         ]}
       />
       <div>
         <AnnotatedShot
           src={img('06-editor-placas/00-configuracion-inicial/01-ancho-pista-predefinido.png')}
           alt="Menú desplegable de anchos de pista predefinidos: 0.400mm y 0.800mm"
-          boxes={[{ left: 0, top: 38, width: 100, height: 18, label: 'Elegir este ancho' }]}
+          size={[327, 174]}
+          boxes={[
+          { x: 8, y: 72, w: 310, h: 19, label: 'Elegir este ancho' },
+          ]}
         />
         <span class="screenshot-caption">Anchos de pista predefinidos</span>
       </div>
@@ -448,7 +461,19 @@ const tools = [
   </details>
 
   <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">4</span>Se le da a la placa un borde con esquinas cortadas (forma
+    <span class="step-num">4</span>Se dibuja la forma de la placa en <code>F.Cu</code> y
+    se usa la herramienta de <strong>zona rellena</strong> — todo el cobre no usado por las pistas
+    queda como un plano sólido (se ve todo en rojo):
+  </p>
+  <details class="step-group">
+    <summary>Ver captura</summary>
+    <div class="step-group__body">
+      <img src={img('06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.webp')} alt="PCB completo con la zona de cobre rellena en F.Cu, todo en rojo" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
+    </div>
+  </details>
+
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="step-num">5</span>Se le da a la placa un borde con esquinas cortadas (forma
     octagonal) en <code>Edge.Cuts</code>, con <strong>2 mm de ancho de línea</strong> — es el trazo que
     sigue la fresadora al cortar el contorno físico de la placa.
   </p>
@@ -460,22 +485,13 @@ const tools = [
         <AnnotatedShot
           src={img('06-editor-placas/04-borde-placa-edge-cuts/02-propiedades-segmento-2mm.png')}
           alt="Propiedades del segmento del borde: ancho de línea 2mm, capa Edge.Cuts"
-          boxes={[{ left: 19, top: 46, width: 21, height: 6, label: 'Poner en 2mm' }]}
+          size={[654, 540]}
+          boxes={[
+          { x: 136, y: 256, w: 152, h: 37, label: 'Poner en 2mm' },
+          ]}
         />
         <span class="screenshot-caption">Propiedades del segmento — 2 mm, capa Edge.Cuts</span>
       </div>
-    </div>
-  </details>
-
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <span class="step-num">5</span>Antes de eso, se dibuja la forma de la placa en <code>F.Cu</code> y
-    se usa la herramienta de <strong>zona rellena</strong> — todo el cobre no usado por las pistas
-    queda como un plano sólido (se ve todo en rojo):
-  </p>
-  <details class="step-group">
-    <summary>Ver captura</summary>
-    <div class="step-group__body">
-      <img src={img('06-editor-placas/05-relleno-zona-fcu/01-board-relleno-rojo.webp')} alt="PCB completo con la zona de cobre rellena en F.Cu, todo en rojo" class="screenshot screenshot--wide" loading="lazy" decoding="async" />
     </div>
   </details>
 
@@ -495,7 +511,10 @@ const tools = [
         <AnnotatedShot
           src={img('06-editor-placas/06-perforaciones-user4/03-opciones-relleno-solido.png')}
           alt="Opciones de relleno: Ninguno, Sólida, Rayado, Rayado inverso, Rayado cruzado"
-          boxes={[{ left: 0, top: 34, width: 100, height: 11, label: 'Elegir Sólida' }]}
+          size={[439, 216]}
+          boxes={[
+          { x: 223, y: 76, w: 214, h: 35, label: 'Elegir Sólida', pos: 'left' },
+          ]}
         />
         <span class="screenshot-caption">Relleno — Sólida</span>
       </div>
@@ -538,7 +557,10 @@ const tools = [
     src={img('06-editor-placas/09-exportacion-gerbers/01-menu-salidas-fabricacion.png')}
     alt="Menú Archivo, Salidas de fabricación, con la opción Gerbers"
     wide
-    boxes={[{ left: 47, top: 0, width: 53, height: 14, label: 'Clic aquí' }]}
+    size={[838, 276]}
+    boxes={[
+    { x: 346, y: 5, w: 488, h: 33, label: 'Clic aquí' },
+    ]}
   />
 
   <p class="prose" data-reveal data-reveal-delay="60">
@@ -554,13 +576,19 @@ const tools = [
         src={img('06-editor-placas/09-exportacion-gerbers/02-dialogo-trazar-gerber.png')}
         alt="Diálogo Trazar, con formato Gerber y las opciones generales"
         wide
-        boxes={[{ left: 62, top: 92, width: 9, height: 6, label: 'Trazar' }]}
+        size={[1401, 841]}
+        boxes={[
+        { x: 861, y: 789, w: 116, h: 37, label: 'Trazar' },
+        ]}
       />
       <div>
         <AnnotatedShot
           src={img('06-editor-placas/09-exportacion-gerbers/03-formato-svg.png')}
           alt="Menú de formato de trazado con SVG seleccionado"
-          boxes={[{ left: 0, top: 52, width: 100, height: 17, label: 'Elegir SVG' }]}
+          size={[306, 178]}
+          boxes={[
+          { x: 171, y: 88, w: 114, h: 27, label: 'Elegir SVG', pos: 'left', nudge: -12 },
+          ]}
         />
         <span class="screenshot-caption">Formato de trazado — SVG</span>
       </div>
@@ -568,9 +596,10 @@ const tools = [
         <AnnotatedShot
           src={img('06-editor-placas/09-exportacion-gerbers/04-capas-fcu-edgecuts.png')}
           alt="Selección de capas F.Cu y Edge.Cuts para el archivo de pistas"
+          size={[247, 462]}
           boxes={[
-            { left: 0, top: 5, width: 100, height: 8, label: 'Marcar F.Cu' },
-            { left: 0, top: 90, width: 100, height: 5, label: 'Marcar Edge.Cuts' },
+          { x: 17, y: 36, w: 210, h: 22, label: 'Marcar F.Cu' },
+          { x: 17, y: 414, w: 210, h: 22, label: 'Marcar Edge.Cuts' },
           ]}
         />
         <span class="screenshot-caption">Capas para "Pistas" — F.Cu + Edge.Cuts</span>
@@ -579,9 +608,10 @@ const tools = [
         <AnnotatedShot
           src={img('06-editor-placas/09-exportacion-gerbers/05-capas-edgecuts-user4.png')}
           alt="Selección de capas Edge.Cuts y User.4 para los archivos de periferia y horificios"
+          size={[244, 459]}
           boxes={[
-            { left: 0, top: 36, width: 100, height: 5, label: 'Marcar Edge.Cuts' },
-            { left: 0, top: 88, width: 100, height: 6, label: 'Marcar User.4' },
+          { x: 23, y: 170, w: 184, h: 21, label: 'Marcar Edge.Cuts' },
+          { x: 23, y: 412, w: 184, h: 22, label: 'Marcar User.4' },
           ]}
         />
         <span class="screenshot-caption">Capas para "Periferia"/"Horificios" — Edge.Cuts + User.4</span>
@@ -595,7 +625,10 @@ const tools = [
   <AnnotatedShot
     src={img('06-editor-placas/09-exportacion-gerbers/06-opciones-svg-ajustar-pagina.png')}
     alt="Opciones SVG con Ajustar página a la placa activado"
-    boxes={[{ left: 2, top: 70, width: 42, height: 14, label: 'Activar esto' }]}
+    size={[457, 166]}
+    boxes={[
+    { x: 9, y: 118, w: 222, h: 27, label: 'Activar esto', pos: 'right' },
+    ]}
   />
 
   <p class="prose" data-reveal data-reveal-delay="60">
@@ -651,7 +684,10 @@ const tools = [
         <AnnotatedShot
           src={img('07-monofab-mods/00-programa-mill-2d-pcb/05-buscar-srm-completo.png')}
           alt="Menú Programs de mods filtrado por SRM, con la opción mill 2D PCB resaltada"
-          boxes={[{ left: 0, top: 56, width: 100, height: 9, label: 'Elegir este' }]}
+          size={[418, 805]}
+          boxes={[
+          { x: 14, y: 455, w: 386, h: 65, label: 'Elegir este' },
+          ]}
         />
         <span class="screenshot-caption">Programs → filtro "SRM" → "mill 2D PCB"</span>
       </div>
@@ -684,7 +720,10 @@ const tools = [
         <AnnotatedShot
           src={img('07-monofab-mods/01-periferia-contorno/04-set-pcb-defaults-cutout-1-59mm-seleccionado.png')}
           alt="Nodo set PCB defaults con el preset 1.59mm cutout seleccionado"
-          boxes={[{ left: 0, top: 83, width: 100, height: 12, label: 'Elegir este preset' }]}
+          size={[612, 745]}
+          boxes={[
+          { x: 76, y: 636, w: 262, h: 48, label: 'Elegir este preset', pos: 'right' },
+          ]}
         />
         <span class="screenshot-caption">set PCB defaults — preset "1.59mm cutout"</span>
       </div>
@@ -711,7 +750,10 @@ const tools = [
         <AnnotatedShot
           src={img('07-monofab-mods/02-pistas-trazas/11-convert-svg-image-invert-pistas.png')}
           alt="Nodo convert SVG image mostrando las pistas VCC y GND, con invert activado"
-          boxes={[{ left: 42, top: 63, width: 11, height: 6, label: 'Activar invert' }]}
+          size={[526, 552]}
+          boxes={[
+          { x: 228, y: 353, w: 58, h: 31, label: 'Activar invert', pos: 'right' },
+          ]}
         />
         <span class="screenshot-caption">convert SVG image — PISTAS, con "invert" activado</span>
       </div>
@@ -738,7 +780,10 @@ const tools = [
         <AnnotatedShot
           src={img('07-monofab-mods/03-orificios-taladrado/02-set-pcb-defaults-drill-0-79mm.png')}
           alt="Nodo set PCB defaults con el preset 0.79mm drill seleccionado"
-          boxes={[{ left: 0, top: 65, width: 100, height: 7, label: 'Elegir este preset' }]}
+          size={[565, 757]}
+          boxes={[
+          { x: 72, y: 498, w: 273, h: 52, label: 'Elegir este preset', pos: 'right' },
+          ]}
         />
         <span class="screenshot-caption">set PCB defaults — preset "0.79mm drill"</span>
       </div>

@@ -1,28 +1,38 @@
 ---
 interface Box {
-  /** all in %, relative to the image's own box */
-  left: number
-  top: number
-  width: number
-  height: number
+  /** pixel coords in the source image (requires `size`) */
+  x: number
+  y: number
+  w: number
+  h: number
   label: string
+  /** where the label sits relative to the box (default: above) */
+  pos?: 'top' | 'bottom' | 'left' | 'right'
+  /** vertical nudge for the label, in CSS px (negative = up) */
+  nudge?: number
 }
 
 interface Props {
   src: string
   alt: string
+  /** natural pixel size of the source image [width, height] — boxes are measured against it */
+  size: [number, number]
   boxes: Box[]
   /** opt into the wider screenshot cap (full-desktop shots) */
   wide?: boolean
 }
 
-const { src, alt, boxes, wide = false } = Astro.props
+const { src, alt, size, boxes, wide = false } = Astro.props
+const [W, H] = size
+const pct = (n: number, of: number) => `${((n / of) * 100).toFixed(3)}%`
 ---
 
 <span class="shot-annotated">
   <img
     src={src}
     alt={alt}
+    width={W}
+    height={H}
     class={`screenshot${wide ? ' screenshot--wide' : ''}`}
     loading="lazy"
     decoding="async"
@@ -30,9 +40,12 @@ const { src, alt, boxes, wide = false } = Astro.props
   {boxes.map((b) => (
     <span
       class="shot-annotation"
-      style={`left:${b.left}%; top:${b.top}%; width:${b.width}%; height:${b.height}%;`}
+      style={`left:${pct(b.x, W)}; top:${pct(b.y, H)}; width:${pct(b.w, W)}; height:${pct(b.h, H)};`}
     >
-      <span class="shot-annotation__label">{b.label}</span>
+      <span
+        class={`shot-annotation__label${b.pos ? ` shot-annotation__label--${b.pos}` : ''}`}
+        style={b.nudge ? `margin-top:${b.nudge}px;` : undefined}
+      >{b.label}</span>
     </span>
   ))}
 </span>
