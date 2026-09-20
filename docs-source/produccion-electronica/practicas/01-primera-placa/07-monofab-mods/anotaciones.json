@@ -442,5 +442,261 @@
         }
       }
     ]
+  },
+  "flujo_pistas": {
+    "_nota": "Bloque 3 (2026-09-19): generar PISTAS.rml (aislamiento del cobre). Misma mecánica que flujo_periferia: imagen GENERAL + recuadro en el nodo (grafo_general.nodos) + captura de detalle con recuadros en campos. 'pos' aproximado; afinar al integrar.",
+    "carpeta": "02-pistas-trazas/",
+    "advertencia_pendiente": "DISCREPANCIA a confirmar con Alessandro: en la captura del diálogo (#46) se elige PISTAS.svg, pero la captura de read SVG (#47) muestra 'file: Hola_Mundo-F_Cu.svg' (70.9930 x 65.9892 mm; convert SVG image 2795 x 2598 px). La corrida original guardada en 02-pistas-trazas/11-convert-svg-image-invert-pistas.png muestra 2283 x 2125 px = 57.988 x 53.975 mm (mismo tamaño que PERIFERIA). Hay que saber qué SVG alimenta de verdad PISTAS.rml (importa el alineado con la periferia).",
+    "pasos": [
+      {
+        "n": 0,
+        "texto": "Se recarga la página de mods (grafo general limpio) para empezar con el siguiente archivo. (La barra del navegador muestra el ícono de descarga: PERIFERIA.rml ya bajó.)",
+        "nodo_general": null,
+        "detalle": {
+          "archivo": "01-periferia-contorno/12-grafo-completo-checkpoint.png",
+          "size": [
+            1918,
+            1078
+          ],
+          "boxes": []
+        },
+        "nota": "Captura de #45. Está guardada en la carpeta 01 (checkpoint). Sin recuadros."
+      },
+      {
+        "n": 1,
+        "texto": "En read SVG: select SVG file (misma captura del bloque anterior) y se elige el SVG de las pistas en el diálogo.",
+        "nodo_general": "read SVG",
+        "detalle": {
+          "archivo": "02-pistas-trazas/01-abrir-pistas-svg.png",
+          "size": [
+            1405,
+            985
+          ],
+          "boxes": [
+            {
+              "x": 331,
+              "y": 500,
+              "w": 1072,
+              "h": 42,
+              "label": "Elegir PISTAS",
+              "pos": "top"
+            },
+            {
+              "x": 1097,
+              "y": 915,
+              "w": 106,
+              "h": 38,
+              "label": "Abrir",
+              "pos": "top"
+            }
+          ]
+        },
+        "nota": "Para el clic en select SVG file reutilizar 00-programa-mill-2d-pcb/08-nodo-read-svg-vacio-start-here.png (ver flujo_periferia paso 1)."
+      },
+      {
+        "n": 2,
+        "texto": "Ahora van las pistas: read SVG muestra el SVG cargado (trazas VCC/GND, pads y el contorno).",
+        "nodo_general": "read SVG",
+        "detalle": {
+          "archivo": "02-pistas-trazas/15-read-svg-pistas-cargado.png",
+          "size": [
+            837,
+            882
+          ],
+          "boxes": [
+            {
+              "x": 320,
+              "y": 746,
+              "w": 235,
+              "h": 78,
+              "label": "Archivo cargado",
+              "pos": "right"
+            }
+          ]
+        },
+        "nota": "Ver advertencia_pendiente: aquí dice Hola_Mundo-F_Cu.svg, 70.9930 x 65.9892."
+      },
+      {
+        "n": 3,
+        "texto": "En convert SVG image (dpi 1000, units 25.4, fill background activo) se selecciona invert.",
+        "nodo_general": "convert SVG image",
+        "detalle": {
+          "archivo": "02-pistas-trazas/16-convert-svg-image-antes-de-invert.png",
+          "size": [
+            456,
+            699
+          ],
+          "boxes": [
+            {
+              "x": 219,
+              "y": 438,
+              "w": 70,
+              "h": 38,
+              "label": "Clic en invert",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 3.1,
+        "texto": "Con invert activo la imagen queda en negro con las pistas en blanco.",
+        "nodo_general": "convert SVG image",
+        "detalle": {
+          "archivo": "02-pistas-trazas/17-convert-svg-image-despues-de-invert.png",
+          "size": [
+            468,
+            652
+          ],
+          "boxes": [
+            {
+              "x": 203,
+              "y": 419,
+              "w": 71,
+              "h": 39,
+              "label": "invert activo",
+              "pos": "right"
+            },
+            {
+              "x": 55,
+              "y": 121,
+              "w": 312,
+              "h": 291,
+              "label": "Fondo negro, pistas blancas",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 4,
+        "texto": "En set PCB defaults se cambia a mm y se selecciona 0.40mm flat (fresa plana para aislar pistas).",
+        "nodo_general": "set PCB defaults",
+        "detalle": {
+          "archivo": "02-pistas-trazas/03-set-pcb-defaults-flat-0-40mm-a.png",
+          "size": [
+            660,
+            780
+          ],
+          "boxes": [
+            {
+              "x": 196,
+              "y": 148,
+              "w": 142,
+              "h": 42,
+              "label": "Cambiar a mm",
+              "pos": "left"
+            },
+            {
+              "x": 116,
+              "y": 227,
+              "w": 274,
+              "h": 53,
+              "label": "Elegir 0.40mm flat",
+              "pos": "right"
+            }
+          ]
+        }
+      },
+      {
+        "n": 5,
+        "texto": "En Roland SRM-20 milling machine el origen igual a 0, 0, 0 (speed 4 mm/s, jog height z 2, home 0 / 152.4 / 60.5 sin cambios).",
+        "nodo_general": "Roland SRM-20 milling machine",
+        "detalle": {
+          "archivo": "02-pistas-trazas/07-roland-srm20-config-pistas.png",
+          "size": [
+            642,
+            709
+          ],
+          "boxes": [
+            {
+              "x": 248,
+              "y": 229,
+              "w": 90,
+              "h": 98,
+              "label": "Origen x, y, z = 0",
+              "pos": "right"
+            }
+          ]
+        },
+        "nota": "El campo z aparece con borde rojo en la captura (foco/edición); tiempo estimado --:--:-- porque aún no se calcula."
+      },
+      {
+        "n": 6,
+        "texto": "En mill raster 2D: offset number en 2 (viene del preset) y se da calculate.",
+        "nodo_general": "mill raster 2D",
+        "detalle": {
+          "archivo": "02-pistas-trazas/08-mill-raster-2d-config-pistas-b.png",
+          "size": [
+            901,
+            888
+          ],
+          "boxes": [
+            {
+              "x": 270,
+              "y": 274,
+              "w": 228,
+              "h": 28,
+              "label": "Offset number = 2",
+              "pos": "right"
+            },
+            {
+              "x": 316,
+              "y": 458,
+              "w": 104,
+              "h": 42,
+              "label": "Clic en calculate",
+              "pos": "right"
+            }
+          ]
+        },
+        "nota": "Valores con el preset 0.40mm flat: tool diameter 0.39624 mm (0.0156 in), cut depth 0.1016 mm (0.004 in), max depth 0.1016 mm (0.004 in), offset stepover 0.5, climb, path merge 1, forward, sort distance activo."
+      },
+      {
+        "n": 7,
+        "texto": "IMPORTANTE: en el render asegurarse de que las pistas sean de cobre. Si no, hay que volver a invertir el SVG (invert en convert SVG image) y recalcular.",
+        "nodo_general": "mill raster 2D",
+        "importante": true,
+        "detalle": {
+          "archivo": "02-pistas-trazas/12-toolpath-simulado-pistas.png",
+          "size": [
+            1080,
+            652
+          ],
+          "boxes": [
+            {
+              "x": 190,
+              "y": 45,
+              "w": 575,
+              "h": 535,
+              "label": "Las pistas deben quedar en cobre",
+              "pos": "top"
+            }
+          ]
+        }
+      },
+      {
+        "n": 8,
+        "texto": "De vuelta en mods se guarda el archivo (save file): ready, 'SVG image.rml', 68476 bytes.",
+        "nodo_general": "save file",
+        "detalle": {
+          "archivo": "02-pistas-trazas/18-guardar-pistas-rml.png",
+          "size": [
+            394,
+            336
+          ],
+          "boxes": [
+            {
+              "x": 200,
+              "y": 224,
+              "w": 97,
+              "h": 40,
+              "label": "Guardar el archivo",
+              "pos": "top"
+            }
+          ]
+        }
+      }
+    ]
   }
 }

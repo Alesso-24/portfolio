@@ -132,3 +132,74 @@ imagen general + recuadro por nodo; corregir el dato de origen (**0,0,0 explíci
 "origen/home"); mencionar el **vPanel** y la regla de posicionar placas múltiples (X/Y del 2.º archivo).
 **Sigue abierto** (de bloques anteriores): si la velocidad distinta por archivo (4 mm/s vs 0.3 mm/s
 en taladrado) es convención fija — aquí la velocidad 4 mm/s quedó en el valor por defecto.
+
+### 2026-09-19 — Bloque 3: PISTAS (aislamiento del cobre) paso a paso → `PISTAS.rml`
+
+**Lo que dijo Alessandro (en orden):**
+0. **Recargar la página** de mods (grafo general limpio) y seguir con el siguiente archivo. *(Al
+   recargar, la barra del navegador muestra el ícono de descarga: ya bajó `PERIFERIA.rml`.)*
+1. `read SVG` → select SVG file → elegir el SVG de **las pistas** (diálogo "Abrir", se elige `PISTAS`).
+2. Se carga el SVG de pistas en `read SVG`.
+3. En `convert SVG image`: seleccionar **invert** (la imagen queda en negro con las pistas en blanco).
+4. En `set PCB defaults`: cambiar a **mm** y seleccionar **0.40mm flat**.
+5. En `Roland SRM-20 milling machine`: **origen igual a 0, 0, 0**.
+6. En `mill raster 2D`: **offset number en 2** y **calculate**.
+7. **IMPORTANTE:** en el render **asegurarse de que las pistas sean de cobre**; si no, **hay que
+   volver a invertir el SVG** (invert en `convert SVG image`) y recalcular.
+8. Volver a mods y **guardar el archivo** (save file).
+
+**Datos leídos de las capturas:**
+- `read SVG`: `file: Hola_Mundo-F_Cu.svg`, width 70.9930, height 65.9892, units per inch 25.4.
+- `convert SVG image`: dpi 1000, units 25.4, fill background ✔, imagen **2795 × 2598 px = 70.993 × 65.989 mm**
+  (antes de invert: fondo blanco/pistas negras; con invert: fondo negro/pistas blancas; el botón
+  invert queda con contorno al estar activo).
+- `set PCB defaults`: interruptor en **mm** (verde), seleccionado **0.40mm flat** (botón oscuro).
+- `mill raster 2D` (preset 0.40mm flat): tool diameter **0.39624 mm** (0.0156 in), cut depth
+  **0.1016 mm** (0.004 in), max depth **0.1016 mm** (0.004 in), offset number **2**, offset stepover 0.5,
+  direction climb, path merge 1, path order forward, sort distance ✔.
+- `Roland SRM-20 milling machine`: speed 4 mm/s, origin **0/0/0** (el campo z aparece con borde
+  rojo = foco/edición), jog height z 2 mm, home 0 / 152.4 / 60.5, Estimated time `--:--:--` (aún sin calcular).
+- Render 3D: el cobre queda **en relieve/resaltado**, con canales fresados alrededor de trazas y pads
+  (se ven VCC y GND grabados).
+- `save file`: `ready`, name **`SVG image.rml`**, size **68476** bytes.
+- Diálogo "Abrir": se elige `PISTAS` (tooltip: Microsoft Edge HTML Document, **54.4 KB**, mod. 11/09/2026
+  07:49); `PERIFERIA` aparece con resaltado tenue (el elegido antes).
+
+**Mapeo imágenes de Alessandro → archivos (por tamaño / comparación de píxeles):**
+
+| # | Paso | Archivo en docs-source |
+|---|---|---|
+| 45 | 0 · recarga, grafo limpio | `01-periferia-contorno/12-grafo-completo-checkpoint.png` (vive en la carpeta 01) |
+| 46 | 1 · elegir PISTAS | `02-pistas-trazas/01-abrir-pistas-svg.png` |
+| 47 | 2 · read SVG cargado | **NUEVA** → `02-pistas-trazas/15-read-svg-pistas-cargado.png` |
+| 48 | 3 · convert SVG, antes de invert | **NUEVA** → `02-pistas-trazas/16-convert-svg-image-antes-de-invert.png` |
+| 49 | 3 · convert SVG, con invert | **NUEVA** → `02-pistas-trazas/17-convert-svg-image-despues-de-invert.png` |
+| 50 | 4 · mm + 0.40mm flat | `02-pistas-trazas/03-set-pcb-defaults-flat-0-40mm-a.png` |
+| 51 | 5 · origen 0,0,0 | `02-pistas-trazas/07-roland-srm20-config-pistas.png` |
+| 52 | 6 · offset 2 + calculate | `02-pistas-trazas/08-mill-raster-2d-config-pistas-b.png` |
+| 53 | 7 · render (pistas en cobre) | `02-pistas-trazas/12-toolpath-simulado-pistas.png` |
+| 54 | 8 · guardar | **NUEVA** → `02-pistas-trazas/18-guardar-pistas-rml.png` |
+
+Las 4 "NUEVAS" venían pegadas (recortes sin archivo original; no coinciden con ninguna captura
+guardada). **Sin usar** en este bloque (se conservan): `02-set-pcb-defaults-unidades-pulgadas.png`
+(muestra el interruptor todavía en pulgadas — buen "antes" para el paso de cambiar a mm),
+`04`, `05`, `06`, `09`, `10`, `11-convert-svg-image-invert-pistas.png`, `13`, `14`.
+
+**⚠ DISCREPANCIA por confirmar con Alessandro (importa para la fabricación):**
+- En el diálogo (#46) se elige **`PISTAS`**, pero `read SVG` (#47) muestra **`Hola_Mundo-F_Cu.svg`**
+  de **70.993 × 65.989 mm**.
+- La captura original guardada de esa corrida (`02-pistas-trazas/11-convert-svg-image-invert-pistas.png`)
+  muestra **2283 × 2125 px = 57.988 × 53.975 mm**, o sea el **mismo tamaño que PERIFERIA**.
+- Si el SVG que alimenta el `.rml` final es el de 70.99 × 65.99 mm (F_Cu) y no el de 57.99 × 53.98
+  (PISTAS), las pistas **no coincidirían en tamaño/alineado con el contorno** al fresar. Hay que
+  saber cuál es el bueno para documentar el dato correcto.
+
+**Qué se guardó:** `anotaciones.json` → nueva sección `flujo_pistas` con los pasos 0–8 (texto, nodo
+general a señalar, captura de detalle y recuadros: fila PISTAS, Abrir, archivo cargado, invert,
+resultado en negro/blanco, interruptor mm, 0.40mm flat, origen x/y/z, offset number, calculate,
+render "las pistas deben quedar en cobre", save file), más la `advertencia_pendiente`. Verificado
+dibujando los recuadros sobre las capturas.
+
+**Al integrar (NO hecho):** la página hoy resume PISTAS en un callout ("0.40mm flat → 0.396 mm,
+profundidad 0.1016, invert"); ampliar a estos pasos, destacar la verificación del render (pistas en
+cobre / re-invertir) y resolver la discrepancia de tamaño antes de publicar cifras.
