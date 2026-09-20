@@ -196,6 +196,9 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
+    /* start: an annotated shot must not stretch to its neighbour's height — its
+       orange boxes are positioned in % of the wrapper, so any extra height shifts them */
+    align-items: start;
     margin: clamp(16px, 2.2vh, 24px) 0 clamp(32px, 5vh, 52px);
   }
   .docs-body .shot-grid .screenshot,
