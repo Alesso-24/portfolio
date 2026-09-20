@@ -216,7 +216,9 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     max-width: 100%;
     margin: clamp(16px, 2.2vh, 24px) auto clamp(32px, 5vh, 52px);
   }
-  .docs-body .shot-annotated .screenshot { margin: 0; display: block; }
+  /* max-width:100% keeps the img exactly the wrapper's size — the boxes are
+     positioned in % of the wrapper, so any overflow would misalign them */
+  .docs-body .shot-annotated .screenshot { margin: 0; display: block; max-width: 100%; }
   .docs-body .shot-annotation {
     position: absolute;
     border: 2.5px solid #ea6a2e;
@@ -237,6 +239,18 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     padding: 4px 9px;
     border-radius: 100px;
     white-space: nowrap;
+  }
+  .docs-body .shot-annotation__label--bottom {
+    top: auto; bottom: -13px; left: -2px;
+    transform: translateY(100%);
+  }
+  .docs-body .shot-annotation__label--right {
+    top: 50%; left: calc(100% + 12px);
+    transform: translateY(-50%);
+  }
+  .docs-body .shot-annotation__label--left {
+    top: 50%; left: auto; right: calc(100% + 12px);
+    transform: translateY(-50%);
   }
 
   /* ── Step jump menu ── */

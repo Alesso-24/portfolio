@@ -1,5 +1,17 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🌿 Rama activa: `fix/anotaciones-alineacion` (2026-09-19) — pendiente de revisión, NO mergeada
+> Sale de `main` (`f3df8bb`). Corrige los recuadros naranjas (`AnnotatedShot`) mal alineados y
+> reordena los pasos 4/5 del editor de placas. Cambios:
+> - `AnnotatedShot.astro` ahora recibe `size={[w,h]}` + cajas en **píxeles reales de la captura**
+>   (`x,y,w,h`), más `pos` (`top|bottom|left|right`) y `nudge` para la etiqueta. Las 17 anotaciones
+>   se re-midieron una por una con rejilla de coordenadas (antes eran % a ojo).
+> - Bug real de móvil: la imagen tenía `max-width:640px` y se salía de su contenedor, así que los
+>   recuadros (en % del contenedor) quedaban corridos. Fix: `.shot-annotated .screenshot {max-width:100%}`.
+> - Paso "zona rellena" pasa a ser el **4** y "borde octagonal 2 mm" el **5** (se quitó "Antes de eso").
+> - Verificado con capturas de las 17 anotaciones en escritorio y móvil. Falta: visto bueno de
+>   Alessandro → merge a `main` → push/deploy.
+>
 > ## ✅ Estado al 2026-09-19 — pulido para entrega
 > Se quitaron todos los TODO / avisos de "pendiente" / placeholders visibles del sitio: objetivo de
 > la práctica redactado a partir de lo ya documentado, secciones "Resultados" y el TODO de
