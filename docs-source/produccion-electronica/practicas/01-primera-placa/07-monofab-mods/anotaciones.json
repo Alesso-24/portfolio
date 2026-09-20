@@ -446,7 +446,6 @@
   "flujo_pistas": {
     "_nota": "Bloque 3 (2026-09-19): generar PISTAS.rml (aislamiento del cobre). Misma mecánica que flujo_periferia: imagen GENERAL + recuadro en el nodo (grafo_general.nodos) + captura de detalle con recuadros en campos. 'pos' aproximado; afinar al integrar.",
     "carpeta": "02-pistas-trazas/",
-    "advertencia_pendiente": "DISCREPANCIA a confirmar con Alessandro: en la captura del diálogo (#46) se elige PISTAS.svg, pero la captura de read SVG (#47) muestra 'file: Hola_Mundo-F_Cu.svg' (70.9930 x 65.9892 mm; convert SVG image 2795 x 2598 px). La corrida original guardada en 02-pistas-trazas/11-convert-svg-image-invert-pistas.png muestra 2283 x 2125 px = 57.988 x 53.975 mm (mismo tamaño que PERIFERIA). Hay que saber qué SVG alimenta de verdad PISTAS.rml (importa el alineado con la periferia).",
     "pasos": [
       {
         "n": 0,
@@ -697,7 +696,8 @@
           ]
         }
       }
-    ]
+    ],
+    "advertencia_resuelta": "RESUELTO 2026-09-20: Alessandro confirmó que no es un problema (usó otros archivos en algunas capturas, son lo mismo). No se documenta en el sitio."
   },
   "flujo_orificios": {
     "_nota": "Bloque 4 (2026-09-19): generar ORIFICIOS.rml (taladrado). Misma mecánica que los otros flujos. La velocidad 0.3 mm/s es la ÚNICA que cambia (periferia y pistas siempre 4 mm/s).",

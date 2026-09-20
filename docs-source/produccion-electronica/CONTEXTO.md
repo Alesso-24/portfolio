@@ -21,12 +21,10 @@
 > - Ramas: `fix/anotaciones-alineacion` (recuadros en px + pasos 4/5 reordenados + fix móvil) y
 >   `docs/mods-actualizacion` se integraron vía `feat/docs-mods-integracion` → `main`.
 > - Fix extra: las capturas simples (`.screenshot`) ahora usan `max-width: min(640px, 100%)` (en móvil se cortaban).
-> - **⚠ Pendiente por confirmar con Alessandro:** en PISTAS el diálogo elige `PISTAS` pero `read SVG` muestra
->   `Hola_Mundo-F_Cu.svg` (70.993 × 65.989 mm) y en ORIFICIOS `Hola_Mundo-User_4.svg` (mismo tamaño), mientras
->   PERIFERIA es 57.988 × 53.975 mm y una captura vieja de PISTAS también 57.988 × 53.975. Si los tamaños no
->   coinciden, las capas no se alinearían al fresar. La página **no afirma medidas** de esos SVG; solo muestra las
->   capturas tal cual. Ver `ACTUALIZACION-CONTEXTO.md` (bloque 3).
-> - Nota: numeración de Alessandro salta #35, #43, #59, #61, #63 (no adjuntas).
+> - **✔ Resuelto (2026-09-20):** la diferencia de medidas entre SVG (F_Cu / User_4 70.993 × 65.989 mm vs PERIFERIA
+>   57.988 × 53.975 mm) **no es un problema**: Alessandro usó archivos distintos en algunas capturas, pero son lo
+>   mismo. **Decisión: no documentar esas medidas en el sitio** (la página no las menciona).
+> - Numeración de Alessandro salta #35, #43, #59, #61, #63: sin importancia (Alessandro confirmó que no falta nada).
 >
 > ## ✅ Estado al 2026-09-19 — pulido para entrega
 > Se quitaron todos los TODO / avisos de "pendiente" / placeholders visibles del sitio: objetivo de

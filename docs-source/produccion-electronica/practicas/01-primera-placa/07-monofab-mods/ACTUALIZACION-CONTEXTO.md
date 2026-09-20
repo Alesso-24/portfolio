@@ -185,7 +185,7 @@ guardada). **Sin usar** en este bloque (se conservan): `02-set-pcb-defaults-unid
 (muestra el interruptor todavía en pulgadas — buen "antes" para el paso de cambiar a mm),
 `04`, `05`, `06`, `09`, `10`, `11-convert-svg-image-invert-pistas.png`, `13`, `14`.
 
-**⚠ DISCREPANCIA por confirmar con Alessandro (importa para la fabricación):**
+**~~⚠ DISCREPANCIA por confirmar~~ → RESUELTA el 2026-09-20 (ver cierre al final). Texto original:**
 - En el diálogo (#46) se elige **`PISTAS`**, pero `read SVG` (#47) muestra **`Hola_Mundo-F_Cu.svg`**
   de **70.993 × 65.989 mm**.
 - La captura original guardada de esa corrida (`02-pistas-trazas/11-convert-svg-image-invert-pistas.png`)
@@ -248,4 +248,12 @@ Con el bloque 4 Alessandro pidió **crear el sitio** (reemplazar el paso 9 anter
   0 imágenes rotas, 0 desbordes, sin TODO visibles); todas las medidas `size` de `mods-flow.ts` coinciden con las imágenes reales.
 - Correcciones sobre la marcha: espacios perdidos por saltos de línea en JSX, `<strong>` dentro de `.callout`/`.todo-callout` toma estilo de
   título (se usa `<b>`), etiqueta larga "Roland SRM-20 milling machine" desbordaba en móvil (nombre corto), foto SRM-20 con ancho fijo.
-- **Sin resolver:** discrepancia F_Cu/User_4 (70.993 × 65.989) vs PERIFERIA (57.988 × 53.975) — ver bloque 3.
+- ~~Sin resolver: discrepancia de medidas F_Cu/User_4 vs PERIFERIA~~ → resuelta, ver cierre abajo.
+
+### 2026-09-20 — Cierre de la discrepancia de medidas
+
+Alessandro: *"sí sí, no pasa nada, no lo documentes en el sitio; lo de las medidas es que para algunas capturas usé otros
+archivos, pero son la misma cosa."* → La diferencia de tamaños entre `Hola_Mundo-F_Cu.svg` / `Hola_Mundo-User_4.svg`
+(70.993 × 65.989 mm) y `PERIFERIA.svg` (57.988 × 53.975 mm) **no es un problema real**. **No se documenta en el sitio** (verificado: ni
+`mods-flow.ts` ni la página mencionan esas medidas o nombres de archivo). También aclaró que los números de imagen que faltaban
+(#35, #43, #59, #61, #63) no importan.
