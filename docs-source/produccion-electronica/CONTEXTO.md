@@ -1,6 +1,17 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ✅ Estado al 2026-09-18 (actualizado, sesión mods.org)
+> ## ✅ Estado al 2026-09-19 — pulido para entrega
+> Se quitaron todos los TODO / avisos de "pendiente" / placeholders visibles del sitio: objetivo de
+> la práctica redactado a partir de lo ya documentado, secciones "Resultados" y el TODO de
+> fabricación física removidas (no hay material real todavía — **si se consigue, volver a
+> agregarlas**), y la tarjeta de Alexa queda sin bio a propósito (`bio` ahora es opcional en
+> `src/data/docs.ts`). Se probó y descartó un tratamiento visual para la foto de la SRM-20 (glow /
+> tarjeta oscura con blend) — Alessandro prefirió la imagen simple. Build de producción verificado
+> (10 páginas, sin errores de consola, sin imágenes rotas, sin overflow en móvil).
+> Nota: en dev (`npm run dev`) puede aparecer `_jsxDEV is not a function` si se corrió
+> `npm run build` con el servidor abierto — es solo de dev, reiniciar el servidor lo arregla.
+>
+> ## Estado al 2026-09-18 (sesión mods.org)
 > **Mergeado a `main` y desplegado** (esquemático + PCB completos en KiCad, ver detalle más abajo).
 > Además, en esta sesión se organizó material crudo nuevo de **mods.org** (generación de
 > toolpaths para la Roland SRM-20 a partir de los 3 SVG exportados de KiCad) en

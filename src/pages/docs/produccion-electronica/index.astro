@@ -25,7 +25,7 @@ const practices = getPractices('produccion-electronica')
           <img src={member.photo} alt={`Foto de ${member.name}`} class="team-photo" loading="lazy" decoding="async" />
           <h3>{member.name}</h3>
           <p class="team-role">{member.role}</p>
-          <p>{member.bio}</p>
+          {member.bio && <p>{member.bio}</p>}
         </div>
       ) : (
         <div class="team-card">
@@ -37,15 +37,10 @@ const practices = getPractices('produccion-electronica')
           </div>
           <h3>{member.name}</h3>
           <p class="team-role">{member.role}</p>
-          <p>{member.bio}</p>
+          {member.bio && <p>{member.bio}</p>}
         </div>
       )
     ))}
-  </div>
-
-  <div class="todo-callout" data-reveal data-reveal-delay="140">
-    <strong>⚠ Pendiente</strong>
-    Falta agregar la breve descripción real de Alexa en <code>src/data/docs.ts</code>.
   </div>
 
   <hr class="divider" />

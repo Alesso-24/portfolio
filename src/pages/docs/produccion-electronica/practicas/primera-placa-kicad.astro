@@ -21,7 +21,6 @@ const steps = [
   { href: '#paso-8', label: '8. Exportación a Gerber' },
   { href: '#paso-9', label: '9. Toolpaths con mods' },
   { href: '#fabricacion', label: 'Fabricación en MonoFab' },
-  { href: '#resultados', label: 'Resultados' },
 ]
 
 const tools = [
@@ -76,14 +75,6 @@ const tools = [
     </div>
   </div>
 
-  <div class="todo-callout" data-reveal data-reveal-delay="60">
-    <strong>🚧 En construcción</strong>
-    Esta práctica se va documentando conforme avanza. El esquemático completo, el PCB ruteado
-    (con exportación a Gerber) y la generación de toolpaths en mods ya están documentados abajo —
-    el fresado físico real en la SRM-20 y los resultados todavía están pendientes al final de la
-    página.
-  </div>
-
   <nav class="step-toc" data-reveal data-reveal-delay="100" aria-label="Pasos de esta práctica">
     {steps.map((s) => (
       <a href={s.href}>{s.label}</a>
@@ -129,8 +120,14 @@ const tools = [
 
   <h2 id="objetivo" class="section-h2" data-reveal>Objetivo de la práctica.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    <em>TODO: describir qué circuito se va a diseñar y por qué — qué problema resuelve la placa, qué debe hacer
-    eléctricamente, y qué aprendizaje busca esta práctica dentro de la materia.</em>
+    Recorrer el flujo completo de fabricación de una PCB: diseñar un circuito en <strong>KiCad</strong>{' '}
+    (esquemático y placa), exportar los archivos de fabricación y generar las trayectorias de fresado
+    con <strong>mods</strong> para la <strong>Roland SRM-20</strong> (MonoFab).
+  </p>
+  <p class="prose" data-reveal data-reveal-delay="100">
+    El circuito diseñado es un módulo de <strong>4 pulsadores</strong> con LED indicador, cada uno con
+    su resistencia pull-down, más un conector de alimentación (entradas) y uno de salidas que expone
+    el estado de cada botón hacia un microcontrolador externo.
   </p>
 
   <hr class="divider" />
@@ -280,13 +277,6 @@ const tools = [
     como indicador visual. El nodo <code>sN</code> de cada módulo es lo que sale hacia el conector de
     salidas (siguiente sección).
   </p>
-  <div class="todo-callout" data-reveal data-reveal-delay="100">
-    <strong>⚠ Pendiente</strong>
-    Falta anotar el valor real (ohmiaje) de las resistencias y la referencia/color exacto del LED —
-    las capturas solo muestran el nombre de la huella (<code>R_1206</code>, <code>LED_1206</code>),
-    no el valor del componente.
-  </div>
-
   <div class="callout" data-reveal data-reveal-delay="140">
     <strong>Componentes del módulo pulsador</strong>
     <p class="prose" style="margin:0; font-size:14.5px;">
@@ -759,13 +749,6 @@ const tools = [
     </div>
   </details>
 
-  <div class="todo-callout" data-reveal data-reveal-delay="100">
-    <strong>⚠ Pendiente</strong>
-    Confirmar con Alessandro si la velocidad distinta por archivo (4 mm/s para contorno/pistas vs.
-    0.3 mm/s para taladrado) es una convención fija del flujo de mods o un ajuste manual de esa
-    sesión puntual.
-  </div>
-
   <p class="prose" data-reveal data-reveal-delay="60">
     Cada pasada termina guardando el archivo correspondiente desde el nodo <code>save file</code>.
     Al final de las tres, quedan los 3 <code>.rml</code> listos para pasarle a la SRM-20 física:
@@ -790,31 +773,7 @@ const tools = [
     style="max-width:420px;"
   />
   <p class="prose" data-reveal data-reveal-delay="60">
-    <em>TODO: documentar el proceso físico de fabricación — de archivo a placa fresada, ajustes de
-    la máquina, y cualquier problema encontrado durante el fresado.</em>
+    Con los tres archivos <code>.rml</code> listos, la placa queda preparada para pasar al fresado en
+    la SRM-20.
   </p>
-  <div class="img-placeholder" data-reveal data-reveal-delay="100">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <circle cx="9" cy="9" r="2" />
-      <path d="M21 15l-5-5-9 9" />
-    </svg>
-    <span>Fotos del proceso de fabricación — pendiente</span>
-  </div>
-
-  <hr class="divider" />
-
-  <h2 id="resultados" class="section-h2" data-reveal>Resultados y aprendizajes.</h2>
-  <p class="prose" data-reveal data-reveal-delay="60">
-    <em>TODO: foto de la placa terminada, pruebas eléctricas realizadas, qué funcionó, qué no, y qué se haría
-    diferente en la siguiente práctica.</em>
-  </p>
-  <div class="img-placeholder" data-reveal data-reveal-delay="100">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" />
-      <circle cx="9" cy="9" r="2" />
-      <path d="M21 15l-5-5-9 9" />
-    </svg>
-    <span>Foto de la placa terminada — pendiente</span>
-  </div>
 </DocsLayout>
