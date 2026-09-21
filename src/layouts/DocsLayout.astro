@@ -22,12 +22,13 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
 
 <Base
   title={`${title} | Alessandro Reyes`}
+  titleEn={`${en(title)} | Alessandro Reyes`}
   description={description}
   lang="es"
   ogImage={ogImage}
   canonical={`https://alesso-24.github.io${Astro.url.pathname}`}
 >
-  <article data-title-es={`${title} | Alessandro Reyes`} data-title-en={`${en(title)} | Alessandro Reyes`}>
+  <article>
     <header class="docs-header">
       <a href={backHref} class="back-link">
         <span>←</span>
@@ -50,28 +51,6 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
       <slot />
     </div>
   </article>
-
-  <!-- Atributos que no pueden llevar dos idiomas (alt, aria-label) y el título de la pestaña:
-       se cambian con el idioma activo (html[lang]) al cargar y cada vez que se pulsa ES/EN. -->
-  <script is:inline>
-    (function () {
-      function apply() {
-        var isEn = document.documentElement.getAttribute('lang') === 'en';
-        ['alt', 'aria-label', 'title'].forEach(function (attr) {
-          document.querySelectorAll('[data-' + attr + '-en]').forEach(function (el) {
-            var esKey = '__' + attr + 'Es';
-            if (el[esKey] === undefined) el[esKey] = el.getAttribute(attr) || '';
-            el.setAttribute(attr, isEn ? el.getAttribute('data-' + attr + '-en') : el[esKey]);
-          });
-        });
-        var art = document.querySelector('article[data-title-en]');
-        if (art) document.title = isEn ? art.getAttribute('data-title-en') : art.getAttribute('data-title-es');
-      }
-      window.addEventListener('lang-change', apply);
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
-      else apply();
-    })();
-  </script>
 </Base>
 
 <style>
