@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+_site
 *.local
 
 # Editor directories and files
@@ -28,5 +29,3 @@ _brief_extracted/
 # Astro generated
 .astro/
 
-# carpeta temporal del job de Lighthouse en CI
-_site
