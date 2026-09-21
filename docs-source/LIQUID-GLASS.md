@@ -21,7 +21,7 @@ Conclusiones de esas fuentes: usarlo en **pocos elementos flotantes**, no en zon
 
 ## 2. Decisiones de diseño
 
-1. **El vidrio necesita algo detrás.** El sitio es crema plano; el vidrio se vería igual que un blanco translúcido. Se agrega una **capa ambiental fija** (manchas muy suaves azul `#2540c0`, naranja `#ea6a2e` y lila con deriva lenta, solo `transform`) y las bandas de sección pasan de fondo opaco a **tinte translúcido** para que se vea a través.
+1. **El vidrio necesita algo detrás.** El sitio es crema plano; el vidrio se vería igual que un blanco translúcido. Se agrega una **capa ambiental fija** (tres manchas muy suaves: azul `#2540c0`, naranja `#ea6a2e` y lila, en una sola capa **estática**; ver §6 por qué no se anima) y las bandas de sección pasan de fondo opaco a **tinte translúcido** para que se vea a través.
 2. **Desenfoque real solo donde pasa contenido por detrás:** menú superior, menú móvil, pie/controles del visor de imágenes y elementos que flotan (barra de progreso pegajosa si se usa). En tarjetas, pestañas, chips y botones se usa el **"aspecto de vidrio"** (relleno + borde luminoso + sombra), que cuesta casi nada y se ve igual sobre fondo suave.
 3. **Superficies de lectura más opacas.** Todo lo que contiene texto largo (paso de la guía, callouts, ficha) usa `--glass-read` (≈ 78 % opaco): el contraste nunca depende de lo que haya detrás.
 4. **Nada de refracción SVG en v1** (solo Chromium, cara, pixelada). Queda como mejora opcional para el menú.
@@ -47,8 +47,9 @@ Conclusiones de esas fuentes: usarlo en **pocos elementos flotantes**, no en zon
 
 ## 4. Sistema de diseño (implementado en `src/styles/glass.css`)
 
-Variables (`:root`): `--glass-blur`, `--glass-blur-strong`, `--glass-saturate`, `--glass-fill`, `--glass-fill-strong`, `--glass-read`, `--glass-dark`, `--glass-blue`, `--glass-border`, `--glass-edge` (sombras internas), `--glass-shadow`, `--glass-shadow-lift`, `--glass-radius`, `--spring`, `--ease-out-expo`.
-Clases: `.glass` (aspecto), `.glass--blur` (añade `backdrop-filter`), `.glass--read` (opaca para texto), `.glass--dark`, `.glass--blue`, `.glass-sheen` (reflejo con el puntero), `.glass-press` (resorte al pulsar), `.glass-lift` (elevación al hover).
+Variables (`:root`): `--glass-blur`, `--glass-blur-strong`, `--glass-saturate`, `--glass-fill`, `--glass-fill-strong`, `--glass-read`, `--glass-dark`, `--glass-blue`, `--glass-border`, `--glass-edge` (sombras internas), `--glass-shadow`, `--glass-shadow-lift`, `--spring`, `--glass-solid`, `--glass-edge-dark`, `--glass-fill-strong`.
+Clases: `.glass` (aspecto), `.glass--blur` / `.glass--blur-strong` (añaden `backdrop-filter`), `.glass--strong`, `.glass--read` (opaca para texto), `.glass--dark`, `.glass--blue`, `.glass-sheen` (reflejo con el puntero), `.glass-press` (resorte al pulsar), `.glass-lift` (elevación al hover), `.glass-btn` (+ `--orange`, `--onblue`), `.glass-field` (campo de formulario), `.glass-chip`.
+Componentes con su bloque en `glass.css`: menú superior (`.glass-nav*`, `.glass-menu`), botones y campos. `/docs` y la guía llevan su capa de vidrio **al final** de `DocsLayout.astro` y `DocsInteractive.astro` (sobrescribe rellenos previos). Las páginas de proyecto la llevan en `ProjectLayout.astro`.
 Regla para ampliar: **una superficie nueva = clase `.glass` + variante**; nunca copiar valores sueltos. Si lleva texto largo, `.glass--read`. Si pasa contenido por detrás mientras se hace scroll, `.glass--blur`.
 
 ## 5. Avance (actualizar en cada hito)
@@ -64,6 +65,32 @@ Ramas apiladas, cada una con su PR; ninguna se mergea a `main` hasta el visto bu
 | 5 | `feat/glass-projects` | Encabezado, ficha, insignias y botón de GitHub de las páginas de proyecto | hecho |
 | 6 | `feat/glass-docs` | `/docs` y la guía interactiva | hecho |
 | 7 | `feat/glass-motion` | Microinteracciones: resorte, reflejo con el puntero, indicador del menú | hecho |
-| 8 | `fix/glass-qa` | Auditoría: contraste, modo reducido, móvil, ES/EN, rendimiento, capturas | pendiente |
+| 8 | `fix/glass-qa` | Auditoría: contraste, modo reducido, móvil, ES/EN, rendimiento, capturas | hecho |
 
 **Siguiente paso al retomar:** ver la primera fila "pendiente" de la tabla, leer su sección arriba, implementar, correr la QA de `ARQUITECTURA-Y-TECNOLOGIAS.md` §7, abrir PR y actualizar esta tabla y `CONTEXTO.md`.
+
+## 6. QA y mediciones (2026-09-21)
+
+**Contraste (WCAG AA, medido por píxeles sobre las superficies reales, ES y EN):** 29 de 29 superficies cumplen. Se corrigieron de paso tres casos que ya fallaban antes del vidrio: texto blanco sobre el naranja del botón de enviar y de los números de leyenda (ahora naranja más profundo `#cc4d14 → #a33607`, 5.3:1), texto naranja pequeño de las etiquetas de paso y de los chips de la ficha (`#b4380a`, 5.8:1) y el gris de "Paso X de Y" (`#6f6a5f`, 5:1). Método: `qa_glass.mjs` (captura de cada elemento, color de fondo dominante, ratio WCAG con el color de texto computado).
+
+**Modos de accesibilidad (emulados con CDP):** `prefers-reduced-transparency`, `prefers-contrast: more` → superficies sólidas, sin `backdrop-filter`, sin capa ambiental. `forced-colors` → `Canvas/CanvasText`, sin vidrio. `prefers-reduced-motion` → sin animaciones. Sin soporte de `backdrop-filter` → `@supports not` cae a superficie sólida.
+
+**Rendimiento (scroll guionizado, CPU limitada 4×, render por software: es el peor caso; una GPU real lo hace mejor):**
+
+| Página | Sin vidrio (etiqueta `restore/…pre-liquid-glass`) | Con vidrio (final) |
+|---|---|---|
+| Home · escritorio | ≈2 % de fotogramas lentos (>33 ms) | ≈5 % |
+| Home · móvil | ≈1 % | ≈5 % |
+| Guía · escritorio y móvil | 0 a 7 % | 0 % |
+
+Hallazgo: con la capa ambiental como **dos capas grandes animadas** la home llegaba a ≈14 % de fotogramas lentos; el `backdrop-filter` del menú casi no pesaba. Se cambió a **una capa estática de degradados** y el costo bajó a lo de arriba. Regla: no animar capas de pantalla completa; el vidrio se anima solo con `transform` en elementos pequeños.
+
+**Funcionalidad verificada tras el rediseño:** 10 páginas × escritorio/móvil sin errores de consola, imágenes rotas ni desbordes; 61 pasos de la guía en ES y EN (imágenes, recuadros alineados); persistencia del idioma con clics reales; clics del menú, scroll-spy y hover de tarjetas; visor de imágenes.
+
+**Arreglo detectado por el camino:** GSAP dejaba un `transform` en línea al terminar los revelados, lo que anulaba el `:hover` de las tarjetas (ya no: `clearProps: 'transform'`).
+
+**No probado (limitación):** Safari y Firefox reales (solo Chromium). Ambos soportan `backdrop-filter` con prefijo `-webkit-`, que está incluido; la refracción SVG no se usa, así que no hay diferencias esperadas.
+
+## 7. Ideas para más adelante (no hechas)
+
+Refracción real con `feDisplacementMap` solo para el menú en Chromium; barra de progreso de lectura de vidrio en la guía; transiciones de página con View Transitions; modo oscuro de vidrio.

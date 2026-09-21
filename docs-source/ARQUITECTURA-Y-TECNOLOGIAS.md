@@ -31,7 +31,8 @@ src/components/
   ui/                 YouTubeFacade.astro (video bajo demanda)
 src/data/             content.ts (textos EN/ES de la home), docs.ts, kicad-flow.ts, mods-flow.ts, mods-adapter.ts,
                       kicad-where.ts, docs-en.ts (diccionario), i18n.ts, image-sizes.json
-src/styles/           global.css (tokens, reset, idioma, animaciones base) [+ glass.css cuando exista, ver LIQUID-GLASS.md]
+src/styles/           global.css (tokens, reset, idioma, animaciones base), glass.css (sistema Liquid Glass: docs-source/LIQUID-GLASS.md)
+src/scripts/          glass-sheen.ts (reflejo del vidrio que sigue al puntero; solo puntero fino y sin reduced-motion)
 public/               imágenes, 404.html, llms.txt, robots.txt, sitemap.xml
 scripts/              utilidades de imágenes y OG
 docs-source/          material crudo, bitácoras y estas guías (no se publica)
@@ -65,7 +66,7 @@ docs-source/          material crudo, bitácoras y estas guías (no se publica)
 - `scripts/responsive-images.mjs` corre al final de `npm run build`: genera variantes `-480/-800/-1200/-1600` (retratos `-240…-720`) y agrega `srcset/sizes/width/height` a cada `<img>` de `dist/`.
 - Videos de YouTube: `YouTubeFacade.astro` (portada propia; el iframe `youtube-nocookie` se crea al pulsar play).
 - Islas React con hidratación diferida. Sin JS de framework en el resto.
-- Cuidado con `backdrop-filter` (cuesta GPU): ver `LIQUID-GLASS.md`.
+- Cuidado con `backdrop-filter` y con capas de pantalla completa (cuestan GPU/CPU): el vidrio solo desenfoca elementos flotantes y la capa ambiental es **estática**; hay mediciones antes/después en `LIQUID-GLASS.md` §6. No animar capas grandes.
 
 ## 6. Metodología de trabajo (git y GitHub)
 
@@ -85,3 +86,4 @@ docs-source/          material crudo, bitácoras y estas guías (no se publica)
    - Persistencia del idioma con clics reales entre páginas.
 4. Capturas de pantalla leídas a ojo para cambios visuales (escritorio y móvil).
 5. Buscar rayas largas en `dist/**/*.html`.
+6. Si se toca el diseño visual: contraste WCAG AA medido por píxeles sobre las superficies reales (captura del elemento, color de fondo dominante vs color de texto), modos `prefers-reduced-transparency` / `prefers-contrast: more` / `forced-colors` / `prefers-reduced-motion` emulados con CDP, y rendimiento de scroll con CPU limitada 4× **comparado contra la etiqueta `restore/*`** (worktree temporal + build + servidor estático en otro puerto). Método completo en `LIQUID-GLASS.md` §6.

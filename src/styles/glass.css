@@ -23,7 +23,7 @@
   --glass-fill-strong: linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.6));
   --glass-read: rgba(255, 252, 246, 0.8);
   --glass-dark: linear-gradient(145deg, rgba(52, 48, 41, 0.88), rgba(24, 22, 18, 0.82));
-  --glass-blue: linear-gradient(150deg, #4f68da 0%, #2540c0 52%, #1c32a0 100%);
+  --glass-blue: linear-gradient(150deg, #4560d3 0%, #2540c0 52%, #1c32a0 100%);
   --glass-solid: #fbf8f1; /* alternativa opaca */
 
   /* bordes y reflejos */
@@ -59,49 +59,18 @@ body.bg-cream {
   background: transparent;
 }
 
+/* Una sola capa estática de degradados (3 manchas). Se probó con dos capas grandes animadas (deriva lenta):
+   con la CPU limitada 4× la home perdía fluidez (≈10 % de fotogramas lentos frente a ≈0 % con la capa estática),
+   así que se dejó estática. Ver medición en docs-source/LIQUID-GLASS.md §6. */
 .glass-ambient {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  overflow: hidden;
-  background: radial-gradient(60vmax 50vmax at 72% 78%, rgba(150, 118, 220, 0.09), transparent 70%);
-}
-
-.glass-ambient::before,
-.glass-ambient::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  will-change: transform;
-}
-
-.glass-ambient::before {
-  width: 72vmax;
-  height: 72vmax;
-  top: -28vmax;
-  right: -22vmax;
-  background: radial-gradient(circle, rgba(37, 64, 192, 0.17), transparent 62%);
-  animation: glass-drift-a 46s ease-in-out infinite;
-}
-
-.glass-ambient::after {
-  width: 64vmax;
-  height: 64vmax;
-  bottom: -30vmax;
-  left: -24vmax;
-  background: radial-gradient(circle, rgba(234, 106, 46, 0.16), transparent 62%);
-  animation: glass-drift-b 58s ease-in-out infinite;
-}
-
-@keyframes glass-drift-a {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(-6vmax, 8vmax, 0) scale(1.12); }
-}
-
-@keyframes glass-drift-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(8vmax, -6vmax, 0) scale(1.1); }
+  background:
+    radial-gradient(70vmax 60vmax at 88% 6%, rgba(37, 64, 192, 0.15), transparent 65%),
+    radial-gradient(64vmax 56vmax at 6% 96%, rgba(234, 106, 46, 0.14), transparent 65%),
+    radial-gradient(60vmax 50vmax at 72% 78%, rgba(150, 118, 220, 0.08), transparent 70%);
 }
 
 /* ─── Superficies ─────────────────────────────────────────────────────────── */
@@ -404,14 +373,15 @@ body.bg-cream {
   transition-duration: 0.12s;
 }
 
+/* naranja más profundo que el de marca (#ea6a2e) para que el texto blanco cumpla WCAG AA (≥ 4.5:1) */
 .glass-btn--orange {
-  background: linear-gradient(150deg, #f58a55 0%, #ea6a2e 55%, #d8551a 100%);
+  background: linear-gradient(150deg, #cc4d14 0%, #b93f0c 55%, #a33607 100%);
   border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    inset 0 -1px 0 rgba(120, 40, 0, 0.3),
-    0 12px 26px -12px rgba(234, 106, 46, 0.7);
-  color: #fff8f0;
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(60, 15, 0, 0.35),
+    0 12px 26px -12px rgba(190, 70, 20, 0.75);
+  color: #fff;
 }
 
 /* vidrio sobre el bloque azul de contacto */
@@ -525,14 +495,15 @@ body.bg-cream {
   .glass-ambient {
     display: none;
   }
+
+  .glass--blur,
+  .glass--blur-strong {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glass-ambient::before,
-  .glass-ambient::after {
-    animation: none;
-  }
-
   .glass-lift:hover {
     transform: none;
   }
