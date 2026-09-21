@@ -15,9 +15,11 @@
 >
 > **Sigue sin hacerse / pendiente de decisión:** rama `gh-pages` (legacy, archivada, se dejó viva); fresado físico y fotos; valores de R/LED; nombre final de la placa; ¿BDAI también fue en persona?
 >
-> ## 🎯 SIGUIENTE (pedido por Alessandro, **esperando su permiso para empezar**): estética "Liquid Glass" estilo Apple en todo el sitio
-> Petición textual resumida: darle a **todo el sitio** una estética muy Apple, de *liquid glass* (menú superior, animaciones y detalles en general), **manteniendo lo mismo pero como un upgrade**: que se vea precioso, **sin perder funcionalidad ni facilidad de lectura** (solo cambio estético). Orden de trabajo pedido: **1) investigar cómo se hace, 2) evaluar en qué partes sí y en cuáles no, 3) implementar**, con control de git/GitHub (una rama por tema, commits pequeños, PRs) y **actualizando este contexto seguido por si se acaban los tokens**. Antes de empezar debe confirmarse el deploy actual y pedirle permiso.
-> Restricciones a respetar: sin efectos llamativos que estorben (él rechazó antes un efecto de brillo/tilt en la foto de la SRM-20; prefiere simple > vistoso salvo que pida explorar), accesibilidad (contraste, `prefers-reduced-motion`, `prefers-reduced-transparency`, foco visible), rendimiento móvil (blur caro), y que no se rompa la guía interactiva ni el cambio ES/EN. Punto de retorno: etiqueta `restore/sitio-pre-liquid-glass-2026-09-21`.
+> ## 🎨 EN CURSO (2026-09-21, con permiso de Alessandro): estética "Liquid Glass" estilo Apple en todo el sitio
+> Pedido: upgrade estético de **todo** el sitio (menú superior, animaciones, detalles) **sin perder funcionalidad ni legibilidad**; investigar → evaluar dónde sí/no → implementar; git/GitHub ordenados; **documentar tecnologías y metodología** para facilitar ampliaciones; **actualizar este contexto en cada hito** por si se acaban los tokens.
+> **Dónde está todo:** `docs-source/LIQUID-GLASS.md` (investigación, decisiones, tabla dónde sí/no, sistema de diseño y **tabla de avance con ramas y estado**) y `docs-source/ARQUITECTURA-Y-TECNOLOGIAS.md` (stack, mapa del repo, convenciones, recetas para ampliar, QA y metodología git).
+> **Reglas:** ramas apiladas, un PR por rama, **no mergear a `main` ni desplegar sin su visto bueno** (mostrarle antes en su navegador). Punto de retorno: `restore/sitio-pre-liquid-glass-2026-09-21`.
+> **Estado ahora:** rama 1 (`docs/liquid-glass-plan`) hecha; siguiente: `feat/glass-base` (ver tabla de avance en LIQUID-GLASS.md §5 para el estado de las 8 ramas).
 >
 > ---
 
