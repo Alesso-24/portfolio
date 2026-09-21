@@ -17,7 +17,7 @@
 >
 > ## 🔬 EN CURSO (2026-09-21, pedido de Alessandro tras ver el deploy): Liquid Glass v2 = refracción real
 > Dijo que la v1 "no se ve como vidrio, falta refracción". Plan, técnica, limitaciones y tabla de ramas en `docs-source/LIQUID-GLASS.md` §8 (refracción SVG solo en Chromium con alternativa a la v1 en Safari/Firefox; relleno adaptativo por legibilidad; medir contraste y rendimiento otra vez). **No desplegar sin su visto bueno.** Punto de retorno: `restore/sitio-liquid-glass-2026-09-21`.
-> **Estado ahora:** rama 1 (`docs/liquid-glass-refraccion`) en curso; siguiente: `feat/glass-refraction`.
+> **Estado ahora:** rama 1 (plan, PR #66) y 2 (`feat/glass-refraction`: refracción real del menú y del visor de imágenes con filtro SVG, bisel nítido + centro esmerilado, aberración cromática, relleno adaptativo, alternativa en Firefox/Safari) hechas; siguiente: `feat/glass-rim` (reflejos direccionales de borde en todas las superficies) y `fix/glass-refraction-qa` (contraste, rendimiento vs v1, docs). Tabla de avance en LIQUID-GLASS.md §8.
 >
 > ## ✅ 2026-09-21: LIQUID GLASS DESPLEGADO (`main` = `84b6806`, PRs #57 a #64)
 > Alessandro aprobó ("BIEN DEPLOY"). Estética Apple "liquid glass" en todo el sitio: menú flotante de vidrio (escritorio y móvil) con indicador deslizante y scroll-spy, botones, tarjetas, chips, formulario, pestañas y controles de la guía, visor de imágenes con desenfoque; texto largo y capturas planas; capa ambiental estática; alternativas sólidas para accesibilidad.

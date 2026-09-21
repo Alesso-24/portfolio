@@ -118,7 +118,7 @@ Refracción real con `feDisplacementMap` solo para el menú en Chromium; barra d
 | # | Rama | Contenido | Estado |
 |---|---|---|---|
 | 1 | `docs/liquid-glass-refraccion` | Esta sección | en curso |
-| 2 | `feat/glass-refraction` | `src/scripts/glass-refract.ts` (mapas + filtro SVG + detección Chromium), menú superior y controles del visor de imágenes refractivos, relleno adaptativo | pendiente |
+| 2 | `feat/glass-refraction` | `src/scripts/glass-refract.ts` (mapas + filtro SVG + detección Chromium), menú superior y controles del visor de imágenes refractivos, relleno adaptativo | hecho |
 | 3 | `feat/glass-rim` | Reflejos direccionales de borde en `.glass` (todas las superficies) | pendiente |
 | 4 | `fix/glass-refraction-qa` | Contraste medido sobre fondos oscuros/claros, rendimiento contra la v1, modos de accesibilidad, alternativa en Firefox/Safari (UA simulado), docs | pendiente |
 
