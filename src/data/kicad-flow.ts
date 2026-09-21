@@ -250,7 +250,7 @@ export const KICAD_FLOW: Flow = {
       title: '6. Esquemático completo',
       steps: [
         {
-          html: 'Con los 4 pulsadores y los conectores de entrada/salida ya armados, así queda el esquemático completo de <code>Hola_Mundo.kicad_sch</code>: dos bloques delimitados con cuadros: "Entradas y Salidas" arriba, "Pulsadores" (los 4 módulos en cuadrícula 2×2) debajo.',
+          html: 'Con los 4 pulsadores y los conectores de entrada/salida ya armados, así queda el esquemático completo de <code>Hola_Mundo.kicad_sch</code>, con dos bloques delimitados por cuadros: "Entradas y Salidas" arriba y "Pulsadores" (los 4 módulos en cuadrícula 2×2) debajo.',
           blocks: [
             {
               kind: 'shots',

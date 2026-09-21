@@ -1,4 +1,7 @@
 ---
+import T from './T.astro'
+import { en } from '../../data/i18n'
+
 interface Box {
   /** pixel coords in the source image (requires `size`) */
   x: number
@@ -6,6 +9,8 @@ interface Box {
   w: number
   h: number
   label: string
+  /** etiqueta en inglés (si falta, se busca en docs-en.ts) */
+  labelEn?: string
   /** where the label sits relative to the box (default: above) */
   pos?: 'top' | 'bottom' | 'left' | 'right'
   /** vertical nudge for the label, in CSS px (negative = up) */
@@ -15,6 +20,8 @@ interface Box {
 interface Props {
   src: string
   alt: string
+  /** alt en inglés (si falta, se busca en docs-en.ts) */
+  altEn?: string
   /** natural pixel size of the source image [width, height] — boxes are measured against it */
   size: [number, number]
   boxes: Box[]
@@ -22,7 +29,7 @@ interface Props {
   wide?: boolean
 }
 
-const { src, alt, size, boxes, wide = false } = Astro.props
+const { src, alt, altEn, size, boxes, wide = false } = Astro.props
 const [W, H] = size
 const pct = (n: number, of: number) => `${((n / of) * 100).toFixed(3)}%`
 ---
@@ -31,6 +38,7 @@ const pct = (n: number, of: number) => `${((n / of) * 100).toFixed(3)}%`
   <img
     src={src}
     alt={alt}
+    data-alt-en={altEn ?? en(alt)}
     width={W}
     height={H}
     class={`screenshot${wide ? ' screenshot--wide' : ''}`}
@@ -45,7 +53,7 @@ const pct = (n: number, of: number) => `${((n / of) * 100).toFixed(3)}%`
       <span
         class={`shot-annotation__label${b.pos ? ` shot-annotation__label--${b.pos}` : ''}`}
         style={b.nudge ? `margin-top:${b.nudge}px;` : undefined}
-      >{b.label}</span>
+      ><T es={b.label} en={b.labelEn} /></span>
     </span>
   ))}
 </span>

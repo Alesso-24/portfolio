@@ -29,3 +29,5 @@ _brief_extracted/
 # Astro generated
 .astro/
 
+# i18n: lista de textos sin traducir generada por I18N_COLLECT=1
+.i18n-missing.jsonl

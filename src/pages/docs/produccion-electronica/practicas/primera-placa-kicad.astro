@@ -2,6 +2,7 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro'
 import Flow from '../../../../components/docs/Flow.astro'
 import DocsInteractive from '../../../../components/docs/DocsInteractive.astro'
+import T from '../../../../components/docs/T.astro'
 import { KICAD_FLOW } from '../../../../data/kicad-flow'
 import { MODS_FLOW } from '../../../../data/mods-adapter'
 import { BRAND_BASE } from '../../../../data/flow-utils'
@@ -26,51 +27,47 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
 
   <!-- Ficha -->
   <div class="callout" data-reveal>
-    <strong>Ficha</strong>
+    <strong><T es="Ficha" en="Overview" /></strong>
     <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:4px;">
-      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Materia</span>{subject.name}</div>
-      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Equipo</span>{teamNames}</div>
-      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Herramientas</span>KiCad · MonoFab · Altium</div>
-      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Estado</span>
-        <span class="status-chip status-chip--en-progreso" style="margin-top:2px;"><span class="status-dot"></span>En progreso</span>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Materia" en="Subject" /></span><T es={subject.name} /></div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Equipo" en="Team" /></span>{teamNames}</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Herramientas" en="Tools" /></span>KiCad · MonoFab · Altium</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Estado" en="Status" /></span>
+        <span class="status-chip status-chip--en-progreso" style="margin-top:2px;"><span class="status-dot"></span><T es="En progreso" en="In progress" /></span>
       </div>
     </div>
   </div>
 
   <!-- Objetivo -->
-  <h2 id="objetivo" class="section-h2" data-reveal>Objetivo.</h2>
+  <h2 id="objetivo" class="section-h2" data-reveal><T es="Objetivo." en="Goal." /></h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Documentar el flujo completo para producir una PCB: diseñar un circuito en <strong>KiCad</strong>{' '}
-    (esquemático y placa), exportar los archivos de fabricación y generar las trayectorias de fresado
-    con <strong>mods</strong> para la <strong>Roland SRM-20</strong> (MonoFab).
+    <T es={'Documentar el flujo completo para producir una PCB: diseñar un circuito en <strong>KiCad</strong> (esquemático y placa), exportar los archivos de fabricación y generar las trayectorias de fresado con <strong>mods</strong> para la <strong>Roland SRM-20</strong> (MonoFab).'} />
   </p>
   <p class="prose" data-reveal data-reveal-delay="100">
-    El circuito con el que se documenta el proceso es un módulo de <strong>4 pulsadores</strong> con LED indicador, cada uno con
-    su resistencia pull-down, más un conector de alimentación (entradas) y uno de salidas que expone
-    el estado de cada botón hacia un microcontrolador externo.
+    <T es={'El circuito con el que se documenta el proceso es un módulo de <strong>4 pulsadores</strong> con LED indicador, cada uno con su resistencia pull-down, más un conector de alimentación (entradas) y uno de salidas que expone el estado de cada botón hacia un microcontrolador externo.'} />
   </p>
 
   <!-- Herramientas: al elegir una pestaña cambia el contenido -->
   <div class="tool-tabs" data-tabs id="herramientas">
-    <div class="tool-tabs__list" role="tablist" aria-label="Herramientas">
+    <div class="tool-tabs__list" role="tablist" aria-label="Herramientas" data-aria-label-en="Tools">
       <button type="button" role="tab" class="tool-tab" id="tab-kicad" data-tab="kicad" aria-controls="panel-kicad" aria-selected="true">
         <span class="tool-tab__icon tool-tab__icon--kicad"><img src={`${BRAND_BASE}kicad-icon.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
           <span class="tool-tab__title">KiCad</span>
-          <span class="tool-tab__sub">Esquemático, PCB y archivos de fabricación</span>
+          <span class="tool-tab__sub"><T es="Esquemático, PCB y archivos de fabricación" /></span>
         </span>
       </button>
       <button type="button" role="tab" class="tool-tab" id="tab-monofab" data-tab="monofab" aria-controls="panel-monofab" aria-selected="false" tabindex="-1">
         <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--cover"><img src={`${BRAND_BASE}monofab-icon.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
           <span class="tool-tab__title">MonoFab</span>
-          <span class="tool-tab__sub">Roland SRM-20 y mods: de los SVG al fresado</span>
+          <span class="tool-tab__sub"><T es="Roland SRM-20 y mods: de los SVG al fresado" /></span>
         </span>
       </button>
       <button type="button" role="tab" class="tool-tab tool-tab--pending" id="tab-altium" data-tab="altium" aria-controls="panel-altium" aria-selected="false" tabindex="-1">
         <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--altium"><img src={`${BRAND_BASE}altium-logo.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
-          <span class="tool-tab__title">Altium<span class="tool-tab__badge">Pendiente</span></span>
+          <span class="tool-tab__title">Altium<span class="tool-tab__badge"><T es="Pendiente" en="Pending" /></span></span>
         </span>
       </button>
     </div>
@@ -79,7 +76,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <section class="tool-panel is-active" id="panel-kicad" role="tabpanel" aria-labelledby="tab-kicad" data-tab-panel="kicad">
       <div class="tool-panel__head">
         <img class="tool-panel__logo" src={`${BRAND_BASE}kicad-logo-sm.webp`} alt="KiCad" width="132" height="54" />
-        <p>De un proyecto vacío al esquemático completo, el PCB ruteado y los archivos de fabricación (Gerber/SVG). Avanza con las flechas (o las del teclado), salta a una sección con los botones de arriba y haz clic en una captura para ampliarla.</p>
+        <p><T es={'De un proyecto vacío al esquemático completo, el PCB ruteado y los archivos de fabricación (Gerber/SVG). Avanza con las flechas (o las del teclado), salta a una sección con los botones de arriba y haz clic en una captura para ampliarla.'} /></p>
       </div>
       <Flow flow={KICAD_FLOW} />
     </section>
@@ -87,15 +84,13 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <!-- MonoFab -->
     <section class="tool-panel" id="panel-monofab" role="tabpanel" aria-labelledby="tab-monofab" data-tab-panel="monofab">
       <div class="tool-panel__head">
-        <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}monofab-icon.webp`} alt="Roland SRM-20 (MonoFab)" width="62" height="62" />
-        <p>La MonoFab es la fresadora <strong>Roland SRM-20</strong>. Aquí se generan, con <strong>mods</strong>, los tres archivos <code>.rml</code> (periferia, pistas y orificios) que se le cargan.</p>
+        <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}monofab-icon.webp`} alt="Roland SRM-20 (MonoFab)" data-alt-en="Roland SRM-20 (MonoFab)" width="62" height="62" />
+        <p><T es={'La MonoFab es la fresadora <strong>Roland SRM-20</strong>. Aquí se generan, con <strong>mods</strong>, los tres archivos <code>.rml</code> (periferia, pistas y orificios) que se le cargan.'} /></p>
       </div>
       <div class="callout">
-        <strong>Cómo leer esta guía</strong>
+        <strong><T es="Cómo leer esta guía" en="How to read this guide" /></strong>
         <p class="prose" style="margin:0; font-size:14.5px;">
-          Cada paso muestra el <b>grafo completo</b> de mods con un <b>recuadro naranja sobre el nodo</b> que hay que
-          tocar y, al lado, la captura de detalle con recuadros sobre el <b>botón o campo exacto</b>. El proceso se repite
-          <b>tres veces, una por SVG</b>, recargando la página de mods entre uno y otro. Haz clic en una captura para ampliarla.
+          <T es={'Cada paso muestra el <b>grafo completo</b> de mods con un <b>recuadro naranja sobre el nodo</b> que hay que tocar y, al lado, la captura de detalle con recuadros sobre el <b>botón o campo exacto</b>. El proceso se repite <b>tres veces, una por SVG</b>, recargando la página de mods entre uno y otro. Haz clic en una captura para ampliarla.'} />
         </p>
       </div>
       <Flow flow={MODS_FLOW} />
@@ -106,7 +101,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
       <div class="altium-pending">
         <img src={`${BRAND_BASE}altium-logo.webp`} alt="Altium" width="70" height="96" />
         <div>
-          <h3>Altium <span class="tool-tab__badge">Pendiente</span></h3>
+          <h3>Altium <span class="tool-tab__badge"><T es="Pendiente" en="Pending" /></span></h3>
         </div>
       </div>
     </section>

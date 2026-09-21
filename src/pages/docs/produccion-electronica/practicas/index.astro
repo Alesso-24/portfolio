@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro'
+import T from '../../../../components/docs/T.astro'
 import { getSubject, getPractices } from '../../../../data/docs'
 
 const subject = getSubject('produccion-electronica')!
@@ -19,12 +20,12 @@ const practices = getPractices('produccion-electronica')
     {practices.map((practice) => (
       <a href={`/portfolio/docs/${subject.slug}/practicas/${practice.slug}`} class="practice-row">
         <div class="practice-main">
-          <h3>{practice.title}</h3>
-          <p>{practice.summary}</p>
+          <h3><T es={practice.title} /></h3>
+          <p><T es={practice.summary} /></p>
         </div>
         <span class={`status-chip status-chip--${practice.status}`}>
           <span class="status-dot"></span>
-          {practice.status === 'en-progreso' ? 'En progreso' : 'Completa'}
+          {practice.status === 'en-progreso' ? <T es="En progreso" en="In progress" /> : <T es="Completa" en="Complete" />}
         </span>
       </a>
     ))}
