@@ -5,10 +5,25 @@ import { NAV_LINKS, SITE } from '../../data/content'
 
 interface Props { lang?: 'en' | 'es' }
 
+/** Ambos idiomas en el HTML; el CSS global muestra el activo (sin parpadeo al cargar). */
+const T = ({ en, es }: { en: string; es: string }) => (
+  <>
+    <span className="lang-en">{en}</span>
+    <span className="lang-es">{es}</span>
+  </>
+)
+
 export default function Nav({ lang: initialLang = 'en' }: Props) {
   const [lang, setLang]       = useState<'en' | 'es'>(initialLang)
   const [menuOpen, setMenu]   = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  // El idioma vive en <html lang> (lo fija el script de Base.astro con la preferencia guardada);
+  // aquí solo se sincroniza el estado al hidratar. Los textos cambian por CSS (.lang-en / .lang-es).
+  useEffect(() => {
+    const current = document.documentElement.getAttribute('lang')
+    if (current === 'en' || current === 'es') setLang(current)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -42,9 +57,10 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   }
 
   const toggleLang = () => {
-    const next = lang === 'en' ? 'es' : 'en'
+    const next = document.documentElement.getAttribute('lang') === 'es' ? 'en' : 'es'
     setLang(next)
     document.documentElement.setAttribute('lang', next)
+    try { localStorage.setItem('lang', next) } catch {}
     window.dispatchEvent(new CustomEvent('lang-change', { detail: next }))
   }
 
@@ -92,7 +108,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               onMouseEnter={e => (e.currentTarget.style.color = '#ea6a2e')}
               onMouseLeave={e => (e.currentTarget.style.color = '#4a473f')}
             >
-              {link.label[lang]}
+              <T {...link.label} />
             </button>
           ))}
         </nav>
@@ -117,13 +133,14 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               width: 7, height: 7, borderRadius: '50%', background: '#ea6a2e',
               animation: 'ar-pulse 1.8s infinite', flexShrink: 0,
             }} />
-            {lang === 'en' ? 'Open to work' : 'Disponible'}
+            <T en="Open to work" es="Disponible" />
           </a>
 
           {/* Language toggle */}
           <button
             onClick={toggleLang}
-            title="Toggle Language"
+            title={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
+            aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
             style={{
               display: 'flex', alignItems: 'center', gap: 4,
               background: 'none', border: '1px solid transparent', cursor: 'pointer',
@@ -135,7 +152,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
             }}
           >
             <Globe size={14} strokeWidth={1.5} />
-            {lang.toUpperCase()}
+            <T en="EN" es="ES" />
           </button>
 
           {/* Hamburger — shown on mobile */}
@@ -189,7 +206,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
                     transition: 'color 0.2s',
                   }}
                 >
-                  {link.label[lang]}
+                  <T {...link.label} />
                 </motion.button>
               ))}
 

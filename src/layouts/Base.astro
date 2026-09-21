@@ -25,6 +25,14 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Idioma guardado por el visitante (ES/EN): se aplica antes de pintar para que no haya parpadeo.
+         Si no hay preferencia guardada, manda el idioma por defecto de la página. -->
+    <script is:inline>
+      try {
+        var saved = localStorage.getItem('lang');
+        if (saved === 'en' || saved === 'es') document.documentElement.setAttribute('lang', saved);
+      } catch (e) {}
+    </script>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formsubmit.co; frame-src https://www.youtube-nocookie.com; form-action https://formsubmit.co; base-uri 'self'; object-src 'none';" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
