@@ -22,7 +22,7 @@ Based in Puebla, Mexico. Mechatronics Engineering student at Universidad Iberoam
 
 ## Publications
 
-- "Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off in Industrial Bearing Predictive Maintenance" — accepted to IEEE CASE 2026 (22nd IEEE International Conference on Automation Science and Engineering), Shenyang, China, Aug 17–21 2026. Presenting remotely. Proceedings via IEEE Xplore.
+- "Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off in Industrial Bearing Predictive Maintenance" — accepted to IEEE CASE 2026 (22nd IEEE International Conference on Automation Science and Engineering), Shenyang, China, Aug 17–21 2026. Presented in person. Proceedings via IEEE Xplore.
 - "Comparative Evaluation of Lightweight Supervised Machine Learning Techniques for Industrial Rotating Machinery" — accepted to IEEE BDAI 2026 (9th International Conference on Big Data and Artificial Intelligence), Chongqing, China, Jul 3–5 2026. Presenting remotely. Proceedings via IEEE Xplore, indexed in Ei Compendex and Scopus.
 
 ## Other projects

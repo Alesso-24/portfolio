@@ -52,7 +52,7 @@ export const STATS = [
   },
   {
     value: '2×',
-    label: { en: 'IEEE papers: BDAI 2026 presented, CASE 2026 accepted', es: 'Artículos IEEE: BDAI 2026 presentado, CASE 2026 aceptado' },
+    label: { en: 'IEEE papers: BDAI 2026 and CASE 2026 presented', es: 'Artículos IEEE: BDAI 2026 y CASE 2026 presentados' },
   },
 ]
 
@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'fault-detection-case',
-    tag: { en: 'IEEE CASE 2026 · Accepted', es: 'IEEE CASE 2026 · Aceptado' },
+    tag: { en: 'IEEE CASE 2026 · Presented', es: 'IEEE CASE 2026 · Presentado' },
     title: { en: 'Edge AI Decision Framework: Quantifying the Sensitivity-Latency Trade-off', es: 'Framework de Decisión Edge AI: Cuantificando el Trade-off Sensibilidad-Latencia' },
     description: {
       en: 'Found a real hardware bug that flipped a "perfect" model\'s decision on actual silicon, then proved a 126× faster model matches Random Forest once a fault signature is separable enough.',
@@ -188,7 +188,7 @@ export const PUBLICATIONS: Publication[] = [
       es: 'Framework de Decisión Edge AI: Cuantificando el Trade-off Sensibilidad-Latencia en Mantenimiento Predictivo de Rodamientos Industriales',
     },
     venue: 'IEEE CASE 2026',
-    status: { en: 'Accepted · Presenting Aug 2026', es: 'Aceptado · Presentando ago 2026' },
+    status: { en: 'Presented in person · Aug 2026', es: 'Presentado en persona · ago 2026' },
     year: '2026 ↗',
     href: '/portfolio/project/fault-detection-case',
   },
