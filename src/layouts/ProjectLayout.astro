@@ -7,6 +7,11 @@ interface Props {
   badge: string
   coverImage: string
   coverAlt: string
+  /** versión en español del encabezado (título, etiqueta, ficha y alt de la portada) */
+  titleEs?: string
+  badgeEs?: string
+  coverAltEs?: string
+  metaEs?: { label: string; value: string }[]
   meta?: { label: string; value: string }[]
   backHref?: string
   ogImage?: string
@@ -20,6 +25,10 @@ const {
   badge,
   coverImage,
   coverAlt,
+  titleEs,
+  badgeEs,
+  coverAltEs,
+  metaEs = [],
   meta = [],
   backHref = '/portfolio/',
   ogImage,
@@ -29,6 +38,7 @@ const {
 
 <Base
   title={`${title} | Alessandro Reyes`}
+  titleEs={titleEs ? `${titleEs} | Alessandro Reyes` : undefined}
   description={description}
   ogImage={ogImage}
   canonical={`https://alesso-24.github.io${Astro.url.pathname}`}
@@ -57,7 +67,7 @@ const {
         "
       >
         <span style="width:8px; height:8px; border-radius:50%; background:#ea6a2e; flex-shrink:0;"></span>
-        {badge}
+        <span class="lang-en">{badge}</span><span class="lang-es">{badgeEs ?? badge}</span>
       </div>
 
       <!-- Title -->
@@ -72,7 +82,7 @@ const {
           color: #211f1a;
         "
       >
-        {title}
+        <span class="lang-en">{title}</span><span class="lang-es">{titleEs ?? title}</span>
       </h1>
 
       <!-- Meta + actions -->
@@ -86,9 +96,11 @@ const {
             {meta.map(({ label, value }) => (
               <div>
                 <div style="font: 600 10px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: #6f6a5f; margin-bottom: 6px;">
-                  {label}
+                  <span class="lang-en">{label}</span><span class="lang-es">{metaEs[meta.findIndex((m) => m.label === label)]?.label ?? label}</span>
                 </div>
-                <div style="font: 400 15px 'Hanken Grotesk', system-ui, sans-serif; color: #211f1a; line-height:1.5;" set:html={value} />
+                <div style="font: 400 15px 'Hanken Grotesk', system-ui, sans-serif; color: #211f1a; line-height:1.5;">
+                  <span class="lang-en" set:html={value} /><span class="lang-es" set:html={metaEs[meta.findIndex((m) => m.label === label)]?.value ?? value} />
+                </div>
               </div>
             ))}
           </div>
@@ -123,6 +135,7 @@ const {
       <img
         src={coverImage}
         alt={coverAlt}
+        data-alt-es={coverAltEs}
         loading="eager"
         fetchpriority="high"
         decoding="async"

@@ -4,12 +4,21 @@ import YouTubeFacade from '../../components/ui/YouTubeFacade.astro'
 ---
 
 <ProjectLayout
+  badgeEs="Sistemas de control · 2024"
   badge="Control Systems · 2024"
+  titleEs="Plataforma autobalanceable de 3 GDL: diseño inspirado en Stewart."
   title="3-DOF Self-Balancing Platform: Stewart-Inspired Design."
   description="A 3-axis attitude control platform using PID + LQR control and real-time sensor fusion. Built from scratch with custom control software and mechatronic design."
   coverImage="/portfolio/images/plat1.webp"
-  coverAlt="Plataforma autobalanceable de 3-DOF en banco de pruebas"
+  coverAlt="3-DOF self-balancing platform on a test bench"
+  coverAltEs="Plataforma autobalanceable de 3-DOF en banco de pruebas"
   ogImage="https://alesso-24.github.io/portfolio/images/plat1.webp"
+  metaEs={[
+    { label: 'Rol', value: 'Ingeniero full-stack (HW + SW)' },
+    { label: 'Plataforma', value: 'Arduino Mega · MPU6050 · 3× servos' },
+    { label: 'Control', value: 'PID + LQR · Kalman Filter · I²C' },
+    { label: 'Herramientas', value: 'Fusion 360 · C++ · Python · MATLAB' },
+  ]}
   meta={[
     { label: 'Role',     value: 'Full-Stack Engineer (HW + SW)' },
     { label: 'Platform', value: 'Arduino Mega · MPU6050 · 3× Servos' },
@@ -103,10 +112,10 @@ import YouTubeFacade from '../../components/ui/YouTubeFacade.astro'
 
   <div data-reveal style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,2vw,24px); margin:clamp(32px,5vh,56px) 0;">
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 20px 50px -24px rgba(37,64,192,0.4);">
-      <img src="/portfolio/images/plat2.webp" alt="Plataforma autobalanceable, vista superior" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+      <img src="/portfolio/images/plat2.webp" alt="Self-balancing platform, top view" data-alt-es="Plataforma autobalanceable, vista superior" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 20px 50px -24px rgba(234,106,46,0.35);">
-      <img src="/portfolio/images/plat3.webp" alt="Plataforma autobalanceable, vista lateral" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+      <img src="/portfolio/images/plat3.webp" alt="Self-balancing platform, side view" data-alt-es="Plataforma autobalanceable, vista lateral" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
   </div>
 

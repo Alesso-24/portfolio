@@ -3,13 +3,23 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 ---
 
 <ProjectLayout
+  badgeEs="Hackathon OQI LATAM 2026 · 1er lugar"
   badge="OQI Hackathon LATAM 2026 · 1st Place"
+  titleEs="1er lugar: computación cuántica para la crisis del agua en Puebla."
   title="1st Place: Quantum Computing for Puebla’s Water Crisis."
   description="Won 1st place at Hackathon LATAM 2026: Quantum Computing for Water Challenges. Modeled Puebla's water deficit as MILP and QUBO, then solved it with QAOA on IBM Qiskit. Organized by OQI, with CERN and QCentroid on the jury and infrastructure."
   coverImage="/portfolio/images/hack_team.webp"
-  coverAlt="Equipo 9 BUAP con certificados de participación del Hackathon LATAM 2026"
+  coverAlt="Team 9 BUAP with participation certificates from Hackathon LATAM 2026"
+  coverAltEs="Equipo 9 BUAP con certificados de participación del Hackathon LATAM 2026"
   ogImage="https://alesso-24.github.io/portfolio/images/hack_team.webp"
   githubHref="https://github.com/ro-sgr/OQI26-BUAP-equipo9"
+  metaEs={[
+    { label: 'Sede', value: 'Hackathon OQI LATAM 2026 · BUAP, Puebla' },
+    { label: 'Estado', value: '🥇 1er lugar · 29 jun – 1 jul, 2026' },
+    { label: 'Equipo', value: 'Equipo 9 · 4 estudiantes' },
+    { label: 'Stack', value: 'Python · PuLP/CBC · Qiskit · PennyLane' },
+    { label: 'Rol', value: 'Formulación MILP y análisis de línea base' },
+  ]}
   meta={[
     { label: 'Venue',   value: 'OQI Hackathon LATAM 2026 · BUAP, Puebla' },
     { label: 'Status',  value: '🥇 1st Place · Jun 29 – Jul 1, 2026' },
@@ -80,7 +90,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/hack_presenting.webp" alt="Presentando los resultados de la línea base MILP en el Hackathon LATAM 2026" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/hack_presenting.webp" alt="Presenting the MILP baseline results at Hackathon LATAM 2026" data-alt-es="Presentando los resultados de la línea base MILP en el Hackathon LATAM 2026" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <p class="prose" data-reveal data-reveal-delay="60">
@@ -161,7 +171,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(234,106,46,0.3);">
-    <img src="/portfolio/images/hack_qcentroid.webp" alt="Con mentores de QCentroid durante el Hackathon LATAM 2026" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/hack_qcentroid.webp" alt="With QCentroid mentors during Hackathon LATAM 2026" data-alt-es="Con mentores de QCentroid durante el Hackathon LATAM 2026" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />
@@ -177,7 +187,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; max-width:380px; margin-left:auto; margin-right:auto; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/hack_certificate.webp" alt="Certificado de 1er lugar de Jordi Alessandro Reyes Martínez" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/hack_certificate.webp" alt="1st place certificate of Jordi Alessandro Reyes Martínez" data-alt-es="Certificado de 1er lugar de Jordi Alessandro Reyes Martínez" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
 </ProjectLayout>

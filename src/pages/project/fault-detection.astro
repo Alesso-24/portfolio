@@ -3,12 +3,22 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 ---
 
 <ProjectLayout
+  badgeEs="Investigación IEEE · BDAI 2026 · Presentado"
   badge="IEEE Research · BDAI 2026 · Presented"
+  titleEs="Mantenimiento predictivo al 99.85%, sin la nube."
   title="Predictive Maintenance at 99.85%, Without the Cloud."
   description="A Random Forest classifier reaches 99.85% accuracy detecting bearing faults in the NASA IMS dataset with zero false positives. An analytical model shows 98.4% less energy than streaming raw vibration data to the cloud. Presented at IEEE BDAI 2026, Chongqing."
   coverImage="/portfolio/images/cover_bdai.webp"
-  coverAlt="Rodamiento industrial, mantenimiento predictivo con Machine Learning"
+  coverAlt="Industrial bearing, predictive maintenance with machine learning"
+  coverAltEs="Rodamiento industrial, mantenimiento predictivo con Machine Learning"
   ogImage="https://alesso-24.github.io/portfolio/images/cover_bdai.webp"
+  metaEs={[
+    { label: 'Sede', value: 'IEEE BDAI 2026 · Chongqing, China' },
+    { label: 'Estado', value: '✓ Presentado · IEEE Xplore pendiente' },
+    { label: 'Precisión', value: '99.85% · cero falsos positivos' },
+    { label: 'Stack', value: 'Python · scikit-learn · ESP32 · FreeRTOS' },
+    { label: 'Rol', value: 'Investigador principal · Presentador y presidente de sesión' },
+  ]}
   meta={[
     { label: 'Venue',     value: 'IEEE BDAI 2026 · Chongqing, China' },
     { label: 'Status',    value: '✓ Presented · IEEE Xplore pending' },
@@ -89,7 +99,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/bdai_importance.webp" alt="Ranking de importancia de características: RMS domina como la métrica más discriminativa" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/bdai_importance.webp" alt="Feature importance ranking: RMS dominates as the most discriminative metric" data-alt-es="Ranking de importancia de características: RMS domina como la métrica más discriminativa" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />
@@ -105,7 +115,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35); max-width:520px; margin-left:auto; margin-right:auto;">
-    <img src="/portfolio/images/bdai_signal.webp" alt="Comparación en dominio temporal: estado sano (arriba) vs. falla crítica (abajo)" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/bdai_signal.webp" alt="Time-domain comparison: healthy state (top) vs. critical fault (bottom)" data-alt-es="Comparación en dominio temporal: estado sano (arriba) vs. falla crítica (abajo)" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <p class="prose" data-reveal data-reveal-delay="60">
@@ -114,7 +124,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/bdai_rms.webp" alt="Evolución del RMS a lo largo del tiempo: la degradación comienza tras 700 periodos y cruza el umbral de falla en 0.20g" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/bdai_rms.webp" alt="RMS over time: degradation starts after 700 periods and crosses the failure threshold at 0.20g" data-alt-es="Evolución del RMS a lo largo del tiempo: la degradación comienza tras 700 periodos y cruza el umbral de falla en 0.20g" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />
@@ -131,15 +141,15 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 
   <div data-reveal class="img-grid-2">
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(37,64,192,0.3);">
-      <img src="/portfolio/images/bdai_comparison.webp" alt="Comparación de exactitud en test set: Random Forest 99.85%, SVM 97.50%, k-NN 96.80%" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+      <img src="/portfolio/images/bdai_comparison.webp" alt="Test set accuracy comparison: Random Forest 99.85%, SVM 97.50%, k-NN 96.80%" data-alt-es="Comparación de exactitud en test set: Random Forest 99.85%, SVM 97.50%, k-NN 96.80%" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(234,106,46,0.3);">
-      <img src="/portfolio/images/bdai_gridsearch.webp" alt="Heatmap de Grid Search, profundidad óptima de 5" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+      <img src="/portfolio/images/bdai_gridsearch.webp" alt="Grid Search heatmap, optimal depth of 5" data-alt-es="Heatmap de Grid Search, profundidad óptima de 5" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
   </div>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; max-width:420px; margin-left:auto; margin-right:auto; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/bdai_matrix.webp" alt="Matriz de confusión: 194/194 sanos y 3/3 con falla correctamente clasificados, cero falsos positivos" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/bdai_matrix.webp" alt="Confusion matrix: 194/194 healthy and 3/3 faulty correctly classified, zero false positives" data-alt-es="Matriz de confusión: 194/194 sanos y 3/3 con falla correctamente clasificados, cero falsos positivos" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <p class="prose" data-reveal data-reveal-delay="60">
@@ -160,7 +170,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/bdai_noise.webp" alt="Degradación de exactitud bajo niveles crecientes de ruido: el modelo se mantiene sobre el 90%" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/bdai_noise.webp" alt="Accuracy degradation under increasing noise levels: the model stays above 90%" data-alt-es="Degradación de exactitud bajo niveles crecientes de ruido: el modelo se mantiene sobre el 90%" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />

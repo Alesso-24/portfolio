@@ -3,12 +3,22 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 ---
 
 <ProjectLayout
+  badgeEs="Investigación IEEE · CASE 2026 · Aceptado"
   badge="IEEE Research · CASE 2026 · Accepted"
+  titleEs="Edge AI que sabe cuándo cambiar de modelo."
   title="Edge AI That Knows When to Switch Models."
   description="A stage-aware framework that switches between Random Forest and Logistic Regression based on measured fault separability (FDR), benchmarked on real ESP32 hardware. Logistic Regression runs 126x faster once a fault is obvious, and a real single-precision hardware bug flipped an SVM's decision that looked perfect in simulation. Accepted to IEEE CASE 2026, presenting in person in Shenyang."
   coverImage="/portfolio/images/cover_case.webp"
-  coverAlt="Microcontrolador ESP32 usado para el benchmark de hardware"
+  coverAlt="ESP32 microcontroller used for the hardware benchmark"
+  coverAltEs="Microcontrolador ESP32 usado para el benchmark de hardware"
   ogImage="https://alesso-24.github.io/portfolio/images/cover_case.webp"
+  metaEs={[
+    { label: 'Sede', value: 'IEEE CASE 2026 · Shenyang, China' },
+    { label: 'Estado', value: '✓ Aceptado · Presentación en persona, ago 2026' },
+    { label: 'Resultado', value: '184ns (LR) vs. 23.3μs (RF) en ESP32 real' },
+    { label: 'Stack', value: 'Python · scikit-learn · ESP32 (Xtensa LX6)' },
+    { label: 'Rol', value: 'Investigador principal y benchmarking de hardware' },
+  ]}
   meta={[
     { label: 'Venue',   value: 'IEEE CASE 2026 · Shenyang, China' },
     { label: 'Status',  value: '✓ Accepted · Presenting in person, Aug 2026' },
@@ -85,10 +95,10 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
 
   <div data-reveal class="img-grid-2">
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(234,106,46,0.3);">
-      <img src="/portfolio/images/case_signal.webp" alt="Acondicionamiento de señal: vibración cruda contra sensor virtual" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+      <img src="/portfolio/images/case_signal.webp" alt="Signal conditioning: raw vibration vs. virtual sensor" data-alt-es="Acondicionamiento de señal: vibración cruda contra sensor virtual" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
     <div style="border-radius:14px; overflow:hidden; box-shadow:0 18px 44px -20px rgba(37,64,192,0.3);">
-      <img src="/portfolio/images/case_trend.webp" alt="Tendencia de monitoreo de condición sobre 984 ciclos, con el punto de falla confirmado marcado" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+      <img src="/portfolio/images/case_trend.webp" alt="Condition monitoring trend over 984 cycles, with the confirmed failure point marked" data-alt-es="Tendencia de monitoreo de condición sobre 984 ciclos, con el punto de falla confirmado marcado" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
     </div>
   </div>
 
@@ -105,7 +115,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(234,106,46,0.35);">
-    <img src="/portfolio/images/case_pca.webp" alt="Dispersión PCA: solapamiento de clases en etapa incipiente vs. separación limpia en etapa avanzada" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/case_pca.webp" alt="PCA scatter: class overlap at the incipient stage vs. clean separation at the advanced stage" data-alt-es="Dispersión PCA: solapamiento de clases en etapa incipiente vs. separación limpia en etapa avanzada" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <div class="tech-grid" data-reveal data-reveal-delay="100">
@@ -145,7 +155,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </div>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/case_esp32.webp" alt="Latencia de inferencia en ESP32 real: 184ns (LR) vs. 23.3μs (RF) vs. 96.5μs (SVM)" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/case_esp32.webp" alt="Inference latency on a real ESP32: 184ns (LR) vs. 23.3μs (RF) vs. 96.5μs (SVM)" data-alt-es="Latencia de inferencia en ESP32 real: 184ns (LR) vs. 23.3μs (RF) vs. 96.5μs (SVM)" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />
@@ -161,7 +171,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -24px rgba(234,106,46,0.3);">
-    <img src="/portfolio/images/case_framework.webp" alt="Framework de decisión: la ruta de alta criticidad favorece a RF en detección ultra temprana, la ruta de eficiencia favorece a LR en monitoreo de estado estable" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/case_framework.webp" alt="Decision framework: the high-criticality path favors RF for ultra-early detection, the efficiency path favors LR for steady-state monitoring" data-alt-es="Framework de decisión: la ruta de alta criticidad favorece a RF en detección ultra temprana, la ruta de eficiencia favorece a LR en monitoreo de estado estable" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <p class="prose" data-reveal data-reveal-delay="60">
@@ -170,7 +180,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; max-width:480px; margin-left:auto; margin-right:auto; box-shadow:0 22px 50px -24px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/case_crossbearing.webp" alt="Validación cruzada entre rodamientos: modelos entrenados en Rodamiento 1, evaluados en Rodamiento 2 sano" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/case_crossbearing.webp" alt="Cross-bearing validation: models trained on Bearing 1, evaluated on healthy Bearing 2" data-alt-es="Validación cruzada entre rodamientos: modelos entrenados en Rodamiento 1, evaluados en Rodamiento 2 sano" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />
