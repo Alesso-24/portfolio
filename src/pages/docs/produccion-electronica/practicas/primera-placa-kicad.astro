@@ -13,7 +13,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
 
 <DocsLayout
   title="Creación de PCBs"
-  description="El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium — documentado paso a paso."
+  description="El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium."
   badge="Producción Electrónica"
   breadcrumbs={[
     { label: 'Documentación', href: '/portfolio/docs' },
@@ -71,7 +71,6 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
         <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--altium"><img src={`${BRAND_BASE}altium-logo.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
           <span class="tool-tab__title">Altium<span class="tool-tab__badge">Pendiente</span></span>
-          <span class="tool-tab__sub">Aún no migran a Altium</span>
         </span>
       </button>
     </div>
@@ -80,7 +79,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <section class="tool-panel is-active" id="panel-kicad" role="tabpanel" aria-labelledby="tab-kicad" data-tab-panel="kicad">
       <div class="tool-panel__head">
         <img class="tool-panel__logo" src={`${BRAND_BASE}kicad-logo-sm.webp`} alt="KiCad" width="132" height="54" />
-        <p>De un proyecto vacío al esquemático completo, el PCB ruteado y los archivos de fabricación (Gerber/SVG). Ve paso a paso con las flechas (o las del teclado), salta a una sección y toca o haz clic en cualquier captura para ampliarla.</p>
+        <p>De un proyecto vacío al esquemático completo, el PCB ruteado y los archivos de fabricación (Gerber/SVG). Avanza con las flechas (o las del teclado), salta a una sección con los botones de arriba y haz clic en una captura para ampliarla.</p>
       </div>
       <Flow flow={KICAD_FLOW} />
     </section>
@@ -96,8 +95,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
         <p class="prose" style="margin:0; font-size:14.5px;">
           Cada paso muestra el <b>grafo completo</b> de mods con un <b>recuadro naranja sobre el nodo</b> que hay que
           tocar y, al lado, la captura de detalle con recuadros sobre el <b>botón o campo exacto</b>. El proceso se repite
-          <b>tres veces, una por SVG</b>, recargando la página de mods entre uno y otro. Si alguien lo hace más adelante
-          sin acordarse de nada, basta con seguir los recuadros naranjas. Haz clic en cualquier captura para ampliarla.
+          <b>tres veces, una por SVG</b>, recargando la página de mods entre uno y otro. Haz clic en una captura para ampliarla.
         </p>
       </div>
       <Flow flow={MODS_FLOW} />
@@ -108,8 +106,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
       <div class="altium-pending">
         <img src={`${BRAND_BASE}altium-logo.webp`} alt="Altium" width="70" height="96" />
         <div>
-          <h3>Altium — pendiente</h3>
-          <p>Todavía no migran a Altium: por ahora la materia se trabaja con KiCad. Cuando se empiece a usar, aquí irá la misma guía paso a paso (esquemático, PCB y fabricación) para comparar ambos flujos.</p>
+          <h3>Altium <span class="tool-tab__badge">Pendiente</span></h3>
         </div>
       </div>
     </section>
