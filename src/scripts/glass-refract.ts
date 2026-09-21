@@ -80,17 +80,10 @@ function buildProfile(bezel: number) {
   return { profile: out, max: Math.max(max, 0.0001) }
 }
 
-function build(el: HTMLElement) {
-  const rect = el.getBoundingClientRect()
-  const w = Math.round(rect.width)
-  const h = Math.round(rect.height)
-  if (w < 24 || h < 16) return
-  const cs = getComputedStyle(el)
-  const r = Math.min(parseFloat(cs.borderTopLeftRadius) || 0, w / 2, h / 2)
-  const bezel = Math.min(BEZEL_MAX, Math.min(w, h) / 2 - 1)
-  const key = `${w}x${h}x${Math.round(r)}`
-  if (el.dataset.refractKey === key) return
+/** mapas ya calculados por tamaño (alternar entre estados de un mismo elemento, como el dock, es instantáneo) */
+const cache = new Map<string, { dispURL: string; specURL: string; max: number }>()
 
+function generate(w: number, h: number, r: number, bezel: number) {
   const { profile, max } = buildProfile(bezel)
   const disp = new ImageData(w, h)
   const spec = new ImageData(w, h)
@@ -164,6 +157,30 @@ function build(el: HTMLElement) {
   }
   const dispURL = toURL(disp)
   const specURL = toURL(spec)
+  return { dispURL, specURL, max }
+}
+
+function measure(el: HTMLElement) {
+  const rect = el.getBoundingClientRect()
+  const w = Math.round(rect.width)
+  const h = Math.round(rect.height)
+  const r = Math.min(parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0, w / 2, h / 2)
+  return { w, h, r, key: `${w}x${h}x${Math.round(r)}` }
+}
+
+function build(el: HTMLElement) {
+  const { w, h, r, key } = measure(el)
+  if (w < 24 || h < 16) return
+  const bezel = Math.min(BEZEL_MAX, Math.min(w, h) / 2 - 1)
+  if (el.dataset.refractKey === key) return
+
+  let entry = cache.get(key)
+  if (!entry) {
+    entry = generate(w, h, r, bezel)
+    cache.set(key, entry)
+    if (cache.size > 16) cache.delete(cache.keys().next().value as string)
+  }
+  const { dispURL, specURL, max } = entry
 
   const id = el.dataset.refractId ?? `glass-refract-${++counter}`
   el.dataset.refractId = id
@@ -222,14 +239,32 @@ function flush() {
   frame = 0
   const list = pending
   pending = new Set()
-  list.forEach((el) => (enabled() ? build(el) : clear(el)))
+  list.forEach((el) => {
+    if (enabled()) build(el)
+    else clear(el)
+    el.removeAttribute('data-refract-hold')
+  })
 }
 function schedule(el: HTMLElement) {
   pending.add(el)
   if (!frame) frame = requestAnimationFrame(flush)
 }
 
-const ro = new ResizeObserver((entries) => entries.forEach((e) => schedule(e.target as HTMLElement)))
+// Mientras un elemento cambia de tamaño (p. ej. el dock al contraerse) su mapa de lente deja de coincidir: se marca
+// data-refract-hold (el CSS usa un desenfoque simple con el mismo relleno) y el mapa se regenera al asentarse el tamaño.
+const settleTimers = new WeakMap<HTMLElement, number>()
+function settle(el: HTMLElement) {
+  el.setAttribute('data-refract-hold', '')
+  window.clearTimeout(settleTimers.get(el))
+  settleTimers.set(el, window.setTimeout(() => schedule(el), 130))
+}
+const ro = new ResizeObserver((entries) =>
+  entries.forEach((e) => {
+    const el = e.target as HTMLElement
+    if (!el.hasAttribute('data-refract')) return schedule(el)
+    if (measure(el).key !== el.dataset.refractKey) settle(el)
+  })
+)
 function watch(el: HTMLElement) {
   if (watched.has(el)) return
   watched.add(el)

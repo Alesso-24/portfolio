@@ -142,3 +142,25 @@ Refracción real con `feDisplacementMap` solo para el menú en Chromium; barra d
 - **Rendimiento** (scroll guionizado, CPU limitada 4×, render por software: peor caso; mediana de 3): guía 26.5 ms vs 19.6 ms de la v1; home 34.8 ms vs 26.8 ms (≈ +7 ms por fotograma). El regulador comprobado: no actúa en un equipo rápido, apaga la refracción en uno lento (+38 ms de carga por fotograma simulada) y respeta el anulador.
 - **Hallazgos por el camino:** `saturate(1.6)` teñía de amarillo el fondo crema (ahora 1.18); sin forzar alfa=1 la aberración cromática dejaba franjas de color en los extremos; con solo desenfoque el efecto de lente desaparece (de ahí bisel nítido + centro esmerilado); el scroll suave (Lenis) absorbe los `scrollTo` de las pruebas, por eso el regulador se prueba con la rueda del ratón.
 - **No probado:** Safari y Firefox reales (solo emulados por UA).
+
+## 9. Dock que se contrae y se expande (pedido de Alessandro, 2026-09-21)
+
+**Pedido:** que el menú flotante "tuviera animaciones de que se expande y se contrae" al bajar o subir la página y al pasar el mouse (como la barra de Safari en iOS 26).
+
+**Diseño:**
+- **Contraído** (al hacer scroll hacia abajo, pasados ~120 px): la cápsula se reduce de 1280 px a ~660 px (escritorio) o ~250 px (móvil); se ocultan el nombre y la píldora "Open to work" con un fundido; quedan avatar, enlaces (con el indicador) e idioma.
+- **Expandido:** al subir (scroll hacia arriba), al llegar arriba (< 120 px), al **pasar el mouse** o enfocar con teclado, y con el menú móvil abierto. En pantallas táctiles, un toque sobre la cápsula contraída la expande unos segundos.
+- Umbral de dirección acumulado (32 px) para que el scroll suave (Lenis) no la haga parpadear. Con `prefers-reduced-motion` no se contrae nunca.
+- **Refracción y cambio de tamaño:** el mapa de la lente depende del tamaño exacto del elemento. Mientras la cápsula cambia de tamaño se marca `data-refract-hold` (el CSS usa un desenfoque simple con el mismo relleno, sin salto) y el mapa se regenera cuando el tamaño se asienta (120 ms); los mapas ya calculados se guardan en caché por tamaño, así que alternar entre expandido y contraído es instantáneo tras la primera vez.
+- El indicador deslizante se recoloca mientras la cápsula cambia de tamaño (`ResizeObserver`).
+
+| Rama | Contenido | Estado |
+|---|---|---|
+| `feat/glass-dock-compacto` | Estado compacto/expandido en `Nav.tsx`, CSS del dock, retención y caché de mapas en `glass-refract.ts`, QA | hecho |
+
+### 9.1 Implementación y QA (2026-09-21)
+
+- **Lógica** (`src/components/layout/Nav.tsx`): `compact` (dirección del scroll con umbral acumulado de 32 px; siempre expandido con `scrollY < 120`) y `hover`/`peek`; el dock se contrae solo si `compact && !hover && !peek && !menuOpen`. Clase `is-compact` en `.glass-nav`. Foco por teclado (`:focus-visible`) también lo expande. En táctil, tocar avatar/nombre con el dock contraído lo expande 3.5 s en vez de navegar.
+- **CSS** (`glass.css`, bloque "Dock"): `width` 1280 → 680 px (escritorio, ≥ 860) o 250 px (móvil) con `cubic-bezier(.22,1,.36,1)` en 0.62 s; el nombre y la píldora "Open to work" se pliegan con `max-width`/`opacity`/`padding` (siguen en el árbol de accesibilidad). Con `prefers-reduced-motion` no se contrae.
+- **Refracción** (`glass-refract.ts`): mientras el tamaño cambia se pone `data-refract-hold` (mismo relleno, desenfoque simple); el mapa se regenera 130 ms después de que el tamaño se asiente y se guarda en una **caché por tamaño** (16 entradas): alternar contraído/expandido es instantáneo. El indicador deslizante se recoloca con un `ResizeObserver` durante la animación.
+- **Pruebas:** con la rueda del ratón (Lenis absorbe los `scrollTo`): bajar contrae (1280 → 680), mouse encima expande, sacar el mouse contrae, subir expande, otra vez abajo contrae, el clic del menú funciona en compacto, `prefers-reduced-motion` nunca contrae, móvil 366 → 250 px; sin parpadeo tras asentarse (0 cambios de layout en 90 fotogramas); expansión 880 → 1280 px en ≈ 450 ms con el filtro en espera y liberado al final; contraste del menú 15/15 (mín. 7.9:1); 10 páginas, guía en EN, persistencia y modos de accesibilidad sin regresiones.

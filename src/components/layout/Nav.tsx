@@ -18,6 +18,14 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   const [menuOpen, setMenu]   = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
+  // Dock: se contrae al bajar y se expande al subir, al pasar el mouse, al enfocar con teclado, con el menú abierto
+  // o (en pantallas táctiles) al tocarlo. Con prefers-reduced-motion nunca se contrae. Ver LIQUID-GLASS.md §9.
+  const [compact, setCompact] = useState(false)
+  const [hover, setHover] = useState(false)
+  const [peek, setPeek] = useState(false)
+  const peekTimer = useRef<number>(0)
+  const dock = compact && !hover && !peek && !menuOpen
+
   // Indicador de vidrio que se desliza entre los enlaces (hover/foco) y descansa en la sección activa
   const linksRef = useRef<HTMLElement>(null)
   const hovering = useRef(false)
@@ -32,8 +40,12 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
     setIndicator({ x: r.left - n.left, w: r.width, show: true })
   }
 
+  const activeRef = useRef<string | null>(null)
+  activeRef.current = active
+
   const restIndicator = () => {
-    const el = active ? linksRef.current?.querySelector(`[data-href="${active}"]`) ?? null : null
+    const cur = activeRef.current
+    const el = cur ? linksRef.current?.querySelector(`[data-href="${cur}"]`) ?? null : null
     if (el) moveTo(el)
     else setIndicator((i) => ({ ...i, show: false }))
   }
@@ -41,6 +53,40 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   useEffect(() => {
     if (!hovering.current) restIndicator()
   }, [active])
+
+  // El dock cambia de tamaño con una animación: el indicador se recoloca en cada fotograma mientras dura
+  const barRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const bar = barRef.current
+    if (!bar) return
+    const ro = new ResizeObserver(() => { if (!hovering.current) restIndicator() })
+    ro.observe(bar)
+    return () => ro.disconnect()
+  }, [])
+
+  // Dirección del scroll con umbral acumulado (32 px) para que el scroll suave (Lenis) no haga parpadear el dock
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let lastY = window.scrollY
+    let acc = 0
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        ticking = false
+        const y = window.scrollY
+        const dy = y - lastY
+        lastY = y
+        acc = Math.sign(dy) === Math.sign(acc) ? acc + dy : dy
+        if (y < 120) { setCompact(false); acc = 0 }
+        else if (acc > 32) setCompact(true)
+        else if (acc < -32) setCompact(false)
+      })
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Scroll-spy: solo en la home (allí existen las secciones #work, #research…)
   useEffect(() => {
@@ -110,8 +156,25 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
 
   return (
     <>
-      <header className={`glass-nav${scrolled ? ' is-scrolled' : ''}`}>
-        <div className="glass-nav__bar glass glass--blur glass--refract" data-glass-adaptive="">
+      <header className={`glass-nav${scrolled ? ' is-scrolled' : ''}${dock ? ' is-compact' : ''}`}>
+        <div
+          ref={barRef}
+          className="glass-nav__bar glass glass--blur glass--refract"
+          data-glass-adaptive=""
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onFocus={(e) => { if ((e.target as HTMLElement).matches(':focus-visible')) setHover(true) }}
+          onBlur={() => setHover(barRef.current?.matches(':hover') ?? false)}
+          onClickCapture={(e) => {
+            // táctil: con el dock contraído, tocar el avatar/nombre lo expande unos segundos en vez de navegar
+            if (dock && window.matchMedia('(pointer: coarse)').matches && (e.target as HTMLElement).closest('.glass-nav__brand')) {
+              e.preventDefault()
+              setPeek(true)
+              window.clearTimeout(peekTimer.current)
+              peekTimer.current = window.setTimeout(() => setPeek(false), 3500)
+            }
+          }}
+        >
           {/* Izquierda: avatar + nombre */}
           <a href="/portfolio/" className="glass-nav__brand">
             <span className="glass-nav__avatar">A</span>
