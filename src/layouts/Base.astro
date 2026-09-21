@@ -161,13 +161,17 @@ const {
 
           gsap.fromTo(
             el,
-            { opacity: 0, y: 34 },
+            { opacity: 0, y: 28, scale: 0.988 },
             {
               opacity: 1,
               y: 0,
-              duration: 0.9,
+              scale: 1,
+              duration: 1.05,
               delay,
-              ease: 'power3.out',
+              ease: 'expo.out',
+              // GSAP deja un transform en línea al terminar; se limpia para que el hover de las
+              // tarjetas de vidrio (.glass-lift: translateY) siga funcionando.
+              onComplete: () => { gsap.set(el, { clearProps: 'transform' }) },
               scrollTrigger: {
                 trigger: el,
                 start: 'top 88%',
@@ -179,7 +183,7 @@ const {
           // Safety fallback: force visible after 4.5s in case observer never fires
           setTimeout(() => {
             if (getComputedStyle(el).opacity === '0') {
-              gsap.set(el, { opacity: 1, y: 0 })
+              gsap.set(el, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' })
             }
           }, 4500)
         })

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Menu, X, Globe, Github, Linkedin, Instagram } from 'lucide-react'
 import { NAV_LINKS, SITE } from '../../data/content'
@@ -17,6 +17,50 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   const [lang, setLang]       = useState<'en' | 'es'>(initialLang)
   const [menuOpen, setMenu]   = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  // Indicador de vidrio que se desliza entre los enlaces (hover/foco) y descansa en la sección activa
+  const linksRef = useRef<HTMLElement>(null)
+  const hovering = useRef(false)
+  const [indicator, setIndicator] = useState({ x: 0, w: 0, show: false })
+  const [active, setActive] = useState<string | null>(null)
+
+  const moveTo = (el: Element | null) => {
+    const nav = linksRef.current
+    if (!el || !nav) return
+    const n = nav.getBoundingClientRect()
+    const r = el.getBoundingClientRect()
+    setIndicator({ x: r.left - n.left, w: r.width, show: true })
+  }
+
+  const restIndicator = () => {
+    const el = active ? linksRef.current?.querySelector(`[data-href="${active}"]`) ?? null : null
+    if (el) moveTo(el)
+    else setIndicator((i) => ({ ...i, show: false }))
+  }
+
+  useEffect(() => {
+    if (!hovering.current) restIndicator()
+  }, [active])
+
+  // Scroll-spy: solo en la home (allí existen las secciones #work, #research…)
+  useEffect(() => {
+    const targets = NAV_LINKS.filter((l) => l.href.startsWith('#'))
+      .map((l) => ({ id: l.href, el: document.querySelector(l.href) }))
+      .filter((t): t is { id: string; el: Element } => !!t.el)
+    if (!targets.length) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          const id = '#' + (e.target as HTMLElement).id
+          if (e.isIntersecting) setActive(id)
+          else setActive((cur) => (cur === id ? null : cur))
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    )
+    targets.forEach((t) => io.observe(t.el))
+    return () => io.disconnect()
+  }, [])
 
   // El idioma vive en <html lang> (lo fija el script de Base.astro con la preferencia guardada);
   // aquí solo se sincroniza el estado al hidratar. Los textos cambian por CSS (.lang-en / .lang-es).
@@ -76,12 +120,28 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
 
           {/* Centro: enlaces (solo escritorio) */}
           <nav
+            ref={linksRef}
             className="desktop-nav glass-nav__links"
             style={{ display: 'none' }}
+            onMouseLeave={() => { hovering.current = false; restIndicator() }}
             aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}
           >
+            <span
+              className="glass-nav__indicator"
+              aria-hidden="true"
+              style={{ width: indicator.w, transform: `translateX(${indicator.x}px)`, opacity: indicator.show ? 1 : 0 }}
+            />
             {NAV_LINKS.map((link) => (
-              <button key={link.href} onClick={() => scrollTo(link.href)} className="glass-nav__link">
+              <button
+                key={link.href}
+                data-href={link.href}
+                onClick={() => scrollTo(link.href)}
+                onMouseEnter={(e) => { hovering.current = true; moveTo(e.currentTarget) }}
+                onFocus={(e) => moveTo(e.currentTarget)}
+                onBlur={() => { if (!hovering.current) restIndicator() }}
+                aria-current={active === link.href ? 'true' : undefined}
+                className="glass-nav__link"
+              >
                 <T {...link.label} />
               </button>
             ))}
