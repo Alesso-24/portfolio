@@ -1,0 +1,19 @@
+---
+// Texto en dos idiomas: <T es="Hola" /> busca la traducción en src/data/docs-en.ts;
+// <T es="Paso 1 de 3" en="Step 1 of 3" /> para textos armados en el momento.
+// Si el texto trae HTML (<strong>, <code>…) se inserta tal cual.
+import { en as translate, isHtml } from '../../data/i18n'
+
+interface Props {
+  es: string
+  en?: string
+}
+
+const { es, en } = Astro.props
+const enText = en ?? translate(es)
+const html = isHtml(es) || isHtml(enText)
+---
+
+{html
+  ? <><span class="lang-es" set:html={es} /><span class="lang-en" set:html={enText} /></>
+  : <><span class="lang-es">{es}</span><span class="lang-en">{enText}</span></>}
