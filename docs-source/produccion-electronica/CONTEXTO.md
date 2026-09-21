@@ -575,4 +575,4 @@ Alessandro pidió usar el ícono de la app de KiCad 10 (cuadrado azul redondeado
 **Estado:** desplegado el 2026-09-21 (`main` = `e01388b`, PR #71; punto de retorno `restore/sitio-icono-kicad-2026-09-21`). En vivo: pestaña con el ícono oficial pequeño y panel de KiCad con el logo completo modernizado.
 
 ### 2026-09-21 (noche) — En curso: dock que se contrae/expande
-Alessandro pidió animaciones de expandir/contraer el menú al subir/bajar la página y al pasar el mouse. Plan y diseño en `docs-source/LIQUID-GLASS.md` §9; rama `feat/glass-dock-compacto`. Estado: implementando (ver §9 para la tabla).
+Alessandro pidió animaciones de expandir/contraer el menú al subir/bajar la página y al pasar el mouse. Plan y diseño en `docs-source/LIQUID-GLASS.md` §9; rama `feat/glass-dock-compacto`. **Hecho y verificado (PR abierto, sin desplegar):** contraído al bajar, expandido al subir / con el mouse / con el teclado / al tocar; ver §9.1.

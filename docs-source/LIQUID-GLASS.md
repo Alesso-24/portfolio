@@ -156,4 +156,11 @@ Refracción real con `feDisplacementMap` solo para el menú en Chromium; barra d
 
 | Rama | Contenido | Estado |
 |---|---|---|
-| `feat/glass-dock-compacto` | Estado compacto/expandido en `Nav.tsx`, CSS del dock, retención y caché de mapas en `glass-refract.ts`, QA | en curso |
+| `feat/glass-dock-compacto` | Estado compacto/expandido en `Nav.tsx`, CSS del dock, retención y caché de mapas en `glass-refract.ts`, QA | hecho |
+
+### 9.1 Implementación y QA (2026-09-21)
+
+- **Lógica** (`src/components/layout/Nav.tsx`): `compact` (dirección del scroll con umbral acumulado de 32 px; siempre expandido con `scrollY < 120`) y `hover`/`peek`; el dock se contrae solo si `compact && !hover && !peek && !menuOpen`. Clase `is-compact` en `.glass-nav`. Foco por teclado (`:focus-visible`) también lo expande. En táctil, tocar avatar/nombre con el dock contraído lo expande 3.5 s en vez de navegar.
+- **CSS** (`glass.css`, bloque "Dock"): `width` 1280 → 680 px (escritorio, ≥ 860) o 250 px (móvil) con `cubic-bezier(.22,1,.36,1)` en 0.62 s; el nombre y la píldora "Open to work" se pliegan con `max-width`/`opacity`/`padding` (siguen en el árbol de accesibilidad). Con `prefers-reduced-motion` no se contrae.
+- **Refracción** (`glass-refract.ts`): mientras el tamaño cambia se pone `data-refract-hold` (mismo relleno, desenfoque simple); el mapa se regenera 130 ms después de que el tamaño se asiente y se guarda en una **caché por tamaño** (16 entradas): alternar contraído/expandido es instantáneo. El indicador deslizante se recoloca con un `ResizeObserver` durante la animación.
+- **Pruebas:** con la rueda del ratón (Lenis absorbe los `scrollTo`): bajar contrae (1280 → 680), mouse encima expande, sacar el mouse contrae, subir expande, otra vez abajo contrae, el clic del menú funciona en compacto, `prefers-reduced-motion` nunca contrae, móvil 366 → 250 px; sin parpadeo tras asentarse (0 cambios de layout en 90 fotogramas); expansión 880 → 1280 px en ≈ 450 ms con el filtro en espera y liberado al final; contraste del menú 15/15 (mín. 7.9:1); 10 páginas, guía en EN, persistencia y modos de accesibilidad sin regresiones.

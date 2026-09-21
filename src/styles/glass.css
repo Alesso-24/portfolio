@@ -186,7 +186,8 @@ body.bg-cream {
   gap: 12px;
   padding: 8px 8px 8px 12px;
   border-radius: 100px;
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+  width: min(100%, 1280px);
+  transition: width 0.62s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease, box-shadow 0.4s ease;
 }
 
 @keyframes glass-nav-in {
@@ -325,6 +326,60 @@ body.bg-cream {
   color: #211f1a;
 }
 
+/* ── Dock: se contrae al bajar la página y se expande al subir / pasar el mouse (LIQUID-GLASS.md §9) ── */
+.glass-nav__name,
+.glass-nav__pill {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 240px;
+  transition: max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, padding 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    margin 0.55s cubic-bezier(0.22, 1, 0.36, 1), border-width 0.4s ease;
+}
+
+.glass-nav__brand {
+  transition: gap 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-nav.is-compact .glass-nav__bar {
+  width: min(100%, 250px);
+}
+
+@media (min-width: 860px) {
+  .glass-nav.is-compact .glass-nav__bar {
+    width: min(100%, 680px);
+  }
+}
+
+.glass-nav.is-compact .glass-nav__name {
+  max-width: 0;
+  opacity: 0;
+}
+
+.glass-nav.is-compact .glass-nav__brand {
+  gap: 0;
+}
+
+.glass-nav.is-compact .glass-nav__pill {
+  max-width: 0;
+  opacity: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border-width: 0;
+  margin-right: -8px;
+}
+
+/* mientras el dock cambia de tamaño el mapa de la lente no coincide: desenfoque simple con el mismo relleno */
+.glass--refract[data-refract][data-refract-hold] {
+  -webkit-backdrop-filter: blur(3px) saturate(1.18) brightness(1.04);
+  backdrop-filter: blur(3px) saturate(1.18) brightness(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-nav.is-compact .glass-nav__bar {
+    width: min(100%, 1280px);
+  }
+}
+
 /* Panel del menú móvil a pantalla completa: desenfoque real (cubre el contenido que hace scroll detrás) */
 .glass-menu {
   background: rgba(243, 237, 225, 0.72);
@@ -455,7 +510,7 @@ body.bg-cream {
     inset 0 -1px 0 rgba(33, 31, 26, 0.05),
     0 1px 2px rgba(33, 31, 26, 0.05),
     0 18px 40px -18px rgba(33, 31, 26, 0.32);
-  transition: background 0.45s ease, box-shadow 0.4s ease;
+  transition: width 0.62s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s ease, box-shadow 0.4s ease;
 }
 
 /* ya está sobre contenido (texto, chips): relleno intermedio para que no compita con lo que pasa por detrás */
