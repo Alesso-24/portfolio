@@ -98,7 +98,7 @@ mandando los siguientes pasos (nodos a editar, valores, etc.).
 - `save file`: `ready`, name **`SVG image.rml`**, size **4526** bytes (el nombre por defecto; en la
   bitácora anterior aparece como `PERIFERIA.rml` — es el mismo archivo renombrado).
 - Diálogo "Abrir" (Windows): carpeta `Jordi - Personal › Escritorio › KiCAD › Hola_Mundo`; hay
-  `PERIFERIA`, `PISTAS`, `HORIFICIOS` (los 3 SVG) y `Hola_Mundo-Edge_Cuts / -F_Cu / -User_4`.
+  `PERIFERIA`, `PISTAS`, `ORIFICIOS` (los 3 SVG) y `Hola_Mundo-Edge_Cuts / -F_Cu / -User_4`.
 
 **Mapeo imágenes de Alessandro → archivos (identificados por tamaño; ya estaban organizados):**
 

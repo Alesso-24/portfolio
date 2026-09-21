@@ -461,8 +461,8 @@ export const KICAD_FLOW: Flow = {
                 },
                 {
                   file: GER + '05-capas-edgecuts-user4.png',
-                  alt: 'Selección de capas Edge.Cuts y User.4 para los archivos de periferia y horificios',
-                  caption: 'Capas para "Periferia"/"Horificios": Edge.Cuts + User.4',
+                  alt: 'Selección de capas Edge.Cuts y User.4 para los archivos de periferia y orificios',
+                  caption: 'Capas para "Periferia"/"Orificios": Edge.Cuts + User.4',
                   size: [244, 459],
                   boxes: [
                     { x: 23, y: 170, w: 184, h: 21, label: 'Marcar Edge.Cuts' },
@@ -495,14 +495,14 @@ export const KICAD_FLOW: Flow = {
           blocks: [{ kind: 'shots', shots: [{ file: GER + '09-archivos-generados.png', alt: 'Archivos SVG generados en la carpeta del proyecto: Edge_Cuts, F_Cu, User_4', caption: 'Archivos SVG generados en la carpeta del proyecto' }] }],
         },
         {
-          html: 'Como buena práctica, se les cambia el nombre a algo descriptivo: <strong>HORIFICIOS</strong> (perforaciones, capa User.4), <strong>PERIFERIA</strong> (contorno, Edge.Cuts) y <strong>PISTAS</strong> (cobre, F.Cu).',
+          html: 'Como buena práctica, se les cambia el nombre a algo descriptivo: <strong>ORIFICIOS</strong> (perforaciones, capa User.4), <strong>PERIFERIA</strong> (contorno, Edge.Cuts) y <strong>PISTAS</strong> (cobre, F.Cu).',
           blocks: [
-            { kind: 'shots', shots: [{ file: GER + '10-archivos-renombrados.png', alt: 'Archivos renombrados: HORIFICIOS, PERIFERIA, PISTAS', caption: 'Archivos renombrados' }] },
+            { kind: 'shots', shots: [{ file: GER + '10-archivos-renombrados.png', alt: 'Archivos renombrados: ORIFICIOS, PERIFERIA, PISTAS', caption: 'Archivos renombrados' }] },
             {
               kind: 'shots',
               layout: 'thumbs',
               shots: [
-                { file: GER + '11-horificios-preview.png', alt: 'Vista previa del SVG de horificios: puntos de perforación', caption: 'HORIFICIOS' },
+                { file: GER + '11-horificios-preview.png', alt: 'Vista previa del SVG de orificios: puntos de perforación', caption: 'ORIFICIOS' },
                 { file: GER + '12-periferia-preview.png', alt: 'Vista previa del SVG de periferia: contorno octagonal de la placa', caption: 'PERIFERIA' },
                 { file: GER + '13-pistas-preview.png', alt: 'Vista previa del SVG de pistas: cobre y trazas del circuito', caption: 'PISTAS' },
               ],
