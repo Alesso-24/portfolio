@@ -45,13 +45,8 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
     }
   }
 
-  const inputStyle: React.CSSProperties = {
-    width: '100%', background: 'transparent',
-    borderBottom: '1px solid rgba(243,237,225,0.2)', paddingBottom: 16,
-    color: '#f3ede1', fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-    fontSize: 15, outline: 'none', letterSpacing: '0.04em',
-    transition: 'border-color 0.2s',
-  }
+  // Campos de vidrio sobre el bloque azul (estilos en src/styles/glass.css: .glass-field)
+  const inputStyle: React.CSSProperties = {}
 
   return (
     <section
@@ -129,13 +124,11 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
                 href={SITE.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="glass-btn glass-btn--onblue"
                 style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '12px 22px', borderRadius: 100,
-                  border: '1px solid rgba(243,237,225,0.3)',
-                  color: '#f3ede1', textDecoration: 'none',
+                  padding: '12px 22px',
                   fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-                  fontSize: 13, fontWeight: 600, transition: 'all 0.2s',
+                  fontSize: 13, fontWeight: 600,
                 }}
               >
                 <Github size={16} strokeWidth={1.5} /> GitHub
@@ -144,13 +137,11 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
                 href={SITE.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="glass-btn glass-btn--onblue"
                 style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '12px 22px', borderRadius: 100,
-                  border: '1px solid rgba(243,237,225,0.3)',
-                  color: '#f3ede1', textDecoration: 'none',
+                  padding: '12px 22px',
                   fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-                  fontSize: 13, fontWeight: 600, transition: 'all 0.2s',
+                  fontSize: 13, fontWeight: 600,
                 }}
               >
                 <Linkedin size={16} strokeWidth={1.5} /> LinkedIn
@@ -162,7 +153,7 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
           <form
             onSubmit={handleSubmit}
             aria-label={lang === 'en' ? 'Contact form' : 'Formulario de contacto'}
-            style={{ display: 'flex', flexDirection: 'column', gap: 36 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: 16 }}
           >
             {/* Honeypot */}
             <input
@@ -179,6 +170,7 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
                 type="text" name="name" required value={form.name}
                 onChange={handleChange} placeholder={t.form.name[lang]}
                 disabled={status === 'sending'}
+                className="glass-field"
                 style={{ ...inputStyle, opacity: status === 'sending' ? 0.5 : 1 }}
               />
             </div>
@@ -189,6 +181,7 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
                 type="email" name="email" required value={form.email}
                 onChange={handleChange} placeholder={t.form.email[lang]}
                 disabled={status === 'sending'}
+                className="glass-field"
                 style={{ ...inputStyle, opacity: status === 'sending' ? 0.5 : 1 }}
               />
             </div>
@@ -199,6 +192,7 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
                 name="message" required value={form.message}
                 onChange={handleChange} placeholder={t.form.message[lang]}
                 rows={4} disabled={status === 'sending'}
+                className="glass-field"
                 style={{ ...inputStyle, resize: 'none', opacity: status === 'sending' ? 0.5 : 1 }}
               />
             </div>
@@ -219,12 +213,12 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
               <button
                 type="submit"
                 disabled={status === 'sending'}
+                className="glass-btn glass-btn--orange"
                 style={{
-                  padding: '14px 32px', borderRadius: 100,
-                  background: '#ea6a2e', color: '#f3ede1', border: 'none',
+                  padding: '14px 32px',
                   fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-                  fontSize: 14, fontWeight: 600, cursor: 'pointer',
-                  letterSpacing: '0.04em', transition: 'opacity 0.2s',
+                  fontSize: 14, fontWeight: 600,
+                  letterSpacing: '0.04em',
                   opacity: status === 'sending' ? 0.6 : 1,
                 }}
               >
