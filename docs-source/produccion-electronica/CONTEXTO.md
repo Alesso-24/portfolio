@@ -19,7 +19,7 @@
 >
 > **Necesitan decisión de Alessandro (no se tocaron):**
 > 1. `fault-detection-case` dice **"Presenting in person, Aug 2026"** (ficha y etiqueta), pero `BRAND.md` (confirmado) dice **presentación remota, nunca implicar viaje**. Uno de los dos está desactualizado.
-> 2. En la guía los archivos se llaman **HORIFICIOS** (así aparecen en las capturas reales; el resto de la guía dice ORIFICIOS). Se dejó tal cual porque es el nombre real del archivo; si prefieres, se corrige en las capturas o en el texto.
+> 2. ~~HORIFICIOS~~ **Resuelto (2026-09-21):** el nombre correcto es **ORIFICIOS** (sin h). El texto de la guía ya lo dice así. La captura del explorador de archivos de KiCad todavía muestra el nombre con la h (es una imagen; para corregirla habría que volver a tomarla y renombrar el archivo real). La imagen se llama `11-horificios-preview.png` y se dejó así a propósito para no romper la ruta.
 > 3. `public/llms.txt` (archivo para buscadores de IA, no se ve en el sitio) todavía usa rayas largas.
 > 4. Limpieza en GitHub sin hacer (el sistema de permisos la bloqueó): 18 ramas remotas ya integradas y 9 PRs de dependabot superados.
 >
@@ -304,7 +304,7 @@ una a la página real.**
     de trazado cambiado a **SVG**, capas incluidas según archivo (`F.Cu`+`Edge.Cuts` para pistas,
     `Edge.Cuts`+`User.4` para perforaciones/periferia), opción **"Ajustar página a la placa"**
     activada, botón `Trazar` y luego `Guardar`. Los archivos se generan en la carpeta del
-    proyecto y se renombran a algo descriptivo: **`HORIFICIOS`** (perforaciones, capa `User.4`),
+    proyecto y se renombran a algo descriptivo: **`ORIFICIOS`** (perforaciones, capa `User.4`),
     **`PERIFERIA`** (contorno, `Edge.Cuts`) y **`PISTAS`** (cobre, `F.Cu`).
 
 - `07-monofab-mods/` (47 capturas — se revisaron las 48 del día, se descartó solo 1 por ser una
@@ -446,7 +446,7 @@ la placa, el llenado de zona de cobre en `F.Cu` (queda todo en rojo), las perfor
 como círculos en `User.4`, las etiquetas `VCC`/`GND`/`S1`–`S4` puestas en `F.Cu`, el resultado
 final del PCB, y la exportación completa a Gerber en formato **SVG** (`Archivo` → `Salidas de
 fabricación` → `Gerbers`, ajustando página a la placa) con los archivos resultantes renombrados a
-`HORIFICIOS`, `PERIFERIA` y `PISTAS`.
+`ORIFICIOS`, `PERIFERIA` y `PISTAS`.
 
 Se organizó todo en `docs-source/produccion-electronica/practicas/01-primera-placa/06-editor-placas/`
 (10 subcarpetas numeradas, ver "Assets ya recolectados" arriba) y la foto de la SRM-20 en
