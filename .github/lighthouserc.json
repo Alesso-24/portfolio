@@ -1,8 +1,11 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./dist",
-      "url": ["http://localhost:PORT/index.html"],
+      "staticDistDir": "./_site",
+      "url": [
+        "http://localhost:PORT/portfolio/index.html",
+        "http://localhost:PORT/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad/index.html"
+      ],
       "numberOfRuns": 2
     },
     "assert": {

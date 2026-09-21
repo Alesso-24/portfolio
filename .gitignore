@@ -27,3 +27,6 @@ dist-ssr
 _brief_extracted/
 # Astro generated
 .astro/
+
+# carpeta temporal del job de Lighthouse en CI
+_site
