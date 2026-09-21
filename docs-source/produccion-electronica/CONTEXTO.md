@@ -1,27 +1,23 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## 🚧 Pendiente de revisión y deploy (2026-09-20, noche): 5 ramas apiladas con todo lo pedido después del deploy
-> Cada rama sale de la anterior y tiene su PR (base = rama anterior; se mergean en este orden). `main` sigue en `dc0d038` (lo que está en producción).
+> ## ✅ 2026-09-21: TODO mergeado a `main` y desplegado (`09643fc`)
+> Los PRs #48 a #55 (y #53, el arreglo de Lighthouse) están mergeados y en producción: `https://alesso-24.github.io/portfolio/`. Verificado en vivo (200 en las páginas, 404 correcto, sin rayas largas).
 >
-> | # | Rama | Qué hace |
-> |---|---|---|
-> | 1 | `docs/general-pcb-y-fotos` | La materia se documenta como **"Creación de PCBs"** (KiCad · MonoFab · Altium): fuera "Práctica 01" y "primera placa". URLs sin cambios. Avatares del equipo **recortados sobre la cara** (`public/images/team/`, `scripts/make-team-avatars.mjs`). |
-> | 2 | `docs/auditoria-textos` | Auditoría de copy: **sin rayas largas (—)** en todos los textos de la guía (frases reescritas a mano donde una coma no bastaba), fuera el relleno ("documentados en el camino, no después", "Más contenido, próximamente", "Aún no migran a Altium"…), **Altium solo dice "Pendiente"**, quitado "Trabajo en parejas" del encabezado. |
-> | 3 | `feat/idioma-persistente` | El idioma ES/EN **se guarda** (`localStorage`) y se aplica en todas las páginas antes de pintar. Nav con textos por CSS (sin parpadeo). |
-> | 4 | `feat/docs-i18n-en` | **Todo Producción Electrónica traducido al inglés** y ligado al botón ES/EN: 435 textos en `src/data/docs-en.ts`, componente `<T>`, alt/aria/título por idioma, contador "Step X of Y", lightbox. Un texto sin traducir **rompe el build**. |
-> | 5 | `fix/auditoria-sitio` | Barrido del sitio en ES y EN: encabezados/ficha/alt de las 5 páginas de proyecto y tarjetas de la home traducidos, `<title>` por idioma, aria-labels del menú, línea CC del contacto, 404 bilingüe sin raya larga, README y BRAND.md al día. |
+> **Qué incluye** (detalle de cada rama en el historial de git y en las entradas de abajo): materia como **"Creación de PCBs"** + avatares centrados · auditoría de textos (sin rayas largas ni relleno, Altium "Pendiente") · idioma ES/EN **persistente** en todo el sitio · **/docs completo en inglés** (diccionario `src/data/docs-en.ts`; un texto sin traducir rompe el build) · barrido del sitio (proyectos, `<title>`, menú, contacto, 404) · job de Lighthouse arreglado.
 >
-> PRs: #48 (rama 1) → #49 → #50 → #51 → #52 (rama 5). **Aparte, independiente de la pila:** `ci/lighthouse-astro` (PR #53, base `main`): el job `lighthouse` de los PRs llevaba roto desde la migración a Astro (`npx vite build`); ahora compila con `npm run build`, copia `dist` a `_site/portfolio/` y audita las 10 páginas. **Conviene mergear #53 primero** para que los demás PRs dejen de salir en rojo por eso.
+> **Respuestas de Alessandro a las dudas (2026-09-21):**
+> 1. **CASE 2026: viajó a Shenyang y lo presentó en persona.** El sitio pasó a pasado ("Presented in person · Aug 2026", texto con la beca RAS en pasado), y `BRAND.md` y `llms.txt` se corrigieron. BDAI se dejó igual (solo "Presented", sin afirmar viaje; si también fue en persona, decirlo).
+> 2. **Se escribe ORIFICIOS (sin h).** Corregido en el texto de la guía y en el diccionario EN. La captura del explorador de KiCad aún muestra "HORIFICIOS" (es imagen) y el archivo `11-horificios-preview.png` conserva ese nombre a propósito para no romper la ruta.
+> 3. **Mergear todo a `main` y desplegar: hecho.**
+> 4. **Borrar lo viejo guardando contexto para volver: hecho.** Ver `docs-source/RAMAS-ARCHIVADAS.md` (tabla de ramas, etiquetas `archive/*` y cómo recuperar cada cosa).
 >
-> **Verificación (build de producción, Playwright):** `astro check` 0 errores · 10 páginas × escritorio/móvil sin errores de consola, imágenes rotas ni desbordes · 61 pasos de la guía recorridos en **español e inglés** (0 imágenes rotas, 0 recuadros desalineados) · barrido de mezcla de idiomas en las 10 páginas (solo quedan nombres propios, nombres de archivo y las etiquetas en español entre paréntesis, a propósito) · persistencia probada con clics reales (home → docs → guía → proyecto) · 0 rayas largas en todo el HTML publicado.
+> **Puntos de restauración (etiquetas en GitHub):** `restore/sitio-antes-de-la-noche-2026-09-20` (`dc0d038`, sitio antes de todo lo de esta noche) y `restore/sitio-pre-liquid-glass-2026-09-21` (`09643fc`, **este** estado, justo antes del rediseño). Para volver: `git checkout -b volver <etiqueta>` y PR a `main`.
 >
-> **Cómo se edita el texto ahora** (detalle en README, sección i18n): la guía sigue escrita en español en `src/data/kicad-flow.ts` / `mods-flow.ts` / `docs.ts` y las páginas; el inglés vive en `src/data/docs-en.ts` con el español exacto como clave. Si cambias una frase en español, cambia también su clave allí (si no, el build avisa cuál falta). Para listar lo que falta: `I18N_COLLECT=1 npm run build`.
+> **Sigue sin hacerse / pendiente de decisión:** rama `gh-pages` (legacy, archivada, se dejó viva); fresado físico y fotos; valores de R/LED; nombre final de la placa; ¿BDAI también fue en persona?
 >
-> **Necesitan decisión de Alessandro (no se tocaron):**
-> 1. `fault-detection-case` dice **"Presenting in person, Aug 2026"** (ficha y etiqueta), pero `BRAND.md` (confirmado) dice **presentación remota, nunca implicar viaje**. Uno de los dos está desactualizado.
-> 2. ~~HORIFICIOS~~ **Resuelto (2026-09-21):** el nombre correcto es **ORIFICIOS** (sin h). El texto de la guía ya lo dice así. La captura del explorador de archivos de KiCad todavía muestra el nombre con la h (es una imagen; para corregirla habría que volver a tomarla y renombrar el archivo real). La imagen se llama `11-horificios-preview.png` y se dejó así a propósito para no romper la ruta.
-> 3. `public/llms.txt` (archivo para buscadores de IA, no se ve en el sitio) todavía usa rayas largas.
-> 4. Limpieza en GitHub sin hacer (el sistema de permisos la bloqueó): 18 ramas remotas ya integradas y 9 PRs de dependabot superados.
+> ## 🎯 SIGUIENTE (pedido por Alessandro, **esperando su permiso para empezar**): estética "Liquid Glass" estilo Apple en todo el sitio
+> Petición textual resumida: darle a **todo el sitio** una estética muy Apple, de *liquid glass* (menú superior, animaciones y detalles en general), **manteniendo lo mismo pero como un upgrade**: que se vea precioso, **sin perder funcionalidad ni facilidad de lectura** (solo cambio estético). Orden de trabajo pedido: **1) investigar cómo se hace, 2) evaluar en qué partes sí y en cuáles no, 3) implementar**, con control de git/GitHub (una rama por tema, commits pequeños, PRs) y **actualizando este contexto seguido por si se acaban los tokens**. Antes de empezar debe confirmarse el deploy actual y pedirle permiso.
+> Restricciones a respetar: sin efectos llamativos que estorben (él rechazó antes un efecto de brillo/tilt en la foto de la SRM-20; prefiere simple > vistoso salvo que pida explorar), accesibilidad (contraste, `prefers-reduced-motion`, `prefers-reduced-transparency`, foco visible), rendimiento móvil (blur caro), y que no se rompa la guía interactiva ni el cambio ES/EN. Punto de retorno: etiqueta `restore/sitio-pre-liquid-glass-2026-09-21`.
 >
 > ---
 
@@ -551,3 +547,9 @@ Alessandro pidió: (a) quitar "primera práctica / Práctica 01" y documentar la
 - **Rama `feat/docs-i18n-en`:** diccionario ES→EN (clave = español exacto). Decisión: en inglés los nombres de la interfaz de KiCad llevan la etiqueta en español entre paréntesis (las capturas están en español); los recuadros usan la versión corta. `npm run build` falla si falta una traducción. Se agregó `@types/node` para el chequeo de tipos.
 - **Rama `fix/auditoria-sitio`:** el barrido encontró que las páginas de proyecto tenían título, etiqueta, ficha y alt en un solo idioma (el cuerpo sí era bilingüe), `<title>` fijo en inglés, aria-labels del menú solo en inglés, la línea de CC del contacto solo en inglés y el 404 con una raya larga. Todo corregido. Ver "Necesitan decisión" arriba para lo que se dejó sin tocar.
 - **Herramienta de prueba usada:** `playwright-core` en la carpeta temporal de la sesión + Chromium ya instalado + `astro preview` sobre `dist/`.
+
+### 2026-09-21 — Merge de todo a `main`, deploy, respuestas a las dudas y archivo de ramas
+- Respuestas de Alessandro: CASE presentado en persona en China; se escribe ORIFICIOS sin h; mergear lo hecho; borrar lo viejo guardando contexto.
+- Ramas nuevas: `fix/case-presentado-en-persona` (#54) y `fix/nombre-orificios` (#55), apiladas sobre la pila anterior.
+- Merge a `main` con un commit por PR (#53, #48, #49, #50, #51, #52, #54, #55). Hubo un conflicto en `.gitignore` (dos ramas añadieron líneas al final); se resolvió conservando ambas. Verificación del `main` mergeado: `astro check` 0 errores, build estricto (sin traducciones faltantes), barrido de 10 páginas, 61 pasos en inglés, persistencia. Deploy con GitHub Actions en verde.
+- Archivo: etiquetas `restore/*` y `archive/*`, documento `docs-source/RAMAS-ARCHIVADAS.md`, luego se borraron las ramas remotas ya integradas y se cerraron los 9 PRs de dependabot.
