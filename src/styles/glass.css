@@ -204,6 +204,7 @@ body.bg-cream {
 }
 
 .glass-nav__bar {
+  animation: glass-nav-in 0.9s var(--spring) 0.1s backwards;
   pointer-events: auto;
   max-width: 1280px;
   margin: 0 auto;
@@ -214,6 +215,11 @@ body.bg-cream {
   padding: 8px 8px 8px 12px;
   border-radius: 100px;
   transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+@keyframes glass-nav-in {
+  from { opacity: 0; transform: translateY(-18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .glass-nav.is-scrolled .glass-nav__bar {
@@ -253,6 +259,30 @@ body.bg-cream {
 .glass-nav__links {
   gap: 2px;
   align-items: center;
+  position: relative;
+}
+
+/* indicador de vidrio: se desliza (transform) hasta el enlace bajo el puntero o la sección visible */
+.glass-nav__indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 1px 0 #fff, 0 4px 14px -6px rgba(33, 31, 26, 0.32);
+  pointer-events: none;
+  transition: transform 0.55s var(--spring), width 0.55s var(--spring), opacity 0.3s ease;
+}
+
+.glass-nav__link {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-nav__link[aria-current='true'] {
+  color: #211f1a;
 }
 
 .glass-nav__link {
@@ -269,9 +299,6 @@ body.bg-cream {
 @media (hover: hover) {
   .glass-nav__link:hover {
     color: #211f1a;
-    background: rgba(255, 255, 255, 0.62);
-    border-color: rgba(255, 255, 255, 0.7);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px -6px rgba(33, 31, 26, 0.25);
   }
 }
 

@@ -63,7 +63,7 @@ Ramas apiladas, cada una con su PR; ninguna se mergea a `main` hasta el visto bu
 | 4 | `feat/glass-home` | Botones, tarjetas de trabajo, investigación, contacto, bandas de sección | hecho |
 | 5 | `feat/glass-projects` | Encabezado, ficha, insignias y botón de GitHub de las páginas de proyecto | hecho |
 | 6 | `feat/glass-docs` | `/docs` y la guía interactiva | hecho |
-| 7 | `feat/glass-motion` | Microinteracciones: resorte, reflejo con el puntero, indicador del menú | pendiente |
+| 7 | `feat/glass-motion` | Microinteracciones: resorte, reflejo con el puntero, indicador del menú | hecho |
 | 8 | `fix/glass-qa` | Auditoría: contraste, modo reducido, móvil, ES/EN, rendimiento, capturas | pendiente |
 
 **Siguiente paso al retomar:** ver la primera fila "pendiente" de la tabla, leer su sección arriba, implementar, correr la QA de `ARQUITECTURA-Y-TECNOLOGIAS.md` §7, abrir PR y actualizar esta tabla y `CONTEXTO.md`.
