@@ -235,7 +235,9 @@
   }
   .docs-body .tool-tab__icon--dark { background: #0a0a0d; border-color: #0a0a0d; }
   .docs-body .tool-tab__icon img { width: 100%; height: 100%; object-fit: contain; display: block; }
-  .docs-body .tool-tab__icon--kicad img { width: 78%; height: 78%; }
+  /* ícono oficial de la app de KiCad: ya trae su propio cuadrado azul redondeado, sin caja blanca detrás */
+  .docs-body .tool-tab__icon--kicad { background: transparent; border: 0; overflow: visible; border-radius: 0; }
+  .docs-body .tool-tab__icon--kicad img { width: 100%; height: 100%; filter: drop-shadow(0 6px 10px rgba(37, 64, 192, 0.3)); }
   .docs-body .tool-tab__icon--altium img { width: 62%; height: 78%; }
   .docs-body .tool-tab__icon--cover img { object-fit: cover; }
   .docs-body .tool-tab__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
