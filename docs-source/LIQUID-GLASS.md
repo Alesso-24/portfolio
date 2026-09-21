@@ -94,3 +94,32 @@ Hallazgo: con la capa ambiental como **dos capas grandes animadas** la home lleg
 ## 7. Ideas para más adelante (no hechas)
 
 Refracción real con `feDisplacementMap` solo para el menú en Chromium; barra de progreso de lectura de vidrio en la guía; transiciones de página con View Transitions; modo oscuro de vidrio.
+
+## 8. Versión 2: refracción real (pedido de Alessandro, 2026-09-21)
+
+**Por qué:** tras el deploy de la v1 dijo que "no se ve como vidrio": la v1 es vidrio *esmerilado* (relleno blanco + desenfoque). Lo que define el efecto de Apple es la **refracción**: en el borde del vidrio el fondo se curva como en una lente, hay un reflejo especular direccional y casi no hay relleno ni desenfoque.
+
+**Técnica (fuentes: [kube.io](https://kube.io/blog/liquid-glass-css-svg/), [LogRocket](https://blog.logrocket.com/how-create-liquid-glass-effects-css-and-svg/), [ekino](https://medium.com/ekino-france/liquid-glass-in-css-and-svg-839985fcb88d)):**
+1. **Perfil de superficie**: el borde del vidrio es un "bisel" convexo tipo *squircle*, `y = ⁴√(1 − (1 − x)⁴)` con `x` ∈ [0,1] del borde al plano interior (el que usa Apple; transición suave).
+2. **Ley de Snell** (`n₁ sin θ₁ = n₂ sin θ₂`, aire 1, vidrio 1.5): la pendiente del perfil da el ángulo de incidencia; el rayo se desvía hacia la normal y aterriza en el fondo desplazado. Ese desplazamiento (en px) se calcula una vez por distancia al borde (~127 muestras) y se aplica en toda la forma según la distancia al contorno.
+3. **Mapa de desplazamiento**: imagen PNG con `R = 128 + dx·127`, `G = 128 + dy·127` (128 = sin desplazamiento), generada con canvas para el tamaño exacto de cada elemento (rectángulo redondeado / cápsula).
+4. **Filtro SVG**: `feImage` (mapa) + `feDisplacementMap in=SourceGraphic scale=…` sobre el fondo, y `feImage` del **reflejo especular** (luz arriba-izquierda y un reflejo más débil opuesto) compuesto encima. Opcional: tres desplazamientos con escala 0.94/1/1.06 recombinados por canal = **aberración cromática** en el borde.
+5. **Aplicación**: `backdrop-filter: url(#id) saturate() brightness()`. El tamaño del filtro **no** se adapta solo: hay que regenerar el mapa si cambia el tamaño del elemento (`ResizeObserver`).
+
+**Limitaciones y decisiones:**
+- `backdrop-filter: url(#…)` solo funciona en **Chromium** (Chrome, Edge, Brave, Opera). Safari y Firefox lo ignoran: allí se conserva el vidrio de la v1 (alternativa automática; el script solo activa la refracción en Chromium).
+- **Costo:** cada elemento refractivo cuesta GPU y regenerar el mapa es caro, así que se usa en **pocos elementos flotantes** (menú superior, controles del visor de imágenes), el mapa se genera solo al cambiar de tamaño, y se mide contra la v1.
+- **Legibilidad:** el vidrio real es casi transparente, así que el relleno del menú es **adaptativo**: casi transparente sobre el fondo crema (aquí se ve la refracción) y más blanco (≥ 0.6) cuando detrás pasa una foto, video o el bloque azul (el texto oscuro necesita fondo claro). Se mide el contraste otra vez.
+- Se respetan `prefers-reduced-transparency`, `prefers-contrast: more` y `forced-colors` (sin refracción, superficie sólida).
+- Los brillos de borde (reflejo especular) de v1 pasan de un contorno uniforme a **direccionales** (arriba-izquierda fuerte, abajo-derecha suave) en todas las superficies `.glass`, que es barato y no necesita Chromium.
+
+**Ramas (apiladas, un PR cada una):**
+
+| # | Rama | Contenido | Estado |
+|---|---|---|---|
+| 1 | `docs/liquid-glass-refraccion` | Esta sección | en curso |
+| 2 | `feat/glass-refraction` | `src/scripts/glass-refract.ts` (mapas + filtro SVG + detección Chromium), menú superior y controles del visor de imágenes refractivos, relleno adaptativo | pendiente |
+| 3 | `feat/glass-rim` | Reflejos direccionales de borde en `.glass` (todas las superficies) | pendiente |
+| 4 | `fix/glass-refraction-qa` | Contraste medido sobre fondos oscuros/claros, rendimiento contra la v1, modos de accesibilidad, alternativa en Firefox/Safari (UA simulado), docs | pendiente |
+
+**Siguiente paso al retomar:** ver la primera fila "pendiente" de esta tabla; el punto de retorno es `restore/sitio-liquid-glass-2026-09-21` (v1 ya desplegada).

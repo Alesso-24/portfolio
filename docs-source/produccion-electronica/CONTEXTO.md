@@ -15,6 +15,10 @@
 >
 > **Sigue sin hacerse / pendiente de decisión:** rama `gh-pages` (legacy, archivada, se dejó viva); fresado físico y fotos; valores de R/LED; nombre final de la placa; ¿BDAI también fue en persona?
 >
+> ## 🔬 EN CURSO (2026-09-21, pedido de Alessandro tras ver el deploy): Liquid Glass v2 = refracción real
+> Dijo que la v1 "no se ve como vidrio, falta refracción". Plan, técnica, limitaciones y tabla de ramas en `docs-source/LIQUID-GLASS.md` §8 (refracción SVG solo en Chromium con alternativa a la v1 en Safari/Firefox; relleno adaptativo por legibilidad; medir contraste y rendimiento otra vez). **No desplegar sin su visto bueno.** Punto de retorno: `restore/sitio-liquid-glass-2026-09-21`.
+> **Estado ahora:** rama 1 (`docs/liquid-glass-refraccion`) en curso; siguiente: `feat/glass-refraction`.
+>
 > ## ✅ 2026-09-21: LIQUID GLASS DESPLEGADO (`main` = `84b6806`, PRs #57 a #64)
 > Alessandro aprobó ("BIEN DEPLOY"). Estética Apple "liquid glass" en todo el sitio: menú flotante de vidrio (escritorio y móvil) con indicador deslizante y scroll-spy, botones, tarjetas, chips, formulario, pestañas y controles de la guía, visor de imágenes con desenfoque; texto largo y capturas planas; capa ambiental estática; alternativas sólidas para accesibilidad.
 > **Documentación:** `docs-source/LIQUID-GLASS.md` (investigación, dónde sí/no, sistema de diseño en `src/styles/glass.css`, mediciones §6, ideas futuras §7) y `docs-source/ARQUITECTURA-Y-TECNOLOGIAS.md` (stack, recetas para ampliar, QA y git). **Cómo ampliar el vidrio:** superficie nueva = `.glass` + variante (`--read` si lleva texto largo, `--blur` solo si flota sobre contenido).
