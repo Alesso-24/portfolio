@@ -38,11 +38,10 @@ const [featured, ...rest] = PROJECTS
     <a
       href={featured.href}
       data-reveal
-      class="project-card project-card--large"
+      class="project-card project-card--large glass glass--strong glass-lift glass-sheen"
       style="display:block; text-decoration:none; margin-bottom:clamp(16px,2vw,28px);
              border-radius:18px; overflow:hidden; position:relative;
-             box-shadow:0 24px 60px -30px rgba(234,106,46,0.4);
-             transition:transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;"
+             --glow:rgba(234,106,46,0.4);"
     >
       <div class="card-img-wrap">
         <img
@@ -86,13 +85,10 @@ const [featured, ...rest] = PROJECTS
           href={project.href}
           data-reveal
           data-reveal-delay={String((i + 1) * 80)}
-          class="project-card"
+          class="project-card glass glass--strong glass-lift glass-sheen"
           style={`display:block; text-decoration:none;
                   border-radius:18px; overflow:hidden;
-                  box-shadow:${project.shadowColor === 'blue'
-                    ? '0 24px 60px -30px rgba(37,64,192,0.4)'
-                    : '0 22px 50px -30px rgba(234,106,46,0.4)'};
-                  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;`}
+                  --glow:${project.shadowColor === 'blue' ? 'rgba(37,64,192,0.4)' : 'rgba(234,106,46,0.4)'};`}
         >
           <div style="aspect-ratio:4/3; overflow:hidden;">
             <img
@@ -139,7 +135,11 @@ const [featured, ...rest] = PROJECTS
   @media (min-width: 1024px) {
     .cards-grid { grid-template-columns: repeat(3, 1fr) !important; }
   }
-  .project-card:hover { transform: translateY(-4px); }
+  /* vidrio + un resplandor de color por tarjeta (--glow) */
+  .project-card { box-shadow: var(--glass-edge), var(--glass-shadow), 0 22px 50px -30px var(--glow); }
+  @media (hover: hover) {
+    .project-card:hover { box-shadow: var(--glass-edge), var(--glass-shadow-lift), 0 30px 60px -28px var(--glow); }
+  }
   .project-card:hover .card-img { transform: scale(1.04); }
   .project-card:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; }
 

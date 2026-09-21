@@ -72,7 +72,7 @@ import { HERO } from '../../data/content'
       >
         <a
           href="#work"
-          class="cta-primary"
+          class="cta-primary glass glass--blue glass-btn"
         >
           <span class="lang-en">{HERO.cta_primary.en}</span>
           <span class="lang-es">{HERO.cta_primary.es}</span>
@@ -80,7 +80,7 @@ import { HERO } from '../../data/content'
         </a>
         <a
           href="#contact"
-          class="cta-secondary"
+          class="cta-secondary glass glass-btn"
         >
           <span class="lang-en">{HERO.cta_secondary.en}</span>
           <span class="lang-es">{HERO.cta_secondary.es}</span>
@@ -152,22 +152,17 @@ import { HERO } from '../../data/content'
   .cta-primary {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 15px 28px; border-radius: 100px;
-    background: #2540c0; color: #f3ede1;
+    color: #f3ede1;
     text-decoration: none; font: 600 15px 'Hanken Grotesk', system-ui, sans-serif;
-    transition: opacity 0.2s;
   }
-  .cta-primary:hover { opacity: 0.85; }
   .cta-primary:focus-visible { outline: 2px solid #2540c0; outline-offset: 3px; }
 
   .cta-secondary {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 15px 28px; border-radius: 100px;
-    background: transparent; border: 1px solid rgba(33,31,26,0.25);
     color: #211f1a;
     text-decoration: none; font: 600 15px 'Hanken Grotesk', system-ui, sans-serif;
-    transition: all 0.2s;
   }
-  .cta-secondary:hover { background: rgba(33,31,26,0.06); }
   .cta-secondary:focus-visible { outline: 2px solid #2540c0; outline-offset: 3px; }
 
   /* Portrait */
@@ -182,7 +177,7 @@ import { HERO } from '../../data/content'
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 32px 80px -20px rgba(37,64,192,0.35), 0 0 0 1px rgba(37,64,192,0.08);
+    box-shadow: 0 32px 80px -20px rgba(37,64,192,0.35), 0 0 0 1px rgba(255,255,255,0.7), 0 0 0 5px rgba(255,255,255,0.22);
   }
 
   .portrait-img {
@@ -211,7 +206,7 @@ import { HERO } from '../../data/content'
     width: 28px; height: 28px;
     border-radius: 50%;
     background: #ea6a2e;
-    box-shadow: 0 0 0 6px #f3ede1;
+    box-shadow: 0 0 0 6px rgba(255,255,255,0.6), inset 0 1px 0 rgba(255,255,255,0.55), 0 8px 18px -6px rgba(234,106,46,0.7);
   }
 
   /* Scroll hint */
