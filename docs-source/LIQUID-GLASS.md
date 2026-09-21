@@ -61,7 +61,7 @@ Ramas apiladas, cada una con su PR; ninguna se mergea a `main` hasta el visto bu
 | 2 | `feat/glass-base` | `src/styles/glass.css` (variables, clases, capa ambiental, alternativas), `src/scripts/glass-sheen.ts`, secciones de la home translúcidas | hecho |
 | 3 | `feat/glass-nav` | Menú superior y móvil, idioma, píldora | hecho |
 | 4 | `feat/glass-home` | Botones, tarjetas de trabajo, investigación, contacto, bandas de sección | hecho |
-| 5 | `feat/glass-projects` | Encabezado, ficha, insignias y botón de GitHub de las páginas de proyecto | pendiente |
+| 5 | `feat/glass-projects` | Encabezado, ficha, insignias y botón de GitHub de las páginas de proyecto | hecho |
 | 6 | `feat/glass-docs` | `/docs` y la guía interactiva | pendiente |
 | 7 | `feat/glass-motion` | Microinteracciones: resorte, reflejo con el puntero, indicador del menú | pendiente |
 | 8 | `fix/glass-qa` | Auditoría: contraste, modo reducido, móvil, ES/EN, rendimiento, capturas | pendiente |

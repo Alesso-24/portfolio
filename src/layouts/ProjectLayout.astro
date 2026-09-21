@@ -50,7 +50,7 @@ const {
     ">
 
       <!-- Back link (bilingual via CSS) -->
-      <a href={backHref} class="back-link">
+      <a href={backHref} class="back-link glass glass-btn">
         <span>←</span>
         <span class="lang-en">All projects</span>
         <span class="lang-es">Todos los proyectos</span>
@@ -109,7 +109,7 @@ const {
               href={githubHref}
               target="_blank"
               rel="noopener noreferrer"
-              class="github-btn"
+              class="github-btn glass glass-btn"
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
@@ -156,9 +156,8 @@ const {
     display: inline-flex; align-items: center; gap: 8px;
     font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: #6f6a5f; text-decoration: none;
-    min-height: 44px; margin: -12px 0 calc(clamp(28px, 4vh, 48px) - 12px);
-    transition: color 0.2s;
+    color: #4a473f; text-decoration: none;
+    min-height: 44px; padding: 0 18px; margin: -12px 0 calc(clamp(28px, 4vh, 48px) - 12px);
   }
   .back-link:hover { color: #ea6a2e; }
   .back-link:focus-visible { outline: 2px solid #2540c0; outline-offset: 4px; border-radius: 4px; }
@@ -166,12 +165,10 @@ const {
   .github-btn {
     display: inline-flex; align-items: center; gap: 9px;
     padding: 11px 22px; border-radius: 100px;
-    border: 1.5px solid rgba(33,31,26,0.2);
     color: #211f1a; text-decoration: none;
     font: 600 13px 'Hanken Grotesk', system-ui, sans-serif;
-    letter-spacing: 0.04em; transition: all 0.2s;
+    letter-spacing: 0.04em;
   }
-  .github-btn:hover { background: rgba(33,31,26,0.06); border-color: rgba(33,31,26,0.4); }
   .github-btn:focus-visible { outline: 2px solid #2540c0; outline-offset: 3px; }
 </style>
 
@@ -215,8 +212,9 @@ const {
     border-left: 3px solid #ea6a2e;
     margin: clamp(32px, 5vh, 52px) 0;
     padding: clamp(18px, 2.5vw, 28px) clamp(22px, 3vw, 36px);
-    background: rgba(234,106,46,0.05);
-    border-radius: 0 14px 14px 0;
+    background: linear-gradient(90deg, rgba(234,106,46,0.12), rgba(255,255,255,0.45));
+    border-radius: 0 16px 16px 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 10px 26px -18px rgba(234,106,46,0.5);
   }
   .project-body .pull-quote p {
     margin: 0;
@@ -235,10 +233,11 @@ const {
     margin: clamp(28px, 4vh, 44px) 0;
   }
   .project-body .tech-card {
-    background: #efe7d8;
-    border-radius: 16px;
+    background: var(--glass-fill-strong);
+    border-radius: 18px;
     padding: clamp(22px, 2.8vw, 32px);
-    border: 1px solid rgba(33,31,26,0.07);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), var(--glass-shadow);
   }
   .project-body .tech-card .tech-num {
     font-family: 'Instrument Serif', serif;
@@ -264,9 +263,10 @@ const {
 
   /* ── Callout box ── */
   .project-body .callout {
-    background: rgba(37,64,192,0.05);
-    border: 1px solid rgba(37,64,192,0.14);
-    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(228,235,255,0.62));
+    border: 1px solid rgba(255,255,255,0.85);
+    box-shadow: var(--glass-edge), 0 14px 34px -20px rgba(37,64,192,0.4);
+    border-radius: 18px;
     padding: clamp(22px, 3vw, 36px);
     margin: clamp(32px, 4.5vh, 52px) 0;
     font-size: clamp(14px, 1.2vw, 16px);
@@ -287,8 +287,10 @@ const {
   .project-body .stat-highlight {
     margin: clamp(32px, 5vh, 56px) 0;
     padding: clamp(28px, 4vw, 48px);
-    background: #efe7d8;
-    border-radius: 18px;
+    background: var(--glass-fill-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), var(--glass-shadow);
+    border-radius: 20px;
   }
 
   /* ── Video embed ── */
@@ -312,8 +314,10 @@ const {
   .project-body .yt-play {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center;
-    background: #ea6a2e; color: #f3ede1; box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.6);
-    padding-left: 4px; transition: transform 0.2s;
+    background: linear-gradient(150deg, #f58a55 0%, #ea6a2e 55%, #d8551a 100%); color: #fff8f0;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 12px 32px -10px rgba(0, 0, 0, 0.6);
+    padding-left: 4px; transition: transform 0.4s var(--spring);
   }
   .project-body .yt-facade:hover .yt-play { transform: translate(-50%, -50%) scale(1.08); }
   .project-body .yt-facade:focus-visible { outline: 3px solid #2540c0; outline-offset: -3px; }
@@ -326,8 +330,9 @@ const {
   .project-body .ieee-badge {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 11px 22px; border-radius: 100px;
-    background: rgba(37,64,192,0.07);
-    border: 1px solid rgba(37,64,192,0.18);
+    background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(226,233,255,0.6));
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: inset 0 1px 0 #fff, 0 6px 18px -10px rgba(37,64,192,0.5);
     font: 700 11px 'Hanken Grotesk', system-ui, sans-serif;
     letter-spacing: 0.13em; text-transform: uppercase;
     color: #2540c0;
