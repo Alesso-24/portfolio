@@ -115,7 +115,7 @@ Written in Spanish; English lives in a dictionary so the content data stays read
 
 ## Liquid Glass (Apple-style glass UI)
 
-The whole site uses a glass design system: `src/styles/glass.css` (variables + classes such as `.glass`, `.glass--read`, `.glass-lift`, `.glass-btn`), a static ambient layer behind the page, and a floating glass nav. Real `backdrop-filter` is used only on floating elements (nav, mobile menu, image viewer); everything else uses a cheap "glass look". Long text always sits on `.glass--read` (≈80 % opaque). Falls back to solid surfaces with `prefers-reduced-transparency`, `prefers-contrast: more`, `forced-colors` and browsers without `backdrop-filter`. Research, decisions, measurements and how to extend it: `docs-source/LIQUID-GLASS.md`.
+The whole site uses a glass design system: `src/styles/glass.css` (variables + classes such as `.glass`, `.glass--read`, `.glass-lift`, `.glass-btn`), a static ambient layer behind the page, and a floating glass nav. Real `backdrop-filter` is used only on floating elements (nav, mobile menu, image viewer); everything else uses a cheap "glass look". Long text always sits on `.glass--read` (≈80 % opaque). The nav and image-viewer controls use **real refraction** (SVG `feDisplacementMap` + Snell's law, `src/scripts/glass-refract.ts`, Chromium only, with a performance governor); other browsers keep the frosted look. Falls back to solid surfaces with `prefers-reduced-transparency`, `prefers-contrast: more`, `forced-colors` and browsers without `backdrop-filter`. Research, decisions, measurements and how to extend it: `docs-source/LIQUID-GLASS.md`.
 
 ---
 
