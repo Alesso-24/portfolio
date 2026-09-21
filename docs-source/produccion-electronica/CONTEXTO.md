@@ -13,6 +13,7 @@
 >   (2) **ramas** limpiadas (ver abajo); (3) esta bitácora reordenada.
 > - **Verificación previa al deploy (build de producción con las dependencias nuevas):** `astro check` 0 errores · 10 páginas × escritorio/móvil: 0 errores de consola,
 >   0 imágenes rotas, 0 desbordes · recorrido de los 61 pasos (KiCad + MonoFab) en escritorio y móvil: 0 imágenes rotas, 0 recuadros desalineados.
+> - **Enfoque general (rama `docs/general-pcb-y-fotos`, pendiente de deploy):** el sitio ya no habla de "Práctica 01 / primera placa": la materia se documenta como **Creación de PCBs** (KiCad · MonoFab · Altium). Se quitaron el número 01, "Práctica actual" y "Primera placa en KiCad" de los textos visibles; las URLs (`/practicas/primera-placa-kicad/`) **no cambiaron** para no romper enlaces. Fotos del equipo: avatares cuadrados recortados sobre la cara en `public/images/team/` (`node scripts/make-team-avatars.mjs`; las originales `Alessandro.webp`/`Alexa.webp` siguen intactas, las usa el Hero).
 > - **Decisiones que siguen vigentes:** solo español en `/docs`; la tarjeta de Alexa va **sin bio a propósito**; no se documenta la diferencia de medidas entre SVG;
 >   la pestaña Altium queda como "pendiente" (aún no migran a Altium); sin efectos vistosos (se descartó el glow/tilt de la foto SRM-20).
 > - **Ramas (2026-09-20):** solo queda `main`. Se borraron las locales y remotas ya integradas (`docs/*`, `feat/*`, `fix/*`, `perf/*`, `redesign`, `master`) —
@@ -513,3 +514,6 @@ Alessandro pidió "arregla todo": contexto, página lista para entrega, ramas y 
 - **Verificación con las dependencias nuevas** (build de producción + Playwright): 10 páginas × escritorio/móvil sin errores de consola, imágenes rotas ni desbordes; 61 pasos de las pestañas KiCad y MonoFab sin imágenes rotas ni recuadros desalineados.
 - **Ramas:** ver "Estado actual" arriba. Solo queda `main` (+ `gh-pages` legacy).
 - Merge a `main` (fast-forward) y push → deploy por GitHub Actions.
+
+### 2026-09-20 (noche) — Enfoque general de la materia + fotos centradas
+Alessandro pidió: quitar "nuestra primera práctica en KiCad" / "Práctica 01" (la materia es producir PCBs y se documentará KiCad, MonoFab y Altium) y centrar las caras del equipo. Textos cambiados en `src/data/docs.ts`, portada de la materia, lista y página principal de la guía; avatares nuevos recortados sobre la cara. Verificado con build + capturas + 0 errores de consola. Queda local en la rama hasta su visto bueno.

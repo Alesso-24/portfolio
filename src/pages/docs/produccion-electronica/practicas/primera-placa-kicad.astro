@@ -12,13 +12,13 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
 ---
 
 <DocsLayout
-  title="Primera placa en KiCad"
-  description="Diseño esquemático, ruteo del PCB y fabricación con MonoFab — documentado paso a paso."
-  badge="Producción Electrónica · Práctica 01"
+  title="Creación de PCBs"
+  description="El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium — documentado paso a paso."
+  badge="Producción Electrónica"
   breadcrumbs={[
     { label: 'Documentación', href: '/portfolio/docs' },
     { label: subject.name, href: `/portfolio/docs/${subject.slug}` },
-    { label: 'Prácticas', href: `/portfolio/docs/${subject.slug}/practicas` },
+    { label: 'Documentación de la materia', href: `/portfolio/docs/${subject.slug}/practicas` },
   ]}
   wide
 >
@@ -26,11 +26,11 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
 
   <!-- Ficha -->
   <div class="callout" data-reveal>
-    <strong>Ficha de la práctica</strong>
+    <strong>Ficha</strong>
     <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:4px;">
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Materia</span>{subject.name}</div>
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Equipo</span>{teamNames}</div>
-      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Herramientas</span>KiCad · MonoFab</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Herramientas</span>KiCad · MonoFab · Altium</div>
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;">Estado</span>
         <span class="status-chip status-chip--en-progreso" style="margin-top:2px;"><span class="status-dot"></span>En progreso</span>
       </div>
@@ -38,21 +38,21 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
   </div>
 
   <!-- Objetivo -->
-  <h2 id="objetivo" class="section-h2" data-reveal>Objetivo de la práctica.</h2>
+  <h2 id="objetivo" class="section-h2" data-reveal>Objetivo.</h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Recorrer el flujo completo de fabricación de una PCB: diseñar un circuito en <strong>KiCad</strong>{' '}
+    Documentar el flujo completo para producir una PCB: diseñar un circuito en <strong>KiCad</strong>{' '}
     (esquemático y placa), exportar los archivos de fabricación y generar las trayectorias de fresado
     con <strong>mods</strong> para la <strong>Roland SRM-20</strong> (MonoFab).
   </p>
   <p class="prose" data-reveal data-reveal-delay="100">
-    El circuito diseñado es un módulo de <strong>4 pulsadores</strong> con LED indicador, cada uno con
+    El circuito con el que se documenta el proceso es un módulo de <strong>4 pulsadores</strong> con LED indicador, cada uno con
     su resistencia pull-down, más un conector de alimentación (entradas) y uno de salidas que expone
     el estado de cada botón hacia un microcontrolador externo.
   </p>
 
   <!-- Herramientas: al elegir una pestaña cambia el contenido -->
   <div class="tool-tabs" data-tabs id="herramientas">
-    <div class="tool-tabs__list" role="tablist" aria-label="Herramientas de la práctica">
+    <div class="tool-tabs__list" role="tablist" aria-label="Herramientas">
       <button type="button" role="tab" class="tool-tab" id="tab-kicad" data-tab="kicad" aria-controls="panel-kicad" aria-selected="true">
         <span class="tool-tab__icon tool-tab__icon--kicad"><img src={`${BRAND_BASE}kicad-icon.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">

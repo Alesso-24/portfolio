@@ -1,4 +1,4 @@
-// Contenido de la pestaña KiCad (Práctica 1). Fuente de verdad del texto, capturas y recuadros.
+// Contenido de la pestaña KiCad. Fuente de verdad del texto, capturas y recuadros.
 // Bitácora del proceso: docs-source/produccion-electronica/CONTEXTO.md
 import type { Flow, ToolItem } from './flow-types'
 
@@ -58,7 +58,7 @@ export const KICAD_FLOW: Flow = {
       title: 'Antes de empezar: KiCad y sus editores',
       steps: [
         {
-          html: 'Esta práctica se trabaja con <strong>KiCad 10.0</strong>. La ventana principal lista los editores; estos son, con su ícono. Aquí se usan sobre todo el <strong>Editor de esquemas</strong> (dibuja el circuito) y el <strong>Editor de placas</strong> (diseña el PCB físico).',
+          html: 'Aquí se trabaja con <strong>KiCad 10.0</strong>. La ventana principal lista los editores; estos son, con su ícono. Aquí se usan sobre todo el <strong>Editor de esquemas</strong> (dibuja el circuito) y el <strong>Editor de placas</strong> (diseña el PCB físico).',
           blocks: [
             { kind: 'editors' },
             { kind: 'where', view: 'main', items: ['Editor de esquemas', 'Editor de placas'], numbered: true, caption: 'Ventana principal de KiCad — los dos editores que se usan' },

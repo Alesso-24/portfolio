@@ -7,8 +7,8 @@ const practices = getPractices('produccion-electronica')
 ---
 
 <DocsLayout
-  title="Prácticas"
-  description={`Registro de prácticas de ${subject.name}, documentadas conforme avanzamos.`}
+  title="Documentación de la materia"
+  description={`Todo lo que documentamos de ${subject.name}, conforme avanzamos.`}
   badge="Producción Electrónica"
   breadcrumbs={[
     { label: 'Documentación', href: '/portfolio/docs' },
@@ -18,7 +18,6 @@ const practices = getPractices('produccion-electronica')
   <div class="practice-list" data-reveal>
     {practices.map((practice) => (
       <a href={`/portfolio/docs/${subject.slug}/practicas/${practice.slug}`} class="practice-row">
-        <span class="practice-num">{practice.number}</span>
         <div class="practice-main">
           <h3>{practice.title}</h3>
           <p>{practice.summary}</p>
@@ -32,7 +31,7 @@ const practices = getPractices('produccion-electronica')
   </div>
 
   <div class="callout" data-reveal data-reveal-delay="100">
-    <strong>Más prácticas, próximamente</strong>
-    Cada nueva práctica de la materia se agrega aquí conforme la vamos completando.
+    <strong>Más contenido, próximamente</strong>
+    Cada tema nuevo de la materia se agrega aquí conforme lo vamos trabajando.
   </div>
 </DocsLayout>
