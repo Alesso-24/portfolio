@@ -111,7 +111,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   return (
     <>
       <header className={`glass-nav${scrolled ? ' is-scrolled' : ''}`}>
-        <div className="glass-nav__bar glass glass--blur">
+        <div className="glass-nav__bar glass glass--blur glass--refract" data-glass-adaptive="">
           {/* Izquierda: avatar + nombre */}
           <a href="/portfolio/" className="glass-nav__brand">
             <span className="glass-nav__avatar">A</span>

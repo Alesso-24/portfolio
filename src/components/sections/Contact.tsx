@@ -51,6 +51,7 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
   return (
     <section
       id="contact"
+      data-glass-dark=""
       style={{
         background: '#2540c0', color: '#f3ede1',
         padding: 'clamp(76px,12vh,150px) clamp(20px,4vw,60px)',

@@ -150,7 +150,7 @@
     overlay.setAttribute('role', 'dialog')
     overlay.setAttribute('aria-modal', 'true')
     overlay.setAttribute('aria-label', isEn() ? 'Enlarged image' : 'Imagen ampliada')
-    overlay.innerHTML = `<button type="button" class="lightbox__close" aria-label="${isEn() ? 'Close' : 'Cerrar'}">✕</button><div class="lightbox__body"></div><p class="lightbox__caption"></p>`
+    overlay.innerHTML = `<button type="button" class="lightbox__close glass--refract" aria-label="${isEn() ? 'Close' : 'Cerrar'}">✕</button><div class="lightbox__body"></div><p class="lightbox__caption glass--refract"></p>`
     overlay.querySelector('.lightbox__body')!.appendChild(content)
     overlay.querySelector('.lightbox__caption')!.innerHTML = captionHtml
     overlay.addEventListener('click', (e) => {
