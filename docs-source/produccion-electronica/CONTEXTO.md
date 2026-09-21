@@ -19,7 +19,7 @@
 > Pedido: upgrade estético de **todo** el sitio (menú superior, animaciones, detalles) **sin perder funcionalidad ni legibilidad**; investigar → evaluar dónde sí/no → implementar; git/GitHub ordenados; **documentar tecnologías y metodología** para facilitar ampliaciones; **actualizar este contexto en cada hito** por si se acaban los tokens.
 > **Dónde está todo:** `docs-source/LIQUID-GLASS.md` (investigación, decisiones, tabla dónde sí/no, sistema de diseño y **tabla de avance con ramas y estado**) y `docs-source/ARQUITECTURA-Y-TECNOLOGIAS.md` (stack, mapa del repo, convenciones, recetas para ampliar, QA y metodología git).
 > **Reglas:** ramas apiladas, un PR por rama, **no mergear a `main` ni desplegar sin su visto bueno** (mostrarle antes en su navegador). Punto de retorno: `restore/sitio-pre-liquid-glass-2026-09-21`.
-> **Estado ahora:** ramas 1 a 7 hechas (…docs #62, movimiento: indicador deslizante del menú + scroll-spy, entrada de la cápsula, revelados más suaves, arreglo del hover en tarjetas). Siguiente: `fix/glass-qa` (contraste medido por píxeles, modo reducido/alto contraste/transparencia reducida, rendimiento con CPU limitada, móvil, ES/EN) y luego pedir visto bueno para mergear a main. Tabla de avance en LIQUID-GLASS.md §5.
+> **Estado ahora:** TODAS las ramas de Liquid Glass hechas (#57 a #64); QA completa (contraste 29/29, modos de accesibilidad, rendimiento medido, funcionalidad). PENDIENTE: visto bueno de Alessandro; si lo da, mergear la pila a main en orden (retargetear PRs a main, merge --no-ff, un solo push) y desplegar, luego etiquetar y limpiar ramas. Detalles en LIQUID-GLASS.md §5-§7.
 >
 > ---
 

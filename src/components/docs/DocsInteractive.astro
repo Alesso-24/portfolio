@@ -551,8 +551,16 @@
     box-shadow: var(--glass-edge), var(--glass-shadow-lift);
   }
   .docs-body .legend-num {
-    background: linear-gradient(150deg, #f58a55, #ea6a2e 60%, #d8551a);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 4px 10px -4px rgba(234, 106, 46, 0.7);
+    background: linear-gradient(150deg, #cc4d14, #b93f0c 60%, #a33607);
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 4px 10px -4px rgba(190, 70, 20, 0.75);
+  }
+  /* texto naranja pequeño: tono más profundo para cumplir WCAG AA sobre la superficie clara */
+  .docs-body .slide-meta span:first-child {
+    color: #b4380a;
+  }
+  .docs-body .slide-meta span:last-child {
+    color: #6f6a5f;
   }
   .docs-body .legend-icon,
   .docs-body .component-card {
