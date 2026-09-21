@@ -112,6 +112,9 @@ const {
   </head>
 
   <body class="bg-cream text-ink overflow-x-hidden">
+    <!-- Capa ambiental de Liquid Glass (ver src/styles/glass.css): da algo que ver a través del vidrio -->
+    <div class="glass-ambient" aria-hidden="true"></div>
+
     <!-- Skip to main content (a11y) -->
     <a href="#main-content" class="skip-link"><span class="lang-en">Skip to main content</span><span class="lang-es">Saltar al contenido</span></a>
 
@@ -124,6 +127,11 @@ const {
     </main>
 
     <Footer lang={lang} />
+
+    <!-- Reflejo del vidrio que sigue al puntero (solo escritorio) -->
+    <script>
+      import '../scripts/glass-sheen'
+    </script>
 
     <!-- Lenis smooth scroll + GSAP ScrollTrigger setup -->
     <script>

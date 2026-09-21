@@ -1,0 +1,271 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIQUID GLASS · sistema de diseño
+   Documentación completa (investigación, dónde sí / dónde no, avance): docs-source/LIQUID-GLASS.md
+
+   Cómo usarlo al ampliar el sitio:
+     · Una superficie nueva = clase `.glass` + una variante. Nunca copiar valores sueltos.
+     · Lleva texto largo            → `.glass--read` (≈80 % opaca: el contraste no depende del fondo).
+     · Pasa contenido por detrás
+       al hacer scroll (menús)      → `.glass--blur` (único que usa backdrop-filter, que cuesta GPU).
+     · Tarjeta / botón interactivo  → `.glass-lift` (elevación al pasar) / `.glass-press` (resorte al pulsar).
+     · Reflejo que sigue al puntero → `.glass-sheen` (lo mueve src/scripts/glass-sheen.ts vía --mx/--my).
+   Solo se animan `transform` y `opacity` (nunca el desenfoque). Todo cae a superficies sólidas con
+   prefers-reduced-transparency, prefers-contrast: more, forced-colors o sin soporte de backdrop-filter.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --glass-blur: 18px;
+  --glass-blur-strong: 30px;
+  --glass-saturate: 1.8;
+
+  /* rellenos */
+  --glass-fill: linear-gradient(145deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.34));
+  --glass-fill-strong: linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.6));
+  --glass-read: rgba(255, 252, 246, 0.8);
+  --glass-dark: linear-gradient(145deg, rgba(52, 48, 41, 0.88), rgba(24, 22, 18, 0.82));
+  --glass-blue: linear-gradient(150deg, #4f68da 0%, #2540c0 52%, #1c32a0 100%);
+  --glass-solid: #fbf8f1; /* alternativa opaca */
+
+  /* bordes y reflejos */
+  --glass-border: rgba(255, 255, 255, 0.72);
+  --glass-edge:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(33, 31, 26, 0.07),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  --glass-edge-dark:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+
+  /* sombras */
+  --glass-shadow: 0 1px 2px rgba(33, 31, 26, 0.06), 0 14px 34px -14px rgba(33, 31, 26, 0.26);
+  --glass-shadow-lift: 0 2px 4px rgba(33, 31, 26, 0.06), 0 28px 58px -18px rgba(33, 31, 26, 0.34);
+
+  /* movimiento */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (max-width: 720px) {
+  :root {
+    --glass-blur: 12px;
+    --glass-blur-strong: 18px;
+  }
+}
+
+/* ─── Capa ambiental: algo que ver a través del vidrio ────────────────────────
+   El fondo del sitio es crema plano; sin esto el vidrio se vería como un blanco translúcido.
+   `html` pinta el crema y `body` queda transparente (ver regla de abajo). */
+body.bg-cream {
+  background: transparent;
+}
+
+.glass-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: radial-gradient(60vmax 50vmax at 72% 78%, rgba(150, 118, 220, 0.09), transparent 70%);
+}
+
+.glass-ambient::before,
+.glass-ambient::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.glass-ambient::before {
+  width: 72vmax;
+  height: 72vmax;
+  top: -28vmax;
+  right: -22vmax;
+  background: radial-gradient(circle, rgba(37, 64, 192, 0.17), transparent 62%);
+  animation: glass-drift-a 46s ease-in-out infinite;
+}
+
+.glass-ambient::after {
+  width: 64vmax;
+  height: 64vmax;
+  bottom: -30vmax;
+  left: -24vmax;
+  background: radial-gradient(circle, rgba(234, 106, 46, 0.16), transparent 62%);
+  animation: glass-drift-b 58s ease-in-out infinite;
+}
+
+@keyframes glass-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-6vmax, 8vmax, 0) scale(1.12); }
+}
+
+@keyframes glass-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8vmax, -6vmax, 0) scale(1.1); }
+}
+
+/* ─── Superficies ─────────────────────────────────────────────────────────── */
+.glass {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-edge), var(--glass-shadow);
+}
+
+.glass--strong {
+  background: var(--glass-fill-strong);
+}
+
+.glass--read {
+  background: var(--glass-read);
+}
+
+.glass--dark {
+  background: var(--glass-dark);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: var(--glass-edge-dark), var(--glass-shadow);
+  color: #f3ede1;
+}
+
+.glass--blue {
+  background: var(--glass-blue);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(10, 20, 80, 0.35),
+    0 1px 2px rgba(37, 64, 192, 0.25),
+    0 14px 30px -12px rgba(37, 64, 192, 0.55);
+  color: #f3ede1;
+}
+
+/* el único que desenfoca lo que hay detrás (cuesta GPU: solo elementos flotantes) */
+.glass--blur {
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+}
+
+.glass--blur-strong {
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+}
+
+/* ─── Interacción ─────────────────────────────────────────────────────────── */
+.glass-lift {
+  transition: transform 0.5s var(--spring), box-shadow 0.4s ease, background-color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .glass-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--glass-edge), var(--glass-shadow-lift);
+  }
+}
+
+.glass-press {
+  transition: transform 0.4s var(--spring), box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.glass-press:active {
+  transform: scale(0.965);
+  transition-duration: 0.12s;
+}
+
+/* reflejo suave que sigue al puntero (--mx/--my los pone glass-sheen.ts; sin JS queda arriba al centro) */
+.glass-sheen {
+  position: relative;
+}
+
+.glass-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.5), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  mix-blend-mode: soft-light;
+}
+
+@media (hover: hover) {
+  .glass-sheen:hover::after {
+    opacity: 1;
+  }
+}
+
+/* ─── Alternativas de accesibilidad y compatibilidad ──────────────────────────
+   Todas convierten el vidrio en superficie sólida legible. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass--blur,
+  .glass--blur-strong {
+    background: var(--glass-solid);
+  }
+
+  .glass--dark.glass--blur,
+  .glass--dark.glass--blur-strong {
+    background: #262320;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass-ambient {
+    display: none;
+  }
+
+  .glass,
+  .glass--strong,
+  .glass--read {
+    background: var(--glass-solid);
+  }
+
+  .glass--dark {
+    background: #262320;
+  }
+
+  .glass--blur,
+  .glass--blur-strong {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .glass-sheen::after {
+    display: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .glass {
+    border-color: rgba(33, 31, 26, 0.5);
+  }
+}
+
+@media (forced-colors: active) {
+  .glass,
+  .glass--strong,
+  .glass--read,
+  .glass--dark,
+  .glass--blue {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+    box-shadow: none;
+  }
+
+  .glass-ambient {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-ambient::before,
+  .glass-ambient::after {
+    animation: none;
+  }
+
+  .glass-lift:hover {
+    transform: none;
+  }
+
+  .glass-press:active {
+    transform: none;
+  }
+}
