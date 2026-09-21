@@ -21,20 +21,20 @@ export const DOCS_SUBJECTS: DocsSubject[] = [
   {
     slug: 'produccion-electronica',
     name: 'Producción Electrónica',
-    tagline: 'Diseño y fabricación de PCBs con KiCad + MonoFab.',
+    tagline: 'Producción de PCBs: diseño y fabricación con KiCad, MonoFab y Altium.',
     description:
-      'Documentación del proceso de diseño, ruteo y fabricación de nuestras placas de circuito impreso para la materia de Producción Electrónica. Trabajo en parejas.',
+      'Documentación de toda la materia de Producción Electrónica: cómo se produce una placa de circuito impreso, del diseño en KiCad a la fabricación en MonoFab, y Altium. Trabajo en parejas.',
     team: [
       {
         name: 'Alessandro Reyes',
         role: 'Ingeniería Mecatrónica · IBERO Puebla',
         bio: 'Estudiante de Mecatrónica enfocado en sistemas embebidos, IA aplicada y robótica.',
-        photo: '/portfolio/images/Alessandro.webp',
+        photo: '/portfolio/images/team/alessandro.webp',
       },
       {
         name: 'Alexa Groot',
         role: 'Ingeniería Mecatrónica · IBERO Puebla',
-        photo: '/portfolio/images/Alexa.webp',
+        photo: '/portfolio/images/team/alexa.webp',
       },
     ],
   },
@@ -54,9 +54,9 @@ export const DOCS_PRACTICES: DocsPractice[] = [
     subjectSlug: 'produccion-electronica',
     slug: 'primera-placa-kicad',
     number: '01',
-    title: 'Nuestra primera placa en KiCad',
+    title: 'Creación de PCBs',
     status: 'en-progreso',
-    summary: 'Diseño esquemático, ruteo del PCB y fabricación con MonoFab de nuestra primera placa de circuito impreso.',
+    summary: 'El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium, paso a paso.',
   },
 ]
 
