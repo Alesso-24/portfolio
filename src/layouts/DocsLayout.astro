@@ -556,4 +556,62 @@ const backLabel = breadcrumbs[breadcrumbs.length - 1]?.label ?? 'Documentación'
     .docs-body details.step-group .step-group__body { padding: 4px 16px 16px; }
     .docs-body .shot-annotation__label { font-size: 11px; padding: 3px 7px; }
   }
+
+  /* ═══ Liquid Glass (capa de /docs · docs-source/LIQUID-GLASS.md) ═══
+     Va al final para sobrescribir los rellenos de arriba. Capturas, tablas y texto largo siguen planos. */
+  .docs-body .callout {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(228, 235, 255, 0.64));
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: var(--glass-edge), 0 14px 34px -20px rgba(37, 64, 192, 0.4);
+    border-radius: 18px;
+  }
+  .docs-body .todo-callout {
+    background: linear-gradient(145deg, rgba(255, 249, 242, 0.86), rgba(255, 233, 216, 0.64));
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: var(--glass-edge), 0 12px 30px -20px rgba(234, 106, 46, 0.5);
+    border-radius: 18px;
+  }
+  .docs-body .team-card,
+  .docs-body .subject-card,
+  .docs-body .mods-chip,
+  .docs-body .step-toc a,
+  .docs-body .tool-icon-box {
+    background: var(--glass-fill-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), var(--glass-shadow);
+  }
+  .docs-body .subject-card {
+    transition: transform 0.5s var(--spring), box-shadow 0.4s ease;
+  }
+  .docs-body .subject-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--glass-edge), var(--glass-shadow-lift);
+  }
+  .docs-body .mods-table-wrap,
+  .docs-body details.step-group {
+    background: var(--glass-read);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), var(--glass-shadow);
+  }
+  .docs-body .status-chip {
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: inset 0 1px 0 #fff, 0 2px 8px -4px rgba(33, 31, 26, 0.3);
+  }
+  .docs-body .step-num {
+    background: var(--glass-blue);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 4px 10px -3px rgba(37, 64, 192, 0.5);
+  }
+  .docs-body .docs-cta {
+    background: var(--glass-blue);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(10, 20, 80, 0.35), 0 14px 30px -12px rgba(37, 64, 192, 0.55);
+    transition: transform 0.45s var(--spring), filter 0.3s ease;
+  }
+  .docs-body .docs-cta:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+  }
+  .docs-body .docs-cta:active {
+    transform: scale(0.965);
+  }
 </style>
