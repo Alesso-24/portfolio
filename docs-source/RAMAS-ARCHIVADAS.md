@@ -69,3 +69,12 @@ Todos esos bumps ya están cubiertos: `main` trae astro 7.3.3, sharp 0.35.4, etc
 
 `gh-pages`: rama legacy del deploy manual. Ya no se usa (GitHub Pages publica con Actions), pero no se borró por si la configuración de Pages todavía la referencia.
 Está archivada en `archive/gh-pages-deploy-manual`, así que borrarla es seguro: `git push origin --delete gh-pages`.
+
+## Puntos de restauración más recientes (2026-09-21)
+
+| Etiqueta | Qué es | Volver |
+|---|---|---|
+| `restore/sitio-dock-perf-2026-09-21` | `main` con dock contraíble + íconos + burbuja arreglada + optimización de fluidez (PRs #73, #74, #75) | `git checkout -b volver restore/sitio-dock-perf-2026-09-21` |
+| `restore/sitio-liquid-glass-v2-2026-09-21` | refracción real, menú fijo (antes del dock) | ídem |
+
+Las ramas `feat/glass-dock-compacto`, `feat/glass-dock-iconos` y `perf/fluidez` se borraron tras el merge; sus commits siguen en el historial de `main`.
