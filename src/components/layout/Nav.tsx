@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { Menu, X, Globe, Github, Linkedin, Instagram } from 'lucide-react'
+import { Menu, X, Globe, Github, Linkedin, Instagram, Briefcase, FlaskConical, User, Mail, BookOpen } from 'lucide-react'
 import { NAV_LINKS, SITE } from '../../data/content'
+
+/** ícono de cada enlace del menú (trazo fino, mismo estilo que el resto de íconos); en el dock contraído solo queda el ícono */
+const NAV_ICONS: Record<string, typeof Briefcase> = {
+  '#work': Briefcase,
+  '#research': FlaskConical,
+  '#about': User,
+  '#contact': Mail,
+  '/portfolio/docs': BookOpen,
+}
 
 interface Props { lang?: 'en' | 'es' }
 
@@ -93,7 +102,12 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
     const targets = NAV_LINKS.filter((l) => l.href.startsWith('#'))
       .map((l) => ({ id: l.href, el: document.querySelector(l.href) }))
       .filter((t): t is { id: string; el: Element } => !!t.el)
-    if (!targets.length) return
+    if (!targets.length) {
+      // fuera de la home no hay secciones que vigilar: la sección activa es la de la página actual
+      const path = window.location.pathname
+      setActive(path.includes('/docs') ? '/portfolio/docs' : path.includes('/project/') ? '#work' : null)
+      return
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -194,20 +208,25 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               aria-hidden="true"
               style={{ width: indicator.w, transform: `translateX(${indicator.x}px)`, opacity: indicator.show ? 1 : 0 }}
             />
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.href}
-                data-href={link.href}
-                onClick={() => scrollTo(link.href)}
-                onMouseEnter={(e) => { hovering.current = true; moveTo(e.currentTarget) }}
-                onFocus={(e) => moveTo(e.currentTarget)}
-                onBlur={() => { if (!hovering.current) restIndicator() }}
-                aria-current={active === link.href ? 'true' : undefined}
-                className="glass-nav__link"
-              >
-                <T {...link.label} />
-              </button>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const Icon = NAV_ICONS[link.href]
+              return (
+                <button
+                  key={link.href}
+                  data-href={link.href}
+                  onClick={() => scrollTo(link.href)}
+                  onMouseEnter={(e) => { hovering.current = true; moveTo(e.currentTarget) }}
+                  onFocus={(e) => moveTo(e.currentTarget)}
+                  onBlur={() => { if (!hovering.current) restIndicator() }}
+                  aria-current={active === link.href ? 'true' : undefined}
+                  aria-label={link.label[lang]}
+                  className="glass-nav__link"
+                >
+                  {Icon && <Icon size={16} strokeWidth={1.5} className="glass-nav__icon" aria-hidden="true" />}
+                  <span className="glass-nav__label"><T {...link.label} /></span>
+                </button>
+              )
+            })}
           </nav>
 
           {/* Derecha: disponibilidad + idioma + hamburguesa */}

@@ -576,3 +576,4 @@ Alessandro pidió usar el ícono de la app de KiCad 10 (cuadrado azul redondeado
 
 ### 2026-09-21 (noche) — En curso: dock que se contrae/expande
 Alessandro pidió animaciones de expandir/contraer el menú al subir/bajar la página y al pasar el mouse. Plan y diseño en `docs-source/LIQUID-GLASS.md` §9; rama `feat/glass-dock-compacto`. **Hecho y verificado (PR abierto, sin desplegar):** contraído al bajar, expandido al subir / con el mouse / con el teclado / al tocar; ver §9.1.
+**Íconos en el menú (rama `feat/glass-dock-iconos`, apilada sobre `feat/glass-dock-compacto`; sin desplegar):** ícono en cada enlace; dock contraído = solo íconos + nombre de la sección activa (460 px EN / 500 px ES, antes 680); breakpoints para ventanas de 860 a 1180 px; sección activa también en /docs y /project. Ver LIQUID-GLASS.md §9.2.

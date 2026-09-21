@@ -252,6 +252,21 @@ body.bg-cream {
 .glass-nav__link {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.glass-nav__icon {
+  flex: none;
+  opacity: 0.78;
+  transition: opacity 0.25s ease;
+}
+
+.glass-nav__link:hover .glass-nav__icon,
+.glass-nav__link[aria-current='true'] .glass-nav__icon {
+  opacity: 1;
 }
 
 .glass-nav__link[aria-current='true'] {
@@ -344,10 +359,57 @@ body.bg-cream {
   width: min(100%, 250px);
 }
 
+/* ancho contraído = lo que mide el contenido (íconos + nombre de la sección activa): 421-449 px en inglés, hasta 488 con "Documentación" */
 @media (min-width: 860px) {
   .glass-nav.is-compact .glass-nav__bar {
-    width: min(100%, 680px);
+    width: min(100%, 460px);
   }
+
+  html[lang='es'] .glass-nav.is-compact .glass-nav__bar {
+    width: min(100%, 500px);
+  }
+}
+
+/* ventanas intermedias: con íconos el menú expandido ya no cabe con todo; primero se quita la píldora y luego el nombre */
+@media (min-width: 860px) and (max-width: 1179px) {
+  .glass-nav__pill {
+    display: none;
+  }
+}
+
+@media (min-width: 860px) and (max-width: 999px) {
+  .glass-nav__name {
+    display: none;
+  }
+}
+
+/* etiquetas de los enlaces: se pliegan al contraer; la sección activa conserva su nombre */
+.glass-nav__label {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 150px;
+  transition: max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, margin 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-nav__link {
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, padding 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-nav.is-compact .glass-nav__label {
+  max-width: 0;
+  opacity: 0;
+  margin-left: -8px;
+}
+
+.glass-nav.is-compact .glass-nav__link[aria-current='true'] .glass-nav__label {
+  max-width: 150px;
+  opacity: 1;
+  margin-left: 0;
+}
+
+.glass-nav.is-compact .glass-nav__link {
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
 .glass-nav.is-compact .glass-nav__name {
