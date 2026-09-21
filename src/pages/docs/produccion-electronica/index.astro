@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro'
+import T from '../../../components/docs/T.astro'
 import { getSubject } from '../../../data/docs'
 
 const subject = getSubject('produccion-electronica')!
@@ -12,31 +13,31 @@ const subject = getSubject('produccion-electronica')!
   breadcrumbs={[{ label: 'Documentación', href: '/portfolio/docs' }]}
   ogImage="https://alesso-24.github.io/portfolio/images/Alessandro.webp"
 >
-  <h2 class="section-h2" data-reveal>Nuestro equipo.</h2>
+  <h2 class="section-h2" data-reveal><T es="Nuestro equipo." /></h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    La materia se trabaja en parejas: diseñamos, ruteamos y fabricamos las placas juntos.
+    <T es="La materia se trabaja en parejas: diseñamos, ruteamos y fabricamos las placas juntos." />
   </p>
 
   <div class="team-grid" data-reveal data-reveal-delay="100">
     {subject.team.map((member) => (
       member.photo ? (
         <div class="team-card">
-          <img src={member.photo} alt={`Foto de ${member.name}`} class="team-photo" loading="lazy" decoding="async" />
+          <img src={member.photo} alt={`Foto de ${member.name}`} data-alt-en={`Photo of ${member.name}`} class="team-photo" width="76" height="76" loading="lazy" decoding="async" />
           <h3>{member.name}</h3>
-          <p class="team-role">{member.role}</p>
-          {member.bio && <p>{member.bio}</p>}
+          <p class="team-role"><T es={member.role} /></p>
+          {member.bio && <p><T es={member.bio} /></p>}
         </div>
       ) : (
         <div class="team-card">
-          <div class="team-photo team-photo--placeholder" role="img" aria-label="Foto pendiente">
+          <div class="team-photo team-photo--placeholder" role="img" aria-label="Foto pendiente" data-aria-label-en="Photo pending">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <circle cx="12" cy="8" r="4" />
               <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke-linecap="round" />
             </svg>
           </div>
           <h3>{member.name}</h3>
-          <p class="team-role">{member.role}</p>
-          {member.bio && <p>{member.bio}</p>}
+          <p class="team-role"><T es={member.role} /></p>
+          {member.bio && <p><T es={member.bio} /></p>}
         </div>
       )
     ))}
@@ -44,14 +45,13 @@ const subject = getSubject('produccion-electronica')!
 
   <hr class="divider" />
 
-  <h2 class="section-h2" data-reveal>Sobre la materia.</h2>
+  <h2 class="section-h2" data-reveal><T es="Sobre la materia." /></h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    Producción Electrónica es la materia de <strong>producir PCBs</strong> (placas de circuito impreso). Aquí se documenta
-    completa: el diseño en <strong>KiCad</strong>, la fabricación en <strong>MonoFab</strong> y <strong>Altium</strong>.
+    <T es={'Producción Electrónica es la materia de <strong>producir PCBs</strong> (placas de circuito impreso). Aquí se documenta completa: el diseño en <strong>KiCad</strong>, la fabricación en <strong>MonoFab</strong> y <strong>Altium</strong>.'} />
   </p>
 
   <a href={`/portfolio/docs/${subject.slug}/practicas`} class="docs-cta" data-reveal data-reveal-delay="100">
-    Ver la documentación
+    <T es="Ver la documentación" en="View the documentation" />
     <span aria-hidden="true">→</span>
   </a>
 </DocsLayout>

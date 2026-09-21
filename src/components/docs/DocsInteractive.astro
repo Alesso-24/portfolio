@@ -10,6 +10,10 @@
 <script>
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const clamp = (n: number, min: number, max: number) => Math.max(min, Math.min(max, n))
+  // Textos armados por JS: llevan los dos idiomas y el CSS global (html[lang]) muestra el activo.
+  const isEn = () => document.documentElement.getAttribute('lang') === 'en'
+  const bi = (es: string, en: string) => `<span class="lang-es">${es}</span><span class="lang-en">${en}</span>`
+  const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
   type FlowApi = { show: (i: number, o?: { scroll?: boolean; hash?: boolean }) => void }
   type Target = { tab: string; flow: HTMLElement; idx: number }
@@ -53,7 +57,7 @@
         } else c.removeAttribute('aria-current')
       })
       if (fill) fill.style.width = `${((i + 1) / slides.length) * 100}%`
-      pos.forEach((p) => (p.textContent = `Paso ${i + 1} de ${slides.length}`))
+      pos.forEach((p) => (p.innerHTML = bi(`Paso ${i + 1} de ${slides.length}`, `Step ${i + 1} of ${slides.length}`)))
       buttons.forEach((b) => {
         const d = Number(b.dataset.dir)
         b.disabled = (d < 0 && i === 0) || (d > 0 && i === slides.length - 1)
@@ -138,17 +142,17 @@
     document.body.style.overflow = ''
     lastFocus?.focus()
   }
-  function openLightbox(content: HTMLElement, caption: string) {
+  function openLightbox(content: HTMLElement, captionHtml: string) {
     closeLightbox()
     lastFocus = document.activeElement as HTMLElement
     overlay = document.createElement('div')
     overlay.className = 'lightbox'
     overlay.setAttribute('role', 'dialog')
     overlay.setAttribute('aria-modal', 'true')
-    overlay.setAttribute('aria-label', 'Imagen ampliada')
-    overlay.innerHTML = '<button type="button" class="lightbox__close" aria-label="Cerrar">✕</button><div class="lightbox__body"></div><p class="lightbox__caption"></p>'
+    overlay.setAttribute('aria-label', isEn() ? 'Enlarged image' : 'Imagen ampliada')
+    overlay.innerHTML = `<button type="button" class="lightbox__close" aria-label="${isEn() ? 'Close' : 'Cerrar'}">✕</button><div class="lightbox__body"></div><p class="lightbox__caption"></p>`
     overlay.querySelector('.lightbox__body')!.appendChild(content)
-    overlay.querySelector('.lightbox__caption')!.textContent = caption
+    overlay.querySelector('.lightbox__caption')!.innerHTML = captionHtml
     overlay.addEventListener('click', (e) => {
       if (!(e.target as HTMLElement).closest('.shot-annotated, .lightbox__img')) closeLightbox()
     })
@@ -167,16 +171,17 @@
     if (thumb) {
       const img = document.createElement('img')
       img.src = thumb.dataset.zoom!
-      img.alt = thumb.dataset.zoomAlt ?? ''
+      const alt = (isEn() ? thumb.dataset.zoomAltEn : thumb.dataset.zoomAlt) ?? thumb.dataset.zoomAlt ?? ''
+      img.alt = alt
       img.className = 'lightbox__img'
-      openLightbox(img, thumb.dataset.zoomAlt ?? '')
+      openLightbox(img, esc(alt))
       return
     }
     const shot = t.closest<HTMLElement>('.flow-slide .shot-annotated')
     if (shot && !t.closest('button, a')) {
       const clone = shot.cloneNode(true) as HTMLElement
       clone.querySelectorAll('img').forEach((im) => im.setAttribute('loading', 'eager'))
-      openLightbox(clone, shot.closest('figure')?.querySelector('figcaption')?.textContent ?? '')
+      openLightbox(clone, shot.closest('figure')?.querySelector('figcaption')?.innerHTML ?? '')
     }
   })
 

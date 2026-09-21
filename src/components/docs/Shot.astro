@@ -1,5 +1,6 @@
 ---
 import AnnotatedShot from './AnnotatedShot.astro'
+import T from './T.astro'
 import { imgUrl, sizeOf } from '../../data/flow-utils'
 import type { Shot } from '../../data/flow-types'
 
@@ -18,5 +19,5 @@ const { shot } = Astro.props
     boxes={shot.boxes ?? []}
     wide={shot.wide}
   />
-  {shot.caption && <figcaption class="screenshot-caption">{shot.caption}</figcaption>}
+  {shot.caption && <figcaption class="screenshot-caption"><T es={shot.caption} /></figcaption>}
 </figure>

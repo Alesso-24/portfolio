@@ -1,5 +1,6 @@
 ---
 import FlowSlide from './FlowSlide.astro'
+import T from './T.astro'
 import type { Flow } from '../../data/flow-types'
 
 interface Props {
@@ -18,18 +19,18 @@ const slides = flow.sections.flatMap((section, si) =>
 ---
 
 <div class="flow" data-flow={flow.id}>
-  <nav class="flow__chips" aria-label="Secciones">
+  <nav class="flow__chips" aria-label="Secciones" data-aria-label-en="Sections">
     {flow.sections.map((s, i) => (
-      <button type="button" class={`flow__chip${i === 0 ? ' is-active' : ''}`} data-goto={i}>{s.chip}</button>
+      <button type="button" class={`flow__chip${i === 0 ? ' is-active' : ''}`} data-goto={i}><T es={s.chip} /></button>
     ))}
   </nav>
 
   <div class="flow__top">
-    <span class="flow__pos">Paso 1 de {total}</span>
+    <span class="flow__pos"><T es={`Paso 1 de ${total}`} en={`Step 1 of ${total}`} /></span>
     <div class="flow__bar" aria-hidden="true"><span class="flow__bar-fill" style={`width:${(100 / total).toFixed(2)}%`}></span></div>
     <div class="flow__arrows">
-      <button type="button" class="flow__btn flow__btn--icon" data-dir="-1" aria-label="Paso anterior">←</button>
-      <button type="button" class="flow__btn flow__btn--icon" data-dir="1" aria-label="Paso siguiente">→</button>
+      <button type="button" class="flow__btn flow__btn--icon" data-dir="-1" aria-label="Paso anterior" data-aria-label-en="Previous step">←</button>
+      <button type="button" class="flow__btn flow__btn--icon" data-dir="1" aria-label="Paso siguiente" data-aria-label-en="Next step">→</button>
     </div>
   </div>
 
@@ -40,8 +41,8 @@ const slides = flow.sections.flatMap((section, si) =>
   </div>
 
   <div class="flow__foot">
-    <button type="button" class="flow__btn" data-dir="-1"><span aria-hidden="true">←</span> Anterior</button>
-    <span class="flow__pos flow__pos--foot">Paso 1 de {total}</span>
-    <button type="button" class="flow__btn flow__btn--primary" data-dir="1">Siguiente <span aria-hidden="true">→</span></button>
+    <button type="button" class="flow__btn" data-dir="-1"><span aria-hidden="true">←</span> <T es="Anterior" en="Previous" /></button>
+    <span class="flow__pos flow__pos--foot"><T es={`Paso 1 de ${total}`} en={`Step 1 of ${total}`} /></span>
+    <button type="button" class="flow__btn flow__btn--primary" data-dir="1"><T es="Siguiente" en="Next" /> <span aria-hidden="true">→</span></button>
   </div>
 </div>

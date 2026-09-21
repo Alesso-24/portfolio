@@ -1,5 +1,6 @@
 ---
 import FlowBlock from './FlowBlock.astro'
+import T from './T.astro'
 import type { Block, FlowSection, FlowStep } from '../../data/flow-types'
 
 interface Props {
@@ -45,20 +46,20 @@ const alias = section.alias && stepIndex === 0 ? section.alias.join(' ') : undef
 >
   <header class="slide-head">
     <div class="slide-meta">
-      <span>{section.chip}</span>
-      <span>Paso {stepIndex + 1} de {total}</span>
+      <span><T es={section.chip} /></span>
+      <span><T es={`Paso ${stepIndex + 1} de ${total}`} en={`Step ${stepIndex + 1} of ${total}`} /></span>
     </div>
-    <h3 class="slide-title">{section.title}</h3>
+    <h3 class="slide-title"><T es={section.title} /></h3>
     {section.values && (
       <div class="slide-values">
         {section.values.map((v) => (
-          <span class="mods-chip"><small>{v.k}</small>{v.v}</span>
+          <span class="mods-chip"><small><T es={v.k} /></small><T es={v.v} /></span>
         ))}
       </div>
     )}
   </header>
 
-  <p class="prose slide-text"><span class="step-num">{stepIndex + 1}</span><Fragment set:html={step.html} /></p>
+  <p class="prose slide-text"><span class="step-num">{stepIndex + 1}</span><T es={step.html} /></p>
 
   {groups.map((g) =>
     'split' in g ? (
