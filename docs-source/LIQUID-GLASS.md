@@ -45,7 +45,7 @@ Conclusiones de esas fuentes: usarlo en **pocos elementos flotantes**, no en zon
 | Marquee, cifras (Numbers), pie de página | **Mínimo** | Sin blur; a lo sumo tinte translúcido |
 | Bloque azul de contacto | **Se mantiene** | Sólido, es el ancla de color |
 
-## 4. Sistema de diseño (cuando esté implementado: `src/styles/glass.css`)
+## 4. Sistema de diseño (implementado en `src/styles/glass.css`)
 
 Variables (`:root`): `--glass-blur`, `--glass-blur-strong`, `--glass-saturate`, `--glass-fill`, `--glass-fill-strong`, `--glass-read`, `--glass-dark`, `--glass-blue`, `--glass-border`, `--glass-edge` (sombras internas), `--glass-shadow`, `--glass-shadow-lift`, `--glass-radius`, `--spring`, `--ease-out-expo`.
 Clases: `.glass` (aspecto), `.glass--blur` (añade `backdrop-filter`), `.glass--read` (opaca para texto), `.glass--dark`, `.glass--blue`, `.glass-sheen` (reflejo con el puntero), `.glass-press` (resorte al pulsar), `.glass-lift` (elevación al hover).
@@ -57,8 +57,8 @@ Ramas apiladas, cada una con su PR; ninguna se mergea a `main` hasta el visto bu
 
 | # | Rama | Contenido | Estado |
 |---|---|---|---|
-| 1 | `docs/liquid-glass-plan` | Este documento y `ARQUITECTURA-Y-TECNOLOGIAS.md` | en curso |
-| 2 | `feat/glass-base` | `glass.css`: variables, clases, capa ambiental, fallbacks y modo reducido | pendiente |
+| 1 | `docs/liquid-glass-plan` | Este documento y `ARQUITECTURA-Y-TECNOLOGIAS.md` | hecho (PR #57) |
+| 2 | `feat/glass-base` | `src/styles/glass.css` (variables, clases, capa ambiental, alternativas), `src/scripts/glass-sheen.ts`, secciones de la home translúcidas | hecho |
 | 3 | `feat/glass-nav` | Menú superior y móvil, idioma, píldora | pendiente |
 | 4 | `feat/glass-home` | Botones, tarjetas de trabajo, investigación, contacto, bandas de sección | pendiente |
 | 5 | `feat/glass-projects` | Encabezado, ficha, insignias y botón de GitHub de las páginas de proyecto | pendiente |
