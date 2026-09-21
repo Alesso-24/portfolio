@@ -192,6 +192,166 @@ body.bg-cream {
   }
 }
 
+/* ═══ Componente: menú superior (cápsula flotante) · src/components/layout/Nav.tsx ═══ */
+.glass-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 12px clamp(12px, 3vw, 40px) 0;
+  pointer-events: none; /* solo la cápsula recibe clics */
+}
+
+.glass-nav__bar {
+  pointer-events: auto;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 8px 8px 12px;
+  border-radius: 100px;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.glass-nav.is-scrolled .glass-nav__bar {
+  background: var(--glass-fill-strong);
+  box-shadow: var(--glass-edge), var(--glass-shadow-lift);
+}
+
+.glass-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: #211f1a;
+  min-height: 44px;
+  border-radius: 100px;
+}
+
+.glass-nav__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--glass-blue);
+  color: #f3ede1;
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 4px 10px -3px rgba(37, 64, 192, 0.5);
+}
+
+.glass-nav__name {
+  font: 600 15px 'Hanken Grotesk', system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.glass-nav__links {
+  gap: 2px;
+  align-items: center;
+}
+
+.glass-nav__link {
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 100px;
+  color: #4a473f;
+  font: 500 14px 'Hanken Grotesk', system-ui, sans-serif;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) {
+  .glass-nav__link:hover {
+    color: #211f1a;
+    background: rgba(255, 255, 255, 0.62);
+    border-color: rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px -6px rgba(33, 31, 26, 0.25);
+  }
+}
+
+.glass-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.glass-nav__pill {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 18px;
+  border-radius: 100px;
+  text-decoration: none;
+  font: 600 13px 'Hanken Grotesk', system-ui, sans-serif;
+  white-space: nowrap;
+}
+
+.glass-nav__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ea6a2e;
+  box-shadow: 0 0 8px rgba(234, 106, 46, 0.8);
+  animation: ar-pulse 1.8s infinite;
+  flex-shrink: 0;
+}
+
+.glass-nav__lang,
+.glass-nav__burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 100px;
+  cursor: pointer;
+  color: #4a473f;
+  font: 600 11px 'Hanken Grotesk', system-ui, sans-serif;
+  letter-spacing: 0.1em;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 3px 10px -5px rgba(33, 31, 26, 0.25);
+}
+
+.glass-nav__burger {
+  padding: 0;
+  color: #211f1a;
+}
+
+/* Panel del menú móvil a pantalla completa: desenfoque real (cubre el contenido que hace scroll detrás) */
+.glass-menu {
+  background: rgba(243, 237, 225, 0.72);
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .glass-menu {
+    background: #f3ede1;
+  }
+
+  .glass-nav.is-scrolled .glass-nav__bar {
+    background: var(--glass-solid);
+  }
+
+  .glass-nav__lang,
+  .glass-nav__burger {
+    background: var(--glass-solid);
+  }
+}
+
+@media (forced-colors: active) {
+  .glass-menu {
+    background: Canvas;
+  }
+}
+
 /* ─── Alternativas de accesibilidad y compatibilidad ──────────────────────────
    Todas convierten el vidrio en superficie sólida legible. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
