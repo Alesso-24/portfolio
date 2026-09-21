@@ -1,5 +1,28 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🚧 Pendiente de revisión y deploy (2026-09-20, noche): 5 ramas apiladas con todo lo pedido después del deploy
+> Cada rama sale de la anterior y tiene su PR (base = rama anterior; se mergean en este orden). `main` sigue en `dc0d038` (lo que está en producción).
+>
+> | # | Rama | Qué hace |
+> |---|---|---|
+> | 1 | `docs/general-pcb-y-fotos` | La materia se documenta como **"Creación de PCBs"** (KiCad · MonoFab · Altium): fuera "Práctica 01" y "primera placa". URLs sin cambios. Avatares del equipo **recortados sobre la cara** (`public/images/team/`, `scripts/make-team-avatars.mjs`). |
+> | 2 | `docs/auditoria-textos` | Auditoría de copy: **sin rayas largas (—)** en todos los textos de la guía (frases reescritas a mano donde una coma no bastaba), fuera el relleno ("documentados en el camino, no después", "Más contenido, próximamente", "Aún no migran a Altium"…), **Altium solo dice "Pendiente"**, quitado "Trabajo en parejas" del encabezado. |
+> | 3 | `feat/idioma-persistente` | El idioma ES/EN **se guarda** (`localStorage`) y se aplica en todas las páginas antes de pintar. Nav con textos por CSS (sin parpadeo). |
+> | 4 | `feat/docs-i18n-en` | **Todo Producción Electrónica traducido al inglés** y ligado al botón ES/EN: 435 textos en `src/data/docs-en.ts`, componente `<T>`, alt/aria/título por idioma, contador "Step X of Y", lightbox. Un texto sin traducir **rompe el build**. |
+> | 5 | `fix/auditoria-sitio` | Barrido del sitio en ES y EN: encabezados/ficha/alt de las 5 páginas de proyecto y tarjetas de la home traducidos, `<title>` por idioma, aria-labels del menú, línea CC del contacto, 404 bilingüe sin raya larga, README y BRAND.md al día. |
+>
+> **Verificación (build de producción, Playwright):** `astro check` 0 errores · 10 páginas × escritorio/móvil sin errores de consola, imágenes rotas ni desbordes · 61 pasos de la guía recorridos en **español e inglés** (0 imágenes rotas, 0 recuadros desalineados) · barrido de mezcla de idiomas en las 10 páginas (solo quedan nombres propios, nombres de archivo y las etiquetas en español entre paréntesis, a propósito) · persistencia probada con clics reales (home → docs → guía → proyecto) · 0 rayas largas en todo el HTML publicado.
+>
+> **Cómo se edita el texto ahora** (detalle en README, sección i18n): la guía sigue escrita en español en `src/data/kicad-flow.ts` / `mods-flow.ts` / `docs.ts` y las páginas; el inglés vive en `src/data/docs-en.ts` con el español exacto como clave. Si cambias una frase en español, cambia también su clave allí (si no, el build avisa cuál falta). Para listar lo que falta: `I18N_COLLECT=1 npm run build`.
+>
+> **Necesitan decisión de Alessandro (no se tocaron):**
+> 1. `fault-detection-case` dice **"Presenting in person, Aug 2026"** (ficha y etiqueta), pero `BRAND.md` (confirmado) dice **presentación remota, nunca implicar viaje**. Uno de los dos está desactualizado.
+> 2. En la guía los archivos se llaman **HORIFICIOS** (así aparecen en las capturas reales; el resto de la guía dice ORIFICIOS). Se dejó tal cual porque es el nombre real del archivo; si prefieres, se corrige en las capturas o en el texto.
+> 3. `public/llms.txt` (archivo para buscadores de IA, no se ve en el sitio) todavía usa rayas largas.
+> 4. Limpieza en GitHub sin hacer (el sistema de permisos la bloqueó): 18 ramas remotas ya integradas y 9 PRs de dependabot superados.
+>
+> ---
+
 > ## ✅ Estado actual — 2026-09-20 (cierre de sesión): sitio listo para entrega, TODO en `main` y desplegado
 > Fuente de verdad del estado: este bloque. Lo de abajo ("Historial de estados") es bitácora de cómo se llegó aquí.
 >
@@ -517,3 +540,12 @@ Alessandro pidió "arregla todo": contexto, página lista para entrega, ramas y 
 
 ### 2026-09-20 (noche) — Enfoque general de la materia + fotos centradas
 Alessandro pidió: quitar "nuestra primera práctica en KiCad" / "Práctica 01" (la materia es producir PCBs y se documentará KiCad, MonoFab y Altium) y centrar las caras del equipo. Textos cambiados en `src/data/docs.ts`, portada de la materia, lista y página principal de la guía; avatares nuevos recortados sobre la cara. Verificado con build + capturas + 0 errores de consola. Queda local en la rama hasta su visto bueno.
+
+### 2026-09-20 (noche) — Enfoque general, auditoría de textos, idioma persistente, traducción EN y barrido del sitio
+Alessandro pidió: (a) quitar "primera práctica / Práctica 01" y documentar la materia como producir PCBs, (b) centrar las caras del equipo, (c) quitar lo que suena a IA (rayas largas, relleno, "aún no migran a Altium", "trabajo en parejas" en el encabezado), (d) que todo Producción Electrónica siga el botón ES/EN, (e) que el sitio funcione perfecto, con ramas y commits ordenados.
+- **Rama `docs/general-pcb-y-fotos`:** textos generales; avatares 360×360 recortados sobre la cara (coordenadas medidas a mano en `scripts/make-team-avatars.mjs`; las fotos originales no se tocan, las usa el Hero).
+- **Rama `docs/auditoria-textos`:** más de 60 textos con raya larga corregidos (`—` → punto, dos puntos, coma o paréntesis; pies de foto a "Título: detalle"); frase de FabLib recortada; Altium solo "Pendiente"; se quitan los avisos de relleno de `/docs` y de la lista.
+- **Rama `feat/idioma-persistente`:** por qué el botón "no hacía nada" en `/docs`: (1) el contenido no tenía versión `.lang-en` y (2) el idioma no se guardaba entre páginas (cada página arrancaba con el suyo). Ahora `Base.astro` aplica `localStorage.lang` antes de pintar y `Nav` lo guarda; sin preferencia, `/docs` = ES y el resto = EN.
+- **Rama `feat/docs-i18n-en`:** diccionario ES→EN (clave = español exacto). Decisión: en inglés los nombres de la interfaz de KiCad llevan la etiqueta en español entre paréntesis (las capturas están en español); los recuadros usan la versión corta. `npm run build` falla si falta una traducción. Se agregó `@types/node` para el chequeo de tipos.
+- **Rama `fix/auditoria-sitio`:** el barrido encontró que las páginas de proyecto tenían título, etiqueta, ficha y alt en un solo idioma (el cuerpo sí era bilingüe), `<title>` fijo en inglés, aria-labels del menú solo en inglés, la línea de CC del contacto solo en inglés y el 404 con una raya larga. Todo corregido. Ver "Necesitan decisión" arriba para lo que se dejó sin tocar.
+- **Herramienta de prueba usada:** `playwright-core` en la carpeta temporal de la sesión + Chromium ya instalado + `astro preview` sobre `dist/`.
