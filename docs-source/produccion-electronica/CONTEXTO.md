@@ -15,11 +15,12 @@
 >
 > **Sigue sin hacerse / pendiente de decisión:** rama `gh-pages` (legacy, archivada, se dejó viva); fresado físico y fotos; valores de R/LED; nombre final de la placa; ¿BDAI también fue en persona?
 >
-> ## 🎨 EN CURSO (2026-09-21, con permiso de Alessandro): estética "Liquid Glass" estilo Apple en todo el sitio
-> Pedido: upgrade estético de **todo** el sitio (menú superior, animaciones, detalles) **sin perder funcionalidad ni legibilidad**; investigar → evaluar dónde sí/no → implementar; git/GitHub ordenados; **documentar tecnologías y metodología** para facilitar ampliaciones; **actualizar este contexto en cada hito** por si se acaban los tokens.
-> **Dónde está todo:** `docs-source/LIQUID-GLASS.md` (investigación, decisiones, tabla dónde sí/no, sistema de diseño y **tabla de avance con ramas y estado**) y `docs-source/ARQUITECTURA-Y-TECNOLOGIAS.md` (stack, mapa del repo, convenciones, recetas para ampliar, QA y metodología git).
-> **Reglas:** ramas apiladas, un PR por rama, **no mergear a `main` ni desplegar sin su visto bueno** (mostrarle antes en su navegador). Punto de retorno: `restore/sitio-pre-liquid-glass-2026-09-21`.
-> **Estado ahora:** TODAS las ramas de Liquid Glass hechas (#57 a #64); QA completa (contraste 29/29, modos de accesibilidad, rendimiento medido, funcionalidad). PENDIENTE: visto bueno de Alessandro; si lo da, mergear la pila a main en orden (retargetear PRs a main, merge --no-ff, un solo push) y desplegar, luego etiquetar y limpiar ramas. Detalles en LIQUID-GLASS.md §5-§7.
+> ## ✅ 2026-09-21: LIQUID GLASS DESPLEGADO (`main` = `84b6806`, PRs #57 a #64)
+> Alessandro aprobó ("BIEN DEPLOY"). Estética Apple "liquid glass" en todo el sitio: menú flotante de vidrio (escritorio y móvil) con indicador deslizante y scroll-spy, botones, tarjetas, chips, formulario, pestañas y controles de la guía, visor de imágenes con desenfoque; texto largo y capturas planas; capa ambiental estática; alternativas sólidas para accesibilidad.
+> **Documentación:** `docs-source/LIQUID-GLASS.md` (investigación, dónde sí/no, sistema de diseño en `src/styles/glass.css`, mediciones §6, ideas futuras §7) y `docs-source/ARQUITECTURA-Y-TECNOLOGIAS.md` (stack, recetas para ampliar, QA y git). **Cómo ampliar el vidrio:** superficie nueva = `.glass` + variante (`--read` si lleva texto largo, `--blur` solo si flota sobre contenido).
+> **Verificado antes del deploy:** contraste WCAG AA 29/29, modos de accesibilidad, rendimiento comparado con la versión anterior, 10 páginas, 61 pasos en ES y EN. En vivo: 200 en las páginas, 404 correcto.
+> **Puntos de retorno (etiquetas):** `restore/sitio-pre-liquid-glass-2026-09-21` (`09643fc`, sin vidrio) y `restore/sitio-liquid-glass-2026-09-21` (`84b6806`, este estado). Volver al diseño anterior: `git checkout -b volver restore/sitio-pre-liquid-glass-2026-09-21`, PR a `main` (o `git revert -m 1` de los merges #57 a #64). Detalle en `RAMAS-ARCHIVADAS.md`.
+> **Pendiente / ideas:** ver §7 de LIQUID-GLASS.md (refracción SVG solo Chromium, barra de progreso de lectura, View Transitions, modo oscuro); fresado físico y fotos; valores de R/LED; nombre final de la placa; ¿BDAI también en persona?; rama `gh-pages` legacy.
 >
 > ---
 
@@ -555,3 +556,6 @@ Alessandro pidió: (a) quitar "primera práctica / Práctica 01" y documentar la
 - Ramas nuevas: `fix/case-presentado-en-persona` (#54) y `fix/nombre-orificios` (#55), apiladas sobre la pila anterior.
 - Merge a `main` con un commit por PR (#53, #48, #49, #50, #51, #52, #54, #55). Hubo un conflicto en `.gitignore` (dos ramas añadieron líneas al final); se resolvió conservando ambas. Verificación del `main` mergeado: `astro check` 0 errores, build estricto (sin traducciones faltantes), barrido de 10 páginas, 61 pasos en inglés, persistencia. Deploy con GitHub Actions en verde.
 - Archivo: etiquetas `restore/*` y `archive/*`, documento `docs-source/RAMAS-ARCHIVADAS.md`, luego se borraron las ramas remotas ya integradas y se cerraron los 9 PRs de dependabot.
+
+### 2026-09-21 — Liquid Glass: implementación, QA y deploy
+Permiso de Alessandro para empezar; investigación y plan escritos primero (`LIQUID-GLASS.md`, `ARQUITECTURA-Y-TECNOLOGIAS.md`); implementación en 8 ramas apiladas (plan, base, menú, home, proyectos, docs, movimiento, QA), un PR por rama. Hallazgos: GSAP dejaba un `transform` en línea que anulaba el hover; el naranja de marca con texto blanco no cumplía AA (se profundizó); la capa ambiental animada costaba fluidez (se dejó estática). Deploy tras el visto bueno: merges `--no-ff` en orden, un solo push, Actions en verde, etiqueta de restauración y limpieza de ramas.
