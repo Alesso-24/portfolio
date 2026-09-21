@@ -1,4 +1,4 @@
-// Guía paso a paso de mods (SRM-20) para la Práctica 1 — fuente de verdad del paso "9".
+// Guía paso a paso de mods (SRM-20) para la Práctica 1: fuente de verdad del paso "9".
 // Las coordenadas están en PÍXELES de cada captura (mismo formato que <AnnotatedShot>).
 // Material crudo y bitácora: docs-source/produccion-electronica/practicas/01-primera-placa/07-monofab-mods/
 
@@ -89,7 +89,7 @@ const READ_SVG_BTN: ModsShot = {
   file: '00-programa-mill-2d-pcb/08-nodo-read-svg-vacio-start-here.webp',
   size: [885, 916],
   alt: 'Nodo read SVG vacío con el botón select SVG file',
-  caption: 'Nodo read SVG — botón select SVG file',
+  caption: 'Nodo read SVG: botón select SVG file',
   boxes: [{ x: 298, y: 602, w: 146, h: 38, label: 'Clic en select SVG file', pos: 'top' }],
 }
 
@@ -130,7 +130,7 @@ export const MODS_FLOWS: ModsFlow[] = [
   {
     id: 'mods-periferia',
     toc: '9.2 Periferia',
-    title: 'PERIFERIA — corte del contorno',
+    title: 'PERIFERIA: corte del contorno',
     intro: 'Genera <code>PERIFERIA.rml</code>: la trayectoria con la que la fresa corta el contorno octagonal de la placa.',
     values: [
       { k: 'Preset', v: '1.59mm cutout' },
@@ -153,7 +153,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '01-periferia-contorno/01-abrir-periferia-svg.webp',
             size: [1402, 985],
             alt: 'Diálogo Abrir de Windows con el archivo PERIFERIA seleccionado',
-            caption: 'Diálogo Abrir — PERIFERIA',
+            caption: 'Diálogo Abrir: PERIFERIA',
             boxes: [
               { x: 333, y: 452, w: 1067, h: 42, label: 'Elegir PERIFERIA', pos: 'top' },
               { x: 1099, y: 914, w: 106, h: 38, label: 'Abrir', pos: 'top' },
@@ -181,7 +181,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '01-periferia-contorno/03-set-pcb-defaults-catalogo-completo.webp',
             size: [658, 756],
             alt: 'Nodo set PCB defaults con el interruptor in/mm',
-            caption: 'set PCB defaults — interruptor in / mm',
+            caption: 'set PCB defaults: interruptor in / mm',
             wide: true,
             boxes: [{ x: 214, y: 154, w: 144, h: 42, label: 'Cambiar a mm', pos: 'left' }],
           },
@@ -209,7 +209,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '01-periferia-contorno/06-mill-raster-2d-config-contorno-a.webp',
             size: [1207, 739],
             alt: 'Nodo mill raster 2D con tool diameter 1.9 mm y offset number 2',
-            caption: 'mill raster 2D — tool diameter 1.9 mm, offset number 2',
+            caption: 'mill raster 2D: tool diameter 1.9 mm, offset number 2',
             boxes: [
               { x: 428, y: 190, w: 152, h: 36, label: 'Poner 1.9 mm', pos: 'left' },
               { x: 372, y: 350, w: 290, h: 36, label: 'Offset number = 2', pos: 'left' },
@@ -233,7 +233,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '01-periferia-contorno/07b-roland-srm20-origen-0-0-0.png',
             size: [472, 594],
             alt: 'Nodo Roland SRM-20 milling machine con origin 0, 0, 0 y tiempo estimado',
-            caption: 'Después: origin 0, 0, 0 — el tiempo estimado se calcula solo tras el paso siguiente',
+            caption: 'Después: origin 0, 0, 0. El tiempo estimado se calcula solo tras el paso siguiente',
             wide: true,
             boxes: [
               { x: 178, y: 178, w: 82, h: 86, label: 'Origen en 0', pos: 'right' },
@@ -250,7 +250,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '01-periferia-contorno/08-mill-raster-2d-config-contorno-b.webp',
             size: [999, 945],
             alt: 'mill raster 2D con el botón calculate',
-            caption: 'mill raster 2D — botón calculate',
+            caption: 'mill raster 2D: botón calculate',
             boxes: [{ x: 363, y: 501, w: 112, h: 48, label: 'Clic en calculate', pos: 'right' }],
           },
         ],
@@ -263,7 +263,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '01-periferia-contorno/10-toolpath-simulado-contorno.webp',
             size: [1918, 1078],
             alt: 'Render 3D del corte del contorno octagonal sobre el stock de cobre',
-            caption: 'Render — corte del contorno',
+            caption: 'Render: corte del contorno',
             wide: true,
           },
         ],
@@ -276,7 +276,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '01-periferia-contorno/11-guardar-periferia-rml.webp',
             size: [340, 285],
             alt: 'Nodo save file listo para guardar el archivo',
-            caption: 'save file — archivo listo',
+            caption: 'save file: archivo listo',
             boxes: [{ x: 181, y: 202, w: 82, h: 35, label: 'Guardar el archivo', pos: 'top' }],
           },
         ],
@@ -286,7 +286,7 @@ export const MODS_FLOWS: ModsFlow[] = [
   {
     id: 'mods-pistas',
     toc: '9.3 Pistas',
-    title: 'PISTAS — aislamiento del cobre',
+    title: 'PISTAS: aislamiento del cobre',
     intro: 'Genera <code>PISTAS.rml</code>: la fresa recorre alrededor de cada pista para aislarla y deja el cobre de las pistas.',
     values: [
       { k: 'Extra', v: 'invert activado' },
@@ -309,7 +309,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '02-pistas-trazas/01-abrir-pistas-svg.webp',
             size: [1405, 985],
             alt: 'Diálogo Abrir de Windows con el archivo PISTAS seleccionado',
-            caption: 'Diálogo Abrir — PISTAS',
+            caption: 'Diálogo Abrir: PISTAS',
             boxes: [
               { x: 331, y: 500, w: 1072, h: 42, label: 'Elegir PISTAS', pos: 'top' },
               { x: 1097, y: 915, w: 106, h: 38, label: 'Abrir', pos: 'top' },
@@ -363,7 +363,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '02-pistas-trazas/03-set-pcb-defaults-flat-0-40mm-a.webp',
             size: [660, 780],
             alt: 'set PCB defaults en mm con 0.40mm flat seleccionado',
-            caption: 'set PCB defaults — mm y 0.40mm flat',
+            caption: 'set PCB defaults: mm y 0.40mm flat',
             wide: true,
             boxes: [
               { x: 196, y: 148, w: 142, h: 42, label: 'Cambiar a mm', pos: 'left' },
@@ -380,7 +380,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '02-pistas-trazas/07-roland-srm20-config-pistas.webp',
             size: [642, 709],
             alt: 'Nodo Roland SRM-20 milling machine con origin 0, 0, 0',
-            caption: 'Roland SRM-20 milling machine — origin 0, 0, 0',
+            caption: 'Roland SRM-20 milling machine: origin 0, 0, 0',
             wide: true,
             boxes: [{ x: 248, y: 229, w: 90, h: 98, label: 'Origen x, y, z = 0', pos: 'right' }],
           },
@@ -394,7 +394,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '02-pistas-trazas/08-mill-raster-2d-config-pistas-b.webp',
             size: [901, 888],
             alt: 'mill raster 2D con offset number 2 y el botón calculate',
-            caption: 'mill raster 2D — offset number 2 y calculate',
+            caption: 'mill raster 2D: offset number 2 y calculate',
             boxes: [
               { x: 270, y: 274, w: 228, h: 28, label: 'Offset number = 2', pos: 'right' },
               { x: 316, y: 458, w: 104, h: 42, label: 'Clic en calculate', pos: 'right' },
@@ -411,7 +411,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '02-pistas-trazas/12-toolpath-simulado-pistas.webp',
             size: [1080, 652],
             alt: 'Render 3D del aislamiento de las pistas sobre el stock de cobre',
-            caption: 'Render — las pistas deben quedar en cobre',
+            caption: 'Render: las pistas deben quedar en cobre',
             wide: true,
             boxes: [{ x: 190, y: 45, w: 575, h: 535, label: 'Las pistas deben quedar en cobre', pos: 'top' }],
           },
@@ -425,7 +425,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '02-pistas-trazas/18-guardar-pistas-rml.webp',
             size: [394, 336],
             alt: 'Nodo save file listo para guardar el archivo de las pistas',
-            caption: 'save file — archivo listo',
+            caption: 'save file: archivo listo',
             boxes: [{ x: 200, y: 224, w: 97, h: 40, label: 'Guardar el archivo', pos: 'top' }],
           },
         ],
@@ -435,7 +435,7 @@ export const MODS_FLOWS: ModsFlow[] = [
   {
     id: 'mods-orificios',
     toc: '9.4 Orificios',
-    title: 'ORIFICIOS — taladrado',
+    title: 'ORIFICIOS: taladrado',
     intro: 'Genera <code>ORIFICIOS.rml</code>: los taladros de las perforaciones. Es el único archivo con una velocidad distinta.',
     values: [
       { k: 'Preset', v: '0.79mm drill' },
@@ -452,7 +452,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '03-orificios-taladrado/01-read-svg-vacio.webp',
             size: [796, 769],
             alt: 'Nodo read SVG vacío con el botón select SVG file',
-            caption: 'Nodo read SVG — botón select SVG file',
+            caption: 'Nodo read SVG: botón select SVG file',
             wide: true,
             boxes: [{ x: 288, y: 518, w: 126, h: 36, label: 'Clic en select SVG file', pos: 'right' }],
           },
@@ -480,7 +480,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '03-orificios-taladrado/02-set-pcb-defaults-drill-0-79mm.webp',
             size: [565, 757],
             alt: 'set PCB defaults en mm con 0.79mm drill seleccionado',
-            caption: 'set PCB defaults — mm y 0.79mm drill',
+            caption: 'set PCB defaults: mm y 0.79mm drill',
             wide: true,
             boxes: [
               { x: 150, y: 152, w: 140, h: 42, label: 'Cambiar a mm', pos: 'right' },
@@ -526,7 +526,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '03-orificios-taladrado/04-mill-raster-2d-config-orificios-a.webp',
             size: [981, 921],
             alt: 'mill raster 2D con offset number 1 y el botón calculate',
-            caption: 'mill raster 2D — offset number 1 y calculate',
+            caption: 'mill raster 2D: offset number 1 y calculate',
             boxes: [
               { x: 316, y: 278, w: 244, h: 30, label: 'Offset number = 1', pos: 'right' },
               { x: 364, y: 476, w: 113, h: 47, label: 'Clic en calculate', pos: 'right' },
@@ -542,7 +542,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '03-orificios-taladrado/10-toolpath-simulado-orificios-lejos.webp',
             size: [981, 748],
             alt: 'Render 3D de la placa con las perforaciones marcadas',
-            caption: 'Render — los orificios',
+            caption: 'Render: los orificios',
             wide: true,
             boxes: [{ x: 185, y: 232, w: 100, h: 145, label: 'Los 6 orificios', pos: 'right' }],
           },
@@ -556,7 +556,7 @@ export const MODS_FLOWS: ModsFlow[] = [
             file: '03-orificios-taladrado/12-guardar-orificios-rml.webp',
             size: [417, 375],
             alt: 'Nodo save file listo para guardar el archivo de los orificios',
-            caption: 'save file — archivo listo',
+            caption: 'save file: archivo listo',
             boxes: [{ x: 221, y: 260, w: 113, h: 48, label: 'Guardar el archivo', pos: 'top' }],
           },
         ],
@@ -568,9 +568,9 @@ export const MODS_FLOWS: ModsFlow[] = [
 export const MODS_SUMMARY = {
   head: ['Archivo', 'Preset', 'Tool diameter', 'Offset', 'Origen', 'Velocidad', 'Extra', '.rml (bytes)'],
   rows: [
-    ['PERIFERIA.rml', '1.59mm cutout', '1.9 mm', '2', '0, 0, 0', '4 mm/s', '—', '4526'],
+    ['PERIFERIA.rml', '1.59mm cutout', '1.9 mm', '2', '0, 0, 0', '4 mm/s', 'Ninguno', '4526'],
     ['PISTAS.rml', '0.40mm flat', '0.39624 mm', '2', '0, 0, 0', '4 mm/s', 'invert activado', '68476'],
-    ['ORIFICIOS.rml', '0.79mm drill', '0.79248 mm', '1', '0, 0, 0', '0.3 mm/s', '—', '10128'],
+    ['ORIFICIOS.rml', '0.79mm drill', '0.79248 mm', '1', '0, 0, 0', '0.3 mm/s', 'Ninguno', '10128'],
   ],
 }
 
@@ -578,5 +578,5 @@ export const MODS_FINAL: ModsShot = {
   file: '04-archivos-finales/01-tres-rml-generados.png',
   size: [585, 223],
   alt: 'Explorador de Windows con los tres archivos generados: PISTAS.rml, ORIFICIOS.rml, PERIFERIA.rml',
-  caption: 'PISTAS.rml · ORIFICIOS.rml · PERIFERIA.rml — listos para la MonoFab',
+  caption: 'PISTAS.rml · ORIFICIOS.rml · PERIFERIA.rml: listos para la MonoFab',
 }

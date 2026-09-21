@@ -23,7 +23,7 @@ export const DOCS_SUBJECTS: DocsSubject[] = [
     name: 'Producción Electrónica',
     tagline: 'Producción de PCBs: diseño y fabricación con KiCad, MonoFab y Altium.',
     description:
-      'Documentación de toda la materia de Producción Electrónica: cómo se produce una placa de circuito impreso, del diseño en KiCad a la fabricación en MonoFab, y Altium. Trabajo en parejas.',
+      'Documentación de la materia: producción de placas de circuito impreso (PCB) con KiCad, MonoFab y Altium.',
     team: [
       {
         name: 'Alessandro Reyes',
@@ -56,7 +56,7 @@ export const DOCS_PRACTICES: DocsPractice[] = [
     number: '01',
     title: 'Creación de PCBs',
     status: 'en-progreso',
-    summary: 'El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium, paso a paso.',
+    summary: 'El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium.',
   },
 ]
 
