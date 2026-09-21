@@ -19,7 +19,7 @@
 > Pedido: upgrade estético de **todo** el sitio (menú superior, animaciones, detalles) **sin perder funcionalidad ni legibilidad**; investigar → evaluar dónde sí/no → implementar; git/GitHub ordenados; **documentar tecnologías y metodología** para facilitar ampliaciones; **actualizar este contexto en cada hito** por si se acaban los tokens.
 > **Dónde está todo:** `docs-source/LIQUID-GLASS.md` (investigación, decisiones, tabla dónde sí/no, sistema de diseño y **tabla de avance con ramas y estado**) y `docs-source/ARQUITECTURA-Y-TECNOLOGIAS.md` (stack, mapa del repo, convenciones, recetas para ampliar, QA y metodología git).
 > **Reglas:** ramas apiladas, un PR por rama, **no mergear a `main` ni desplegar sin su visto bueno** (mostrarle antes en su navegador). Punto de retorno: `restore/sitio-pre-liquid-glass-2026-09-21`.
-> **Estado ahora:** ramas 1 a 5 hechas (plan #57, base #58, menú #59, home #60, proyectos: volver/GitHub de vidrio, tarjetas y llamados translúcidos, insignia IEEE, texto plano). Siguiente: `feat/glass-docs` (/docs y guía interactiva; ojo con legibilidad de la tarjeta de cada paso y capturas anotadas planas). Tabla de avance en LIQUID-GLASS.md §5.
+> **Estado ahora:** ramas 1 a 6 hechas (plan #57, base #58, menú #59, home #60, proyectos #61, docs: portadas, pestañas, chips, botones, tarjeta de paso como superficie de lectura, visor de imágenes con desenfoque; capturas planas; los 61 pasos verificados en ES y EN). Siguiente: `feat/glass-motion` (indicador deslizante del menú, entrada de la cápsula, ajuste de revelados) y luego `fix/glass-qa`. Tabla de avance en LIQUID-GLASS.md §5.
 >
 > ---
 

@@ -477,4 +477,148 @@
     .docs-body .flow-slide, .docs-body .tool-panel, .docs-body .carousel__slide, .lightbox { animation: none !important; }
     .docs-body .flow__bar-fill { transition: none; }
   }
+
+  /* ═══ Liquid Glass (guía interactiva · docs-source/LIQUID-GLASS.md) ═══
+     Sobrescribe los rellenos de arriba. La tarjeta de cada paso es superficie de LECTURA (más opaca). */
+  .docs-body .tool-tab {
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), var(--glass-shadow);
+    transition: transform 0.5s var(--spring), box-shadow 0.35s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+  .docs-body .tool-tab:hover {
+    background: var(--glass-fill-strong);
+    transform: translateY(-2px);
+  }
+  .docs-body .tool-tab[aria-selected='true'] {
+    background: var(--glass-fill-strong);
+    border-color: #2540c0;
+    box-shadow: var(--glass-edge), 0 0 0 3px rgba(37, 64, 192, 0.14), var(--glass-shadow-lift);
+  }
+  .docs-body .flow__chip {
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 8px -4px rgba(33, 31, 26, 0.25);
+    transition: transform 0.4s var(--spring), background 0.25s ease, color 0.25s ease;
+  }
+  .docs-body .flow__chip:hover {
+    background: var(--glass-fill-strong);
+  }
+  .docs-body .flow__chip.is-active {
+    background: var(--glass-dark);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: var(--glass-edge-dark), 0 6px 16px -8px rgba(33, 31, 26, 0.6);
+    color: #f3ede1;
+  }
+  .docs-body .flow__bar {
+    background: rgba(33, 31, 26, 0.09);
+    box-shadow: inset 0 1px 2px rgba(33, 31, 26, 0.12);
+  }
+  .docs-body .flow__bar-fill {
+    background: linear-gradient(90deg, #f58a55, #ea6a2e);
+    box-shadow: 0 0 10px rgba(234, 106, 46, 0.55);
+  }
+  .docs-body .flow__btn,
+  .docs-body .carousel__btn {
+    background: var(--glass-fill-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), 0 4px 12px -6px rgba(33, 31, 26, 0.3);
+    transition: transform 0.45s var(--spring), background 0.25s ease, opacity 0.2s ease;
+  }
+  .docs-body .flow__btn:hover:not(:disabled),
+  .docs-body .carousel__btn:hover:not(:disabled) {
+    background: #fff;
+    transform: translateY(-2px);
+  }
+  .docs-body .flow__btn:active:not(:disabled),
+  .docs-body .carousel__btn:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+  .docs-body .flow__btn--primary {
+    background: var(--glass-blue);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(10, 20, 80, 0.35), 0 10px 22px -10px rgba(37, 64, 192, 0.6);
+    color: #f3ede1;
+  }
+  .docs-body .flow__btn--primary:hover:not(:disabled) {
+    background: var(--glass-blue);
+    filter: brightness(1.06);
+  }
+  /* tarjeta de cada paso: superficie de lectura (≈80 % opaca) */
+  .docs-body .flow-slide {
+    background: var(--glass-read);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), var(--glass-shadow-lift);
+  }
+  .docs-body .legend-num {
+    background: linear-gradient(150deg, #f58a55, #ea6a2e 60%, #d8551a);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 4px 10px -4px rgba(234, 106, 46, 0.7);
+  }
+  .docs-body .legend-icon,
+  .docs-body .component-card {
+    background: var(--glass-fill-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), 0 6px 16px -10px rgba(33, 31, 26, 0.3);
+  }
+  .docs-body .editors-grid li {
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  }
+  .docs-body .editors-grid li.is-used {
+    background: linear-gradient(145deg, rgba(255, 240, 228, 0.9), rgba(255, 222, 200, 0.6));
+    border-color: rgba(234, 106, 46, 0.45);
+  }
+  .docs-body .used-chip,
+  .docs-body .tool-tab__badge {
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: inset 0 1px 0 #fff, 0 2px 6px -3px rgba(234, 106, 46, 0.5);
+  }
+  .docs-body .altium-pending {
+    background: var(--glass-fill);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-edge), var(--glass-shadow);
+  }
+  /* visor de imágenes: aquí el desenfoque es real (cubre la página que hay detrás) */
+  .lightbox {
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    backdrop-filter: blur(16px) saturate(1.4);
+    background: rgba(15, 14, 12, 0.72);
+  }
+  .lightbox__close {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  .lightbox__caption {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 8px 16px;
+    border-radius: 100px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    .docs-body .flow-slide,
+    .docs-body .tool-tab,
+    .docs-body .flow__chip:not(.is-active),
+    .docs-body .flow__btn:not(.flow__btn--primary),
+    .docs-body .carousel__btn,
+    .docs-body .altium-pending {
+      background: var(--glass-solid);
+    }
+    .lightbox {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: rgba(15, 14, 12, 0.94);
+    }
+    .lightbox__close,
+    .lightbox__caption {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
 </style>
