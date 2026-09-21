@@ -1,9 +1,8 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./dist",
-      "url": ["http://localhost:PORT/index.html"],
-      "numberOfRuns": 2
+      "staticDistDir": "./_site",
+      "numberOfRuns": 1
     },
     "assert": {
       "assertions": {

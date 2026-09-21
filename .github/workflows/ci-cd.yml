@@ -37,10 +37,10 @@ jobs:
           path: dist
 
   lighthouse:
-    # Built with --base=/ instead of reusing the deploy artifact: the
-    # deployed build's asset paths are prefixed /portfolio/ for GitHub
-    # Pages, which 404s when served at the root of Lighthouse CI's local
-    # static server. A separate root-based build keeps this job accurate.
+    # The site is built with base /portfolio/ (GitHub Pages) and many asset paths are
+    # written with that prefix, so a root-based build would 404. Instead the normal
+    # build is copied into _site/portfolio/ and Lighthouse CI serves _site, which
+    # reproduces the real URLs.
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +50,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx vite build --base=/
+      - run: npm run build
+      - run: mkdir -p _site && cp -r dist _site/portfolio
       - uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./.github/lighthouserc.json
