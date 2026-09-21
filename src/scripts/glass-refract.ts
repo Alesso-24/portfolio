@@ -24,7 +24,11 @@ const reduce = [
   window.matchMedia('(prefers-contrast: more)'),
   window.matchMedia('(forced-colors: active)'),
 ]
-const enabled = () => isChromium && !reduce.some((m) => m.matches)
+// Regulador de rendimiento: si en este dispositivo el scroll no es fluido con la refracción activa, se desactiva sola
+// (queda el vidrio normal) y se recuerda durante la sesión. Se puede saltar con sessionStorage['glass-refract-force']='1' (pruebas).
+const store = (k: string, v?: string) => { try { return v === undefined ? sessionStorage.getItem(k) : (sessionStorage.setItem(k, v), v) } catch { return null } }
+let tooSlow = store('glass-refract-low') === '1' && store('glass-refract-force') !== '1'
+const enabled = () => isChromium && !tooSlow && !reduce.some((m) => m.matches)
 
 // ── parámetros del vidrio (ajustados a ojo sobre capturas) ─────────────────────────────
 const IOR = 1.5 // índice de refracción del vidrio
@@ -32,8 +36,8 @@ const STRENGTH = 1.2 // multiplicador del desplazamiento (1 = físico puro; más
 const BEZEL_MAX = 20 // ancho máximo del bisel en px
 const SPEC_WIDTH = 1.7 // grosor del reflejo de borde en px
 const BLUR_RIM = 0.6 // desenfoque del fondo en el bisel (queda nítido para que se vea la lente)
-const BLUR_FROST = 3.4 // desenfoque del centro (esmerilado): el texto que pasa por detrás no compite con el del menú
-const CA = 0.055 // aberración cromática: fracción de la escala entre canales R y B (0 = desactivada)
+const BLUR_FROST = 3.0 // desenfoque del centro (esmerilado): el texto que pasa por detrás no compite con el del menú
+const CA = 0 // aberración cromática: fracción de la escala entre canales R y B. 0 = desactivada (3 desplazamientos cuestan ~+35 % de frame; ver LIQUID-GLASS.md §8)
 const LIGHT = { x: -0.62, y: -0.78 } // dirección desde la que llega la luz (arriba-izquierda)
 
 const NS = 'http://www.w3.org/2000/svg'
@@ -268,6 +272,39 @@ const scheduleAdapt = () => {
   }, wait)
 }
 
+// ── regulador: mide la fluidez del scroll con la refracción activa ──────────────────────────────
+let govern = () => {}
+if (isChromium && !tooSlow) {
+  const dts: number[] = []
+  let sampling = false
+  let lastTs = 0
+  let lastScroll = 0
+  const loop = (t: number) => {
+    if (lastTs) dts.push(t - lastTs)
+    lastTs = t
+    if (performance.now() - lastScroll < 180 && dts.length < 90) requestAnimationFrame(loop)
+    else {
+      sampling = false
+      lastTs = 0
+      if (dts.length >= 60) {
+        const sorted = [...dts].sort((a, b) => a - b)
+        if (sorted[Math.floor(sorted.length / 2)] > 28 && store('glass-refract-force') !== '1') {
+          tooSlow = true
+          store('glass-refract-low', '1')
+          watched.forEach(schedule)
+        }
+      }
+    }
+  }
+  govern = () => {
+    lastScroll = performance.now()
+    if (!sampling && dts.length < 90) {
+      sampling = true
+      requestAnimationFrame(loop)
+    }
+  }
+}
+
 function start() {
   document.querySelectorAll<HTMLElement>('.glass--refract').forEach(watch)
   new MutationObserver((muts) => {
@@ -281,6 +318,7 @@ function start() {
   }).observe(document.body, { childList: true, subtree: true })
   reduce.forEach((m) => m.addEventListener('change', () => watched.forEach(schedule)))
   window.addEventListener('scroll', scheduleAdapt, { passive: true })
+  window.addEventListener('scroll', () => govern(), { passive: true })
   window.addEventListener('resize', scheduleAdapt, { passive: true })
   scheduleAdapt()
 }

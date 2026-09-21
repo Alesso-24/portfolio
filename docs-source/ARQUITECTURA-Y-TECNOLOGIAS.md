@@ -32,7 +32,7 @@ src/components/
 src/data/             content.ts (textos EN/ES de la home), docs.ts, kicad-flow.ts, mods-flow.ts, mods-adapter.ts,
                       kicad-where.ts, docs-en.ts (diccionario), i18n.ts, image-sizes.json
 src/styles/           global.css (tokens, reset, idioma, animaciones base), glass.css (sistema Liquid Glass: docs-source/LIQUID-GLASS.md)
-src/scripts/          glass-sheen.ts (reflejo del vidrio que sigue al puntero; solo puntero fino y sin reduced-motion)
+src/scripts/          glass-sheen.ts (reflejo del vidrio que sigue al puntero), glass-refract.ts (refracción real del vidrio: mapas + filtro SVG, solo Chromium, con regulador de rendimiento; ver LIQUID-GLASS.md §8)
 public/               imágenes, 404.html, llms.txt, robots.txt, sitemap.xml
 scripts/              utilidades de imágenes y OG
 docs-source/          material crudo, bitácoras y estas guías (no se publica)

@@ -120,6 +120,25 @@ Refracción real con `feDisplacementMap` solo para el menú en Chromium; barra d
 | 1 | `docs/liquid-glass-refraccion` | Esta sección | en curso |
 | 2 | `feat/glass-refraction` | `src/scripts/glass-refract.ts` (mapas + filtro SVG + detección Chromium), menú superior y controles del visor de imágenes refractivos, relleno adaptativo | hecho |
 | 3 | `feat/glass-rim` | Reflejos direccionales de borde en `.glass` (todas las superficies) | hecho |
-| 4 | `fix/glass-refraction-qa` | Contraste medido sobre fondos oscuros/claros, rendimiento contra la v1, modos de accesibilidad, alternativa en Firefox/Safari (UA simulado), docs | pendiente |
+| 4 | `fix/glass-refraction-qa` | Contraste medido sobre fondos oscuros/claros, rendimiento contra la v1, regulador de rendimiento, modos de accesibilidad, alternativa en Firefox/Safari (UA simulado), docs | hecho |
 
 **Siguiente paso al retomar:** ver la primera fila "pendiente" de esta tabla; el punto de retorno es `restore/sitio-liquid-glass-2026-09-21` (v1 ya desplegada).
+
+### 8.1 Implementación de la v2 (`src/scripts/glass-refract.ts`)
+
+- **Qué es refractivo:** el menú superior (`.glass-nav__bar`) y los controles del visor de imágenes (cerrar y pie). Clase `.glass--refract` en el elemento; el script pone `data-refract` cuando activa el filtro. Para añadir otro elemento: `class="… glass glass--blur glass--refract"` (debe tener `border-radius` real; se mide su tamaño y radio).
+- **Cómo se genera:** para cada elemento se calcula (canvas, una vez por tamaño) un mapa de desplazamiento con la ley de Snell (índice 1.5, perfil squircle, bisel máx. 20 px, `STRENGTH` 1.2) y un mapa especular direccional. El **canal azul del mapa es la máscara del bisel**: en el borde se muestra el fondo refractado y casi nítido (lente, `BLUR_RIM` 0.6) y en el centro una versión esmerilada (`BLUR_FROST` 3.0), como el vidrio de Apple. Se aplica con `backdrop-filter: url(#glass-refract-N) saturate(1.18) brightness(1.04)`.
+- **Relleno adaptativo** (`data-glass-adaptive` en el menú): casi transparente (0.30→0.13) sobre el fondo; 0.42→0.28 ya sobre contenido; 0.74→0.62 (`data-over-media`) si detrás pasa una foto/video grande, un chip o botón oscuro o el bloque azul (`data-glass-dark`). Se muestrea cada 48 px como máximo cada 100 ms.
+- **Marcas como atributos, no clases:** React (menú) y el script no se pisan.
+- **Solo Chromium** (Chrome, Edge, Brave, Opera, Android). Safari, Firefox y Chrome en iOS conservan el vidrio v1; `prefers-reduced-transparency`, `prefers-contrast: more` y `forced-colors` apagan la refracción.
+- **Regulador de rendimiento:** mide la mediana de los fotogramas durante el scroll; si supera 28 ms apaga la refracción, vuelve al vidrio v1 y lo recuerda en `sessionStorage`. Anulable con `sessionStorage['glass-refract-force']='1'` (para pruebas).
+- **Aberración cromática:** implementada pero **desactivada** (`CA = 0`): tres desplazamientos suman ≈ +35 % al costo de fotograma y el efecto es muy sutil. Para activarla: `CA = 0.055`.
+- **Reflejos de borde direccionales** en todas las superficies `.glass` (`--glass-edge`, CSS puro).
+
+### 8.2 QA de la v2 (2026-09-21)
+
+- **Contraste del menú en los peores fondos** (crema, título, retrato, fotos, chip oscuro, portada): 21 de 21 mediciones ≥ 4.5:1 (mín. 7.9:1). Contraste de las 29 superficies de la v1: se mantiene 29/29.
+- **Modos y navegadores (emulados):** transparencia reducida, alto contraste y colores forzados → sin refracción; Firefox, Safari y Chrome iOS (UA simulados) → vidrio v1; Chromium normal → refracción.
+- **Rendimiento** (scroll guionizado, CPU limitada 4×, render por software: peor caso; mediana de 3): guía 26.5 ms vs 19.6 ms de la v1; home 34.8 ms vs 26.8 ms (≈ +7 ms por fotograma). El regulador comprobado: no actúa en un equipo rápido, apaga la refracción en uno lento (+38 ms de carga por fotograma simulada) y respeta el anulador.
+- **Hallazgos por el camino:** `saturate(1.6)` teñía de amarillo el fondo crema (ahora 1.18); sin forzar alfa=1 la aberración cromática dejaba franjas de color en los extremos; con solo desenfoque el efecto de lente desaparece (de ahí bisel nítido + centro esmerilado); el scroll suave (Lenis) absorbe los `scrollTo` de las pruebas, por eso el regulador se prueba con la rueda del ratón.
+- **No probado:** Safari y Firefox reales (solo emulados por UA).
