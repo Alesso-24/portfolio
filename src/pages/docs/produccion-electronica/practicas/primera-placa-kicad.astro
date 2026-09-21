@@ -51,7 +51,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
   <div class="tool-tabs" data-tabs id="herramientas">
     <div class="tool-tabs__list" role="tablist" aria-label="Herramientas" data-aria-label-en="Tools">
       <button type="button" role="tab" class="tool-tab" id="tab-kicad" data-tab="kicad" aria-controls="panel-kicad" aria-selected="true">
-        <span class="tool-tab__icon tool-tab__icon--kicad"><img src={`${BRAND_BASE}kicad-icon.webp`} alt="" width="60" height="60" /></span>
+        <span class="tool-tab__icon tool-tab__icon--kicad"><img src={`${BRAND_BASE}kicad-app-icon.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
           <span class="tool-tab__title">KiCad</span>
           <span class="tool-tab__sub"><T es="Esquemático, PCB y archivos de fabricación" /></span>
@@ -75,7 +75,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <!-- KiCad -->
     <section class="tool-panel is-active" id="panel-kicad" role="tabpanel" aria-labelledby="tab-kicad" data-tab-panel="kicad">
       <div class="tool-panel__head">
-        <img class="tool-panel__logo" src={`${BRAND_BASE}kicad-logo-sm.webp`} alt="KiCad" width="132" height="54" />
+        <img class="tool-panel__logo tool-panel__logo--app" src={`${BRAND_BASE}kicad-app-icon.webp`} alt="KiCad" width="72" height="72" />
         <p><T es={'De un proyecto vacío al esquemático completo, el PCB ruteado y los archivos de fabricación (Gerber/SVG). Avanza con las flechas (o las del teclado), salta a una sección con los botones de arriba y haz clic en una captura para ampliarla.'} /></p>
       </div>
       <Flow flow={KICAD_FLOW} />
