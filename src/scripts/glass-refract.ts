@@ -315,7 +315,8 @@ if (isChromium && !tooSlow) {
   let lastTs = 0
   let lastScroll = 0
   const loop = (t: number) => {
-    if (lastTs) dts.push(t - lastTs)
+    // se ignoran los primeros 2.5 s tras la carga (imágenes, fuentes, hidratación) y las pausas largas (pestaña en segundo plano)
+    if (lastTs && t > 2500 && t - lastTs < 250) dts.push(t - lastTs)
     lastTs = t
     if (performance.now() - lastScroll < 180 && dts.length < 90) requestAnimationFrame(loop)
     else {
@@ -323,7 +324,9 @@ if (isChromium && !tooSlow) {
       lastTs = 0
       if (dts.length >= 60) {
         const sorted = [...dts].sort((a, b) => a - b)
-        if (sorted[Math.floor(sorted.length / 2)] > 28 && store('glass-refract-force') !== '1') {
+        // Los fotogramas caen en escalones de 16.7 / 33.3 / 50 ms; con umbral 28 el ruido normal (mediana en 33.3) lo disparaba.
+        // 36 ms solo se supera si la mayoría de los fotogramas tarda ≥ 50 ms (≈ 20 fps o menos): una experiencia realmente mala.
+        if (sorted[Math.floor(sorted.length / 2)] > 36 && store('glass-refract-force') !== '1') {
           tooSlow = true
           store('glass-refract-low', '1')
           watched.forEach(schedule)

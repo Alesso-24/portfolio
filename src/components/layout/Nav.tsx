@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import { Menu, X, Globe, Github, Linkedin, Instagram } from 'lucide-react'
+import { Menu, X, Globe, Github, Linkedin, Instagram, Briefcase, FlaskConical, User, Mail, BookOpen } from 'lucide-react'
 import { NAV_LINKS, SITE } from '../../data/content'
+
+/** ícono de cada enlace del menú (trazo fino, mismo estilo que el resto de íconos); en el dock contraído solo queda el ícono */
+const NAV_ICONS: Record<string, typeof Briefcase> = {
+  '#work': Briefcase,
+  '#research': FlaskConical,
+  '#about': User,
+  '#contact': Mail,
+  '/portfolio/docs': BookOpen,
+}
 
 interface Props { lang?: 'en' | 'es' }
 
@@ -30,11 +39,14 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   const linksRef = useRef<HTMLElement>(null)
   const hovering = useRef(false)
   const [indicator, setIndicator] = useState({ x: 0, w: 0, show: false })
+  const targetRef = useRef<Element | null>(null) // enlace al que apunta la burbuja ahora mismo
   const [active, setActive] = useState<string | null>(null)
 
+  const indRef = useRef<HTMLSpanElement>(null)
   const moveTo = (el: Element | null) => {
     const nav = linksRef.current
     if (!el || !nav) return
+    targetRef.current = el
     const n = nav.getBoundingClientRect()
     const r = el.getBoundingClientRect()
     setIndicator({ x: r.left - n.left, w: r.width, show: true })
@@ -43,15 +55,47 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   const activeRef = useRef<string | null>(null)
   activeRef.current = active
 
+  // Mientras el enlace cambia de tamaño (su etiqueta aparece o se pliega, el dock cambia de ancho) la burbuja se coloca
+  // directamente en el DOM en cada fotograma y SIN transición CSS (el resorte la dejaba rezagada ~0.5 s y no encerraba
+  // toda la palabra). Al terminar se devuelve el control a React/CSS (resorte entre enlaces).
+  const trackRaf = useRef(0)
+  const trackEnd = useRef(0)
+  const tracking = useRef(false)
+  const track = (ms = 900) => {
+    // un solo bucle activo: cada aviso solo alarga su duración (reiniciarlo en cada aviso repetía lecturas de layout)
+    trackEnd.current = Math.max(trackEnd.current, performance.now() + ms)
+    if (tracking.current) return
+    tracking.current = true
+    const loop = () => {
+      const ind = indRef.current
+      const el = targetRef.current
+      const nav = linksRef.current
+      if (ind && el && nav) {
+        const n = nav.getBoundingClientRect()
+        const r = el.getBoundingClientRect()
+        ind.style.transition = 'none'
+        ind.style.width = `${r.width}px`
+        ind.style.transform = `translateX(${r.left - n.left}px)`
+      }
+      if (performance.now() < trackEnd.current) trackRaf.current = requestAnimationFrame(loop)
+      else {
+        tracking.current = false
+        if (ind) ind.style.transition = ''
+        if (targetRef.current) moveTo(targetRef.current)
+      }
+    }
+    loop()
+  }
+
   const restIndicator = () => {
     const cur = activeRef.current
     const el = cur ? linksRef.current?.querySelector(`[data-href="${cur}"]`) ?? null : null
     if (el) moveTo(el)
-    else setIndicator((i) => ({ ...i, show: false }))
+    else { targetRef.current = null; setIndicator((i) => ({ ...i, show: false })) }
   }
 
   useEffect(() => {
-    if (!hovering.current) restIndicator()
+    if (!hovering.current) { restIndicator(); track() }
   }, [active])
 
   // El dock cambia de tamaño con una animación: el indicador se recoloca en cada fotograma mientras dura
@@ -59,10 +103,15 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
   useEffect(() => {
     const bar = barRef.current
     if (!bar) return
-    const ro = new ResizeObserver(() => { if (!hovering.current) restIndicator() })
+    // la burbuja debe medir siempre lo que mide su enlace: al contraer/expandir el dock y cuando el enlace activo
+    // muestra u oculta su etiqueta (max-width animado) cambian el ancho y la posición durante ~0.55 s
+    const ro = new ResizeObserver(() => { if (targetRef.current) track(600) })
     ro.observe(bar)
-    return () => ro.disconnect()
+    linksRef.current?.querySelectorAll('.glass-nav__link').forEach((l) => ro.observe(l))
+    return () => { ro.disconnect(); cancelAnimationFrame(trackRaf.current); tracking.current = false }
   }, [])
+
+  useEffect(() => { track() }, [dock, lang])
 
   // Dirección del scroll con umbral acumulado (32 px) para que el scroll suave (Lenis) no haga parpadear el dock
   useEffect(() => {
@@ -93,7 +142,12 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
     const targets = NAV_LINKS.filter((l) => l.href.startsWith('#'))
       .map((l) => ({ id: l.href, el: document.querySelector(l.href) }))
       .filter((t): t is { id: string; el: Element } => !!t.el)
-    if (!targets.length) return
+    if (!targets.length) {
+      // fuera de la home no hay secciones que vigilar: la sección activa es la de la página actual
+      const path = window.location.pathname
+      setActive(path.includes('/docs') ? '/portfolio/docs' : path.includes('/project/') ? '#work' : null)
+      return
+    }
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -190,24 +244,30 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
             aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}
           >
             <span
+              ref={indRef}
               className="glass-nav__indicator"
               aria-hidden="true"
               style={{ width: indicator.w, transform: `translateX(${indicator.x}px)`, opacity: indicator.show ? 1 : 0 }}
             />
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.href}
-                data-href={link.href}
-                onClick={() => scrollTo(link.href)}
-                onMouseEnter={(e) => { hovering.current = true; moveTo(e.currentTarget) }}
-                onFocus={(e) => moveTo(e.currentTarget)}
-                onBlur={() => { if (!hovering.current) restIndicator() }}
-                aria-current={active === link.href ? 'true' : undefined}
-                className="glass-nav__link"
-              >
-                <T {...link.label} />
-              </button>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const Icon = NAV_ICONS[link.href]
+              return (
+                <button
+                  key={link.href}
+                  data-href={link.href}
+                  onClick={() => scrollTo(link.href)}
+                  onMouseEnter={(e) => { hovering.current = true; moveTo(e.currentTarget) }}
+                  onFocus={(e) => moveTo(e.currentTarget)}
+                  onBlur={() => { if (!hovering.current) restIndicator() }}
+                  aria-current={active === link.href ? 'true' : undefined}
+                  aria-label={link.label[lang]}
+                  className="glass-nav__link"
+                >
+                  {Icon && <Icon size={16} strokeWidth={1.5} className="glass-nav__icon" aria-hidden="true" />}
+                  <span className="glass-nav__label"><T {...link.label} /></span>
+                </button>
+              )
+            })}
           </nav>
 
           {/* Derecha: disponibilidad + idioma + hamburguesa */}
