@@ -52,7 +52,17 @@
   </head>
   <body>
     <h1>404</h1>
-    <p>This page doesn't exist — but the work does.</p>
-    <a href="/portfolio/">Back to Home</a>
+    <p data-en="This page doesn't exist, but the work does." data-es="Esta página no existe, pero el trabajo sí.">This page doesn't exist, but the work does.</p>
+    <a href="/portfolio/" data-en="Back to Home" data-es="Volver al inicio">Back to Home</a>
+    <script>
+      // Mismo idioma que eligió el visitante en el sitio (ES/EN); sin preferencia guardada se queda en inglés.
+      (function () {
+        var lang = 'en';
+        try { if (localStorage.getItem('lang') === 'es') lang = 'es'; } catch (e) {}
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-en]').forEach(function (el) { el.textContent = el.getAttribute('data-' + lang); });
+        if (lang === 'es') document.title = 'Página no encontrada | Alessandro Reyes';
+      })();
+    </script>
   </body>
 </html>
