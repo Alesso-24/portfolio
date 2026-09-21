@@ -15,9 +15,11 @@
 >
 > **Sigue sin hacerse / pendiente de decisión:** rama `gh-pages` (legacy, archivada, se dejó viva); fresado físico y fotos; valores de R/LED; nombre final de la placa; ¿BDAI también fue en persona?
 >
-> ## 🔬 EN CURSO (2026-09-21, pedido de Alessandro tras ver el deploy): Liquid Glass v2 = refracción real
-> Dijo que la v1 "no se ve como vidrio, falta refracción". Plan, técnica, limitaciones y tabla de ramas en `docs-source/LIQUID-GLASS.md` §8 (refracción SVG solo en Chromium con alternativa a la v1 en Safari/Firefox; relleno adaptativo por legibilidad; medir contraste y rendimiento otra vez). **No desplegar sin su visto bueno.** Punto de retorno: `restore/sitio-liquid-glass-2026-09-21`.
-> **Estado ahora:** TODAS las ramas de la v2 hechas (#66 a #69): refracción real del menú y visor, reflejos direccionales, regulador de rendimiento, QA (contraste 21/21 en el menú y 29/29 en superficies, modos, navegadores simulados). PENDIENTE: visto bueno de Alessandro; si lo da, mergear la pila a main en orden (retargetear PRs, merge --no-ff, un solo push), desplegar, etiquetar y limpiar ramas. Detalles en LIQUID-GLASS.md §8.
+> ## ✅ 2026-09-21: LIQUID GLASS v2 (REFRACCIÓN REAL) DESPLEGADO (`main` = `94c0b57`, PRs #66 a #69)
+> Alessandro dijo "dejalo así, ahorita seguimos al rato, ahora haz deploy". Menú superior y controles del visor de imágenes con refracción real (ley de Snell + perfil squircle, filtro SVG con `backdrop-filter`), bisel nítido + centro esmerilado, relleno adaptativo, reflejos de borde direccionales en todas las superficies, regulador de rendimiento. Solo Chromium; Safari/Firefox/iOS y los modos de accesibilidad restrictivos conservan el vidrio v1. **Detalle, mediciones y cómo ajustarlo: `docs-source/LIQUID-GLASS.md` §8.**
+> **Puntos de retorno:** `restore/sitio-liquid-glass-v2-2026-09-21` (este), `restore/sitio-liquid-glass-2026-09-21` (v1 esmerilada), `restore/sitio-pre-liquid-glass-2026-09-21` (sin vidrio).
+> **Ajustes rápidos si quiere más o menos efecto:** constantes al inicio de `src/scripts/glass-refract.ts` (`STRENGTH`, `BEZEL_MAX`, `BLUR_FROST`, `CA` para la aberración cromática, `LIGHT`) y rellenos del menú en `glass.css` (`.glass-nav .glass-nav__bar[data-refract]`).
+> **"Seguimos al rato":** sin tarea concreta pendiente de Liquid Glass; ideas en LIQUID-GLASS.md §7 (barra de progreso de lectura de vidrio, View Transitions, modo oscuro).
 >
 > ## ✅ 2026-09-21: LIQUID GLASS DESPLEGADO (`main` = `84b6806`, PRs #57 a #64)
 > Alessandro aprobó ("BIEN DEPLOY"). Estética Apple "liquid glass" en todo el sitio: menú flotante de vidrio (escritorio y móvil) con indicador deslizante y scroll-spy, botones, tarjetas, chips, formulario, pestañas y controles de la guía, visor de imágenes con desenfoque; texto largo y capturas planas; capa ambiental estática; alternativas sólidas para accesibilidad.
@@ -563,3 +565,6 @@ Alessandro pidió: (a) quitar "primera práctica / Práctica 01" y documentar la
 
 ### 2026-09-21 — Liquid Glass: implementación, QA y deploy
 Permiso de Alessandro para empezar; investigación y plan escritos primero (`LIQUID-GLASS.md`, `ARQUITECTURA-Y-TECNOLOGIAS.md`); implementación en 8 ramas apiladas (plan, base, menú, home, proyectos, docs, movimiento, QA), un PR por rama. Hallazgos: GSAP dejaba un `transform` en línea que anulaba el hover; el naranja de marca con texto blanco no cumplía AA (se profundizó); la capa ambiental animada costaba fluidez (se dejó estática). Deploy tras el visto bueno: merges `--no-ff` en orden, un solo push, Actions en verde, etiqueta de restauración y limpieza de ramas.
+
+### 2026-09-21 (tarde) — Liquid Glass v2: refracción real, QA y deploy
+Pedido: "no se ve como vidrio, falta refracción". Investigación (kube.io, LogRocket, ekino) → plan (PR #66) → refracción con filtro SVG (#67) → reflejos direccionales (#68) → regulador de rendimiento y QA (#69). Hallazgos: `saturate(1.6)` teñía de amarillo el crema; la aberración cromática dejaba franjas de color (alfa forzado a 1) y costaba +35 % (desactivada); solo desenfoque borra la lente (bisel nítido + centro esmerilado); Lenis absorbe los `scrollTo` de las pruebas (regulador probado con rueda). Deploy tras el visto bueno: merges `--no-ff` en orden, un solo push, Actions en verde, etiqueta de restauración y limpieza de ramas.
