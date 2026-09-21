@@ -12,6 +12,7 @@ todo lo integrado sigue en el historial de `main`, y lo que no estaba en `main` 
 | `restore/sitio-liquid-glass-2026-09-21` | `84b6806` | `main` **con Liquid Glass v1 (vidrio esmerilado)** desplegado (PRs #57 a #64) | `git checkout -b volver restore/sitio-liquid-glass-2026-09-21` |
 
 | `restore/sitio-liquid-glass-v2-2026-09-21` | `94c0b57` | `main` con **Liquid Glass v2 (refracción real)** desplegado (PRs #66 a #69) | `git checkout -b volver restore/sitio-liquid-glass-v2-2026-09-21` |
+| `restore/sitio-icono-kicad-2026-09-21` | `e01388b` | `main` con el **ícono oficial y el logo modernizado de KiCad** desplegados (PR #71) | `git checkout -b volver restore/sitio-icono-kicad-2026-09-21` |
 
 Para **redesplegar** un estado viejo: crear la rama desde la etiqueta, hacer PR a `main` y mergear (o `git revert` de los merges del rediseño).
 El deploy es automático al entrar a `main`.
@@ -36,7 +37,7 @@ Cada una queda en `main` con un commit de merge `Merge pull request #N …`. Par
 
 **Liquid Glass (2026-09-21), integradas y borradas:** `docs/liquid-glass-plan` #57 · `feat/glass-base` #58 · `feat/glass-nav` #59 · `feat/glass-home` #60 · `feat/glass-projects` #61 · `feat/glass-docs` #62 · `feat/glass-motion` #63 · `fix/glass-qa` #64 · `docs/cierre-liquid-glass` #65. Todas quedan en el historial de `main` con su commit de merge; para volver a ver una: `git fetch origin pull/<N>/head:<nombre>`.
 
-**Liquid Glass v2 (2026-09-21), integradas y borradas:** `docs/liquid-glass-refraccion` #66 · `feat/glass-refraction` #67 · `feat/glass-rim` #68 · `fix/glass-refraction-qa` #69 · `docs/cierre-glass-v2` #70.
+**Liquid Glass v2 (2026-09-21), integradas y borradas:** `docs/liquid-glass-refraccion` #66 · `feat/glass-refraction` #67 · `feat/glass-rim` #68 · `fix/glass-refraction-qa` #69 · `docs/cierre-glass-v2` #70 · `feat/kicad-icono-oficial` #71.
 
 Ramas más antiguas que ya no existían en el remoto al hacer esta limpieza (integradas por squash; su contenido está en `main`, y GitHub conserva el
 código de cada PR en `refs/pull/N/head`): #1 `docs/brand-positioning`, #19 `feat/copy-rewrite`, #20 `feat/design-system`, #21 `feat/performance-images`,
