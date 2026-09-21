@@ -96,6 +96,21 @@ html[lang="es"] .lang-es { display: revert !important; }
 
 Nav.tsx sets `document.documentElement.setAttribute('lang', 'es')` and dispatches a `lang-change` CustomEvent. Static Astro components react via CSS. The Contact.tsx React island listens for `lang-change` to update its own state.
 
+**The choice persists across pages.** Nav saves it in `localStorage` (`lang`), and an inline script in `Base.astro`'s `<head>` applies it before first paint (no flash). Without a saved choice each page uses its own default: `/docs` is Spanish, everything else English.
+
+**Things CSS can't switch** (`alt`, `aria-label`, `title`, the tab `<title>`) carry both versions: `data-alt-en` / `data-alt-es`, `data-aria-label-en`, `<title data-en data-es>`. A second inline script in `Base.astro` swaps them on load and on every `lang-change`.
+
+### Documentación section (`/docs`)
+
+Written in Spanish; English lives in a dictionary so the content data stays readable:
+
+- `src/data/docs-en.ts`: `"texto en español exacto": "English text"`. HTML tags must match.
+- `<T es="…" />` (`src/components/docs/T.astro`) renders both languages; `src/data/i18n.ts` looks the text up.
+- **A missing translation fails `npm run build`** (so Spanish can never ship inside English mode). `astro dev` only warns.
+- `I18N_COLLECT=1 npm run build` writes every missing string to `.i18n-missing.jsonl` (git-ignored).
+- KiCad UI names are written in English with the Spanish label in parentheses (the screenshots are in Spanish).
+- Editing a Spanish sentence changes its dictionary key: update `docs-en.ts` too.
+
 ---
 
 ## Design tokens

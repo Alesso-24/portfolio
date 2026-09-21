@@ -124,6 +124,9 @@ presenting remotely." Never imply physical travel/attendance.
 - English first (international audience is the priority); Spanish toggle
   stays as a secondary, fully-translated option, not an afterthought.
 - Describe outcomes/impact before listing the tech stack used to get there.
+- No em dashes (—) in visible copy, in either language: use a period, colon,
+  comma or parentheses. Skip filler such as "more coming soon" or "documented
+  along the way, not after". Applies to the `/docs` section too.
 - Never claim something the papers don't say. When in doubt, check this
   file's proof-points section for the exact, citable number.
 
