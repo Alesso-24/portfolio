@@ -101,21 +101,22 @@ competing taglines on the same page):**
 Use 3 of these (126×, 99.85%/0 false alarms, 98.4%) as the homepage "proof
 bar" anchor stats — the rest live on the paper detail pages.
 
-## Conference facts (verified — do not state physical attendance)
+## Conference facts (verified)
 
 | | IEEE CASE 2026 | IEEE BDAI 2026 |
 |---|---|---|
 | Full name | 22nd IEEE Int'l Conf. on Automation Science and Engineering | 9th Int'l Conf. on Big Data and Artificial Intelligence |
 | Dates | Aug 17–21, 2026 | Jul 3–5, 2026 |
 | Location | Shenyang, China | Chongqing, China |
-| Status | **Accepted, camera-ready submitted, fees paid** | **Accepted, camera-ready submitted, fees paid** |
-| Presentation | **Remote / virtual** (not attending in person) | **Remote / virtual** (not attending in person) |
+| Status | **Presented in person (Aug 2026)**, IEEE Xplore pending | **Accepted, camera-ready submitted, fees paid** |
+| Presentation | **In person** (Alessandro travelled to Shenyang; RAS student travel grant) | **Remote / virtual** (not attending in person) |
 | Indexing | IEEE Xplore | IEEE Xplore + Ei Compendex + Scopus |
 | Source | 2026.ieeecase.org | bdai.net / iconf.org |
 
-**Copy rule:** always say "Accepted to IEEE CASE 2026 (Shenyang, China) —
-presenting remotely" / "Accepted to IEEE BDAI 2026 (Chongqing, China) —
-presenting remotely." Never imply physical travel/attendance.
+**Copy rule:** CASE 2026 was presented in person (confirmed by Alessandro,
+2026-09-21): say "Presented at IEEE CASE 2026 (Shenyang, China)". For BDAI 2026
+keep "presenting remotely" and never imply physical travel unless Alessandro
+confirms otherwise (the BDAI page only says "Presented").
 
 ## Voice & tone
 
