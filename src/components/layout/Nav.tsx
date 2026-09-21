@@ -66,109 +66,58 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
 
   return (
     <>
-      <header
-        style={{
-          position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '18px clamp(20px,4vw,60px)',
-          backdropFilter: 'blur(12px)',
-          background: scrolled ? 'rgba(243,237,225,0.88)' : 'rgba(243,237,225,0.72)',
-          borderBottom: '1px solid rgba(33,31,26,0.08)',
-          transition: 'background 0.3s',
-        }}
-      >
-        {/* Left: avatar + name */}
-        <a href="/portfolio/" style={{ display:'flex', alignItems:'center', gap:12, textDecoration:'none', color:'#211f1a' }}>
-          <span style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            width: 36, height: 36, borderRadius: '50%',
-            background: '#2540c0', color: '#f3ede1',
-            fontFamily: "'Instrument Serif', serif", fontSize: 18,
-          }}>
-            A
-          </span>
-          <span style={{ fontWeight: 600, fontSize: 16, letterSpacing: '-0.01em', fontFamily: "'Hanken Grotesk', system-ui, sans-serif" }}>
-            Alessandro Reyes
-          </span>
-        </a>
-
-        {/* Center: desktop nav links */}
-        <nav style={{ display: 'none', gap: 36, alignItems: 'center' }} className="desktop-nav"
-          aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.href}
-              onClick={() => scrollTo(link.href)}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                color: '#4a473f', fontSize: 14, fontWeight: 500,
-                fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#ea6a2e')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#4a473f')}
-            >
-              <T {...link.label} />
-            </button>
-          ))}
-        </nav>
-
-        {/* Right: pill + lang + hamburger */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          {/* "Open to Summer 2026" pill — hidden on mobile, shown ≥860px via CSS */}
-          <a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); scrollTo('#contact') }}
-            className="status-pill"
-            style={{
-              display: 'flex', alignItems: 'center', gap: 9,
-              padding: '10px 18px', borderRadius: 100,
-              background: '#211f1a', color: '#f3ede1',
-              textDecoration: 'none', fontSize: 13, fontWeight: 600,
-              fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <span style={{
-              width: 7, height: 7, borderRadius: '50%', background: '#ea6a2e',
-              animation: 'ar-pulse 1.8s infinite', flexShrink: 0,
-            }} />
-            <T en="Open to work" es="Disponible" />
+      <header className={`glass-nav${scrolled ? ' is-scrolled' : ''}`}>
+        <div className="glass-nav__bar glass glass--blur">
+          {/* Izquierda: avatar + nombre */}
+          <a href="/portfolio/" className="glass-nav__brand">
+            <span className="glass-nav__avatar">A</span>
+            <span className="glass-nav__name">Alessandro Reyes</span>
           </a>
 
-          {/* Language toggle */}
-          <button
-            onClick={toggleLang}
-            title={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
-            aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 4,
-              background: 'none', border: '1px solid transparent', cursor: 'pointer',
-              color: '#6f6a5f', fontSize: 11, fontWeight: 600,
-              fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
-              letterSpacing: '0.1em', padding: '0 10px', borderRadius: 100,
-              minHeight: 44, minWidth: 44, margin: '-7px 0', justifyContent: 'center',
-              transition: 'all 0.2s',
-            }}
+          {/* Centro: enlaces (solo escritorio) */}
+          <nav
+            className="desktop-nav glass-nav__links"
+            style={{ display: 'none' }}
+            aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}
           >
-            <Globe size={14} strokeWidth={1.5} />
-            <T en="EN" es="ES" />
-          </button>
+            {NAV_LINKS.map((link) => (
+              <button key={link.href} onClick={() => scrollTo(link.href)} className="glass-nav__link">
+                <T {...link.label} />
+              </button>
+            ))}
+          </nav>
 
-          {/* Hamburger — shown on mobile */}
-          <button
-            className="hamburger"
-            aria-label={menuOpen ? (lang === 'es' ? 'Cerrar menú' : 'Close menu') : (lang === 'es' ? 'Abrir menú' : 'Open menu')}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMenu(o => !o)}
-            style={{
-              background: 'none', border: 'none', cursor: 'pointer',
-              color: '#211f1a', width: 44, height: 44, margin: '-8px -10px -8px 0', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            {menuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
-          </button>
+          {/* Derecha: disponibilidad + idioma + hamburguesa */}
+          <div className="glass-nav__right">
+            <a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); scrollTo('#contact') }}
+              className="status-pill glass-nav__pill glass--dark glass-press"
+            >
+              <span className="glass-nav__dot" />
+              <T en="Open to work" es="Disponible" />
+            </a>
+
+            <button
+              onClick={toggleLang}
+              title={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
+              aria-label={lang === 'en' ? 'Cambiar a español' : 'Switch to English'}
+              className="glass-nav__lang glass-press"
+            >
+              <Globe size={14} strokeWidth={1.5} />
+              <T en="EN" es="ES" />
+            </button>
+
+            <button
+              className="hamburger glass-nav__burger glass-press"
+              aria-label={menuOpen ? (lang === 'es' ? 'Cerrar menú' : 'Close menu') : (lang === 'es' ? 'Abrir menú' : 'Open menu')}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setMenu((o) => !o)}
+            >
+              {menuOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -184,9 +133,9 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
+            className="glass-menu glass--blur-strong"
             style={{
               position: 'fixed', inset: 0, zIndex: 40,
-              background: 'rgba(243,237,225,0.97)', backdropFilter: 'blur(16px)',
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             }}
           >
@@ -237,7 +186,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
             <button
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', background: 'none', border: 'none', cursor: 'default', zIndex: -1 }}
               onClick={() => setMenu(false)}
-              aria-label="Close menu"
+              aria-label={lang === 'es' ? 'Cerrar menú' : 'Close menu'}
             />
           </motion.div>
         )}
