@@ -94,7 +94,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
 
         {/* Center: desktop nav links */}
         <nav style={{ display: 'none', gap: 36, alignItems: 'center' }} className="desktop-nav"
-          aria-label="Main navigation">
+          aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}>
           {NAV_LINKS.map((link) => (
             <button
               key={link.href}
@@ -158,7 +158,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
           {/* Hamburger — shown on mobile */}
           <button
             className="hamburger"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={menuOpen ? (lang === 'es' ? 'Cerrar menú' : 'Close menu') : (lang === 'es' ? 'Abrir menú' : 'Open menu')}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenu(o => !o)}
@@ -179,7 +179,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
-            aria-label="Navigation menu"
+            aria-label={lang === 'es' ? 'Menú de navegación' : 'Navigation menu'}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -190,7 +190,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             }}
           >
-            <nav aria-label="Mobile navigation" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40, width: '100%', padding: '0 32px' }}>
+            <nav aria-label={lang === 'es' ? 'Navegación móvil' : 'Mobile navigation'} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40, width: '100%', padding: '0 32px' }}>
               {NAV_LINKS.map((link, i) => (
                 <motion.button
                   key={link.href}

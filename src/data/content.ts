@@ -92,7 +92,7 @@ export interface Project {
   title: { en: string; es: string }
   description: { en: string; es: string }
   image: string
-  imageAlt: string
+  imageAlt: { en: string; es: string }
   size: 'large' | 'small'
   shadowColor: 'blue' | 'orange'
   href: string
@@ -108,7 +108,7 @@ export const PROJECTS: Project[] = [
       es: 'Construimos y corrimos un robot ESP32-C6 personalizado que se recupera de giros de 90° en milisegundos, diseñado y depurado bajo presión de competencia real en LARC 2025.',
     },
     image: '/portfolio/images/larc_arena.webp',
-    imageAlt: 'Tracky robot at LARC 2025 arena',
+    imageAlt: { en: 'Tracky robot at LARC 2025 arena', es: 'Robot Tracky en la arena del LARC 2025' },
     size: 'large',
     shadowColor: 'orange',
     href: '/portfolio/project/larc-2025',
@@ -122,7 +122,7 @@ export const PROJECTS: Project[] = [
       es: 'Encontramos un bug real de hardware que invirtió la decisión de un modelo "perfecto" en silicio real, y demostramos que un modelo 126× más rápido iguala a Random Forest una vez que la falla es lo suficientemente separable.',
     },
     image: '/portfolio/images/cover_case.webp',
-    imageAlt: 'Edge AI Decision Framework research paper',
+    imageAlt: { en: 'Edge AI Decision Framework research paper', es: 'Artículo de investigación sobre el framework de decisión Edge AI' },
     size: 'small',
     shadowColor: 'blue',
     href: '/portfolio/project/fault-detection-case',
@@ -136,7 +136,7 @@ export const PROJECTS: Project[] = [
       es: '99.85% de exactitud, cero falsos positivos, 98.4% menos energía que la nube. Mantenimiento predictivo lo suficientemente ligero para correr en un microcontrolador de $5.',
     },
     image: '/portfolio/images/cover_bdai.webp',
-    imageAlt: 'Industrial fault detection ML research',
+    imageAlt: { en: 'Industrial fault detection ML research', es: 'Investigación de detección de fallas industriales con ML' },
     size: 'small',
     shadowColor: 'orange',
     href: '/portfolio/project/fault-detection',
@@ -150,7 +150,7 @@ export const PROJECTS: Project[] = [
       es: 'Visión por computadora en tiempo real y cinemática inversa mantienen una pelota rodante equilibrada en una placa móvil, y siguen prediciendo su trayectoria incluso cuando se pierde un frame de cámara.',
     },
     image: '/portfolio/images/plat1.webp',
-    imageAlt: 'Self-balancing platform with computer vision',
+    imageAlt: { en: 'Self-balancing platform with computer vision', es: 'Plataforma autobalanceable con visión por computadora' },
     size: 'small',
     shadowColor: 'blue',
     href: '/portfolio/project/self-balancing-platform',
@@ -164,7 +164,7 @@ export const PROJECTS: Project[] = [
       es: 'Ganamos 1er lugar a nivel LATAM modelando el déficit hídrico de Puebla como MILP y QUBO, resolviéndolo con QAOA en IBM Qiskit. Tres días, cuatro estudiantes, una crisis hidrológica real.',
     },
     image: '/portfolio/images/hack_team.webp',
-    imageAlt: 'Equipo 9 BUAP con certificados del Hackathon LATAM 2026',
+    imageAlt: { en: 'Team 9 BUAP with certificates from Hackathon LATAM 2026', es: 'Equipo 9 BUAP con certificados del Hackathon LATAM 2026' },
     size: 'small',
     shadowColor: 'orange',
     href: '/portfolio/project/quantum-water-hackathon',

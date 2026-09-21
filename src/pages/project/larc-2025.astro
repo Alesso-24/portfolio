@@ -4,12 +4,22 @@ import YouTubeFacade from '../../components/ui/YouTubeFacade.astro'
 ---
 
 <ProjectLayout
+  badgeEs="Robótica competitiva · Octubre 2025"
   badge="Competitive Robotics · October 2025"
+  titleEs="LARC 2025, Tec de Monterrey. El proyecto Tracky."
   title="LARC 2025, Tec de Monterrey. The Tracky Project."
   description="Built and raced a custom ESP32-C6 line-follower robot that recovers from 90° turns in milliseconds. Engineered under real competition pressure at LARC 2025."
   coverImage="/portfolio/images/larc_arena.webp"
   coverAlt="Tracky robot racing at LARC 2025 arena, Tec de Monterrey"
+  coverAltEs="Robot Tracky compitiendo en la arena del LARC 2025, Tec de Monterrey"
   ogImage="https://alesso-24.github.io/portfolio/images/larc_arena.webp"
+  metaEs={[
+    { label: 'Rol', value: 'Líder de hardware y co-desarrollo de software' },
+    { label: 'Sede', value: 'Tec de Monterrey, N.L., México' },
+    { label: 'Evento', value: 'LARC 2025 · TIR Seguidor de línea' },
+    { label: 'Hardware', value: 'ESP32-C6 · IR Array · TB6612FNG' },
+    { label: 'Software', value: 'C++ · PID Control · Python · BLE' },
+  ]}
   meta={[
     { label: 'Role',     value: 'Hardware Lead & Software Co-Dev' },
     { label: 'Venue',    value: 'Tec de Monterrey, N.L., México' },
@@ -61,7 +71,7 @@ import YouTubeFacade from '../../components/ui/YouTubeFacade.astro'
   </p>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 22px 50px -30px rgba(234,106,46,0.35);">
-    <img src="/portfolio/images/larc_team.webp" alt="Alessandro y compañero en LARC 2025" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/larc_team.webp" alt="Alessandro and a teammate at LARC 2025" data-alt-es="Alessandro y compañero en LARC 2025" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <hr class="divider" />
@@ -95,7 +105,7 @@ import YouTubeFacade from '../../components/ui/YouTubeFacade.astro'
   </div>
 
   <div data-reveal style="border-radius:18px; overflow:hidden; margin:clamp(28px,4vh,48px) 0; box-shadow:0 24px 60px -30px rgba(37,64,192,0.35);">
-    <img src="/portfolio/images/robot_full.webp" alt="Tracky, hardware completo" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
+    <img src="/portfolio/images/robot_full.webp" alt="Tracky, complete hardware" data-alt-es="Tracky, hardware completo" loading="lazy" decoding="async" style="width:100%;height:auto;display:block;" />
   </div>
 
   <div class="callout" data-reveal>

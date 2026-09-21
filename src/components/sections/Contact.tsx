@@ -112,7 +112,7 @@ export default function Contact({ lang: initialLang = 'en' }: Props) {
                 fontFamily: "'Hanken Grotesk', system-ui, sans-serif",
                 fontSize: 11, letterSpacing: '0.1em',
               }}>
-                * Please CC your email to {SITE.emailCC}
+                {lang === 'es' ? '* Por favor, pon en copia tu correo a ' : '* Please CC your email to '}{SITE.emailCC}
               </p>
             </div>
 
