@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
 import { Menu, X, Globe, Github, Linkedin, Instagram, Briefcase, FlaskConical, User, Mail, BookOpen } from 'lucide-react'
 import { NAV_LINKS, SITE } from '../../data/content'
 
@@ -305,17 +304,12 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
       </header>
 
       {/* Mobile fullscreen menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
+      {menuOpen && (
+          <div
             id="mobile-menu"
             role="dialog"
             aria-modal="true"
             aria-label={lang === 'es' ? 'Menú de navegación' : 'Navigation menu'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
             className="glass-menu glass--blur-strong"
             style={{
               position: 'fixed', inset: 0, zIndex: 40,
@@ -324,13 +318,12 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
           >
             <nav aria-label={lang === 'es' ? 'Navegación móvil' : 'Mobile navigation'} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 40, width: '100%', padding: '0 32px' }}>
               {NAV_LINKS.map((link, i) => (
-                <motion.button
+                <button
                   key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="glass-menu__item"
                   onClick={() => scrollTo(link.href)}
                   style={{
+                    ['--i' as string]: i,
                     background: 'none', border: 'none', cursor: 'pointer',
                     fontFamily: "'Instrument Serif', serif", fontWeight: 400,
                     fontSize: 'clamp(40px, 9vw, 64px)', color: 'rgba(33,31,26,0.9)',
@@ -339,15 +332,10 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
                   }}
                 >
                   <T {...link.label} />
-                </motion.button>
+                </button>
               ))}
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.35, duration: 0.4 }}
-                style={{ display: 'flex', gap: 32, marginTop: 16 }}
-              >
+              <div className="glass-menu__social" style={{ display: 'flex', gap: 32, marginTop: 16 }}>
                 {[
                   { href: SITE.github,    icon: <Github size={24} strokeWidth={1.5} />,    label: 'GitHub' },
                   { href: SITE.linkedin,  icon: <Linkedin size={24} strokeWidth={1.5} />,  label: 'LinkedIn' },
@@ -362,7 +350,7 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
                     {icon}
                   </a>
                 ))}
-              </motion.div>
+              </div>
             </nav>
 
             {/* Tap-outside to close */}
@@ -371,9 +359,8 @@ export default function Nav({ lang: initialLang = 'en' }: Props) {
               onClick={() => setMenu(false)}
               aria-label={lang === 'es' ? 'Cerrar menú' : 'Close menu'}
             />
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
+      )}
 
       <style>{`
         @media (min-width: 860px) {

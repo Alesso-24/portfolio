@@ -442,6 +442,31 @@ body.bg-cream {
   }
 }
 
+/* menú móvil: entrada con CSS (antes usaba la librería motion; quitarla ahorra ~90 KB de JS) */
+@keyframes glass-menu-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes glass-menu-rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+.glass-menu {
+  animation: glass-menu-fade 0.25s ease both;
+}
+
+.glass-menu__item {
+  animation: glass-menu-rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.08s);
+}
+
+.glass-menu__social {
+  animation: glass-menu-fade 0.4s ease 0.35s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-menu,
+  .glass-menu__item,
+  .glass-menu__social {
+    animation: none;
+  }
+}
+
 /* Panel del menú móvil a pantalla completa: desenfoque real (cubre el contenido que hace scroll detrás) */
 .glass-menu {
   background: rgba(243, 237, 225, 0.72);
