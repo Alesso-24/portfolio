@@ -182,3 +182,27 @@ Propuesta aceptada ("implementalo con recomendaciones"): ícono minimalista en c
 **Verificación:** diferencia burbuja/enlace de 0 px a izquierda y derecha en hover entre enlaces, cambio de sección contraído, expandir con el mouse y volver a contraer.
 **Efecto colateral corregido:** el seguimiento aumentó el costo de fotograma en el banco de pruebas y el regulador de rendimiento (umbral 28 ms) apagaba la refracción sin motivo. Los fotogramas caen en escalones (16.7 / 33.3 / 50 ms), así que 28 ms lo disparaba con el ruido normal. Umbral nuevo **36 ms** (solo si la mayoría de fotogramas tarda ≥ 50 ms) y se ignoran los primeros 2.5 s tras la carga y las pausas > 250 ms. Comprobado: equipo normal no se apaga; equipo lento simulado (+38 ms por scroll) sí; con el anulador de pruebas se mantiene.
 **Nota de pruebas:** las capturas tomadas durante un `scrollTo` programático grande salen con el menú en blanco (artefacto de captura con el scroll suave); con la rueda real el menú se dibuja en todos los fotogramas.
+
+## 10. Optimización de fluidez (pedido de Alessandro: "que todo fluya como mantequilla", 2026-09-21)
+
+**Método:** perfil de CPU con CDP (`Profiler` + `Performance.getMetrics`) durante ~130 eventos de rueda reales en la home (Lenis absorbe `scrollTo` programático, así que se usa `mouse.wheel`), con la refracción forzada. Se compara tiempo de tarea, script, recálculos de estilo y funciones más pesadas; las medias de fotogramas son demasiado ruidosas en este equipo (saltan entre 16.7 y 33.3 ms), por eso se mide CPU.
+
+| | antes | después |
+|---|---|---|
+| Tarea total (home, sesión de scroll) | 6272 ms | ~4400 ms |
+| Script | 2001 ms | ~730 ms |
+| `document.elementsFromPoint` | 673 ms | 0 |
+| `toDataURL` / `toBlob` | 457 ms | ~67 ms |
+| JS de la isla `Nav` | 132 KB | 9.8 KB |
+| Mapas de refracción generados al contraer/expandir el dock | 6 a 10 tamaños intermedios | 2 (expandido y contraído) |
+
+**Qué se cambió y por qué**
+1. **Relleno adaptativo sin hit-testing** (`adapt()` en `glass-refract.ts`): los candidatos (`img, video, .glass--dark…`) se guardan en caché y solo se releen cuando el DOM cambia (`MutationObserver`/`load`); en cada pasada se leen sus rectángulos y se comprueba si cruzan la línea central del menú. Antes cada pasada llamaba a `elementsFromPoint` ~28 veces. `.flow__chip` se guarda entero porque cambia de clase (`is-active`) sin tocar el DOM.
+2. **PNG de los mapas con `canvas.toBlob`** (codifica fuera del hilo principal) y `blob:` URLs, con caché de promesas por tamaño y `URL.revokeObjectURL` al expulsar. **La CSP de `Base.astro` ahora permite `img-src … blob:`** (imprescindible; sin eso el filtro no carga el mapa y no hay error visible salvo en consola).
+3. **Sin mapas intermedios:** `measure()` usa `offsetWidth/offsetHeight` (getBoundingClientRect cambiaba con la animación de entrada: 1254 px en vez de 1280) y `settle()` exige que el tamaño se repita en dos comprobaciones seguidas (120 ms) antes de regenerar.
+4. **Se quitó `motion`** (Framer Motion, ~90 KB min) que solo animaba el menú móvil: ahora `glass-menu-fade` / `glass-menu-rise` en CSS (mismo resultado, escalonado por `--i`). Se desinstaló la dependencia.
+5. **Reveals sin `scale`** (`Base.astro`): escalar re-rasteriza el contenido y el vidrio con `backdrop-filter` que lleve dentro en cada fotograma; queda solo opacidad + `y`. El temporizador de seguridad de 4.5 s pasó de uno por elemento (78) a uno solo con lecturas juntas.
+
+**Regulador:** con la carga sintética anterior (+38 ms por evento de scroll) ya no se activa porque el sitio es más ligero; se verifica ahora con +65 ms (desactiva y recuerda) y con `glass-refract-force` (no desactiva).
+
+**Pendiente / ideas:** pre-generar el mapa del dock contraído al quedar inactivo (hoy el primer contraer paga ~35 ms una vez); reducir la resolución del mapa de desplazamiento a la mitad (se escala sin pérdida visible, el especular no); revisar los ~1000 recálculos de estilo por sesión de scroll (casi todos vienen del ticker de Lenis/GSAP, ~1 ms cada uno).

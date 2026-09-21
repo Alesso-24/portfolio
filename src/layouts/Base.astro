@@ -65,7 +65,7 @@ const {
         else apply();
       })();
     </script>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formsubmit.co; frame-src https://www.youtube-nocookie.com; form-action https://formsubmit.co; base-uri 'self'; object-src 'none';" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://formsubmit.co; frame-src https://www.youtube-nocookie.com; form-action https://formsubmit.co; base-uri 'self'; object-src 'none';" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <title data-en={titleEn ?? title} data-es={titleEs ?? title}>{title}</title>
@@ -162,11 +162,11 @@ const {
 
           gsap.fromTo(
             el,
-            { opacity: 0, y: 28, scale: 0.988 },
+            // sin `scale`: escalar rasteriza de nuevo el contenido (y el vidrio con backdrop-filter que lleve dentro) en cada fotograma
+            { opacity: 0, y: 28 },
             {
               opacity: 1,
               y: 0,
-              scale: 1,
               duration: 1.05,
               delay,
               ease: 'expo.out',
@@ -181,13 +181,13 @@ const {
             }
           )
 
-          // Safety fallback: force visible after 4.5s in case observer never fires
-          setTimeout(() => {
-            if (getComputedStyle(el).opacity === '0') {
-              gsap.set(el, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' })
-            }
-          }, 4500)
         })
+
+        // Safety fallback: force visible after 4.5s in case observer never fires (un solo temporizador: lecturas juntas, escrituras después)
+        setTimeout(() => {
+          const stuck = Array.from(reveals).filter((el) => getComputedStyle(el).opacity === '0')
+          stuck.forEach((el) => gsap.set(el, { opacity: 1, y: 0, clearProps: 'transform' }))
+        }, 4500)
 
         // Hero parallax
         const heroText = document.querySelector<HTMLElement>('[data-parallax="hero-text"]')

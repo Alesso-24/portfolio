@@ -11,7 +11,6 @@ Guía para **ampliar o actualizar** el sitio sin tener que redescubrir cómo est
 | **React** | 19 | Solo dos islas interactivas: `Nav.tsx` (menú + idioma) y `Contact.tsx` (formulario). | Se hidratan con `client:idle` / `client:visible`. Todo lo demás es HTML sin JS de framework. No pasar estado entre islas: se comunican con el evento `lang-change`. |
 | **GSAP + ScrollTrigger** | 3.15 | Animaciones de aparición al hacer scroll (`data-reveal`, `data-reveal-delay`). | Se inicializan en `Base.astro`. Respetar `prefers-reduced-motion` (ya lo hace `global.css`). |
 | **Lenis** | 1.3 | Scroll suave. | También en `Base.astro`; se desactiva con `prefers-reduced-motion`. |
-| **motion** (Framer Motion) | 12 | Animaciones del menú móvil dentro de `Nav.tsx`. | Solo en esa isla. |
 | **lucide-react** | 0.577 | Íconos del menú. | No se actualizó a 1.x a propósito (posibles cambios de API). |
 | **Fuentes** | Fontsource | *Instrument Serif* (titulares) y *Hanken Grotesk* (texto). | Autoalojadas (`@fontsource*`), sin peticiones a Google. La CSP del sitio no permite fuentes externas. |
 | **TypeScript + `astro check`** | 5.9 | `npm run lint` = `astro check` (0 errores es la regla). | `@types/node` está instalado porque `src/data/i18n.ts` usa `node:fs`. |
@@ -59,7 +58,7 @@ docs-source/          material crudo, bitácoras y estas guías (no se publica)
 
 **Agregar un texto EN/ES en la home:** `src/data/content.ts` (objetos `{ en, es }`) o `<span class="lang-en/es">` en el componente.
 
-**Actualizar dependencias:** `npm update` (dentro de rangos) + `npm audit fix`; comprobar `npm run lint` y `npm run build`. Los saltos mayores (lucide 1.x, motion 13, TypeScript 7) se evalúan aparte.
+**Actualizar dependencias:** `npm update` (dentro de rangos) + `npm audit fix`; comprobar `npm run lint` y `npm run build`. Los saltos mayores (lucide 1.x, TypeScript 7) se evalúan aparte.
 
 ## 5. Rendimiento
 
@@ -87,3 +86,5 @@ docs-source/          material crudo, bitácoras y estas guías (no se publica)
 4. Capturas de pantalla leídas a ojo para cambios visuales (escritorio y móvil).
 5. Buscar rayas largas en `dist/**/*.html`.
 6. Si se toca el diseño visual: contraste WCAG AA medido por píxeles sobre las superficies reales (captura del elemento, color de fondo dominante vs color de texto), modos `prefers-reduced-transparency` / `prefers-contrast: more` / `forced-colors` / `prefers-reduced-motion` emulados con CDP, y rendimiento de scroll con CPU limitada 4× **comparado contra la etiqueta `restore/*`** (worktree temporal + build + servidor estático en otro puerto). Método completo en `LIQUID-GLASS.md` §6.
+
+> **2026-09-21:** se quitó `motion` (el menú móvil usa animaciones CSS, ver `LIQUID-GLASS.md` §10) y la CSP de `Base.astro` permite `img-src blob:` para los mapas de refracción.

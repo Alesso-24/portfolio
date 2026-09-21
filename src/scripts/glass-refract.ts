@@ -81,9 +81,10 @@ function buildProfile(bezel: number) {
 }
 
 /** mapas ya calculados por tamaño (alternar entre estados de un mismo elemento, como el dock, es instantáneo) */
-const cache = new Map<string, { dispURL: string; specURL: string; max: number }>()
+type Maps = { dispURL: string; specURL: string; max: number }
+const cache = new Map<string, Promise<Maps>>()
 
-function generate(w: number, h: number, r: number, bezel: number) {
+async function generate(w: number, h: number, r: number, bezel: number): Promise<Maps> {
   const { profile, max } = buildProfile(bezel)
   const disp = new ImageData(w, h)
   const spec = new ImageData(w, h)
@@ -148,39 +149,48 @@ function generate(w: number, h: number, r: number, bezel: number) {
     }
   }
 
-  const toURL = (data: ImageData) => {
-    const c = document.createElement('canvas')
-    c.width = w
-    c.height = h
-    c.getContext('2d')!.putImageData(data, 0, 0)
-    return c.toDataURL('image/png')
-  }
-  const dispURL = toURL(disp)
-  const specURL = toURL(spec)
+  // toBlob codifica el PNG fuera del hilo principal (toDataURL lo bloqueaba en cada imagen)
+  const toURL = (data: ImageData) =>
+    new Promise<string>((resolve, reject) => {
+      const c = document.createElement('canvas')
+      c.width = w
+      c.height = h
+      c.getContext('2d')!.putImageData(data, 0, 0)
+      c.toBlob((b) => (b ? resolve(URL.createObjectURL(b)) : reject(new Error('toBlob'))), 'image/png')
+    })
+  const [dispURL, specURL] = await Promise.all([toURL(disp), toURL(spec)])
   return { dispURL, specURL, max }
 }
 
 function measure(el: HTMLElement) {
-  const rect = el.getBoundingClientRect()
-  const w = Math.round(rect.width)
-  const h = Math.round(rect.height)
+  // offsetWidth/Height: tamaño de layout sin transformaciones (getBoundingClientRect cambia durante animaciones de entrada/escala)
+  const w = el.offsetWidth
+  const h = el.offsetHeight
   const r = Math.min(parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0, w / 2, h / 2)
   return { w, h, r, key: `${w}x${h}x${Math.round(r)}` }
 }
 
-function build(el: HTMLElement) {
-  const { w, h, r, key } = measure(el)
-  if (w < 24 || h < 16) return
-  const bezel = Math.min(BEZEL_MAX, Math.min(w, h) / 2 - 1)
-  if (el.dataset.refractKey === key) return
-
+function maps(w: number, h: number, r: number, key: string) {
   let entry = cache.get(key)
   if (!entry) {
-    entry = generate(w, h, r, bezel)
+    entry = generate(w, h, r, Math.min(BEZEL_MAX, Math.min(w, h) / 2 - 1))
     cache.set(key, entry)
-    if (cache.size > 16) cache.delete(cache.keys().next().value as string)
+    if (cache.size > 16) {
+      const old = cache.keys().next().value as string
+      cache.get(old)?.then((m) => { URL.revokeObjectURL(m.dispURL); URL.revokeObjectURL(m.specURL) })
+      cache.delete(old)
+    }
   }
-  const { dispURL, specURL, max } = entry
+  return entry
+}
+
+async function build(el: HTMLElement) {
+  const { w, h, r, key } = measure(el)
+  if (w < 24 || h < 16) return
+  if (el.dataset.refractKey === key) return
+  const { dispURL, specURL, max } = await maps(w, h, r, key)
+  // durante el await el elemento pudo cambiar de tamaño o desactivarse: se descarta (ya hay otra pasada pendiente)
+  if (!enabled() || measure(el).key !== key) return
 
   const id = el.dataset.refractId ?? `glass-refract-${++counter}`
   el.dataset.refractId = id
@@ -240,9 +250,14 @@ function flush() {
   const list = pending
   pending = new Set()
   list.forEach((el) => {
-    if (enabled()) build(el)
-    else clear(el)
-    el.removeAttribute('data-refract-hold')
+    if (!enabled()) {
+      clear(el)
+      el.removeAttribute('data-refract-hold')
+      return
+    }
+    build(el)
+      .catch(() => {})
+      .finally(() => el.removeAttribute('data-refract-hold'))
   })
 }
 function schedule(el: HTMLElement) {
@@ -256,7 +271,13 @@ const settleTimers = new WeakMap<HTMLElement, number>()
 function settle(el: HTMLElement) {
   el.setAttribute('data-refract-hold', '')
   window.clearTimeout(settleTimers.get(el))
-  settleTimers.set(el, window.setTimeout(() => schedule(el), 130))
+  // el tamaño debe repetirse en dos comprobaciones seguidas: así no se generan mapas de tamaños intermedios de la animación
+  const check = (prev: string) => {
+    const now = measure(el).key
+    if (now !== prev) settleTimers.set(el, window.setTimeout(() => check(now), 120))
+    else schedule(el)
+  }
+  settleTimers.set(el, window.setTimeout(() => check(measure(el).key), 120))
 }
 const ro = new ResizeObserver((entries) =>
   entries.forEach((e) => {
@@ -277,20 +298,33 @@ const MEDIA = 'img, video, iframe, canvas, [data-glass-dark], .flow__chip.is-act
 // fotos/video solo cuentan si son grandes (los íconos pequeños no deben hacer parpadear el menú); lo oscuro cuenta siempre
 const DARK = '[data-glass-dark], .flow__chip.is-active, .glass--dark, .glass--blue'
 let adaptiveFrame = 0
+// candidatos en caché: se vuelven a buscar solo cuando cambia el DOM (no en cada scroll)
+let candidates: HTMLElement[] = []
+let candidatesDirty = true
 function adapt() {
   adaptiveFrame = 0
-  document.querySelectorAll<HTMLElement>('[data-glass-adaptive]').forEach((el) => {
+  if (candidatesDirty) {
+    // .flow__chip cambia de clase (is-active) sin tocar el DOM: se guardan todos y se comprueba MEDIA en vivo
+    candidates = Array.from(document.querySelectorAll<HTMLElement>(MEDIA + ', .flow__chip'))
+    candidatesDirty = false
+  }
+  const bars = document.querySelectorAll<HTMLElement>('[data-glass-adaptive]')
+  if (!bars.length) return
+  // lecturas primero, escrituras al final (un solo layout)
+  const rects = candidates.map((c) => c.getBoundingClientRect())
+  bars.forEach((el) => {
     const r = el.getBoundingClientRect()
     const y = r.top + r.height / 2
+    const x0 = r.left + 24
+    const x1 = r.right - 12
     let over = false
-    // un punto cada ~48 px: los chips y botones oscuros son pequeños y con pocos puntos se escaparían
-    for (let x = r.left + 24; x < r.right - 12; x += 48) {
-      for (const hit of document.elementsFromPoint(x, y)) {
-        if (el.contains(hit) || !hit.matches(MEDIA)) continue
-        const b = hit.getBoundingClientRect()
-        if (hit.matches(DARK) || (b.width >= 160 && b.height >= 100)) over = true
-      }
-      if (over) break
+    for (let k = 0; k < candidates.length && !over; k++) {
+      const b = rects[k]
+      // ¿cruza la línea central del menú? (equivale a los puntos de muestreo, sin hit-testing)
+      if (b.width === 0 || b.height === 0 || b.top > y || b.bottom < y || b.right < x0 || b.left > x1) continue
+      const hit = candidates[k]
+      if (el.contains(hit) || !hit.matches(MEDIA)) continue
+      if (hit.matches(DARK) || (b.width >= 160 && b.height >= 100)) over = true
     }
     if (over) el.setAttribute('data-over-media', '')
     else el.removeAttribute('data-over-media')
@@ -299,7 +333,7 @@ function adapt() {
 let lastAdapt = 0
 const scheduleAdapt = () => {
   if (adaptiveFrame) return
-  // como mucho una comprobación cada 100 ms (elementsFromPoint hace hit-testing)
+  // como mucho una comprobación cada 100 ms
   const wait = Math.max(0, 100 - (performance.now() - lastAdapt))
   adaptiveFrame = window.setTimeout(() => {
     lastAdapt = performance.now()
@@ -349,6 +383,7 @@ function start() {
     muts.forEach((m) =>
       m.addedNodes.forEach((n) => {
         if (!(n instanceof HTMLElement)) return
+        candidatesDirty = true
         if (n.matches('.glass--refract')) watch(n)
         n.querySelectorAll<HTMLElement>('.glass--refract').forEach(watch)
       })
@@ -358,6 +393,7 @@ function start() {
   window.addEventListener('scroll', scheduleAdapt, { passive: true })
   window.addEventListener('scroll', () => govern(), { passive: true })
   window.addEventListener('resize', scheduleAdapt, { passive: true })
+  window.addEventListener('load', () => { candidatesDirty = true; scheduleAdapt() })
   scheduleAdapt()
 }
 

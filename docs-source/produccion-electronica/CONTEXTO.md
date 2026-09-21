@@ -1,5 +1,9 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## ⚙️ 2026-09-21: OPTIMIZACIÓN DE FLUIDEZ (rama `perf/fluidez`)
+> Pedido de Alessandro: "optimiza para que todo fluya como mantequilla y deploy". CPU de la home al hacer scroll: tarea 6.3 s → 4.4 s, script 2.0 s → 0.7 s; `elementsFromPoint` eliminado; PNG de mapas asíncronos (`toBlob`); mapas del dock: 2 en vez de 6 a 10; isla `Nav` 132 KB → 9.8 KB (se quitó `motion`); reveals sin `scale`. **Detalle y método: `LIQUID-GLASS.md` §10.** QA pasado: dock, burbuja, contraste (15/15), modos de accesibilidad, regulador, menú móvil, qa/walk/persist. Va junto con los PRs #73 (dock contraíble) y #74 (íconos + burbuja).
+> **Ojo:** la CSP ahora incluye `blob:` en `img-src`; si se vuelve a `toDataURL` se puede quitar.
+>
 > ## ✅ 2026-09-21: TODO mergeado a `main` y desplegado (`09643fc`)
 > Los PRs #48 a #55 (y #53, el arreglo de Lighthouse) están mergeados y en producción: `https://alesso-24.github.io/portfolio/`. Verificado en vivo (200 en las páginas, 404 correcto, sin rayas largas).
 >
