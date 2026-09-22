@@ -69,6 +69,8 @@ docs-source/          material crudo, bitácoras y estas guías (no se publica)
 
 ## 6. Metodología de trabajo (git y GitHub)
 
+> Versión completa y actualizada (preferencias de Alessandro, flujo de PR, QA, trampas de Windows/CRLF, reglas de rendimiento): **`METODOLOGIA-DE-TRABAJO.md`**. Lo de abajo es el resumen.
+
 - Una rama por tema desde `main`; commits pequeños con mensaje descriptivo (en español, `tipo: qué y por qué`) y la línea `Co-Authored-By`. Un PR por rama; los PR dependientes se apilan (base = rama anterior) y al final se retargetean a `main`.
 - **Nada llega a `main` ni se despliega sin el visto bueno de Alessandro** (se le muestra primero en su navegador, `Start-Process http://localhost:4399/portfolio/…`).
 - Puntos de retorno: etiquetas `restore/*` (estados de `main`) y `archive/*` (ramas archivadas); ver `docs-source/RAMAS-ARCHIVADAS.md`.

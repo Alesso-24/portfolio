@@ -1,5 +1,11 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🔒 2026-09-21: CIERRE DE SESIÓN (`main` desplegado, sin ramas abiertas)
+> **Estado:** todo mergeado y en producción (`https://alesso-24.github.io/portfolio/`). PRs de la sesión: #57 a #64 (Liquid Glass v1), #66 a #69 (refracción v2), #73 (dock contraíble), #74 (íconos + burbuja), #75 (optimización), #76 y este cierre (docs). Solo quedan `main` y la rama legacy `gh-pages`. Servidor local del puerto 4399 cerrado.
+> **Puntos de retorno (etiquetas):** `restore/sitio-dock-perf-2026-09-21` (estado actual), `restore/sitio-liquid-glass-v2-2026-09-21`, `restore/sitio-liquid-glass-2026-09-21`, `restore/sitio-pre-liquid-glass-2026-09-21`, `restore/sitio-antes-de-la-noche-2026-09-20`. Tabla completa en `RAMAS-ARCHIVADAS.md`.
+> **Dónde está cada cosa:** método de trabajo, preferencias de Alessandro, flujo git, QA y trampas → **`METODOLOGIA-DE-TRABAJO.md`** (leer primero al retomar). Diseño de vidrio, dock y rendimiento → `LIQUID-GLASS.md` §8 a §10. Stack y CSP → `ARQUITECTURA-Y-TECNOLOGIAS.md`.
+> **Pendientes (nada pedido por ahora):** fresado físico y fotos de resultados; valores R/LED; nombre final de la placa; ¿BDAI en persona?; decidir si se borra `gh-pages`; ideas de rendimiento y diseño listadas en `METODOLOGIA-DE-TRABAJO.md` §7.
+>
 > ## ⚙️ 2026-09-21: OPTIMIZACIÓN DE FLUIDEZ (rama `perf/fluidez`)
 > Pedido de Alessandro: "optimiza para que todo fluya como mantequilla y deploy". CPU de la home al hacer scroll: tarea 6.3 s → 4.4 s, script 2.0 s → 0.7 s; `elementsFromPoint` eliminado; PNG de mapas asíncronos (`toBlob`); mapas del dock: 2 en vez de 6 a 10; isla `Nav` 132 KB → 9.8 KB (se quitó `motion`); reveals sin `scale`. **Detalle y método: `LIQUID-GLASS.md` §10.** QA pasado: dock, burbuja, contraste (15/15), modos de accesibilidad, regulador, menú móvil, qa/walk/persist. Va junto con los PRs #73 (dock contraíble) y #74 (íconos + burbuja).
 > **Ojo:** la CSP ahora incluye `blob:` en `img-src`; si se vuelve a `toDataURL` se puede quitar.
