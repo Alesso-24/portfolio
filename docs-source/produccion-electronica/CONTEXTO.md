@@ -1,5 +1,16 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🚧 2026-09-27: EN CURSO — MonoFab real (calibración → fresado físico)
+> **Si retomas esto a mitad de camino, lee esto primero.**
+> Rama de trabajo: **`feat/monofab-real`** (creada desde `main` en `2b4caf5`, que ya tiene la separación mods/MonoFab de la entrada de abajo commiteada). **No mergear a `main` ni desplegar hasta que Alessandro lo pida explícitamente** ("al final desplegamos con Pages").
+> **Flujo acordado con Alessandro:** él manda las fotos del fresado real en **varias tandas, en varios prompts**, diciendo qué es cada una. Mientras las manda: **solo recibir, clasificar y organizar el material crudo** en
+> `docs-source/produccion-electronica/practicas/01-primera-placa/08-monofab-real/` (carpeta ya creada, subcarpetas numeradas por tanda/tema conforme lleguen, mismo estilo que `07-monofab-mods/`). **No tocar todavía `panel-monofab` en `primera-placa-kicad.astro` ni diseñar nada.** Solo cuando Alessandro diga explícitamente que ya puedo empezar (todas las tandas mandadas) se diseña la sección real y se reemplaza el bloque "Pendiente" del panel MonoFab.
+> **Git:** commitear el progreso a medida que avance (organización de material, luego la sección ya construida), todo en `feat/monofab-real`, sin tocar `main`. Al terminar y con su visto bueno: merge a `main` + push (dispara el deploy de GitHub Pages vía `ci-cd.yml`).
+> **Este archivo (`CONTEXTO.md`) se va actualizando a la par del trabajo** (qué tandas de fotos llegaron, qué falta, en qué commit va cada cosa) para poder retomar sin perder contexto si la sesión se corta.
+> **Tandas de fotos recibidas hasta ahora:**
+> - **Tanda 1 (2026-09-27):** encendido de la máquina (USB + botón verde), foto general de la SRM-20, por qué usar fenólica de fibra de vidrio (no papel), pegar con cinta doble cara a la cama de sacrificio, cortar la cama en láser (DXF incluido) y atornillarla (4 tornillos) con la tapa abierta. Organizado en `08-monofab-real/00-preparacion-y-montaje/`, detalle bloque por bloque en `08-monofab-real/ACTUALIZACION-CONTEXTO.md`. Dos dudas abiertas ahí: falta la foto real de "conectar el cable USB" (Image #1 e Image #2 llegaron idénticas) y llegó una 7ª imagen sin describir (ícono de VPanel) sin clasificar todavía.
+> **Estado del dev server:** corriendo en `http://localhost:4321/portfolio/` (pid puede cambiar entre sesiones — `astro dev status` para confirmar, `npm run dev` si no está). El navegador vía Claude in Chrome no estaba conectado el 2026-09-27 al pedir la revisión visual — pendiente que Alessandro lo revise él mismo o reconecte la extensión.
+>
 > ## 🔧 2026-09-27: SEPARAR "mods" de "MonoFab" (rama de trabajo, sin deploy)
 > Pedido de Alessandro: vamos por el fresado real. Antes de eso, separar en la práctica lo que hasta ahora era una sola pestaña **"MonoFab"** (que en realidad era el flujo de **mods.org**, generar los 3 `.rml`) de lo que será la **MonoFab de verdad** (calibración → fresado real en la máquina), para que cuando llegue ese material tenga su propio espacio.
 > **Qué cambió** (`src/pages/docs/produccion-electronica/practicas/primera-placa-kicad.astro`, `src/data/mods-adapter.ts`, `src/data/flow-types.ts`, `src/components/docs/DocsInteractive.astro`, `src/data/docs-en.ts`): ahora son **4 pestañas**: KiCad → **mods** → **MonoFab** → Altium.
