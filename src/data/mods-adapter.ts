@@ -14,7 +14,7 @@ const convert = (s: ModsStep): FlowStep => {
 }
 
 export const MODS_FLOW: Flow = {
-  id: 'monofab',
+  id: 'mods',
   sections: [
     {
       id: 'mods-abrir',
@@ -44,17 +44,6 @@ export const MODS_FLOW: Flow = {
         {
           html: 'Lo único que cambia entre un archivo y otro. El origen siempre va en 0, 0, 0 (con una sola placa) y la velocidad es 4 mm/s en todos menos en el taladrado.',
           blocks: [{ kind: 'summary' }, { kind: 'shots', shots: [{ ...MODS_FINAL, file: MODS_DIR + MODS_FINAL.file }] }],
-        },
-      ],
-    },
-    {
-      id: 'fabricacion',
-      chip: '6 · Fabricación',
-      title: 'Fabricación en MonoFab',
-      steps: [
-        {
-          html: '<strong>MonoFab</strong> es la <strong>Roland SRM-20</strong>: una fresadora CNC de escritorio que se usa para fabricar PCBs por fresado a partir de los archivos <code>.rml</code> generados con mods (<code>PERIFERIA.rml</code>, <code>PISTAS.rml</code>, <code>ORIFICIOS.rml</code>). Con los tres archivos listos, la placa queda preparada para el fresado. Los archivos se cargan en el <strong>vPanel</strong>, el software que controla la MonoFab: las periferias con <code>PERIFERIA.rml</code>, las pistas con <code>PISTAS.rml</code> y los orificios con <code>ORIFICIOS.rml</code>.',
-          blocks: [{ kind: 'machine' }],
         },
       ],
     },

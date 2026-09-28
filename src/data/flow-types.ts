@@ -48,6 +48,8 @@ export type Block =
   | { kind: 'map' }
   | { kind: 'summary' }
   | { kind: 'machine' }
+  | { kind: 'video'; file: string; caption?: string; poster?: string }
+  | { kind: 'downloads'; items: { label: string; file: string; size: string }[] }
 
 export interface FlowStep {
   /** HTML simple (strong / code / a); contenido estático del repo */
@@ -68,6 +70,6 @@ export interface FlowSection {
 }
 
 export interface Flow {
-  id: 'kicad' | 'monofab'
+  id: 'kicad' | 'mods' | 'monofab'
   sections: FlowSection[]
 }

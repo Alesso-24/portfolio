@@ -31,3 +31,7 @@ _brief_extracted/
 
 # i18n: lista de textos sin traducir generada por I18N_COLLECT=1
 .i18n-missing.jsonl
+
+# Instaladores de terceros (Roland/DGSHAPE) guardados como material crudo de referencia:
+# no se suben a git (bloat + son de un tercero). Ver docs-source/.../08-monofab-real/ACTUALIZACION-CONTEXTO.md
+docs-source/produccion-electronica/practicas/01-primera-placa/08-monofab-real/00-instalacion-software/*.zip

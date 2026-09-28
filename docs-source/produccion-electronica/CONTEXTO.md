@@ -1,5 +1,62 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🚀 2026-09-28: MonoFab real — ajustada y DESPLEGADA
+> Alessandro revisó y pidió 2 ajustes (recuadros del vPanel mal centrados + botones de descarga
+> para el driver/VPanel) — hechos en commit `6818b6e`, detalle en
+> `08-monofab-real/ACTUALIZACION-CONTEXTO.md` → **Bloque 6**. Con su "haz deploy por ahora":
+> merge de `feat/monofab-real` a `main` + push (dispara `ci-cd.yml`).
+> **PENDIENTE — dijo que hay "errores de continuidad en el proceso" y otros detalles que
+> señalará después; no se sabe todavía cuáles son.** Cuando los mande: revisar uno por uno contra
+> `src/data/monofab-real-flow.ts`, no asumir de antemano qué está mal.
+>
+> ## ✅ 2026-09-28: MonoFab real CONSTRUIDA (rama `feat/monofab-real`, commit `a1b14db`, sin deploy) — ver arriba para lo más reciente
+> **Si retomas esto, lee esto primero.**
+> Las 4 tandas de material de Alessandro (encendido/montaje, software/vPanel/calibración, cargar y
+> fresar orificios, pistas+borde+resultado — detalle de cada una abajo) ya están organizadas en
+> `docs-source/produccion-electronica/practicas/01-primera-placa/08-monofab-real/` **y ya
+> integradas a la página real**: `panel-monofab` en `primera-placa-kicad.astro` reemplazó su
+> bloque "Pendiente" por `<Flow flow={MONOFAB_REAL_FLOW} />` (`src/data/monofab-real-flow.ts`,
+> nuevo, 7 secciones / ~19 pasos). Detalle completo bloque por bloque, decisiones de diseño
+> (recuadros naranjas reutilizados sobre la interfaz del vPanel, bloque `video` nuevo, conversión a
+> WebP, i18n, `docs.ts` → `completa`) en `08-monofab-real/ACTUALIZACION-CONTEXTO.md` → **Bloque 5**.
+> **Verificado:** `astro check` 0 errores, dev server en frío sirviendo la página sin ninguna
+> advertencia de traducción faltante, las 23 imágenes/videos nuevos devuelven 200, recuadros
+> verificados por porcentaje contra las coordenadas medidas. **No verificado con navegador real**
+> (Claude in Chrome sin conectar en esta sesión) — pendiente que Alessandro lo revise visualmente
+> en `http://localhost:4321/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad/`
+> (dev server: `astro dev status` para ver si sigue corriendo, `npm run dev` si no).
+> **Sin deploy.** Todo en `feat/monofab-real`, sin tocar `main`. Al recibir su visto bueno: merge
+> a `main` + push (dispara `ci-cd.yml`).
+> **Pendiente de decisión de Alessandro:** los 2 instaladores de Roland/DGSHAPE (`monofabDriver_V180.zip`
+> ~42 MB, `VPanel-for-SRM-20_Installer.zip` ~1 MB) no se subieron a git — bloat + son de un
+> tercero; se guardaron en disco y se sugirió enlazar a la descarga oficial en vez de alojarlos.
+> La práctica se marcó `completa` en `docs.ts` (antes `en-progreso`) — Altium sigue "Pendiente" a
+> propósito, no bloquea; revertible en una línea si Alessandro no está de acuerdo.
+>
+> **Tandas de fotos recibidas (resumen):**
+> - **Tanda 1:** encendido (USB + botón verde), fenólica de fibra de vidrio (no papel), pegar con
+>   cinta doble cara a la cama de sacrificio (DXF incluido) y atornillarla (4 tornillos).
+> - **Tanda 2:** pasos previos (driver + vPanel), abrir vPanel, **los 3 cortes en orden**
+>   (perforaciones 0.8mm → pistas cortador en V → borde 2mm, recalibrando **solo Z** cada vez) y el
+>   procedimiento completo de calibración (origen X/Y, luego Z hasta polvo blanco).
+> - **Tanda 3:** cargar y fresar orificios — confirmado que **Cut** (no Setup) abre la ventana de
+>   carga; **Add**/**Output** ahí, **Cancel** para parar. Archivos reales:
+>   `PISTAS_FINAL.rml`/`ORIFICIOS_FINAL.rml`/`CONTORNO_FINAL.rml`.
+> - **Tanda 4:** fresar pistas y borde (cambio de herramienta + recalibrar Z), resultado final (3
+>   fotos) y limpieza/seguridad (fibra de vidrio tóxica, cubrebocas, multímetro). Con esta tanda
+>   Alessandro dio la señal para empezar a diseñar.
+>
+> ## 🔧 2026-09-27: SEPARAR "mods" de "MonoFab" (rama de trabajo, sin deploy)
+> Pedido de Alessandro: vamos por el fresado real. Antes de eso, separar en la práctica lo que hasta ahora era una sola pestaña **"MonoFab"** (que en realidad era el flujo de **mods.org**, generar los 3 `.rml`) de lo que será la **MonoFab de verdad** (calibración → fresado real en la máquina), para que cuando llegue ese material tenga su propio espacio.
+> **Qué cambió** (`src/pages/docs/produccion-electronica/practicas/primera-placa-kicad.astro`, `src/data/mods-adapter.ts`, `src/data/flow-types.ts`, `src/components/docs/DocsInteractive.astro`, `src/data/docs-en.ts`): ahora son **4 pestañas**: KiCad → **mods** → **MonoFab** → Altium.
+> - **mods** (antes ocupaba el lugar de "MonoFab"): el flujo de nodos de modsproject.org tal cual estaba (abrir mods, periferia, pistas, orificios, resumen) — **se le quitó la sección final "Fabricación en MonoFab"**, que no era parte de usar mods.
+> - **MonoFab** (nueva pestaña, marcada "Pendiente" igual que Altium): se le movió esa sección que se quitó de mods (foto de la SRM-20 + explicación de que ahí se calibra y se fresa con los 3 `.rml`, cargados en el vPanel). Queda como punto de partida para cuando se documente calibración → fresado real → fotos.
+> - **Ícono de mods:** se buscó el logo oficial de modsproject.org — el sitio (una app de un solo lienzo, sin wordmark visible) **no tiene más marca que su favicon**: una carita con lentes de sol (`favicon.ico`, 48×48, con transparencia). Se usó ese como ícono (`public/images/docs/produccion-electronica/brand/mods-icon.webp`, escalado a 256×256). **Ojo:** es un ícono pequeño escalado, no un logo vectorial — si en algún momento aparece una versión oficial más grande o un wordmark, reemplazar este archivo.
+> - Grid de pestañas: pasó de `repeat(3, 1fr)` fijo a `repeat(auto-fit, minmax(200px, 1fr))` para acomodar la cuarta sin romper en móvil.
+> - Limpieza: se borraron 2 assets sueltos sin usar (`kicad-icon.webp`, `kicad-logo-sm.webp`, huérfanos de la sesión del ícono de KiCad) que además estaban atascados como placeholders de OneDrive (el proceso de OneDrive no estaba corriendo) y rompían `npm run build` al copiar `public/` → `dist/`; también se limpiaron las entradas huérfanas de `docs-en.ts` que quedaron de este cambio.
+> - **Verificado:** `astro check` 0 errores; página servida por el dev server (`curl` a `http://localhost:4321/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad/`) devuelve 200 y las 4 pestañas en el orden correcto. **No se corrió `npm run build` completo** (bloqueado por el clasificador de permisos de Claude Code justo después de borrar los 2 assets sueltos) — pendiente que Alessandro lo corra o dé el permiso, y que revise visualmente en su navegador antes de deploy.
+> **Sin deploy.** Pendiente inmediato tal como lo pidió Alessandro: seguir con el contenido real de MonoFab (calibración, fresado físico en la SRM-20, fotos del resultado, conseguir la máquina).
+>
 > ## 🔒 2026-09-21: CIERRE DE SESIÓN (`main` desplegado, sin ramas abiertas)
 > **Estado:** todo mergeado y en producción (`https://alesso-24.github.io/portfolio/`). PRs de la sesión: #57 a #64 (Liquid Glass v1), #66 a #69 (refracción v2), #73 (dock contraíble), #74 (íconos + burbuja), #75 (optimización), #76 y este cierre (docs). Solo quedan `main` y la rama legacy `gh-pages`. Servidor local del puerto 4399 cerrado.
 > **Puntos de retorno (etiquetas):** `restore/sitio-dock-perf-2026-09-21` (estado actual), `restore/sitio-liquid-glass-v2-2026-09-21`, `restore/sitio-liquid-glass-2026-09-21`, `restore/sitio-pre-liquid-glass-2026-09-21`, `restore/sitio-antes-de-la-noche-2026-09-20`. Tabla completa en `RAMAS-ARCHIVADAS.md`.
@@ -215,11 +272,11 @@
 |---|---|---|
 | Sección "Documentación" (hub, nav, i18n=es) | 🟢 En producción | `/docs` |
 | Portada Producción Electrónica (equipo) | 🟢 En producción — Alessandro y Alexa con foto; la de Alexa sin bio a propósito | `/docs/produccion-electronica` |
-| Lista de prácticas | 🟢 En producción (1 práctica, estado "en progreso") | `/docs/produccion-electronica/practicas` |
+| Lista de prácticas | 🟡 Hecho localmente, sin deploy: estado pasó a "completa" | `/docs/produccion-electronica/practicas` |
 | Práctica 1 — KiCad (esquemático + PCB + Gerber) | 🟢 En producción: 30 pasos en pestaña KiCad | `/docs/produccion-electronica/practicas/primera-placa-kicad` |
-| Práctica 1 — MonoFab (mods.org → .rml, vPanel) | 🟢 En producción: 31 pasos en pestaña MonoFab | ídem |
+| Práctica 1 — mods (mods.org → 3 `.rml`) | 🟡 Hecho localmente (2026-09-27, sin deploy): 30 pasos, separado de MonoFab | ídem |
+| Práctica 1 — MonoFab (calibración + fresado real) | 🟡 Hecho localmente (2026-09-28, sin deploy): 7 secciones/~19 pasos con fotos y video reales | ídem |
 | Práctica 1 — Altium | 🟡 Pestaña "pendiente" a propósito (aún no migran a Altium) | ídem |
-| Práctica 1 — fresado físico y resultados | 🔲 Sin material (fotos/resultados de la SRM-20) | — |
 | Páginas "¿Qué es KiCad / MonoFab / Altium?" | 🔲 Opcionales, no creadas (ruta `/herramientas/<nombre>` reservada) | — |
 
 ## Decisiones de estructura tomadas
@@ -365,17 +422,19 @@ una a la página real.**
 ## Pendientes consolidados
 
 **Abiertos**
-- **Fresado físico real en la SRM-20** con `PERIFERIA.rml`, `PISTAS.rml` y `ORIFICIOS.rml` → fotos y resultados. Al tenerlos: agregar sección "Resultados" y pasar la práctica a
-  `completa` en `src/data/docs.ts`. (Recordatorio de la guía: verificar en el render 3D que las pistas sean de cobre; si no, re-invertir.)
 - **Valores reales de componentes:** ohmiaje de R1/R3/R5/R7 (pull-down) y R2/R4/R6/R8 (limitadoras) y color/referencia del LED (`R_1206`/`LED_1206` son solo la huella).
 - **Nombre final de la placa** — "Hola_Mundo" fue solo el proyecto de prueba para aprender el flujo de KiCad.
 - **Opcionales:** páginas de herramientas `/docs/produccion-electronica/herramientas/{kicad,monofab,altium}` y la guía de Altium (cuando migren).
+- **Deploy pendiente** de todo lo de `feat/monofab-real` (separación mods/MonoFab del 2026-09-27 + sección real de MonoFab del 2026-09-28) — falta `npm run build` completo (bloqueado por el clasificador de permisos, ver nota en la entrada de arriba) y revisión visual de Alessandro.
+- **Decidir** si los 2 instaladores de Roland/DGSHAPE se enlazan a la descarga oficial o se suben igual a git (ver entrada de arriba).
 
 **Resueltos** (se dejan como registro)
 - Bio de Alexa → decisión: sin bio, a propósito.
 - Objetivo de la práctica → redactado el 2026-09-19 con lo ya documentado.
 - Integrar mods.org a la página → hecho (2026-09-20), ahora es la pestaña MonoFab.
-- Logo/asset de MonoFab → se usa la foto de la SRM-20 en mosaico oscuro (no hay logo oficial).
+- Separar mods (software) de MonoFab (máquina real) en pestañas propias → hecho (2026-09-27, sin deploy), ver entrada arriba.
+- Logo/asset de mods → favicon oficial de modsproject.org (única marca que tiene el sitio). Logo/asset de MonoFab → se usa la foto de la SRM-20 (mosaico oscuro en la pestaña, foto completa en el panel; no hay logo oficial de "MonoFab").
+- **MonoFab real (calibración de la SRM-20, fresado físico, fotos y video del resultado)** → hecho el 2026-09-28 con el material real de Alessandro (4 tandas); práctica pasada a `completa` en `docs.ts`. Ver entrada arriba y `08-monofab-real/ACTUALIZACION-CONTEXTO.md` (Bloque 5). Sin deploy.
 - Duda de velocidad por archivo (4 mm/s vs 0.3 mm/s) → confirmada: 0.3 mm/s solo en ORIFICIOS (taladrado).
 - Dependabot (29 alertas de GitHub / 15 de `npm audit`) → resueltas el 2026-09-20 con la actualización de dependencias; `npm audit` = 0.
 - Ramas viejas y PRs de dependabot → limpiados el 2026-09-20 (solo queda `main`).
