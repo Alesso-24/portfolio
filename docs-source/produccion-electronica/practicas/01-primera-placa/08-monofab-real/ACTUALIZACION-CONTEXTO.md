@@ -113,6 +113,45 @@ naranjas, estilo `AnnotatedShot.astro` del sitio):**
 - **Setup / Cut / Pause / Cancel** (abajo a la derecha): cargar el archivo (`Setup`) y arrancar el
   corte (`Cut`).
 
+### 2026-09-27 — Bloque 3: cargar el archivo de orificios y fresar
+
+**Lo que dijo Alessandro:**
+
+1. En la **imagen general** del vPanel, el botón **Cut** (Alessandro no estaba seguro: "investiga
+   la vdd no me acuerdo pero creo que ahí se cargaban archivos") — **confirmado**: al picarlo se
+   abre la ventana "Cut" (Image #16), con la lista de archivos a cortar. No es "Setup".
+2. En esa ventana "Cut": botón **Add** (ya venía marcado en rojo en la imagen que mandó) → se abre
+   el explorador de Windows y se elige el archivo `.rml` que haga los agujeros de la placa
+   (Image #17: carpeta con `PISTAS_FINAL.rml`, `ORIFICIOS_FINAL.rml` y `CONTORNO_FINAL.rml` — se
+   selecciona **`ORIFICIOS_FINAL.rml`**, que es el de las perforaciones).
+3. Ya agregado a la lista, botón **Output** (en la misma ventana "Cut") → arranca el corte: el
+   cabezal baja, va a su origen, se acerca a la placa cada vez más lento y empieza a perforar.
+4. **Seguridad:** estar pendiente todo el tiempo, sobre todo al principio. Si algo se ve mal — no
+   se ve bien, o la herramienta "hace cosas en el aire" (no está tocando la placa donde debería) —
+   parar de inmediato con el botón **Cancel** del vPanel (el de la ventana principal, no el de la
+   ventana "Cut").
+
+**Dato real del proyecto (no genérico):** los archivos finales de Alessandro se llaman
+`PISTAS_FINAL.rml`, `ORIFICIOS_FINAL.rml` y `CONTORNO_FINAL.rml` — **distinto** de los nombres
+genéricos `PISTAS.rml`/`ORIFICIOS.rml`/`PERIFERIA.rml` ya documentados en la pestaña **mods**
+(ahí se explica el flujo general de mods.org; aquí, en MonoFab real, se puede usar el nombre real
+de sus archivos). No es una inconsistencia a corregir, son dos cosas distintas: una explica el
+software, la otra documenta lo que él hizo.
+
+**Imágenes → archivos** (en `03-fresado-orificios/`):
+
+| Contenido real | Archivo |
+|---|---|
+| Ventana "Cut" del vPanel: lista de archivos, Preview, botón **Add** ya marcado en rojo (Z=2.0 en el panel de fondo) | `vpanel-dialogo-cut-add.png` |
+| Explorador de Windows: `PISTAS_FINAL.rml`, `ORIFICIOS_FINAL.rml` (seleccionado), `CONTORNO_FINAL.rml` | `seleccionar-orificios-final-rml.png` |
+
+**Guía para cuando se diseñe (pendiente, no hacerlo ahora):**
+- En `vpanel-interfaz-limpia.png` (de la tanda 2): agregar recuadro naranja en **Cut** (para abrir
+  la ventana de carga) y en **Cancel** (parada de emergencia) — con nota de "estar pendiente todo
+  el corte, sobre todo al inicio".
+- En `vpanel-dialogo-cut-add.png`: ya trae un recuadro rojo en **Add** (de Alessandro); al diseñar,
+  rehacerlo en naranja (estilo `AnnotatedShot.astro`) y agregar uno nuevo en **Output**.
+
 **Nota sobre el `monofabDriver_V180.zip`:** pesa **~42 MB**. Lo dejé en la carpeta pero **no lo
 subí a git** (el otro, `VPanel-for-SRM-20_Installer.zip`, ~1 MB, tampoco) — meter instaladores de
 Roland/DGSHAPE al repo infla el historial de git para siempre y es material de un tercero, no
