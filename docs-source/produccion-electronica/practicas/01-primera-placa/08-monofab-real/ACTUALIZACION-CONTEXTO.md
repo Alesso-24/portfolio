@@ -246,9 +246,36 @@ Con las 4 tandas de material, se construyó la sección real de MonoFab reemplaz
 - **Sin deploy.** Todo en `feat/monofab-real`. Al recibir el visto bueno: merge a `main` + push
   (dispara `ci-cd.yml`).
 
-**Nota sobre el `monofabDriver_V180.zip`:** pesa **~42 MB**. Lo dejé en la carpeta pero **no lo
-subí a git** (el otro, `VPanel-for-SRM-20_Installer.zip`, ~1 MB, tampoco) — meter instaladores de
-Roland/DGSHAPE al repo infla el historial de git para siempre y es material de un tercero, no
-nuestro. Sugerencia para cuando diseñemos: enlazar a la página oficial de descargas de
-Roland/DGSHAPE para la SRM-20 en vez de alojar los instaladores aquí. Pendiente de que Alessandro
-lo confirme.
+### 2026-09-28 — Bloque 6: ajustes visuales pedidos por Alessandro (commit `6818b6e`)
+
+Alessandro revisó la página construida en el Bloque 5 y pidió dos cosas:
+
+1. **Los recuadros naranjas de la interfaz del vPanel no estaban bien centrados en general.**
+   Se remidieron los 10 recuadros (los 8 de `vpanel-interfaz-limpia.webp` + el de `Add`/`Output`
+   en `vpanel-dialogo-cut-add.webp`) con recortes a 4-5x y una rejilla fina en píxeles — el primer
+   intento (Bloque 5) midió varios grupos incompletos (ej. el de Posición dejaba fuera el campo Z
+   y el sufijo "mm"; el de Output apuntaba casi 30px a la izquierda del botón real). Verificado
+   cada uno con una imagen de prueba dibujada antes de aplicarlo al dato real. Coordenadas nuevas
+   en `src/data/monofab-real-flow.ts`.
+2. **Botones de descarga para el driver y VPanel**, en vez de solo mencionarlos. Se agregó un
+   bloque nuevo `{ kind: 'downloads' }` (`flow-types.ts`, `FlowBlock.astro`, estilos en
+   `DocsInteractive.astro`) y esta vez sí se copiaron los 2 `.zip` a `public/` (antes se habían
+   dejado fuera de git por el tamaño del driver, ~42 MB — Alessandro prefirió tenerlos
+   descargables desde el sitio).
+
+**PENDIENTE — Alessandro dijo que hay "errores de continuidad en el proceso" y otros detalles
+que señalará después.** No se sabe todavía cuáles son exactamente (podría ser: algún paso que no
+sigue en el orden correcto, alguna instrucción que falta o está mal, algo entre secciones que no
+conecta bien). **Cuando los mande, revisarlos uno por uno contra `monofab-real-flow.ts` y esta
+bitácora antes de corregir** — no asumir cuáles son de antemano.
+
+**Deploy:** con el visto bueno ("haz deploy por ahora"), se hizo merge de `feat/monofab-real` a
+`main` y push (dispara `ci-cd.yml`). Los ajustes de continuidad pendientes de arriba se harán en
+una rama nueva cuando Alessandro los mande.
+
+**Nota sobre el `monofabDriver_V180.zip` (resuelta en el Bloque 6):** pesa **~42 MB**. Se dejó
+fuera de git al principio (infla el historial para siempre + es material de un tercero), pero
+Alessandro pidió botones de descarga reales — se subió igual, junto con
+`VPanel-for-SRM-20_Installer.zip` (~1 MB), a `public/`. El repo ya pesa esos ~42 MB de más de
+forma permanente; si en algún momento se quiere revertir, tocaría reescribir el historial de git
+(no solo borrar el archivo).

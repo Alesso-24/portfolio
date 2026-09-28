@@ -1,6 +1,15 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## ✅ 2026-09-28: MonoFab real CONSTRUIDA (rama `feat/monofab-real`, commit `a1b14db`, sin deploy)
+> ## 🚀 2026-09-28: MonoFab real — ajustada y DESPLEGADA
+> Alessandro revisó y pidió 2 ajustes (recuadros del vPanel mal centrados + botones de descarga
+> para el driver/VPanel) — hechos en commit `6818b6e`, detalle en
+> `08-monofab-real/ACTUALIZACION-CONTEXTO.md` → **Bloque 6**. Con su "haz deploy por ahora":
+> merge de `feat/monofab-real` a `main` + push (dispara `ci-cd.yml`).
+> **PENDIENTE — dijo que hay "errores de continuidad en el proceso" y otros detalles que
+> señalará después; no se sabe todavía cuáles son.** Cuando los mande: revisar uno por uno contra
+> `src/data/monofab-real-flow.ts`, no asumir de antemano qué está mal.
+>
+> ## ✅ 2026-09-28: MonoFab real CONSTRUIDA (rama `feat/monofab-real`, commit `a1b14db`, sin deploy) — ver arriba para lo más reciente
 > **Si retomas esto, lee esto primero.**
 > Las 4 tandas de material de Alessandro (encendido/montaje, software/vPanel/calibración, cargar y
 > fresar orificios, pistas+borde+resultado — detalle de cada una abajo) ya están organizadas en
