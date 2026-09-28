@@ -2,10 +2,7 @@
 // Uso: node scripts/gen-image-sizes.mjs   (correr cada vez que se agreguen/cambien imágenes en public/)
 import fs from 'node:fs'
 import path from 'node:path'
-import { createRequire } from 'node:module'
-
-const require = createRequire(import.meta.url)
-const sharp = require(path.resolve('node_modules/astro/node_modules/sharp'))
+import sharp from 'sharp'
 
 const ROOT = 'public/images/docs/produccion-electronica/practicas/01-primera-placa'
 const out = {}

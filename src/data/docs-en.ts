@@ -6,6 +6,7 @@ export const EN: Record<string, string> = {
   "Documentación de la materia": "Course documentation",
   "Producción Electrónica": "Electronic Production",
   "El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium.": "The complete process to produce a printed circuit board: design in KiCad, fabrication in MonoFab, and Altium.",
+  "El proceso completo para producir una placa de circuito impreso: diseño en KiCad, trayectorias de fresado con mods y fabricación en MonoFab y Altium.": "The complete process to produce a printed circuit board: design in KiCad, milling toolpaths with mods, and fabrication in MonoFab and Altium.",
   "Documentar el flujo completo para producir una PCB: diseñar un circuito en <strong>KiCad</strong> (esquemático y placa), exportar los archivos de fabricación y generar las trayectorias de fresado con <strong>mods</strong> para la <strong>Roland SRM-20</strong> (MonoFab).": "Document the complete workflow to produce a PCB: design a circuit in <strong>KiCad</strong> (schematic and board), export the fabrication files, and generate the milling toolpaths with <strong>mods</strong> for the <strong>Roland SRM-20</strong> (MonoFab).",
   "El circuito con el que se documenta el proceso es un módulo de <strong>4 pulsadores</strong> con LED indicador, cada uno con su resistencia pull-down, más un conector de alimentación (entradas) y uno de salidas que expone el estado de cada botón hacia un microcontrolador externo.": "The circuit used to document the process is a module with <strong>4 push buttons</strong> and an indicator LED, each with its own pull-down resistor, plus a power connector (inputs) and an output connector that exposes the state of each button to an external microcontroller.",
   "Esquemático, PCB y archivos de fabricación": "Schematic, PCB and fabrication files",
@@ -433,4 +434,143 @@ export const EN: Record<string, string> = {
   "Inicio": "Home",
   "Documentación de las materias de la universidad.": "Documentation of the university courses.",
   "Producción de PCBs: diseño y fabricación con KiCad, MonoFab y Altium.": "PCB production: design and fabrication with KiCad, MonoFab and Altium.",
+
+  // MonoFab real (calibración de ejes + fresado físico en la Roland SRM-20)
+  "1 · Instalar software": "1 · Install the software",
+  "2 · Encender y montar": "2 · Power on and mount",
+  "3 · Calibrar ejes": "3 · Calibrate the axes",
+  "5 · Pistas": "5 · Tracks",
+  "6 · Borde": "6 · Outline",
+  "7 · Resultado": "7 · Result",
+  "Instalar el driver y VPanel": "Install the driver and VPanel",
+  "Encender la MonoFab y montar el material": "Power on the MonoFab and mount the material",
+  "Abrir VPanel y calibrar los ejes": "Open VPanel and calibrate the axes",
+  "Cargar y fresar las perforaciones": "Load and mill the holes",
+  "Cambiar a cortador en V y fresar las pistas": "Switch to the V-bit cutter and mill the tracks",
+  "Cambiar a la herramienta de 2 mm y cortar el contorno": "Switch to the 2 mm tool and cut the outline",
+  "Resultado final, limpieza y verificación": "Final result, cleanup and verification",
+
+  "Antes de conectar la MonoFab hay que instalar el <strong>driver</strong> de la máquina y el software <strong>VPanel for SRM-20</strong> (de Roland/DGSHAPE) — es la interfaz desde donde se calibra y se arranca cada fresado. Con los dos instalados, queda listo su acceso directo en el escritorio.":
+    "Before connecting the MonoFab you need to install the machine's <strong>driver</strong> and the <strong>VPanel for SRM-20</strong> software (from Roland/DGSHAPE) — it's the interface used to calibrate and start every milling job. With both installed, its desktop shortcut is ready to go.",
+  "Ícono del acceso directo \"VPanel for SRM-20\" en el escritorio": "The \"VPanel for SRM-20\" desktop shortcut icon",
+  "Acceso directo a VPanel for SRM-20, ya instalado": "VPanel for SRM-20 shortcut, already installed",
+  "El driver y VPanel son software de Roland/DGSHAPE: descárgalos de la página oficial de soporte de la SRM-20 en vez de una copia suelta.":
+    "The driver and VPanel are Roland/DGSHAPE software: download them from the official SRM-20 support page instead of a loose copy.",
+
+  "Conecta el cable USB de la MonoFab a la computadora y enciéndela con el botón de la parte superior de la máquina: espera a que el indicador se ponga <strong>verde</strong>.":
+    "Connect the MonoFab's USB cable to the computer and power it on with the button on top of the machine: wait for the indicator to turn <strong>green</strong>.",
+  "Botón de encendido de la MonoFab, iluminado en verde": "The MonoFab's power button, lit green",
+  "Botón de encendido en verde": "Power button, green",
+  "Vista general de la fresadora Roland SRM-20 (MonoFab) sobre la mesa de trabajo": "General view of the Roland SRM-20 (MonoFab) milling machine on the workbench",
+  "La Roland SRM-20 (MonoFab), lista para trabajar": "The Roland SRM-20 (MonoFab), ready to work",
+  "Para el material, usa una placa <strong>fenólica de fibra de vidrio</strong> — no de papel: si algo sale mal durante el fresado, una fenólica de papel puede hacer que la máquina se lleve todo el cobre.":
+    "For the material, use a <strong>fiberglass</strong> phenolic board — not paper: if something goes wrong during milling, a paper phenolic board can let the machine tear off all the copper.",
+  "Placa fenólica de fibra de vidrio, cobre en la cara superior": "Fiberglass phenolic board, copper on the top face",
+  "Fenólica de fibra de vidrio": "Fiberglass phenolic board",
+  "Fenólica de papel = riesgo real de perder todo el cobre si el fresado no sale perfecto. Para esta práctica, usa siempre fibra de vidrio.":
+    "Paper phenolic = a real risk of losing all the copper if the milling isn't perfect. For this practice, always use fiberglass.",
+  "Pega la placa a la <strong>cama de sacrificio</strong> con cinta doble cara, por la parte de atrás. La cama se corta antes en la cortadora láser, a la medida exacta de la MonoFab.":
+    "Tape the board to the <strong>sacrificial bed</strong> with double-sided tape, on the back. The bed is cut beforehand on the laser cutter, to the MonoFab's exact size.",
+  "Placa fenólica pegada con cinta doble cara sobre la cama de sacrificio": "Phenolic board taped with double-sided tape onto the sacrificial bed",
+  "Fenólica pegada sobre la cama de sacrificio": "Phenolic board taped onto the sacrificial bed",
+  "Abre la tapa de la MonoFab, acomoda la cama de sacrificio ya con la placa pegada, y atorníllala bien con los <strong>4 tornillos</strong> de las esquinas.":
+    "Open the MonoFab's lid, fit the sacrificial bed with the board already taped on, and screw it down firmly with the <strong>4 corner screws</strong>.",
+  "Atornillando la cama de sacrificio dentro de la MonoFab, con la tapa abierta": "Screwing the sacrificial bed down inside the MonoFab, with the lid open",
+  "Cama de sacrificio atornillada dentro de la MonoFab": "Sacrificial bed screwed down inside the MonoFab",
+
+  "Con todo montado, cierra la tapa y abre <strong>VPanel for SRM-20</strong>. Desde aquí se controla todo: mover el cabezal, fijar el origen de cada eje y arrancar cada corte.":
+    "With everything mounted, close the lid and open <strong>VPanel for SRM-20</strong>. Everything is controlled from here: moving the head, setting the origin of each axis, and starting every cut.",
+  "Interfaz de VPanel for SRM-20, con recuadros sobre cada control": "VPanel for SRM-20 interface, with boxes over each control",
+  "Interfaz de VPanel for SRM-20, sin anotar": "VPanel for SRM-20 interface, unannotated",
+  "Posición actual (X, Y, Z)": "Current position (X, Y, Z)",
+  "Mover el cabezal en X/Y": "Move the head in X/Y",
+  "Mover el cabezal en Z": "Move the head in Z",
+  "Cursor Step: cuánto se mueve cada click": "Cursor Step: how much it moves per click",
+  "Encender/apagar el spindle": "Turn the spindle on/off",
+  "Fijar origen: X/Y y Z por separado": "Set origin: X/Y and Z separately",
+  "Fijar origen X/Y aquí": "Set the X/Y origin here",
+  "Fijar origen Z aquí": "Set the Z origin here",
+  "Cut: abre la ventana para cargar el archivo": "Cut: opens the window to load the file",
+  "Cancel: parada de emergencia": "Cancel: emergency stop",
+  "Output: arranca el corte": "Output: starts the cut",
+  "Coloca la primera herramienta — la broca de <strong>0.8 mm</strong>, para las perforaciones — en el spindle y asegúrala con la llave Allen.":
+    "Fit the first tool — the <strong>0.8 mm</strong> bit, for the holes — into the spindle and secure it with the Allen key.",
+  "Colocando la broca de 0.8 mm en el spindle de la MonoFab": "Fitting the 0.8 mm bit into the MonoFab's spindle",
+  "Broca de 0.8 mm en el spindle": "0.8 mm bit in the spindle",
+  "Asegurando la herramienta en el spindle con una llave Allen": "Securing the tool in the spindle with an Allen key",
+  "Asegurando con la llave Allen": "Securing it with the Allen key",
+  "Con las flechas de <strong>Move XY</strong>, mueve el cabezal hasta una esquina de la placa fenólica dejando algo de margen, y fija ahí el origen con <strong>Set Origin Point → X/Y</strong>.":
+    "Using the <strong>Move XY</strong> arrows, move the head to a corner of the phenolic board leaving some margin, and set the origin there with <strong>Set Origin Point → X/Y</strong>.",
+  "Interfaz de VPanel: mover el cabezal en X/Y y fijar el origen": "VPanel interface: moving the head in X/Y and setting the origin",
+  "A partir de aquí, ese punto es el cero de la placa. <strong>Si se pierde el origen X/Y, se pierde todo</strong> — ya no se vuelve a tocar hasta terminar los 3 cortes.":
+    "From here on, that point is the board's zero. <strong>If the X/Y origin is lost, everything is lost</strong> — it doesn't get touched again until all 3 cuts are done.",
+  "Calibra el eje <strong>Z</strong> con mucho cuidado: bajar de golpe puede romper la broca. Colócate arriba de la placa, en un punto que no se vaya a usar, enciende el <strong>spindle</strong> y espera a que las RPM se estabilicen (6000–8000 rpm, unos 5–6 segundos). Con el spindle encendido, baja poco a poco con <strong>Move Z</strong>, reduciendo el paso conforme te acercas — <strong>Cursor Step: 100 → 10 → 1</strong> — hasta que empiece a salir un poco de <strong>polvo blanco</strong>. Ahí fija el origen con <strong>Set Origin Point → Z</strong>, sube la herramienta y apaga el spindle.":
+    "Calibrate the <strong>Z</strong> axis very carefully: dropping it suddenly can break the bit. Position yourself above the board, on a spot that won't be used, turn on the <strong>spindle</strong> and wait for the RPM to stabilize (6000–8000 rpm, about 5–6 seconds). With the spindle on, lower it little by little with <strong>Move Z</strong>, reducing the step as you get closer — <strong>Cursor Step: 100 → 10 → 1</strong> — until a bit of <strong>white dust</strong> starts coming out. Set the origin there with <strong>Set Origin Point → Z</strong>, raise the tool and turn off the spindle.",
+  "Interfaz de VPanel: bajar el eje Z poco a poco y fijar su origen": "VPanel interface: lowering the Z axis little by little and setting its origin",
+  "Nunca bajes en Z de golpe con pasos grandes cerca de la placa — así es como se rompen las brocas. Ve reduciendo el paso y para justo cuando aparezca el polvo blanco.":
+    "Never drop Z suddenly with large steps near the board — that's how bits break. Keep reducing the step and stop right when the white dust appears.",
+
+  "Con la broca de 0.8 mm ya calibrada, pica <strong>Cut</strong> en el VPanel: se abre la ventana de carga. Ahí, <strong>Add</strong> y elige el archivo que hace los agujeros de la placa — en este proyecto, <code>ORIFICIOS_FINAL.rml</code>.":
+    "With the 0.8 mm bit already calibrated, click <strong>Cut</strong> in VPanel: the load window opens. There, <strong>Add</strong> and pick the file that makes the board's holes — in this project, <code>ORIFICIOS_FINAL.rml</code>.",
+  "Ventana \"Cut\" del VPanel con el botón Add señalado": "VPanel's \"Cut\" window with the Add button highlighted",
+  "Ventana \"Cut\": Add para elegir el archivo": "\"Cut\" window: Add to pick the file",
+  "Explorador de Windows con ORIFICIOS_FINAL.rml seleccionado, junto a PISTAS_FINAL.rml y CONTORNO_FINAL.rml":
+    "Windows Explorer with ORIFICIOS_FINAL.rml selected, next to PISTAS_FINAL.rml and CONTORNO_FINAL.rml",
+  "Se elige ORIFICIOS_FINAL.rml": "ORIFICIOS_FINAL.rml is picked",
+  "Ya con el archivo en la lista, dale <strong>Output</strong>: el cabezal baja, va a su origen y se acerca a la placa cada vez más lento hasta empezar a perforar.":
+    "With the file already in the list, hit <strong>Output</strong>: the head lowers, moves to its origin, and approaches the board slower and slower until it starts drilling.",
+  "Ventana \"Cut\" del VPanel con el botón Output señalado": "VPanel's \"Cut\" window with the Output button highlighted",
+  "Output arranca el corte": "Output starts the cut",
+  "Broca de 0.8 mm perforando la placa fenólica, con polvo saliendo": "0.8 mm bit drilling the phenolic board, with dust coming out",
+  "Perforando la placa": "Drilling the board",
+  "Video: fresado de las perforaciones": "Video: milling the holes",
+  "Quédate pendiente todo el corte, sobre todo al principio: si algo se ve mal — no cuadra, o la herramienta \"corta en el aire\" sin tocar la placa — para de inmediato con <strong>Cancel</strong> en el VPanel. Al terminar, comprueba que todo salió bien sin haber movido el eje X/Y ni la placa.":
+    "Stay alert through the whole cut, especially at the start: if something looks wrong — it's off, or the tool is \"cutting in the air\" without touching the board — stop right away with <strong>Cancel</strong> in VPanel. When it's done, check that everything went well without having moved the X/Y axis or the board.",
+
+  "Cambia a la herramienta de pistas: un <strong>cortador en V</strong>. Mismo proceso con la llave Allen que con la broca anterior.":
+    "Switch to the track tool: a <strong>V-bit cutter</strong>. Same process with the Allen key as with the previous bit.",
+  "Set de cortadores en V para aislar pistas de cobre": "Set of V-bit cutters for isolating copper tracks",
+  "Cortador en V": "V-bit cutter",
+  "Asegurando el cortador en V en el spindle con la llave Allen": "Securing the V-bit cutter in the spindle with the Allen key",
+  "Recalibra — <strong>solo el eje Z</strong>, el X/Y no se vuelve a tocar. Esta vez la herramienta debe apenas <strong>rozar</strong> la placa: no entres tanto como con la broca de 0.8 mm, y cuida que la punta del cortador en V no esté muy chata (desgastada).":
+    "Recalibrate — <strong>only the Z axis</strong>, X/Y doesn't get touched again. This time the tool should just barely <strong>graze</strong> the board: don't go as deep as with the 0.8 mm bit, and make sure the V-bit's tip isn't too worn down.",
+  "Interfaz de VPanel: recalibrar solo el eje Z para el cortador en V": "VPanel interface: recalibrating only the Z axis for the V-bit cutter",
+  "Al cambiar de herramienta siempre se recalibra Z desde cero — nunca X/Y. Una punta de cortador en V muy chata no aísla bien el cobre.":
+    "Every tool change always recalibrates Z from scratch — never X/Y. A worn-down V-bit tip doesn't isolate the copper well.",
+  "Carga <code>PISTAS_FINAL.rml</code> con el mismo Cut → Add → Output, y déjalo correr.": "Load <code>PISTAS_FINAL.rml</code> with the same Cut → Add → Output, and let it run.",
+  "Explorador de Windows con PISTAS_FINAL.rml seleccionado": "Windows Explorer with PISTAS_FINAL.rml selected",
+  "Se elige PISTAS_FINAL.rml": "PISTAS_FINAL.rml is picked",
+  "Placa a medio cortar: pistas con polvo blanco y un tramo de cobre ya despejado": "Board halfway through cutting: tracks with white dust and a stretch of copper already cleared",
+  "Pistas a medio fresar": "Tracks halfway milled",
+  "Video: fresado de las pistas": "Video: milling the tracks",
+
+  "Última herramienta: una de <strong>2 mm</strong> para cortar el borde/contorno de la placa. Cambio con llave Allen, igual que las anteriores.":
+    "Last tool: a <strong>2 mm</strong> one to cut the board's outline. Changed with the Allen key, same as the previous ones.",
+  "Herramienta de 2 mm para cortar el contorno de la placa": "2 mm tool for cutting the board's outline",
+  "Herramienta de 2 mm, para el borde": "2 mm tool, for the outline",
+  "Cambiando a la herramienta de 2 mm con la llave Allen": "Switching to the 2 mm tool with the Allen key",
+  "Cambiando de herramienta": "Switching tools",
+  "Recalibra el eje Z una vez más, de la misma forma que las veces anteriores, hasta sacar un poco de polvo blanco.":
+    "Recalibrate the Z axis once more, the same way as before, until a bit of white dust comes out.",
+  "Interfaz de VPanel: recalibrar Z otra vez para la herramienta de 2 mm": "VPanel interface: recalibrating Z again for the 2 mm tool",
+  "Carga <code>CONTORNO_FINAL.rml</code> y dale <strong>Output</strong>.": "Load <code>CONTORNO_FINAL.rml</code> and hit <strong>Output</strong>.",
+  "Explorador de Windows con CONTORNO_FINAL.rml seleccionado": "Windows Explorer with CONTORNO_FINAL.rml selected",
+  "Se elige CONTORNO_FINAL.rml": "CONTORNO_FINAL.rml is picked",
+
+  "Así debería verse la placa terminada: perforaciones, pistas y contorno ya fresados sobre la fibra de vidrio.":
+    "This is what the finished board should look like: holes, tracks and outline already milled into the fiberglass.",
+  "Placa terminada, sostenida en la mano, cobre recién fresado": "Finished board, held in hand, freshly milled copper",
+  "Placa terminada": "Finished board",
+  "Placa terminada, otro ángulo y otra luz": "Finished board, another angle and another light",
+  "Placa terminada, otra luz": "Finished board, different light",
+  "Placa terminada a contraluz, mostrando las pistas fresadas": "Finished board backlit, showing the milled tracks",
+  "Placa terminada, a contraluz": "Finished board, backlit",
+  "Al terminar: aspira el polvo — <strong>la fibra de vidrio es tóxica</strong> — y deja la máquina limpia y apagada. Se recomienda usar <strong>cubrebocas</strong> durante todo el fresado, no solo al limpiar.":
+    "When you're done: vacuum up the dust — <strong>fiberglass is toxic</strong> — and leave the machine clean and switched off. Wearing a <strong>mask</strong> is recommended through the whole milling job, not just while cleaning up.",
+  "Fibra de vidrio en polvo = irritante y tóxico si se respira. Cubrebocas puesto desde que arranca el primer corte, y aspiradora al terminar — nunca soplar ni sacudir la placa.":
+    "Fiberglass dust = irritating and toxic if inhaled. Wear a mask from the moment the first cut starts, and vacuum when done — never blow on or shake the board.",
+  "Por último, revisa la placa: que las pistas y los huecos estén bien hechos, comparando contra el diagrama/esquemático y probando continuidad con un <strong>multímetro</strong> en físico.":
+    "Finally, inspect the board: check that the tracks and holes came out right by comparing it against the diagram/schematic and testing continuity with a physical <strong>multimeter</strong>.",
+  "Un multímetro en modo continuidad detecta al toque un corte de pista mal hecho o un puente de cobre que no se aisló bien — más rápido que revisarlo solo a simple vista.":
+    "A multimeter in continuity mode instantly catches a badly cut track or a copper bridge that wasn't isolated well — faster than checking by eye alone.",
 }
