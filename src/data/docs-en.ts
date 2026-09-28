@@ -454,8 +454,10 @@ export const EN: Record<string, string> = {
     "Before connecting the MonoFab you need to install the machine's <strong>driver</strong> and the <strong>VPanel for SRM-20</strong> software (from Roland/DGSHAPE) — it's the interface used to calibrate and start every milling job. With both installed, its desktop shortcut is ready to go.",
   "Ícono del acceso directo \"VPanel for SRM-20\" en el escritorio": "The \"VPanel for SRM-20\" desktop shortcut icon",
   "Acceso directo a VPanel for SRM-20, ya instalado": "VPanel for SRM-20 shortcut, already installed",
-  "El driver y VPanel son software de Roland/DGSHAPE: descárgalos de la página oficial de soporte de la SRM-20 en vez de una copia suelta.":
-    "The driver and VPanel are Roland/DGSHAPE software: download them from the official SRM-20 support page instead of a loose copy.",
+  "Driver de la MonoFab": "MonoFab driver",
+  "VPanel for SRM-20": "VPanel for SRM-20",
+  "Son los instaladores de Roland/DGSHAPE tal cual se usaron en esta práctica. Si prefieres la versión más reciente, búscala en la página oficial de soporte de la SRM-20.":
+    "These are the Roland/DGSHAPE installers exactly as used in this practice. If you'd rather have the latest version, look for it on the official SRM-20 support page.",
 
   "Conecta el cable USB de la MonoFab a la computadora y enciéndela con el botón de la parte superior de la máquina: espera a que el indicador se ponga <strong>verde</strong>.":
     "Connect the MonoFab's USB cable to the computer and power it on with the button on top of the machine: wait for the indicator to turn <strong>green</strong>.",

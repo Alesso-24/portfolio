@@ -234,6 +234,17 @@ const generalFile = MODS_DIR + MODS_GENERAL.file
   </figure>
 )}
 
+{block.kind === 'downloads' && (
+  <div class="download-row">
+    {block.items.map((it) => (
+      <a class="download-btn" href={imgUrl(it.file)} download>
+        <span class="download-btn__icon" aria-hidden="true">⭳</span>
+        <span class="download-btn__text"><strong><T es={it.label} /></strong><span class="download-btn__size">{it.size}</span></span>
+      </a>
+    ))}
+  </div>
+)}
+
 {block.kind === 'machine' && (
   <figure class="machine-figure">
     <img src={MONOFAB_PHOTO} alt="Fresadora Roland SRM-20 (MonoFab)" data-alt-en="Roland SRM-20 milling machine (MonoFab)" width="800" height="533" loading="lazy" decoding="async" />

@@ -10,16 +10,16 @@ const VPANEL_FILE = DIR + '02-calibracion-ejes-y-cambio-herramienta/vpanel-inter
 const VPANEL_SIZE: [number, number] = [879, 463]
 const VPANEL_ALT = 'Interfaz de VPanel for SRM-20, sin anotar'
 
-const B_POSITION: Box = { x: 8, y: 98, w: 244, h: 140, label: 'Posición actual (X, Y, Z)' }
-const B_MOVEXY: Box = { x: 265, y: 108, w: 150, h: 168, label: 'Mover el cabezal en X/Y' }
-const B_MOVEZ: Box = { x: 458, y: 108, w: 50, h: 168, label: 'Mover el cabezal en Z' }
-const B_CURSORSTEP: Box = { x: 262, y: 300, w: 278, h: 50, label: 'Cursor Step: cuánto se mueve cada click' }
-const B_SPINDLE: Box = { x: 6, y: 358, w: 158, h: 85, label: 'Encender/apagar el spindle' }
-const B_ORIGIN: Box = { x: 585, y: 90, w: 258, h: 103, label: 'Fijar origen: X/Y y Z por separado' }
+const B_POSITION: Box = { x: 6, y: 93, w: 232, h: 172, label: 'Posición actual (X, Y, Z)' }
+const B_MOVEXY: Box = { x: 294, y: 106, w: 114, h: 188, label: 'Mover el cabezal en X/Y' }
+const B_MOVEZ: Box = { x: 448, y: 106, w: 60, h: 188, label: 'Mover el cabezal en Z' }
+const B_CURSORSTEP: Box = { x: 244, y: 292, w: 268, h: 64, label: 'Cursor Step: cuánto se mueve cada click' }
+const B_SPINDLE: Box = { x: 6, y: 350, w: 180, h: 106, label: 'Encender/apagar el spindle' }
+const B_ORIGIN: Box = { x: 580, y: 83, w: 278, h: 112, label: 'Fijar origen: X/Y y Z por separado' }
 const B_ORIGIN_XY: Box = { ...B_ORIGIN, label: 'Fijar origen X/Y aquí' }
 const B_ORIGIN_Z: Box = { ...B_ORIGIN, label: 'Fijar origen Z aquí' }
-const B_CUT: Box = { x: 635, y: 392, w: 68, h: 62, label: 'Cut: abre la ventana para cargar el archivo' }
-const B_CANCEL: Box = { x: 787, y: 388, w: 72, h: 66, label: 'Cancel: parada de emergencia' }
+const B_CUT: Box = { x: 648, y: 380, w: 104, h: 76, label: 'Cut: abre la ventana para cargar el archivo' }
+const B_CANCEL: Box = { x: 782, y: 380, w: 90, h: 76, label: 'Cancel: parada de emergencia' }
 
 const vpanelShot = (boxes: Box[], alt = VPANEL_ALT): Shot => ({ file: VPANEL_FILE, alt, size: VPANEL_SIZE, boxes, wide: true })
 
@@ -27,7 +27,7 @@ const vpanelShot = (boxes: Box[], alt = VPANEL_ALT): Shot => ({ file: VPANEL_FIL
 // anota "Output", que es lo que falta señalar ——
 const CUT_DIALOG_FILE = DIR + '03-fresado-orificios/vpanel-dialogo-cut-add.webp'
 const CUT_DIALOG_SIZE: [number, number] = [1278, 720]
-const B_OUTPUT: Box = { x: 736, y: 608, w: 132, h: 46, label: 'Output: arranca el corte' }
+const B_OUTPUT: Box = { x: 704, y: 606, w: 166, h: 50, label: 'Output: arranca el corte' }
 
 // —— llave Allen para cambiar herramienta: misma foto para pistas y borde (Alessandro mandó la
 // misma captura para ambos cambios) ——
@@ -45,7 +45,14 @@ export const MONOFAB_REAL_FLOW: Flow = {
           html: 'Antes de conectar la MonoFab hay que instalar el <strong>driver</strong> de la máquina y el software <strong>VPanel for SRM-20</strong> (de Roland/DGSHAPE) — es la interfaz desde donde se calibra y se arranca cada fresado. Con los dos instalados, queda listo su acceso directo en el escritorio.',
           blocks: [
             { kind: 'shots', shots: [{ file: DIR + '00-instalacion-software/vpanel-icono-acceso-directo.webp', alt: 'Ícono del acceso directo "VPanel for SRM-20" en el escritorio', caption: 'Acceso directo a VPanel for SRM-20, ya instalado' }] },
-            { kind: 'note', html: 'El driver y VPanel son software de Roland/DGSHAPE: descárgalos de la página oficial de soporte de la SRM-20 en vez de una copia suelta.' },
+            {
+              kind: 'downloads',
+              items: [
+                { label: 'Driver de la MonoFab', file: DIR + '00-instalacion-software/monofabDriver_V180.zip', size: '.zip · 42 MB' },
+                { label: 'VPanel for SRM-20', file: DIR + '00-instalacion-software/VPanel-for-SRM-20_Installer.zip', size: '.zip · 1 MB' },
+              ],
+            },
+            { kind: 'note', html: 'Son los instaladores de Roland/DGSHAPE tal cual se usaron en esta práctica. Si prefieres la versión más reciente, búscala en la página oficial de soporte de la SRM-20.' },
           ],
         },
       ],

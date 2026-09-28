@@ -49,6 +49,7 @@ export type Block =
   | { kind: 'summary' }
   | { kind: 'machine' }
   | { kind: 'video'; file: string; caption?: string; poster?: string }
+  | { kind: 'downloads'; items: { label: string; file: string; size: string }[] }
 
 export interface FlowStep {
   /** HTML simple (strong / code / a); contenido estático del repo */

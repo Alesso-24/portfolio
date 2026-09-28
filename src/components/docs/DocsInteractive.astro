@@ -439,6 +439,16 @@
     display: block; width: 100%; max-width: 480px; height: auto; margin: clamp(16px, 2.2vh, 24px) auto clamp(20px, 3vh, 32px);
     border-radius: 14px; border: 1px solid rgba(33, 31, 26, 0.1); box-shadow: 0 30px 70px -36px rgba(33, 31, 26, 0.28); background: #000;
   }
+  .docs-body .download-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0 clamp(20px, 3vh, 32px); }
+  .docs-body .download-btn {
+    display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 14px; text-decoration: none;
+    background: #efe7d8; border: 1px solid rgba(33, 31, 26, 0.12); color: #211f1a; transition: background 0.2s, transform 0.2s;
+  }
+  .docs-body .download-btn:hover { background: #f6f0e3; transform: translateY(-1px); }
+  .docs-body .download-btn__icon { font-size: 18px; line-height: 1; color: #2540c0; }
+  .docs-body .download-btn__text { display: flex; flex-direction: column; gap: 1px; }
+  .docs-body .download-btn__text strong { font-size: 13.5px; }
+  .docs-body .download-btn__size { font-size: 11.5px; color: #6f6a5f; }
 
   /* ── Lightbox ── */
   .lightbox {
