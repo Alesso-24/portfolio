@@ -1,10 +1,14 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## 🚀 2026-09-28: MonoFab real — ajustada y DESPLEGADA
+> ## 🚀 2026-09-28: MonoFab real — ajustada y DESPLEGADA (`main` = `f63b4f4`)
 > Alessandro revisó y pidió 2 ajustes (recuadros del vPanel mal centrados + botones de descarga
 > para el driver/VPanel) — hechos en commit `6818b6e`, detalle en
 > `08-monofab-real/ACTUALIZACION-CONTEXTO.md` → **Bloque 6**. Con su "haz deploy por ahora":
-> merge de `feat/monofab-real` a `main` + push (dispara `ci-cd.yml`).
+> PR #78 (`feat/monofab-real` → `main`), merge, `ci-cd.yml` corrió y desplegó bien (`npm run build`
+> pasó en CI sin problema — confirma que el build local solo estaba bloqueado por el clasificador
+> de permisos, no por un error real). **Verificado en producción:** la página y el .zip del driver
+> devuelven 200 en `https://alesso-24.github.io/portfolio/`. Rama `feat/monofab-real` borrada
+> (local y remota), solo queda `main` + `gh-pages` legacy.
 > **PENDIENTE — dijo que hay "errores de continuidad en el proceso" y otros detalles que
 > señalará después; no se sabe todavía cuáles son.** Cuando los mande: revisar uno por uno contra
 > `src/data/monofab-real-flow.ts`, no asumir de antemano qué está mal.
