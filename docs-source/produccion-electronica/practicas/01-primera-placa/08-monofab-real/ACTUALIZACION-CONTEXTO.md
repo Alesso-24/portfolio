@@ -152,6 +152,59 @@ software, la otra documenta lo que él hizo.
 - En `vpanel-dialogo-cut-add.png`: ya trae un recuadro rojo en **Add** (de Alessandro); al diseñar,
   rehacerlo en naranja (estilo `AnnotatedShot.astro`) y agregar uno nuevo en **Output**.
 
+### 2026-09-28 — Bloque 4: fresar pistas y borde, resultado final — LUZ VERDE PARA DISEÑAR
+
+**Lo que dijo Alessandro** (última tanda; al final dio la señal explícita: "con lo que tienes,
+empieza a hacer la página" — a partir de aquí ya se diseña):
+
+1. **Fresado de orificios en proceso** (foto + video `Perforaciones.mp4`). Al terminar: comprobar
+   que todo salió bien **sin haber movido el eje X/Y ni la placa** — regla de oro: "si perdemos el
+   X/Y, perdemos todo".
+2. **Cambiar a la herramienta de pistas** (cortador en V) — mismo proceso de siempre con la llave
+   Allen. **Recalibrar, pero SOLO el eje Z** (el X/Y ya no se toca). Esta vez la broca debe apenas
+   **rozar** la placa (no entrar tanto como con la de 0.8 mm) — cuidar que la punta del cortador en
+   V no esté muy chata/desgastada. El procedimiento de calibración Z es el mismo que en el Bloque 2
+   (spindle encendido, bajar 100→10→1, hasta ver polvito blanco, fijar origen Z).
+3. **Cargar `PISTAS_FINAL.rml`** con el mismo proceso de Cut → Add → Output (Bloque 3). Video de
+   referencia: `Pistas.mp4`. Resultado a medio cortar: se ve el polvo blanco sobre las pistas que
+   ya se aislaron y, al lado, un tramo de cobre ya despejado.
+4. **Cambiar a la última herramienta** (borde/contorno, 2 mm) — mismo proceso con llave Allen.
+   Recalibrar Z otra vez, de la misma forma, hasta sacar polvito blanco.
+5. **Cargar `CONTORNO_FINAL.rml`**, mismo Cut → Add → Output.
+6. **Resultado final:** la placa ya fresada (3 fotos, distintas luces/ángulos — todas válidas, se
+   usan las que se vean mejor en la página).
+7. **Al terminar:** aspirar el polvo (**la fibra de vidrio es tóxica**), dejar la máquina limpia y
+   apagada. Recomendación: usar **cubrebocas** durante todo el fresado, no solo al limpiar.
+   Verificar la placa: pistas y huecos bien hechos, comparando contra el diagrama/esquemático y
+   probando continuidad con **multímetro** en físico.
+
+**Imágenes/video → archivos:**
+
+| Contenido real | Carpeta / archivo |
+|---|---|
+| Perforando en proceso (broca + polvo, acercamiento) | `03-fresado-orificios/perforando-en-proceso.png` |
+| Video del fresado de orificios | `03-fresado-orificios/perforaciones.mp4` (~1.6 MB) |
+| Set de 4 cortadores en V, foto de producto (fondo blanco) | `04-cambio-herramienta-pistas/cortador-v-referencia.png` (+ `cortador-v-nobg.png`, fondo ya quitado) |
+| Cambiar herramienta con llave Allen | *(reutiliza `02-calibracion-ejes-y-cambio-herramienta/asegurar-herramienta-llave-allen.png` — Alessandro mandó el mismo archivo otra vez, byte a byte, para este paso; no se duplicó)* |
+| Explorador: `PISTAS_FINAL.rml` seleccionado | `05-fresado-pistas/seleccionar-pistas-final-rml.png` |
+| Placa a medio cortar (pistas con polvo blanco + tramo de cobre despejado) | `05-fresado-pistas/pistas-cortando-en-proceso.png` |
+| Video del fresado de pistas | `05-fresado-pistas/pistas.mp4` (~2 MB) |
+| Cambiando a la herramienta de borde con llave Allen | `06-cambio-herramienta-borde/cambiar-herramienta-llave-allen.png` |
+| Herramienta de borde (2 mm), foto de producto (fondo blanco) | `06-cambio-herramienta-borde/herramienta-borde-2mm-referencia.png` (+ `herramienta-borde-2mm-nobg.png`, fondo ya quitado) |
+| Explorador: `CONTORNO_FINAL.rml` seleccionado | `07-fresado-borde/seleccionar-contorno-final-rml.png` |
+| Placa terminada, foto 1 (cobre brillante, luz de flash) | `08-resultado-final/placa-terminada-1.png` |
+| Placa terminada, foto 2 (misma placa, luz distinta, pistas más doradas) | `08-resultado-final/placa-terminada-2.png` |
+| Placa terminada a contraluz (efecto dramático, pistas iluminadas) | `08-resultado-final/placa-terminada-contraluz.png` |
+
+**Fondo quitado (pedido explícito de Alessandro para la fenólica y la herramienta de borde;
+se aplicó el mismo tratamiento a los cortadores en V para que las 3 fotos de producto queden
+consistentes):** script propio con Pillow (flood-fill de las esquinas + pluma de 2 px en el
+borde) — no se instaló ninguna herramienta externa. Igual quedan los originales sin tocar.
+
+**LUZ VERDE:** con todo este material ya se empieza a construir `panel-monofab` en
+`primera-placa-kicad.astro` (ver entrada correspondiente más abajo/arriba en este archivo y en
+`../../../CONTEXTO.md`).
+
 **Nota sobre el `monofabDriver_V180.zip`:** pesa **~42 MB**. Lo dejé en la carpeta pero **no lo
 subí a git** (el otro, `VPanel-for-SRM-20_Installer.zip`, ~1 MB, tampoco) — meter instaladores de
 Roland/DGSHAPE al repo infla el historial de git para siempre y es material de un tercero, no
