@@ -1,18 +1,41 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## 🚧 2026-09-27: EN CURSO — MonoFab real (calibración → fresado físico)
-> **Si retomas esto a mitad de camino, lee esto primero.**
-> Rama de trabajo: **`feat/monofab-real`** (creada desde `main` en `2b4caf5`, que ya tiene la separación mods/MonoFab de la entrada de abajo commiteada). **No mergear a `main` ni desplegar hasta que Alessandro lo pida explícitamente** ("al final desplegamos con Pages").
-> **Flujo acordado con Alessandro:** él manda las fotos del fresado real en **varias tandas, en varios prompts**, diciendo qué es cada una. Mientras las manda: **solo recibir, clasificar y organizar el material crudo** en
-> `docs-source/produccion-electronica/practicas/01-primera-placa/08-monofab-real/` (carpeta ya creada, subcarpetas numeradas por tanda/tema conforme lleguen, mismo estilo que `07-monofab-mods/`). **No tocar todavía `panel-monofab` en `primera-placa-kicad.astro` ni diseñar nada.** Solo cuando Alessandro diga explícitamente que ya puedo empezar (todas las tandas mandadas) se diseña la sección real y se reemplaza el bloque "Pendiente" del panel MonoFab.
-> **Git:** commitear el progreso a medida que avance (organización de material, luego la sección ya construida), todo en `feat/monofab-real`, sin tocar `main`. Al terminar y con su visto bueno: merge a `main` + push (dispara el deploy de GitHub Pages vía `ci-cd.yml`).
-> **Este archivo (`CONTEXTO.md`) se va actualizando a la par del trabajo** (qué tandas de fotos llegaron, qué falta, en qué commit va cada cosa) para poder retomar sin perder contexto si la sesión se corta.
-> **Tandas de fotos recibidas hasta ahora:**
-> - **Tanda 1 (2026-09-27):** encendido de la máquina (USB + botón verde), foto general de la SRM-20, por qué usar fenólica de fibra de vidrio (no papel), pegar con cinta doble cara a la cama de sacrificio, cortar la cama en láser (DXF incluido) y atornillarla (4 tornillos) con la tapa abierta. Organizado en `08-monofab-real/01-encendido-y-montaje/` (renombrada en la tanda 2). Duda abierta: falta la foto real de "conectar el cable USB" (Image #1 e Image #2 de esa tanda llegaron idénticas).
-> - **Tanda 2 (2026-09-27):** pasos previos (instalar driver + vPanel — 2 zips, no subidos a git, ver nota abajo), abrir vPanel al terminar el montaje, **los 3 cortes en orden** (perforaciones 0.8mm → pistas cortador en V → borde 2mm, cambiando herramienta y recalibrando **solo Z** cada vez, X/Y una sola vez) y el **procedimiento completo de calibración** (fijar origen X/Y, luego Z con cuidado hasta ver polvo blanco). Organizado en `08-monofab-real/00-instalacion-software/` y `02-calibracion-ejes-y-cambio-herramienta/`. Detalle bloque por bloque, qué imágenes son solo de referencia (no van al sitio) y la guía de qué anotar en la interfaz del vPanel cuando se diseñe: `08-monofab-real/ACTUALIZACION-CONTEXTO.md`.
-> - **Pendiente de confirmar con Alessandro:** los 2 instaladores (`monofabDriver_V180.zip` ~42 MB, `VPanel-for-SRM-20_Installer.zip` ~1 MB) se guardaron en disco pero **no se subieron a git** (bloat + son de un tercero) — sugerido enlazar a la descarga oficial de Roland/DGSHAPE en vez de alojarlos.
-> - **Tanda 3 (2026-09-27):** cargar y fresar el archivo de orificios/perforaciones — confirmado que el botón **Cut** (no Setup) abre la ventana de carga de archivos; ahí **Add** para elegir el `.rml` y **Output** para arrancar el corte; **Cancel** en el vPanel para parar si algo se ve mal. Dato real: sus archivos se llaman `PISTAS_FINAL.rml`/`ORIFICIOS_FINAL.rml`/`CONTORNO_FINAL.rml` (distinto de los nombres genéricos de la pestaña mods, a propósito). Organizado en `08-monofab-real/03-fresado-orificios/`, detalle en `08-monofab-real/ACTUALIZACION-CONTEXTO.md`.
-> **Estado del dev server:** corriendo en `http://localhost:4321/portfolio/` (pid puede cambiar entre sesiones — `astro dev status` para confirmar, `npm run dev` si no está). El navegador vía Claude in Chrome no estaba conectado el 2026-09-27 al pedir la revisión visual — pendiente que Alessandro lo revise él mismo o reconecte la extensión.
+> ## ✅ 2026-09-28: MonoFab real CONSTRUIDA (rama `feat/monofab-real`, commit `a1b14db`, sin deploy)
+> **Si retomas esto, lee esto primero.**
+> Las 4 tandas de material de Alessandro (encendido/montaje, software/vPanel/calibración, cargar y
+> fresar orificios, pistas+borde+resultado — detalle de cada una abajo) ya están organizadas en
+> `docs-source/produccion-electronica/practicas/01-primera-placa/08-monofab-real/` **y ya
+> integradas a la página real**: `panel-monofab` en `primera-placa-kicad.astro` reemplazó su
+> bloque "Pendiente" por `<Flow flow={MONOFAB_REAL_FLOW} />` (`src/data/monofab-real-flow.ts`,
+> nuevo, 7 secciones / ~19 pasos). Detalle completo bloque por bloque, decisiones de diseño
+> (recuadros naranjas reutilizados sobre la interfaz del vPanel, bloque `video` nuevo, conversión a
+> WebP, i18n, `docs.ts` → `completa`) en `08-monofab-real/ACTUALIZACION-CONTEXTO.md` → **Bloque 5**.
+> **Verificado:** `astro check` 0 errores, dev server en frío sirviendo la página sin ninguna
+> advertencia de traducción faltante, las 23 imágenes/videos nuevos devuelven 200, recuadros
+> verificados por porcentaje contra las coordenadas medidas. **No verificado con navegador real**
+> (Claude in Chrome sin conectar en esta sesión) — pendiente que Alessandro lo revise visualmente
+> en `http://localhost:4321/portfolio/docs/produccion-electronica/practicas/primera-placa-kicad/`
+> (dev server: `astro dev status` para ver si sigue corriendo, `npm run dev` si no).
+> **Sin deploy.** Todo en `feat/monofab-real`, sin tocar `main`. Al recibir su visto bueno: merge
+> a `main` + push (dispara `ci-cd.yml`).
+> **Pendiente de decisión de Alessandro:** los 2 instaladores de Roland/DGSHAPE (`monofabDriver_V180.zip`
+> ~42 MB, `VPanel-for-SRM-20_Installer.zip` ~1 MB) no se subieron a git — bloat + son de un
+> tercero; se guardaron en disco y se sugirió enlazar a la descarga oficial en vez de alojarlos.
+> La práctica se marcó `completa` en `docs.ts` (antes `en-progreso`) — Altium sigue "Pendiente" a
+> propósito, no bloquea; revertible en una línea si Alessandro no está de acuerdo.
+>
+> **Tandas de fotos recibidas (resumen):**
+> - **Tanda 1:** encendido (USB + botón verde), fenólica de fibra de vidrio (no papel), pegar con
+>   cinta doble cara a la cama de sacrificio (DXF incluido) y atornillarla (4 tornillos).
+> - **Tanda 2:** pasos previos (driver + vPanel), abrir vPanel, **los 3 cortes en orden**
+>   (perforaciones 0.8mm → pistas cortador en V → borde 2mm, recalibrando **solo Z** cada vez) y el
+>   procedimiento completo de calibración (origen X/Y, luego Z hasta polvo blanco).
+> - **Tanda 3:** cargar y fresar orificios — confirmado que **Cut** (no Setup) abre la ventana de
+>   carga; **Add**/**Output** ahí, **Cancel** para parar. Archivos reales:
+>   `PISTAS_FINAL.rml`/`ORIFICIOS_FINAL.rml`/`CONTORNO_FINAL.rml`.
+> - **Tanda 4:** fresar pistas y borde (cambio de herramienta + recalibrar Z), resultado final (3
+>   fotos) y limpieza/seguridad (fibra de vidrio tóxica, cubrebocas, multímetro). Con esta tanda
+>   Alessandro dio la señal para empezar a diseñar.
 >
 > ## 🔧 2026-09-27: SEPARAR "mods" de "MonoFab" (rama de trabajo, sin deploy)
 > Pedido de Alessandro: vamos por el fresado real. Antes de eso, separar en la práctica lo que hasta ahora era una sola pestaña **"MonoFab"** (que en realidad era el flujo de **mods.org**, generar los 3 `.rml`) de lo que será la **MonoFab de verdad** (calibración → fresado real en la máquina), para que cuando llegue ese material tenga su propio espacio.
@@ -240,10 +263,10 @@
 |---|---|---|
 | Sección "Documentación" (hub, nav, i18n=es) | 🟢 En producción | `/docs` |
 | Portada Producción Electrónica (equipo) | 🟢 En producción — Alessandro y Alexa con foto; la de Alexa sin bio a propósito | `/docs/produccion-electronica` |
-| Lista de prácticas | 🟢 En producción (1 práctica, estado "en progreso") | `/docs/produccion-electronica/practicas` |
+| Lista de prácticas | 🟡 Hecho localmente, sin deploy: estado pasó a "completa" | `/docs/produccion-electronica/practicas` |
 | Práctica 1 — KiCad (esquemático + PCB + Gerber) | 🟢 En producción: 30 pasos en pestaña KiCad | `/docs/produccion-electronica/practicas/primera-placa-kicad` |
 | Práctica 1 — mods (mods.org → 3 `.rml`) | 🟡 Hecho localmente (2026-09-27, sin deploy): 30 pasos, separado de MonoFab | ídem |
-| Práctica 1 — MonoFab (calibración + fresado real) | 🟡 Pestaña nueva "Pendiente" (local, sin deploy) — sin material real todavía | ídem |
+| Práctica 1 — MonoFab (calibración + fresado real) | 🟡 Hecho localmente (2026-09-28, sin deploy): 7 secciones/~19 pasos con fotos y video reales | ídem |
 | Práctica 1 — Altium | 🟡 Pestaña "pendiente" a propósito (aún no migran a Altium) | ídem |
 | Páginas "¿Qué es KiCad / MonoFab / Altium?" | 🔲 Opcionales, no creadas (ruta `/herramientas/<nombre>` reservada) | — |
 
@@ -390,12 +413,11 @@ una a la página real.**
 ## Pendientes consolidados
 
 **Abiertos**
-- **MonoFab real (pestaña nueva, "Pendiente"):** calibración de la SRM-20, fresado físico real con `PERIFERIA.rml`, `PISTAS.rml` y `ORIFICIOS.rml`, fotos y resultados, y conseguir/tener acceso a la máquina. Al tenerlo: agregar el contenido real a `panel-monofab` en `primera-placa-kicad.astro` (hoy solo tiene la foto + un párrafo, como Altium) y pasar la práctica a
-  `completa` en `src/data/docs.ts`. (Recordatorio de la guía de mods: verificar en el render 3D que las pistas sean de cobre; si no, re-invertir.)
 - **Valores reales de componentes:** ohmiaje de R1/R3/R5/R7 (pull-down) y R2/R4/R6/R8 (limitadoras) y color/referencia del LED (`R_1206`/`LED_1206` son solo la huella).
 - **Nombre final de la placa** — "Hola_Mundo" fue solo el proyecto de prueba para aprender el flujo de KiCad.
 - **Opcionales:** páginas de herramientas `/docs/produccion-electronica/herramientas/{kicad,monofab,altium}` y la guía de Altium (cuando migren).
-- **Deploy pendiente** de la separación mods/MonoFab del 2026-09-27 (ver entrada arriba) — falta `npm run build` completo (bloqueado por el clasificador de permisos) y revisión visual de Alessandro.
+- **Deploy pendiente** de todo lo de `feat/monofab-real` (separación mods/MonoFab del 2026-09-27 + sección real de MonoFab del 2026-09-28) — falta `npm run build` completo (bloqueado por el clasificador de permisos, ver nota en la entrada de arriba) y revisión visual de Alessandro.
+- **Decidir** si los 2 instaladores de Roland/DGSHAPE se enlazan a la descarga oficial o se suben igual a git (ver entrada de arriba).
 
 **Resueltos** (se dejan como registro)
 - Bio de Alexa → decisión: sin bio, a propósito.
@@ -403,6 +425,7 @@ una a la página real.**
 - Integrar mods.org a la página → hecho (2026-09-20), ahora es la pestaña MonoFab.
 - Separar mods (software) de MonoFab (máquina real) en pestañas propias → hecho (2026-09-27, sin deploy), ver entrada arriba.
 - Logo/asset de mods → favicon oficial de modsproject.org (única marca que tiene el sitio). Logo/asset de MonoFab → se usa la foto de la SRM-20 (mosaico oscuro en la pestaña, foto completa en el panel; no hay logo oficial de "MonoFab").
+- **MonoFab real (calibración de la SRM-20, fresado físico, fotos y video del resultado)** → hecho el 2026-09-28 con el material real de Alessandro (4 tandas); práctica pasada a `completa` en `docs.ts`. Ver entrada arriba y `08-monofab-real/ACTUALIZACION-CONTEXTO.md` (Bloque 5). Sin deploy.
 - Duda de velocidad por archivo (4 mm/s vs 0.3 mm/s) → confirmada: 0.3 mm/s solo en ORIFICIOS (taladrado).
 - Dependabot (29 alertas de GitHub / 15 de `npm audit`) → resueltas el 2026-09-20 con la actualización de dependencias; `npm audit` = 0.
 - Ramas viejas y PRs de dependabot → limpiados el 2026-09-20 (solo queda `main`).

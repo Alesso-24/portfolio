@@ -205,6 +205,47 @@ borde) — no se instaló ninguna herramienta externa. Igual quedan los original
 `primera-placa-kicad.astro` (ver entrada correspondiente más abajo/arriba en este archivo y en
 `../../../CONTEXTO.md`).
 
+### 2026-09-28 — Bloque 5: PÁGINA CONSTRUIDA (commit `a1b14db`, rama `feat/monofab-real`, sin deploy)
+
+Con las 4 tandas de material, se construyó la sección real de MonoFab reemplazando el bloque
+"Pendiente" del panel `panel-monofab`:
+
+- **Datos:** `src/data/monofab-real-flow.ts` (nuevo) — `Flow` con 7 secciones (instalar software,
+  encender y montar, calibrar ejes, orificios, pistas, borde, resultado+limpieza+verificación),
+  ~19 pasos en total.
+- **Interfaz del VPanel reutilizada con distintos recuadros naranjas según el paso** (mismo archivo
+  `vpanel-interfaz-limpia.webp`, `boxes` distintos cada vez): vista general (8 controles) →
+  calibrar X/Y (3 controles) → calibrar Z (4 controles, reutilizado también en los cambios de
+  herramienta de pistas y borde). Coordenadas medidas con una rejilla de referencia en px
+  (nunca a ojo) y verificadas dibujando los recuadros de prueba antes de usarlas.
+- **Ventana "Cut" del VPanel** (`vpanel-dialogo-cut-add.webp`): ya traía "Add" marcado en rojo por
+  Alessandro (se dejó tal cual, sin doble recuadro); se agregó un recuadro naranja propio solo en
+  **Output**, que era lo que faltaba señalar.
+- **Assets:** las 21 imágenes de las 4 tandas se convirtieron a WebP (script propio con Pillow,
+  calidad 82, máx. 1600px de ancho) y se copiaron a
+  `public/images/docs/produccion-electronica/practicas/01-primera-placa/08-monofab-real/...`;
+  los 2 videos (`perforaciones.mp4` ~1.6 MB, `pistas.mp4` ~2 MB) se copiaron tal cual — nuevo
+  bloque `{ kind: 'video' }` en `flow-types.ts` + render en `FlowBlock.astro` (`<video controls
+  preload="none">`, sin librerías nuevas). `image-sizes.json` regenerado (de paso se arregló
+  `scripts/gen-image-sizes.mjs`, que apuntaba a una ruta de `sharp` que ya no existe).
+- **i18n:** ~140 líneas nuevas en `docs-en.ts` (todo el contenido de esta sección es bilingüe,
+  igual que el resto de `/docs`) — verificado con el dev server reiniciado en frío: **cero**
+  advertencias `[i18n] sin traducción` en toda la página. De paso se encontró y arregló una
+  traducción faltante **de la sesión anterior** (el `description` de esta misma página, cuando se
+  le agregó la mención a "mods").
+- **Estado de la práctica:** `src/data/docs.ts` → `status: 'completa'` (antes `en-progreso`) y el
+  chip de la Ficha en la página actualizado a juego. Criterio: KiCad + mods + MonoFab real ya
+  documentados con resultado; Altium sigue "Pendiente" **a propósito** (no migran todavía), eso no
+  bloquea el estado "completa" de la práctica. **Si Alessandro no está de acuerdo, revertir este
+  campo es un cambio de una línea.**
+- **Verificado:** `astro check` 0 errores; dev server reiniciado en frío sirviendo la página (200)
+  con las 23 URLs de imágenes/videos nuevas devolviendo 200; recuadros naranjas verificados por
+  matemática de porcentajes contra las coordenadas medidas (sin navegador real disponible en esta
+  sesión — Claude in Chrome no se pudo conectar). **Pendiente:** que Alessandro la vea en su
+  navegador de verdad antes de mergear/desplegar.
+- **Sin deploy.** Todo en `feat/monofab-real`. Al recibir el visto bueno: merge a `main` + push
+  (dispara `ci-cd.yml`).
+
 **Nota sobre el `monofabDriver_V180.zip`:** pesa **~42 MB**. Lo dejé en la carpeta pero **no lo
 subí a git** (el otro, `VPanel-for-SRM-20_Installer.zip`, ~1 MB, tampoco) — meter instaladores de
 Roland/DGSHAPE al repo infla el historial de git para siempre y es material de un tercero, no
