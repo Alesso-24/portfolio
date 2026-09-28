@@ -1,6 +1,39 @@
 # Contexto — Documentación de Producción Electrónica
 
-> ## 🚀 2026-09-28: MonoFab real — ajustada y DESPLEGADA (`main` = `f63b4f4`)
+> ## 🔒 2026-09-28: CIERRE DE SESIÓN — MonoFab real desplegada, a la espera de Alessandro
+> **Si retomas esto, lee esto primero — es el resumen de toda la sesión del 2026-09-27/28.**
+> **Estado:** todo mergeado y en producción. `main` = `81f776d`. PRs de la sesión: ninguno nuevo
+> aparte del #78 (`feat/monofab-real`, ya mergeado y con la rama borrada). Solo quedan `main` y la
+> rama legacy `gh-pages`.
+> **Qué se hizo, de principio a fin:**
+> 1. Se separó la pestaña "MonoFab" (que en realidad era mods.org) en dos: **mods** y una
+>    **MonoFab** propia para la máquina real — con logo de mods (favicon de modsproject.org, la
+>    única marca que tiene el sitio).
+> 2. Alessandro mandó el material real del fresado en 4 tandas (fotos + 2 videos de su propio
+>    fresado); se organizó todo en `docs-source/.../08-monofab-real/` **antes** de tocar la página,
+>    tal como pidió.
+> 3. Con luz verde, se construyó la sección real completa: `src/data/monofab-real-flow.ts` (7
+>    secciones/~19 pasos), reutilizando una sola captura del vPanel con distintos recuadros
+>    naranjas según el paso, nuevo bloque `video` y nuevo bloque `downloads`.
+> 4. Alessandro pidió 2 ajustes tras revisarlo: recuadros mal centrados (remedidos con recortes de
+>    precisión) y botones de descarga reales para el driver/VPanel (se subieron los `.zip` a git,
+>    ~42 MB + ~1 MB de más en el repo, permanente).
+> 5. Deploy con su OK explícito ("haz deploy por ahora"): PR #78 → merge → `ci-cd.yml` → verificado
+>    en producción (200 en la página y en la descarga del driver).
+> **Dónde está el detalle completo de cada paso:** `docs-source/produccion-electronica/practicas/01-primera-placa/08-monofab-real/ACTUALIZACION-CONTEXTO.md`
+> (6 bloques, en orden — incluye qué imágenes se usaron dónde, coordenadas de los recuadros, qué
+> quedó fuera de git y por qué, y las dudas que quedaron sin resolver, ej. la foto real de
+> "conectar el cable USB" que nunca llegó).
+> **⚠️ PENDIENTE — LO MÁS IMPORTANTE PARA LA PRÓXIMA SESIÓN:** Alessandro dijo que hay **"errores
+> de continuidad en el proceso"** y otros detalles que **señalará después** (todavía no los mandó).
+> No se sabe qué son. Cuando lleguen: leerlos con calma, revisarlos uno por uno contra
+> `src/data/monofab-real-flow.ts` (y contra las fotos/videos reales en `08-monofab-real/` si hace
+> falta releer el material original), **sin asumir de antemano** cuál es el problema. Probablemente
+> conviene abrir una rama nueva (`fix/monofab-continuidad` o similar) en vez de reabrir
+> `feat/monofab-real` (ya borrada).
+> **Otros pendientes menores** (no bloquean nada): revertir el estado `completa` de la práctica si
+> Alessandro no está de acuerdo (una línea en `docs.ts`); decidir si algún día se quita el
+> `monofabDriver_V180.zip` de git (requeriría reescribir historial, no solo borrar el archivo).
 > Alessandro revisó y pidió 2 ajustes (recuadros del vPanel mal centrados + botones de descarga
 > para el driver/VPanel) — hechos en commit `6818b6e`, detalle en
 > `08-monofab-real/ACTUALIZACION-CONTEXTO.md` → **Bloque 6**. Con su "haz deploy por ahora":
