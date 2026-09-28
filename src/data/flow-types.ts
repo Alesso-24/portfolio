@@ -68,6 +68,6 @@ export interface FlowSection {
 }
 
 export interface Flow {
-  id: 'kicad' | 'monofab'
+  id: 'kicad' | 'mods'
   sections: FlowSection[]
 }

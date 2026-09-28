@@ -1,5 +1,5 @@
 ---
-// Interactividad de la página de práctica: pestañas (KiCad / MonoFab / Altium), flujo paso a paso,
+// Interactividad de la página de práctica: pestañas (KiCad / mods / MonoFab / Altium), flujo paso a paso,
 // carruseles de capturas y ampliación (lightbox). Mejora progresiva: sin JS todo queda visible.
 ---
 
@@ -195,7 +195,7 @@
       flows.get(t.flow)?.show(t.idx, { scroll })
       return
     }
-    if (['kicad', 'monofab', 'altium'].includes(id)) selectTab(id)
+    if (['kicad', 'mods', 'monofab', 'altium'].includes(id)) selectTab(id)
   }
 
   const start = () => {
@@ -213,7 +213,7 @@
 <style is:global>
   /* ── Pestañas de herramienta ── */
   .docs-body .tool-tabs__list {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;
     margin: clamp(20px, 3vh, 32px) 0 clamp(20px, 3vh, 28px);
   }
   .docs-body .tool-tab {
@@ -421,15 +421,15 @@
   .docs-body .thumb-zoom:focus-visible { outline: 2px solid #2540c0; outline-offset: 2px; }
   .docs-body .thumb-zoom img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
 
-  /* Altium (pendiente) */
-  .docs-body .altium-pending {
+  /* Pestañas pendientes (Altium, MonoFab) */
+  .docs-body .tool-pending {
     display: flex; align-items: center; gap: 22px; padding: clamp(22px, 3vw, 36px); border-radius: 22px;
     background: rgba(255, 255, 255, 0.45); border: 1.5px dashed rgba(33, 31, 26, 0.25);
   }
-  .docs-body .altium-pending img { flex: none; height: 96px; width: auto; display: block; }
-  .docs-body .altium-pending h3 { margin: 0 0 8px; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); color: #211f1a; }
-  .docs-body .altium-pending p { margin: 0; max-width: 58ch; font-size: 15px; line-height: 1.65; color: #534f46; }
-  @media (max-width: 560px) { .docs-body .altium-pending { flex-direction: column; align-items: flex-start; } }
+  .docs-body .tool-pending img { flex: none; height: 96px; width: auto; display: block; border-radius: 10px; }
+  .docs-body .tool-pending h3 { margin: 0 0 8px; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(24px, 2.6vw, 32px); color: #211f1a; }
+  .docs-body .tool-pending p { margin: 0; max-width: 58ch; font-size: 15px; line-height: 1.65; color: #534f46; }
+  @media (max-width: 560px) { .docs-body .tool-pending { flex-direction: column; align-items: flex-start; } }
 
   /* MonoFab */
   .docs-body .machine-figure img {
@@ -584,7 +584,7 @@
     border: 1px solid rgba(255, 255, 255, 0.85);
     box-shadow: inset 0 1px 0 #fff, 0 2px 6px -3px rgba(234, 106, 46, 0.5);
   }
-  .docs-body .altium-pending {
+  .docs-body .tool-pending {
     background: var(--glass-fill);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-edge), var(--glass-shadow);
@@ -617,7 +617,7 @@
     .docs-body .flow__chip:not(.is-active),
     .docs-body .flow__btn:not(.flow__btn--primary),
     .docs-body .carousel__btn,
-    .docs-body .altium-pending {
+    .docs-body .tool-pending {
       background: var(--glass-solid);
     }
     .lightbox {
