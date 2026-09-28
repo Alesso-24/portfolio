@@ -27,7 +27,8 @@ la información de forma que tenga sentido):
 7. Abrir la tapa de la MonoFab, acomodar la tabla de sacrificio ya con la placa pegada, y
    atornillarla bien con los **4 tornillos**.
 
-**Imágenes recibidas → archivos** (en `00-preparacion-y-montaje/`):
+**Imágenes recibidas → archivos** (en `01-encendido-y-montaje/` — carpeta renombrada de
+`00-preparacion-y-montaje` al llegar el Bloque 2, porque instalar el driver/vPanel va antes):
 
 | # en el mensaje | Contenido real de la foto | Archivo |
 |---|---|---|
@@ -44,7 +45,77 @@ Image #2 (el botón en verde) llegaron como el **mismo archivo exacto** — solo
 (`boton-encendido-verde.png`). Si tienes a la mano la foto real de conectar el cable USB, mándala
 en la siguiente tanda y se agrega.
 
-**Sin clasificar:** llegó una séptima imagen (ícono del acceso directo "VPanel for SRM-20" en el
-escritorio) sin texto que la describiera — no se guardó todavía. Si es parte de este flujo
-(por ejemplo, para el paso de abrir el vPanel), dilo en la próxima tanda y se integra donde
-corresponda.
+**Sin clasificar (resuelto en el Bloque 2):** la séptima imagen del Bloque 1 (ícono de "VPanel for
+SRM-20") no tenía texto — ya se aclaró, ver abajo.
+
+### 2026-09-27 — Bloque 2: pasos previos (driver/vPanel), abrir vPanel y calibración de ejes
+
+**Lo que dijo Alessandro:**
+
+**Pasos previos** (antes de todo lo del Bloque 1, en realidad): instalar el driver de la MonoFab
+y el software vPanel. Mandó los instaladores:
+- `monofabDriver_V180.zip`
+- `VPanel-for-SRM-20_Installer.zip`
+
+**Con todo montado (fin del Bloque 1), cerrar la tapa y abrir el vPanel** (el ícono del acceso
+directo era esto — resuelve la duda del Bloque 1).
+
+**Los 3 cortes, en este orden** (de la instrucción pegada por Alessandro):
+1. **Perforaciones** — broca de **0.8 mm**.
+2. **Pistas y/o etiquetas** — **cortador en V**.
+3. **Borde** — corte de contorno de la placa, herramienta de **2 mm**.
+
+Con cada paso hay que **cambiar la herramienta de corte**. Las configuraciones (velocidades,
+diámetros, etc.) salen de mods — ver `07-monofab-mods/` y los valores ya documentados en
+`../../../CONTEXTO.md` (PERIFERIA ≈1.9 mm, PISTAS = V-bit 0.396 mm, ORIFICIOS = 0.79 mm ≈ "0.8 mm").
+**Importante:** el orden real de fresado (perforaciones → pistas → borde) es **distinto** del
+orden en que mods genera los 3 archivos (periferia → pistas → orificios) — son dos secuencias
+independientes, una de software y otra de máquina; no es un error, hay que explicarlo así en
+la página.
+
+**Al cambiar de herramienta hay que volver a calibrar — pero SOLO el eje Z, nunca perder X/Y**
+(X/Y se calibra una sola vez, al principio).
+
+**Procedimiento de calibración (primera vez, con la broca de 0.8 mm):**
+1. Poner la herramienta en el spindle (broca de 0.8 mm primero) y asegurarla con una **llave Allen**.
+2. Con el vPanel, moverse en X/Y hasta una esquina de la placa fenólica, dejando algo de margen.
+3. Fijar el origen X/Y ahí, con el botón de "Set Origin Point" → **X/Y** del vPanel.
+4. **Calibrar Z (con mucho cuidado — bajar de golpe puede romper la broca):**
+   - Posicionarse arriba de la placa, en un punto que no se vaya a usar.
+   - Encender el spindle y esperar a que las RPM se estabilicen (6000–8000 rpm, unos 5–6 s).
+   - Bajar poco a poco con los botones de Z, reduciendo el paso conforme se acerca: **100 → 10 → 1**.
+   - Seguir bajando (spindle encendido) hasta que empiece a salir un poco de **polvo blanco** —
+     ahí se marca el origen Z, con el botón "Set Origin Point" → **Z**.
+   - Subir la herramienta y apagar el spindle.
+
+**Imágenes recibidas → archivos:**
+
+| Contenido real | Uso | Archivo |
+|---|---|---|
+| Ícono de acceso directo "VPanel for SRM-20" | Sitio (paso "abrir vPanel") | `00-instalacion-software/vpanel-icono-acceso-directo.png` |
+| Interfaz de vPanel, limpia/sin anotar (X/Y/Z en 0.00) | Sitio — **pendiente**: agregar los recuadros naranjas del sitio cuando se diseñe la sección (ver guía abajo, no hacerlo ahora) | `02-calibracion-ejes-y-cambio-herramienta/vpanel-interfaz-limpia.png` |
+| Colocando la broca de 0.8 mm en el spindle con llave Allen (acercamiento) | Sitio | `02-calibracion-ejes-y-cambio-herramienta/colocar-broca-0.8mm.png` |
+| Asegurando la herramienta con la llave Allen (ángulo más abierto, spindle naranja) | Sitio | `02-calibracion-ejes-y-cambio-herramienta/asegurar-herramienta-llave-allen.png` |
+| Interfaz de vPanel **ya anotada con recuadros rojos** (ejemplo de otra versión del software) | **Solo de referencia para mí — Alessandro pidió explícitamente no ponerla en el sitio.** No se guardó en el repo. | — |
+| Recorte "X/Y" · "Z" (botones de Set Origin Point) | Solo de referencia para mí, no ponerla en el sitio | — |
+| Recorte "Set Origin Point" completo con los mismos botones | Solo de referencia para mí, no ponerla en el sitio | — |
+| Recorte "Cursor Step" (Continue/x100/x10/x1) | Solo de referencia para mí, no ponerla en el sitio | — |
+
+**Guía para cuando se diseñe la sección (anotar `vpanel-interfaz-limpia.png` con recuadros
+naranjas, estilo `AnnotatedShot.astro` del sitio):**
+- **Position X/Y/Z** (arriba a la izquierda): lectura de la posición actual.
+- **Move XY** / **Move Z** (cruceta central y barra derecha): mover el cabezal a mano.
+- **Cursor Step** (Continue/x100/x10/x1): qué tanto se mueve por click — usar pasos grandes lejos
+  de la placa y bajarlos (100→10→1) al acercarse en Z.
+- **Spindle ON/OFF** + lectura de RPM (abajo a la izquierda).
+- **Set Origin Point → X/Y** y **→ Z** (derecha): fijan el origen de cada eje por separado, en la
+  posición actual del cabezal — son los botones clave de toda la calibración.
+- **Setup / Cut / Pause / Cancel** (abajo a la derecha): cargar el archivo (`Setup`) y arrancar el
+  corte (`Cut`).
+
+**Nota sobre el `monofabDriver_V180.zip`:** pesa **~42 MB**. Lo dejé en la carpeta pero **no lo
+subí a git** (el otro, `VPanel-for-SRM-20_Installer.zip`, ~1 MB, tampoco) — meter instaladores de
+Roland/DGSHAPE al repo infla el historial de git para siempre y es material de un tercero, no
+nuestro. Sugerencia para cuando diseñemos: enlazar a la página oficial de descargas de
+Roland/DGSHAPE para la SRM-20 en vez de alojar los instaladores aquí. Pendiente de que Alessandro
+lo confirme.
