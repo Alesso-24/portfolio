@@ -6,6 +6,7 @@ import T from '../../../../components/docs/T.astro'
 import { KICAD_FLOW } from '../../../../data/kicad-flow'
 import { MODS_FLOW } from '../../../../data/mods-adapter'
 import { MONOFAB_REAL_FLOW } from '../../../../data/monofab-real-flow'
+import { MULTISIM_FLOW } from '../../../../data/multisim-flow'
 import { BRAND_BASE } from '../../../../data/flow-utils'
 import { getSubject } from '../../../../data/docs'
 
@@ -32,7 +33,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:4px;">
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Materia" en="Subject" /></span><T es={subject.name} /></div>
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Equipo" en="Team" /></span>{teamNames}</div>
-      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Herramientas" en="Tools" /></span>KiCad · mods · MonoFab · Altium</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Herramientas" en="Tools" /></span>KiCad · mods · MonoFab · Multisim · Altium</div>
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Estado" en="Status" /></span>
         <span class="status-chip status-chip--completa" style="margin-top:2px;"><span class="status-dot"></span><T es="Completa" en="Complete" /></span>
       </div>
@@ -70,6 +71,13 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
         <span class="tool-tab__text">
           <span class="tool-tab__title">MonoFab</span>
           <span class="tool-tab__sub"><T es="Calibración y fresado real en la Roland SRM-20" en="Calibration and real milling on the Roland SRM-20" /></span>
+        </span>
+      </button>
+      <button type="button" role="tab" class="tool-tab" id="tab-multisim" data-tab="multisim" aria-controls="panel-multisim" aria-selected="false" tabindex="-1">
+        <span class="tool-tab__icon tool-tab__icon--multisim"><img src={`${BRAND_BASE}multisim-icon.webp`} alt="" width="60" height="60" /></span>
+        <span class="tool-tab__text">
+          <span class="tool-tab__title">Multisim</span>
+          <span class="tool-tab__sub"><T es="Simulación de circuitos, instrumentos y análisis" en="Circuit simulation, instruments and analyses" /></span>
         </span>
       </button>
       <button type="button" role="tab" class="tool-tab tool-tab--pending" id="tab-altium" data-tab="altium" aria-controls="panel-altium" aria-selected="false" tabindex="-1">
@@ -111,6 +119,15 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
         <p><T es={'La MonoFab es la fresadora <strong>Roland SRM-20</strong>. Aquí se instala el software, se calibran los 3 ejes y se fresa la placa de verdad con los archivos <code>.rml</code> generados con mods: primero las perforaciones, luego las pistas y al final el borde, cambiando de herramienta entre cada uno.'} en={'The MonoFab is the <strong>Roland SRM-20</strong> milling machine. Here the software gets installed, the 3 axes get calibrated, and the board is actually milled with the <code>.rml</code> files generated with mods: first the holes, then the tracks, and finally the outline, changing tool between each one.'} /></p>
       </div>
       <Flow flow={MONOFAB_REAL_FLOW} />
+    </section>
+
+    <!-- Multisim -->
+    <section class="tool-panel" id="panel-multisim" role="tabpanel" aria-labelledby="tab-multisim" data-tab-panel="multisim">
+      <div class="tool-panel__head">
+        <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}multisim-icon.webp`} alt="Multisim" width="62" height="62" />
+        <p><T es={'<strong>Multisim</strong> es el programa con el que se construyen y simulan circuitos antes de fabricarlos. Aquí se documentan, en 12 pasos, la colocación de componentes, las mediciones, los osciloscopios, la lógica combinacional y los análisis. Las zonas punteadas son <strong>capturas pendientes</strong>: se irán llenando.'} en={'<strong>Multisim</strong> is the program used to build and simulate circuits before making them. Here, in 12 steps, we document component placement, measurements, oscilloscopes, combinational logic and analyses. The dotted areas are <strong>pending screenshots</strong>: they will be filled in.'} /></p>
+      </div>
+      <Flow flow={MULTISIM_FLOW} />
     </section>
 
     <!-- Altium -->

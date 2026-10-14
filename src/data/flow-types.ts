@@ -49,6 +49,9 @@ export type Block =
   | { kind: 'summary' }
   | { kind: 'machine' }
   | { kind: 'video'; file: string; caption?: string; poster?: string }
+  | { kind: 'placeholder'; caption: string }
+  | { kind: 'pending'; html: string }
+  | { kind: 'table'; head: string[]; rows: string[][] }
   | { kind: 'downloads'; items: { label: string; file: string; size: string }[] }
 
 export interface FlowStep {
@@ -70,6 +73,6 @@ export interface FlowSection {
 }
 
 export interface Flow {
-  id: 'kicad' | 'mods' | 'monofab'
+  id: 'kicad' | 'mods' | 'monofab' | 'multisim'
   sections: FlowSection[]
 }
