@@ -1,5 +1,14 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🆕 2026-10-13: pestaña MULTISIM añadida (rama `feat/multisim`, SIN commit ni deploy)
+> **Qué:** nueva pestaña **Multisim** (entre MonoFab y Altium) en `primera-placa-kicad.astro`, con el contenido de las 2 clases grabadas
+> (`~/Downloads/tutorial_multisim.docx` + `Multisim_transcripciones_y_estructura_web.md`). 13 secciones / ~40 pasos en `src/data/multisim-flow.ts`
+> (Interfaz, Pasos 1-12, Resultados). Inglés dentro del mismo archivo (`L(es, en)`), registrado en `docs-en.ts` vía `MULTISIM_EN`.
+> **Logo:** glifo de Simple Icons (no hay logo oficial publicado por NI) → `public/images/docs/produccion-electronica/brand/multisim-icon.webp`.
+> **Nuevos bloques de Flow** (`flow-types.ts` / `FlowBlock.astro`): `placeholder` (hueco punteado "Captura pendiente" + qué mostrar), `pending` ("Por comprobar": dudas de las transcripciones) y `table`.
+> **Estado al 2026-10-13 (noche):** Alessandro reinició la PC para instalar Multisim y va a mandar las capturas. Lista completa de las 44 capturas + cómo sacar cada una: `docs-source/produccion-electronica/IMAGENES-MULTISIM.md`. Todo sigue SIN commit (rama `feat/multisim`, archivos modificados/nuevos en el working tree). El dev server (puerto 4399) se apagó con el reinicio: `npm run dev -- --port 4399`. Al recibir capturas: convertir a WebP en `public/images/docs/produccion-electronica/practicas/.../09-multisim/`, reemplazar cada `placeholder` por un bloque `shots` y quitar el "Por comprobar" que se resuelva.
+> **PENDIENTE:** (1) capturas reales: cada `placeholder` dice qué mostrar; (2) resolver cada bloque "Por comprobar" contra el video (atajo de rotar Ctrl+R/F, circuito exacto del LED, 120 pico/eficaz, función lógica original, conexiones RC/BJT/diodo…); (3) Multisim no está instalado (no está en winget; usar Multisim Live o licencia IBERO); (4) revisión visual de Alessandro antes de deploy.
+
 > ## 🔒 2026-09-28: CIERRE DE SESIÓN — MonoFab real desplegada, a la espera de Alessandro
 > **Si retomas esto, lee esto primero — es el resumen de toda la sesión del 2026-09-27/28.**
 > **Estado:** todo mergeado y en producción. `main` = `81f776d`. PRs de la sesión: ninguno nuevo

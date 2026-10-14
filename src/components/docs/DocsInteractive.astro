@@ -195,7 +195,7 @@
       flows.get(t.flow)?.show(t.idx, { scroll })
       return
     }
-    if (['kicad', 'mods', 'monofab', 'altium'].includes(id)) selectTab(id)
+    if (['kicad', 'mods', 'monofab', 'multisim', 'altium'].includes(id)) selectTab(id)
   }
 
   const start = () => {
@@ -238,6 +238,8 @@
   /* ícono oficial de la app de KiCad: ya trae su propio cuadrado azul redondeado, sin caja blanca detrás */
   .docs-body .tool-tab__icon--kicad { background: transparent; border: 0; overflow: visible; border-radius: 0; }
   .docs-body .tool-tab__icon--kicad img { width: 100%; height: 100%; filter: drop-shadow(0 6px 10px rgba(37, 64, 192, 0.3)); }
+  .docs-body .tool-tab__icon--multisim { background: transparent; border: 0; overflow: visible; border-radius: 0; }
+  .docs-body .tool-tab__icon--multisim img { border-radius: 12px; }
   .docs-body .tool-tab__icon--altium img { width: 62%; height: 78%; }
   .docs-body .tool-tab__icon--cover img { object-fit: cover; }
   .docs-body .tool-tab__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
@@ -335,6 +337,22 @@
   .docs-body .flow-slide .screenshot-caption { margin: 8px 0 0; }
   .docs-body .flow-slide .shot--lead .screenshot { max-height: 400px; }
   .docs-body .flow-slide .step-media__detail .screenshot { max-height: 460px; }
+  .docs-body .shot-placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    min-height: 190px; padding: 24px; border: 1.5px dashed rgba(33, 31, 26, 0.28); border-radius: 14px;
+    background: repeating-linear-gradient(135deg, rgba(33, 31, 26, 0.025) 0 12px, transparent 12px 24px);
+    color: #8a8579;
+  }
+  .docs-body .shot-placeholder__tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .docs-body .verify-note {
+    margin: 10px 0 0; padding: 10px 14px; border-radius: 10px; font-size: 13.5px; line-height: 1.6; max-width: 78ch;
+    background: rgba(234, 106, 46, 0.09); border: 1px solid rgba(234, 106, 46, 0.3); color: #534f46;
+  }
+  .docs-body .verify-note strong { display: block; margin-bottom: 2px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #c2410c; }
+  .docs-body .flow-table-wrap { overflow-x: auto; margin: 6px 0 0; }
+  .docs-body .flow-table { border-collapse: collapse; font-size: 14.5px; min-width: 320px; }
+  .docs-body .flow-table th, .docs-body .flow-table td { padding: 8px 16px; text-align: left; border-bottom: 1px solid rgba(33, 31, 26, 0.12); }
+  .docs-body .flow-table th { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a8579; }
   .docs-body .lead-note { margin: 10px 0 0; font-size: 13.5px; line-height: 1.6; color: #6f6a5f; max-width: 78ch; }
   .docs-body .flow-slide ol.mods-legend { margin: 12px 0 0; }
   .docs-body .shots { display: grid; gap: 16px; align-items: start; }

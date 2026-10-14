@@ -1,6 +1,8 @@
 // Traducciones al inglés de la sección Documentación (ver src/data/i18n.ts).
 // Clave = texto en español EXACTO tal como está en los datos / páginas; valor = inglés con las mismas etiquetas HTML.
 // Nombres de la interfaz de KiCad: en inglés + la etiqueta en español entre paréntesis (las capturas están en español).
+import { MULTISIM_EN } from './multisim-flow'
+
 export const EN: Record<string, string> = {
   "Creación de PCBs": "PCB Creation",
   "Documentación de la materia": "Course documentation",
@@ -575,4 +577,6 @@ export const EN: Record<string, string> = {
     "Finally, inspect the board: check that the tracks and holes came out right by comparing it against the diagram/schematic and testing continuity with a physical <strong>multimeter</strong>.",
   "Un multímetro en modo continuidad detecta al toque un corte de pista mal hecho o un puente de cobre que no se aisló bien — más rápido que revisarlo solo a simple vista.":
     "A multimeter in continuity mode instantly catches a badly cut track or a copper bridge that wasn't isolated well — faster than checking by eye alone.",
+
+  ...MULTISIM_EN,
 }
