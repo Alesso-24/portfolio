@@ -195,3 +195,8 @@ recortes sueltos. Cada recuadro se mide en píxeles y se verifica con render de 
 - **Secciones 8–15 = PROVISIONALES** (flujo estándar de Altium sin capturas ni confirmación de Alessandro): 8 forma/capas, 9 reglas de diseño (valores orientativos, **verificar contra capacidades vigentes de JLCPCB**), 10 colocar, 11 rutear, 12 plano de tierra + serigrafía, 13 DRC de la PCB + 3D, 14 archivos de fabricación (Gerber/NC Drill), 15 JLCPCB. **Su ORDEN Y CONTENIDO PUEDEN CAMBIAR**: se reescriben conforme Alessandro mande lo real. Cada una lleva un aviso `pending` "provisional".
 - **Todos los huecos de imagen son `placeholder`** (no hay imágenes en el sitio todavía). Las imágenes reales (organizadas en esta carpeta, 01–05) se integrarán con recuadros naranjas medidos en píxeles y verificados **cuando Alessandro diga que terminó**.
 - **Dónde nos quedamos:** justo después de `Design → Update Schematics`. Siguiente material esperado: ventana de cambios (ECO) y la placa con componentes → forma de la placa → resto del flujo.
+
+## 🟢 2026-11-10 (después): IMÁGENES YA INTEGRADAS EN LA PÁGINA (rama feat/altium-imagenes, SIN desplegar)
+- Las 43 capturas (01-46, faltan 18-20 que nunca llegaron) están en `public/images/.../10-altium/<carpeta>/NN-*.webp` y en `altium-flow.ts` secciones 1-7 como bloques `shots` con recuadros naranjas medidos con cuadrícula y verificados con render de prueba (todos los tamaños coinciden).
+- Secciones 8-15 siguen provisionales con `placeholder`. Cuando lleguen más tandas: organizar, convertir a WebP, añadir con `S()`/`shots()`.
+- Pendiente de revisión visual de Alessandro en su navegador antes de desplegar.

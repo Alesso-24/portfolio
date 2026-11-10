@@ -495,6 +495,178 @@
   1500,
   2000
  ],
+ "10-altium/01-crear-proyecto/01-buscar-abrir-altium-designer.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/01-crear-proyecto/02-ventana-principal-altium.webp": [
+  1909,
+  1069
+ ],
+ "10-altium/01-crear-proyecto/03-menu-file.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/01-crear-proyecto/04-file-new-project.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/01-crear-proyecto/05-ventana-create-project.webp": [
+  1479,
+  885
+ ],
+ "10-altium/01-crear-proyecto/06-nombre-proyecto-advanced.webp": [
+  1486,
+  876
+ ],
+ "10-altium/01-crear-proyecto/07-ubicacion-local-storage.webp": [
+  1483,
+  877
+ ],
+ "10-altium/02-esquematico-y-componentes/08-proyecto-creado-sin-documentos.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/02-esquematico-y-componentes/09-clic-derecho-add-new-schematic.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/02-esquematico-y-componentes/10-hoja-esquematico-vacia.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/02-esquematico-y-componentes/11-guardar-como-nombre.webp": [
+  937,
+  706
+ ],
+ "10-altium/02-esquematico-y-componentes/12-hoja-con-nombre-correcto.webp": [
+  1911,
+  1069
+ ],
+ "10-altium/02-esquematico-y-componentes/13-menu-p-part.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/02-esquematico-y-componentes/14-panel-components.webp": [
+  1918,
+  1077
+ ],
+ "10-altium/02-esquematico-y-componentes/15-panel-components-recorte.webp": [
+  436,
+  910
+ ],
+ "10-altium/02-esquematico-y-componentes/16-desplegable-categorias.webp": [
+  382,
+  748
+ ],
+ "10-altium/02-esquematico-y-componentes/17-desplegable-librerias-file-based.webp": [
+  372,
+  786
+ ],
+ "10-altium/03-componentes-y-conexiones/21-panel-components-categorias-resistors.webp": [
+  631,
+  997
+ ],
+ "10-altium/03-componentes-y-conexiones/22-resistors-lista-y-simbolo.webp": [
+  625,
+  991
+ ],
+ "10-altium/03-componentes-y-conexiones/23-resistors-vista-3d.webp": [
+  633,
+  1005
+ ],
+ "10-altium/03-componentes-y-conexiones/24-resistors-huella-2d.webp": [
+  627,
+  1000
+ ],
+ "10-altium/03-componentes-y-conexiones/25-doble-clic-resistencia-flotando.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/26-resistencia-colocada-propiedades.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/27-designador-r1.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/28-editar-valor-953k.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/29-valor-1k.webp": [
+  1918,
+  1077
+ ],
+ "10-altium/03-componentes-y-conexiones/30-segunda-resistencia-r2.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/31-menu-p-power-port.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/32-gnd-colocado-recorte.webp": [
+  774,
+  526
+ ],
+ "10-altium/03-componentes-y-conexiones/33-menu-power-port-recorte.webp": [
+  367,
+  664
+ ],
+ "10-altium/03-componentes-y-conexiones/34-gnd-colocado-en-ambos-lados.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/35-power-port-renombrado-3v3.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/36-menu-net-label-recorte.webp": [
+  333,
+  712
+ ],
+ "10-altium/03-componentes-y-conexiones/37-net-label-p1.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/03-componentes-y-conexiones/38-directives-generic-no-erc.webp": [
+  498,
+  670
+ ],
+ "10-altium/03-componentes-y-conexiones/39-marca-no-erc-en-pin.webp": [
+  238,
+  169
+ ],
+ "10-altium/04-esquematico-completo-ejemplo/40-esquematico-ejemplo-tamagochi.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/05-drc-y-pcb/41-menu-project-validate-pcb-project.webp": [
+  1063,
+  805
+ ],
+ "10-altium/05-drc-y-pcb/42-mensajes-drc-errores.webp": [
+  1918,
+  1078
+ ],
+ "10-altium/05-drc-y-pcb/43-clic-derecho-add-new-pcb.webp": [
+  853,
+  489
+ ],
+ "10-altium/05-drc-y-pcb/44-pcb-nuevo-vacio.webp": [
+  1918,
+  1045
+ ],
+ "10-altium/05-drc-y-pcb/45-pestana-pcb-altium-pcbdoc.webp": [
+  235,
+  60
+ ],
+ "10-altium/05-drc-y-pcb/46-menu-design-update-schematics.webp": [
+  1024,
+  685
+ ],
  "referencia-componentes/led/01-simbolo-led-1206.png": [
   645,
   429
