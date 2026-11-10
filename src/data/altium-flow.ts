@@ -477,14 +477,80 @@ export const ALTIUM_FLOW: Flow = {
       title: L('Acomodar los componentes en la placa', 'Arrange the components on the board'),
       steps: [
         step(
-          'Los componentes llegan <strong>amontonados</strong> fuera del contorno, unidos por <strong>líneas de conexión</strong> (ratsnest) que indican qué pines van juntos. Los arrastramos dentro de la placa y los acomodamos: <strong>agrupados por función</strong>, lo más cerca posible los que se conectan entre sí, y con los conectores en los bordes.',
-          'The components arrive <strong>piled up</strong> outside the outline, joined by <strong>connection lines</strong> (ratsnest) showing which pins go together. We drag them inside the board and arrange them: <strong>grouped by function</strong>, as close as possible to the ones they connect to, and with the connectors on the edges.',
-          [prov(), ph('Componentes acomodados dentro del contorno, con las líneas de conexión visibles.', 'Components arranged inside the outline, with the connection lines visible.')]
+          'Ahora toca <strong>acomodar</strong> los componentes dentro de la placa. Recomendaciones antes de empezar: empezar con los <strong>componentes grandes</strong> y después los <strong>chicos</strong>, y tratar de <strong>no enredar las conexiones</strong> (las líneas finas) a ojo.',
+          'Now it is time to <strong>arrange</strong> the components inside the board. Recommendations before starting: begin with the <strong>large components</strong> and then the <strong>small</strong> ones, and try not to <strong>tangle the connections</strong> (the thin lines) by eye.',
+          [
+            shots('auto', S('08-colocar-y-rutear/82-inicio-acomodar.webp', [1919, 1079], ['Placa circular con algunos componentes ya dentro y el resto todavía fuera', 'Circular board with some components already inside and the rest still outside'], ['Empezamos con los componentes grandes', 'We start with the large components'], [[396, 312, 546, 546, ['Placa', 'Board'], 'top'], [570, 336, 320, 366, ['Ya acomodados', 'Already placed'], 'right'], [984, 682, 836, 150, ['Todavía sin acomodar', 'Not placed yet'], 'top']])),
+            note('Un buen orden: primero los conectores y el microcontrolador (lo más grande), después los capacitores y resistencias cerca de los pines que usan.', 'A good order: first the connectors and the microcontroller (the largest), then the capacitors and resistors close to the pins they use.'),
+          ]
         ),
         step(
-          'Los capacitores de <strong>desacople</strong> van lo más cerca posible del pin de alimentación del circuito integrado al que protegen. Con la tecla <kbd>Espacio</kbd> rotamos el componente mientras lo movemos.',
-          '<strong>Decoupling</strong> capacitors go as close as possible to the power pin of the integrated circuit they protect. With the <kbd>Space</kbd> key we rotate the component while moving it.',
-          [ph('Capacitor de desacople junto al pin de alimentación de un circuito integrado.', 'Decoupling capacitor next to an integrated circuit\'s power pin.')]
+          'Para mover un componente lo arrastramos; mientras lo movemos hay atajos muy útiles:',
+          'To move a component we drag it; while moving it, some shortcuts are very useful:',
+          [
+            table(
+              [['Tecla', 'Key'], ['Acción', 'Action']],
+              [
+                [['Space', 'Space'], ['Rotar 90° mientras arrastras un componente', 'Rotate 90° while dragging a component']],
+                [['X', 'X'], ['Espejo horizontal (mirror)', 'Horizontal mirror']],
+                [['L', 'L'], ['Pasar el componente al otro lado de la placa (Top ↔ Bottom)', 'Flip the component to the other side of the board (Top ↔ Bottom)']],
+                [['Ctrl + Z', 'Ctrl + Z'], ['Deshacer', 'Undo']],
+                [['Tab', 'Tab'], ['Abrir Properties mientras colocas', 'Open Properties while placing']],
+                [['Q', 'Q'], ['Alternar mils ↔ mm', 'Toggle mils ↔ mm']],
+                [['G', 'G'], ['Cambiar el tamaño del grid de snap', 'Change the snap grid size']],
+              ]
+            ),
+            note('Atajos tal como los anotó Alessandro; conviene probarlos en tu versión de Altium.', 'Shortcuts as noted by Alessandro; it is worth trying them in your Altium version.'),
+          ]
+        ),
+        step(
+          'Si trabajamos con un componente y queremos pasarlo a la <strong>parte de atrás</strong>, lo seleccionamos y en <strong>Properties</strong> cambiamos su <strong>capa</strong>. Ahorita estamos en la capa superior (<strong>Top Layer</strong>, la roja); la azul es la inferior (<strong>Bottom Layer</strong>).',
+          'If we are working with a component and want to move it to the <strong>back side</strong>, we select it and change its <strong>layer</strong> in <strong>Properties</strong>. Right now we are on the top layer (<strong>Top Layer</strong>, the red one); the blue one is the bottom (<strong>Bottom Layer</strong>).',
+          [
+            shots('auto', S('08-colocar-y-rutear/73-cambiar-capa-top-bottom.webp', [1919, 1079], ['Componente U1 seleccionado y el desplegable de Layer con Top Layer y Bottom Layer', 'Component U1 selected and the Layer drop-down with Top Layer and Bottom Layer'], ['Properties → Layer: Top Layer o Bottom Layer', 'Properties → Layer: Top Layer or Bottom Layer'], [[710, 396, 300, 420, ['U1 en Top Layer', 'U1 on Top Layer'], 'left'], [1572, 372, 306, 108, ['Layer', 'Layer'], 'top']])),
+            shots('auto', S('08-colocar-y-rutear/74-componente-en-bottom-espejo.webp', [1919, 1079], ['Componente U1 ya en Bottom Layer, con su texto y sus pines en espejo', 'Component U1 now on Bottom Layer, with its text and pins mirrored'], ['U1 en Bottom Layer: queda en espejo', 'U1 on Bottom Layer: it ends up mirrored'], [[1572, 372, 306, 36, ['Bottom Layer', 'Bottom Layer'], 'top'], [710, 396, 44, 38, ['Texto en espejo', 'Mirrored text'], 'left'], [958, 504, 40, 40, ['Pin 1 ahora a la derecha', 'Pin 1 now on the right'], 'top']])),
+            important('Al cambiar de capa los <b>pines se invierten</b> (el componente queda en espejo): hay que tenerlo en cuenta para conectarlo del otro lado.', 'When the layer changes the <b>pins get inverted</b> (the component is mirrored): keep that in mind to connect it from the other side.'),
+          ]
+        ),
+        step(
+          'Para cambiar entre vistas: la tecla <kbd>2</kbd> es la <strong>vista 2D</strong> (la de ahorita) y la <kbd>3</kbd> es la <strong>vista 3D</strong>, muy útil para revisar.',
+          'To switch views: the <kbd>2</kbd> key is the <strong>2D view</strong> (the current one) and <kbd>3</kbd> is the <strong>3D view</strong>, very useful for checking.',
+          [
+            shots('row', S('08-colocar-y-rutear/78-vista-2d.webp', [1919, 1079], ['Vista 2D de la placa con U1', '2D view of the board with U1'], ['Tecla 2: vista 2D', 'Key 2: 2D view'], [[826, 360, 292, 420, ['U1 en 2D', 'U1 in 2D'], 'top']], false),
+              S('08-colocar-y-rutear/79-vista-3d.webp', [1919, 1079], ['Vista 3D de la placa con U1', '3D view of the board with U1'], ['Tecla 3: vista 3D', 'Key 3: 3D view'], [[776, 400, 330, 410, ['U1 en 3D', 'U1 in 3D'], 'top']], false)),
+          ]
+        ),
+        step(
+          'Para movernos en la vista 3D mantenemos la tecla <kbd>Shift</kbd> y movemos con el <strong>clic derecho</strong> del mouse.',
+          'To move around in the 3D view we hold the <kbd>Shift</kbd> key and move with the mouse <strong>right button</strong>.',
+          [
+            shots('row', S('08-colocar-y-rutear/80-vista-3d-mover.webp', [1919, 1079], ['Vista 3D con el icono de movimiento sobre la placa', '3D view with the move icon over the board'], ['Shift + clic derecho para movernos', 'Shift + right click to move around'], [[975, 298, 254, 262, ['Mover la vista', 'Move the view'], 'top']], false),
+              S('08-colocar-y-rutear/81-vista-3d-volteada.webp', [1919, 1079], ['Vista 3D volteada para ver la placa por el otro lado', '3D view flipped to see the board from the other side'], ['Vista volteada (Top Layer Flipped)', 'Flipped view (Top Layer Flipped)'], [[858, 390, 254, 262, ['Mover la vista', 'Move the view'], 'top'], [296, 212, 380, 34, ['Top Layer (Flipped)', 'Top Layer (Flipped)'], 'bottom']], false)),
+            table(
+              [['Tecla / acción', 'Key / action'], ['Para qué', 'What for']],
+              [
+                [['Ctrl + Shift + H', 'Ctrl + Shift + H'], ['Ajustar la vista a todos los objetos', 'Fit the view to all objects']],
+                [['3', '3'], ['Vista 3D (muy útil para revisar)', '3D view (very useful for checking)']],
+                [['2', '2'], ['Volver a la vista 2D', 'Back to the 2D view']],
+                [['Scroll', 'Scroll'], ['Zoom in / out', 'Zoom in / out']],
+                [['Clic de la rueda', 'Wheel click'], ['Pan (mover la vista)', 'Pan (move the view)']],
+                [['Shift + clic derecho', 'Shift + right click'], ['Moverse en la vista 3D', 'Move around the 3D view']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Sabiendo todo esto vamos acomodando: seleccionamos, movemos, rotamos y revisamos que las conexiones queden lo más ordenadas posible. Aquí ya depende de cada quien y de cómo quiera acomodar.',
+          'Knowing all this we keep arranging: we select, move, rotate and check that the connections end up as tidy as possible. From here it depends on each person and how they want to arrange.',
+          [
+            shots('auto', S('08-colocar-y-rutear/83-acomodando-seleccion.webp', [1919, 1079], ['Varios componentes seleccionados al mismo tiempo mientras se acomodan', 'Several components selected at the same time while being arranged'], ['Podemos seleccionar varios componentes a la vez', 'We can select several components at once'], [[448, 272, 548, 548, ['Placa', 'Board'], 'top'], [1010, 702, 170, 54, ['Por acomodar', 'Still to place'], 'top'], [1398, 1012, 192, 28, ['4 objetos seleccionados', '4 objects selected'], 'top']])),
+            shots('auto', S('08-colocar-y-rutear/84-placa-acomodada.webp', [1919, 1079], ['Placa circular con todos los componentes ya acomodados dentro', 'Circular board with all the components arranged inside'], ['Todos los componentes dentro de la placa', 'All the components inside the board'], [[585, 312, 548, 548, ['Componentes acomodados', 'Components arranged'], 'top']])),
+          ]
+        ),
+        step(
+          'Ya que lo tengamos de una manera que nos guste, podemos empezar a <strong>rutear</strong>.',
+          'Once we have it the way we like, we can start <strong>routing</strong>.',
+          []
         ),
       ],
     },
@@ -496,14 +562,73 @@ export const ALTIUM_FLOW: Flow = {
       title: L('Rutear las pistas', 'Route the tracks'),
       steps: [
         step(
-          'Ya acomodados, <strong>ruteamos</strong>: dibujamos las pistas de cobre que siguen las líneas de conexión. Usamos el <strong>ruteo interactivo</strong> (<kbd>Ctrl</kbd>+<kbd>W</kbd> o <strong>Route → Interactive Routing</strong>): hacemos clic en un pin y seguimos la línea hasta el otro pin.',
-          'With everything arranged, we <strong>route</strong>: we draw the copper tracks that follow the connection lines. We use <strong>interactive routing</strong> (<kbd>Ctrl</kbd>+<kbd>W</kbd> or <strong>Route → Interactive Routing</strong>): we click a pin and follow the line to the other pin.',
-          [prov(), ph('Una pista en proceso de ruteo con el ruteo interactivo activo.', 'A track being routed with interactive routing active.')]
+          'Hay <strong>dos maneras</strong> de rutear. La primera es <strong>manual</strong>: nosotros elegimos por dónde va cada pista. Antes que nada hay que estar seguros de haber <strong>importado las reglas de diseño de JLCPCB</strong> (sección 8). Lo hacemos con <kbd>Ctrl</kbd>+<kbd>W</kbd> o con <strong>Route → Interactive Routing</strong>.',
+          'There are <strong>two ways</strong> to route. The first is <strong>manual</strong>: we choose where each track goes. First of all we must be sure we have <strong>imported the JLCPCB design rules</strong> (section 8). We do it with <kbd>Ctrl</kbd>+<kbd>W</kbd> or with <strong>Route → Interactive Routing</strong>.',
+          [shots('auto', S('08-colocar-y-rutear/87-menu-route-interactive-routing.webp', [1252, 810], ['Menú Route con Interactive Routing resaltado', 'Route menu with Interactive Routing highlighted'], ['Route → Interactive Routing (Ctrl+W)', 'Route → Interactive Routing (Ctrl+W)'], [[399, 42, 64, 28, ['Route', 'Route'], 'top'], [402, 106, 388, 34, ['Interactive Routing', 'Interactive Routing'], 'right']], false))]
         ),
         step(
-          'Si una pista tiene que cruzar a otra, cambiamos de <strong>capa</strong> con una <strong>vía</strong> (se usa la tecla <kbd>*</kbd> del teclado numérico mientras rutea). Las pistas de <strong>alimentación</strong> se hacen más anchas que las de señal.',
-          'If a track has to cross another, we change <strong>layer</strong> with a <strong>via</strong> (the <kbd>*</kbd> key on the numeric keypad while routing). <strong>Power</strong> tracks are made wider than signal tracks.',
-          [ph('Placa con pistas en Top (rojo) y Bottom (azul) y una vía entre ellas.', 'Board with tracks on Top (red) and Bottom (blue) and a via between them.')]
+          'El cursor cambia a una <strong>cruz</strong>. Hacemos clic en un <strong>pad</strong> para empezar la pista, movemos el mouse siguiendo la línea de conexión (<em>ratsnest</em>) hacia el pad destino y hacemos clic en el <strong>pad destino</strong> para completar la conexión. La línea fina desaparece.',
+          'The cursor turns into a <strong>cross</strong>. We click a <strong>pad</strong> to start the track, move the mouse following the connection line (<em>ratsnest</em>) toward the destination pad and click the <strong>destination pad</strong> to complete the connection. The thin line disappears.',
+          [
+            shots('row', S('08-colocar-y-rutear/90-ruteo-cursor-cruz.webp', [660, 308], ['Cursor en forma de cruz verde junto a los pads del conector J1', 'Green cross-shaped cursor next to the pads of connector J1'], ['El cursor se vuelve una cruz', 'The cursor becomes a cross'], [[386, 120, 100, 100, ['Cursor en cruz', 'Cross cursor'], 'bottom']], false),
+              S('08-colocar-y-rutear/91-ruteo-pad-inicio.webp', [340, 368], ['Pad 7 del conector J1 (VCC_DISP) con la cruz del cursor encima', 'Pad 7 of connector J1 (VCC_DISP) with the cursor cross over it'], ['Clic en el pad donde empieza la pista', 'Click the pad where the track starts'], [[62, 62, 72, 72, ['Pad de inicio', 'Start pad'], 'top']], false)),
+            shots('auto', S('08-colocar-y-rutear/92-ruteo-en-curso.webp', [1919, 1079], ['Pista roja en proceso de ruteo desde el pad 7 de J1 y el panel Interactive Routing', 'Red track being routed from pad 7 of J1 and the Interactive Routing panel'], ['Ruteando: la pista sigue la línea de conexión', 'Routing: the track follows the connection line'], [[846, 336, 100, 330, ['Pista en proceso', 'Track in progress'], 'right'], [1572, 444, 304, 36, ['Layer', 'Layer'], 'top'], [1572, 626, 296, 36, ['Via Diameter', 'Via Diameter'], 'top'], [1572, 668, 296, 36, ['Via Hole Size', 'Via Hole Size'], 'bottom'], [1572, 744, 296, 40, ['Width', 'Width'], 'bottom']])),
+            shots('row', S('08-colocar-y-rutear/93-ruteo-pad-destino.webp', [459, 490], ['Pad 1 del capacitor C1 (VCC_DISP) al que llega la pista', 'Pad 1 of capacitor C1 (VCC_DISP) where the track arrives'], ['Clic en el pad destino', 'Click the destination pad'], [[168, 258, 68, 68, ['Pad destino', 'Destination pad'], 'bottom']], false)),
+            shots('auto', S('08-colocar-y-rutear/94-pista-completada.webp', [1919, 1079], ['Pista roja completa desde J1 hasta C1', 'Complete red track from J1 to C1'], ['La pista llega al pad destino y la línea fina desaparece', 'The track reaches the destination pad and the thin line disappears'], [[910, 308, 134, 612, ['Pista VCC_DISP', 'VCC_DISP track'], 'right']])),
+            note('En el panel <strong>Properties</strong> del ruteo se ven la <strong>capa</strong> (Layer), el diámetro y el agujero de la vía (Via Diameter, Via Hole Size) y el <strong>ancho</strong> de la pista (Width).', 'In the routing <strong>Properties</strong> panel you can see the <strong>layer</strong> (Layer), the via diameter and hole (Via Diameter, Via Hole Size) and the track <strong>width</strong> (Width).'),
+          ]
+        ),
+        step(
+          'Atajos durante el ruteo:',
+          'Shortcuts while routing:',
+          [
+            table(
+              [['Tecla', 'Key'], ['Acción', 'Action']],
+              [
+                [['Shift + Space', 'Shift + Space'], ['Cambiar el modo de esquina: 45° → 90° → freestyle', 'Change the corner mode: 45° → 90° → freestyle']],
+                [['Backspace', 'Backspace'], ['Borrar el último segmento', 'Delete the last segment']],
+                [['* (asterisco del teclado numérico)', '* (numeric keypad asterisk)'], ['Cambiar de Top a Bottom Layer (agrega una vía automáticamente)', 'Switch from Top to Bottom Layer (adds a via automatically)']],
+                [['Tab', 'Tab'], ['Cambiar el ancho de la pista', 'Change the track width']],
+                [['Esc', 'Esc'], ['Cancelar', 'Cancel']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Ahí mismo modificamos la <strong>capa</strong> y todo lo que se rutea. Se puede rutear en <strong>ambas capas</strong>: por ejemplo, esta pista azul está en la <strong>Bottom Layer</strong>.',
+          'Right there we change the <strong>layer</strong> and everything that is routed. We can route on <strong>both layers</strong>: for example, this blue track is on the <strong>Bottom Layer</strong>.',
+          [shots('auto', S('08-colocar-y-rutear/96-pista-bottom-azul.webp', [1919, 1079], ['Pista azul en la Bottom Layer saliendo del pin 1 de J1', 'Blue track on the Bottom Layer leaving pin 1 of J1'], ['Una pista en la Bottom Layer (azul)', 'A track on the Bottom Layer (blue)'], [[610, 380, 176, 204, ['Pista Bottom (azul)', 'Bottom track (blue)'], 'right'], [1572, 444, 304, 36, ['Layer: Bottom Layer', 'Layer: Bottom Layer'], 'top'], [590, 1008, 172, 28, ['Capa activa', 'Active layer'], 'top']]))]
+        ),
+        step(
+          'Cuando una pista no puede llegar a su destino sin cruzar otra, cambiamos de capa con una <strong>vía</strong>: un agujero metalizado que conecta una pista del Top Layer con el Bottom Layer.',
+          'When a track cannot reach its destination without crossing another, we change layer with a <strong>via</strong>: a plated hole that joins a Top Layer track to the Bottom Layer.',
+          [
+            shots('row', S('08-colocar-y-rutear/99-via-detalle.webp', [138, 129], ['Vía en la red GND, vista de cerca', 'Via on the GND net, close up'], ['Una vía (círculo con punto central)', 'A via (circle with a center dot)'], [], false)),
+            shots('auto', S('08-colocar-y-rutear/100-vias-top-y-bottom.webp', [1035, 654], ['Pistas en Top (rojo) y Bottom (azul) unidas por una vía en la red GND', 'Tracks on Top (red) and Bottom (blue) joined by a via on the GND net'], ['Pistas de las dos capas unidas por una vía', 'Tracks on both layers joined by a via'], [[606, 318, 84, 84, ['Vía', 'Via'], 'top'], [130, 130, 330, 390, ['Pista Bottom', 'Bottom track'], 'right'], [210, 510, 440, 100, ['Pista Top', 'Top track'], 'bottom']], false)),
+            important('<b>Método 1 (el más común):</b> durante el ruteo con <kbd>Ctrl</kbd>+<kbd>W</kbd>, en el momento en que necesitas cambiar de capa presiona <kbd>*</kbd> (asterisco del teclado numérico). Altium coloca una vía en el punto actual y cambia al otro lado; sigues ruteando. Con <kbd>*</kbd> de nuevo regresas al Top Layer con otra vía.', '<b>Method 1 (the most common):</b> while routing with <kbd>Ctrl</kbd>+<kbd>W</kbd>, at the moment you need to change layer press <kbd>*</kbd> (numeric keypad asterisk). Altium places a via at the current point and switches to the other side; you keep routing. With <kbd>*</kbd> again you go back to the Top Layer with another via.'),
+            note('<strong>Método 2 (vía suelta):</strong> sin estar ruteando, con <strong>Place → Via</strong> o los atajos <kbd>P</kbd> y luego <kbd>V</kbd>. Sirve si ya hay dos segmentos y quieres unirlos colocando la vía entre ellos.', '<strong>Method 2 (loose via):</strong> without routing, with <strong>Place → Via</strong> or the <kbd>P</kbd> then <kbd>V</kbd> shortcuts. It is useful if there are already two segments and you want to join them by placing the via between them.'),
+            table(
+              [['Parámetro', 'Parameter'], ['Mínimo JLCPCB', 'JLCPCB minimum']],
+              [
+                [['Drill (taladro)', 'Drill (hole)'], ['0.3 mm', '0.3 mm']],
+                [['Pad diameter', 'Pad diameter'], ['0.6 mm', '0.6 mm']],
+              ]
+            ),
+            note('En el <strong>Properties</strong> de la vía hay que verificar que cumpla esos mínimos (valores que indicó Alessandro; conviene confirmarlos con las capacidades vigentes de JLCPCB). En la vista 2D las vías son círculos con un punto central y en 3D se ven como los agujeros reales de la placa.', 'In the via <strong>Properties</strong> check that it meets those minimums (values given by Alessandro; it is worth confirming them against JLCPCB\'s current capabilities). In the 2D view vias are circles with a center dot and in 3D they look like the real holes in the board.'),
+          ]
+        ),
+        step(
+          'Si bien rutear a mano es válido y profesional, lo <strong>eficiente y óptimo para nosotros</strong> es usar el <strong>autoruteo</strong>. Volvemos a la placa con todo acomodado…',
+          'While routing by hand is valid and professional, what is <strong>efficient and optimal for us</strong> is the <strong>autorouter</strong>. We go back to the board with everything arranged…',
+          [shots('auto', S('08-colocar-y-rutear/101-placa-lista-para-autoruteo.webp', [1909, 1079], ['Placa circular con todos los componentes acomodados y las líneas de conexión sin rutear', 'Circular board with all the components arranged and the connection lines still unrouted'], ['La placa acomodada, lista para el autoruteo', 'The arranged board, ready for the autorouter'], [[497, 214, 776, 776, ['Placa lista', 'Board ready'], 'top']]))]
+        ),
+        step(
+          '…y vamos a <strong>Route → Auto Route → All…</strong> Se abre el diálogo <strong>Situs Routing Strategies</strong>.',
+          '…and we go to <strong>Route → Auto Route → All…</strong> The <strong>Situs Routing Strategies</strong> dialog opens.',
+          [
+            shots('auto', S('08-colocar-y-rutear/102-menu-auto-route-all.webp', [1221, 1006], ['Menú Route → Auto Route con All… resaltado', 'Route → Auto Route menu with All… highlighted'], ['Route → Auto Route → All…', 'Route → Auto Route → All…'], [[399, 42, 64, 28, ['Route', 'Route'], 'top'], [402, 504, 388, 36, ['Auto Route', 'Auto Route'], 'left'], [790, 504, 428, 36, ['All…', 'All…'], 'right']], false)),
+            pend('Falta documentar el diálogo <strong>Situs Routing Strategies</strong> (qué opciones elegir y cómo lanzar el autoruteo) y el resultado. Alessandro lo mandará en la siguiente tanda.', 'The <strong>Situs Routing Strategies</strong> dialog (which options to pick and how to launch the autorouter) and the result are still missing. Alessandro will send them in the next batch.'),
+          ]
         ),
       ],
     },

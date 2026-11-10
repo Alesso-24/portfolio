@@ -771,6 +771,86 @@
   520,
   128
  ],
+ "10-altium/08-colocar-y-rutear/100-vias-top-y-bottom.webp": [
+  1035,
+  654
+ ],
+ "10-altium/08-colocar-y-rutear/101-placa-lista-para-autoruteo.webp": [
+  1909,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/102-menu-auto-route-all.webp": [
+  1221,
+  1006
+ ],
+ "10-altium/08-colocar-y-rutear/73-cambiar-capa-top-bottom.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/74-componente-en-bottom-espejo.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/78-vista-2d.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/79-vista-3d.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/80-vista-3d-mover.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/81-vista-3d-volteada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/82-inicio-acomodar.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/83-acomodando-seleccion.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/84-placa-acomodada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/87-menu-route-interactive-routing.webp": [
+  1252,
+  810
+ ],
+ "10-altium/08-colocar-y-rutear/90-ruteo-cursor-cruz.webp": [
+  660,
+  308
+ ],
+ "10-altium/08-colocar-y-rutear/91-ruteo-pad-inicio.webp": [
+  340,
+  368
+ ],
+ "10-altium/08-colocar-y-rutear/92-ruteo-en-curso.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/93-ruteo-pad-destino.webp": [
+  459,
+  490
+ ],
+ "10-altium/08-colocar-y-rutear/94-pista-completada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/96-pista-bottom-azul.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/99-via-detalle.webp": [
+  138,
+  129
+ ],
  "referencia-componentes/led/01-simbolo-led-1206.png": [
   645,
   429
