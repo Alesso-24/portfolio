@@ -7,10 +7,12 @@ import { KICAD_FLOW } from '../../../../data/kicad-flow'
 import { MODS_FLOW } from '../../../../data/mods-adapter'
 import { MONOFAB_REAL_FLOW } from '../../../../data/monofab-real-flow'
 import { MULTISIM_FLOW } from '../../../../data/multisim-flow'
+import { ALTIUM_FLOW } from '../../../../data/altium-flow'
 import { BRAND_BASE } from '../../../../data/flow-utils'
-import { getSubject } from '../../../../data/docs'
+import { getSubject, getPractices } from '../../../../data/docs'
 
 const subject = getSubject('produccion-electronica')!
+const practice = getPractices('produccion-electronica')[0]
 const teamNames = subject.team.map((m) => m.name).join(' + ')
 ---
 
@@ -35,7 +37,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Equipo" en="Team" /></span>{teamNames}</div>
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Herramientas" en="Tools" /></span>KiCad · mods · MonoFab · Multisim · Altium</div>
       <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Estado" en="Status" /></span>
-        <span class="status-chip status-chip--completa" style="margin-top:2px;"><span class="status-dot"></span><T es="Completa" en="Complete" /></span>
+        <span class={`status-chip status-chip--${practice.status}`} style="margin-top:2px;"><span class="status-dot"></span>{practice.status === 'completa' ? <T es="Completa" en="Complete" /> : <T es="En progreso" en="In progress" />}</span>
       </div>
     </div>
   </div>
@@ -80,10 +82,11 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
           <span class="tool-tab__sub"><T es="Simulación de circuitos, instrumentos y análisis" en="Circuit simulation, instruments and analyses" /></span>
         </span>
       </button>
-      <button type="button" role="tab" class="tool-tab tool-tab--pending" id="tab-altium" data-tab="altium" aria-controls="panel-altium" aria-selected="false" tabindex="-1">
+      <button type="button" role="tab" class="tool-tab" id="tab-altium" data-tab="altium" aria-controls="panel-altium" aria-selected="false" tabindex="-1">
         <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--altium"><img src={`${BRAND_BASE}altium-logo.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
-          <span class="tool-tab__title">Altium<span class="tool-tab__badge"><T es="Pendiente" en="Pending" /></span></span>
+          <span class="tool-tab__title">Altium<span class="tool-tab__badge"><T es="Borrador" en="Draft" /></span></span>
+          <span class="tool-tab__sub"><T es="Del esquemático al pedido en JLCPCB" en="From schematic to the JLCPCB order" /></span>
         </span>
       </button>
     </div>
@@ -132,12 +135,11 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
 
     <!-- Altium -->
     <section class="tool-panel" id="panel-altium" role="tabpanel" aria-labelledby="tab-altium" data-tab-panel="altium">
-      <div class="tool-pending">
-        <img src={`${BRAND_BASE}altium-logo.webp`} alt="Altium" width="70" height="96" />
-        <div>
-          <h3>Altium <span class="tool-tab__badge"><T es="Pendiente" en="Pending" /></span></h3>
-        </div>
+      <div class="tool-panel__head">
+        <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}altium-logo.webp`} alt="Altium Designer" width="62" height="62" />
+        <p><T es={'<strong>Altium Designer</strong> es el programa profesional con el que se diseña la PCB completa: esquemático, revisión (DRC), placa, archivos de fabricación y pedido a <strong>JLCPCB</strong>. Esta guía está <strong>en construcción</strong>: las primeras secciones ya salen de una placa real; las siguientes son <strong>provisionales</strong> y su orden puede cambiar. Las zonas punteadas son <strong>capturas pendientes</strong>.'} en={'<strong>Altium Designer</strong> is the professional program used to design the whole PCB: schematic, checks (DRC), board, manufacturing files and the order at <strong>JLCPCB</strong>. This guide is <strong>under construction</strong>: the first sections already come from a real board; the following ones are <strong>provisional</strong> and their order may change. The dotted areas are <strong>pending screenshots</strong>.'} /></p>
       </div>
+      <Flow flow={ALTIUM_FLOW} />
     </section>
   </div>
 </DocsLayout>

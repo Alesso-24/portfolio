@@ -73,6 +73,6 @@ export interface FlowSection {
 }
 
 export interface Flow {
-  id: 'kicad' | 'mods' | 'monofab' | 'multisim'
+  id: 'kicad' | 'mods' | 'monofab' | 'multisim' | 'altium'
   sections: FlowSection[]
 }

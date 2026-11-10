@@ -55,7 +55,7 @@ export const DOCS_PRACTICES: DocsPractice[] = [
     slug: 'primera-placa-kicad',
     number: '01',
     title: 'Creación de PCBs',
-    status: 'completa',
+    status: 'en-progreso',
     summary: 'El proceso completo para producir una placa de circuito impreso: diseño en KiCad, trayectorias de fresado con mods y fabricación en MonoFab y Altium.',
   },
 ]
