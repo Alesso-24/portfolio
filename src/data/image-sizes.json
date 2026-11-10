@@ -667,6 +667,14 @@
   1024,
   685
  ],
+ "10-altium/06-importar-cambios-y-reglas/103-seleccionar-reglas-import.webp": [
+  1348,
+  987
+ ],
+ "10-altium/06-importar-cambios-y-reglas/104-rule-set-ya-existe-replace-all.webp": [
+  731,
+  482
+ ],
  "10-altium/06-importar-cambios-y-reglas/47-esquematico-listo-para-drc.webp": [
   1919,
   1079
@@ -850,6 +858,70 @@
  "10-altium/08-colocar-y-rutear/99-via-detalle.webp": [
   138,
   129
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/106-situs-sin-errores.webp": [
+  945,
+  1051
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/107-situs-route-all.webp": [
+  939,
+  1040
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/108-autoruteo-en-progreso.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/109-autoruteo-terminado.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/111-vista-3d-ruteada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/112-menu-tools-drc.webp": [
+  1038,
+  616
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/113-drc-run.webp": [
+  1139,
+  1046
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/114-informe-drc.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/115-informe-resumen.webp": [
+  1090,
+  937
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/116-informe-silk-solder-mask.webp": [
+  1088,
+  959
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/117-informe-board-clearance.webp": [
+  1079,
+  927
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/118-menu-place-string.webp": [
+  723,
+  653
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/119-string-flotando.webp": [
+  261,
+  230
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/120-propiedades-string.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/122-texto-disenadores-alux.webp": [
+  1919,
+  1077
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/124-vista-3d-texto.webp": [
+  1911,
+  1079
  ],
  "referencia-componentes/led/01-simbolo-led-1206.png": [
   645,

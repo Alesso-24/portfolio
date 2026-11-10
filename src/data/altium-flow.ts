@@ -337,6 +337,16 @@ export const ALTIUM_FLOW: Flow = {
           ]
         ),
         step(
+          'Se abre la ventana <strong>Select Design Rules</strong> con todas las reglas que trae el archivo (eléctricas, de ruteo, de máscara, de plano…), todas marcadas. Damos <strong>Import</strong>.',
+          'The <strong>Select Design Rules</strong> window opens with every rule the file contains (electrical, routing, mask, plane…), all ticked. We press <strong>Import</strong>.',
+          [shots('auto', S('06-importar-cambios-y-reglas/103-seleccionar-reglas-import.webp', [1348, 987], ['Ventana Select Design Rules con el archivo 2layer-1oz.RUL y el botón Import', 'Select Design Rules window with the 2layer-1oz.RUL file and the Import button'], ['Select Design Rules → Import', 'Select Design Rules → Import'], [[378, 66, 260, 64, ['Archivo .RUL', '.RUL file'], 'right'], [368, 144, 600, 760, ['Reglas que se importan', 'Rules being imported'], 'left'], [766, 928, 112, 38, ['Import', 'Import'], 'top']], false))]
+        ),
+        step(
+          'Como ya existe un <em>Default Rule Set</em>, Altium pregunta qué hacer con las reglas importadas. Elegimos <strong>Replace all</strong>: borra las reglas actuales de ese conjunto y deja solo las del archivo de JLCPCB.',
+          'Since a <em>Default Rule Set</em> already exists, Altium asks what to do with the imported rules. We choose <strong>Replace all</strong>: it removes the current rules of that set and keeps only the ones from the JLCPCB file.',
+          [shots('auto', S('06-importar-cambios-y-reglas/104-rule-set-ya-existe-replace-all.webp', [731, 482], ['Diálogo Rule Set Already Exists con tres opciones y Replace all', 'Rule Set Already Exists dialog with three options and Replace all'], ['Rule Set Already Exists → Replace all', 'Rule Set Already Exists → Replace all'], [[96, 370, 618, 92, ['Replace all', 'Replace all'], 'top']], false))]
+        ),
+        step(
           'Damos clic en <strong>Apply</strong> (abajo a la derecha) y después en <strong>OK</strong> para cerrar la ventana. Ahora sí podemos empezar a diseñar.',
           'We click <strong>Apply</strong> (bottom right) and then <strong>OK</strong> to close the window. Now we can start designing.',
           [
@@ -625,48 +635,105 @@ export const ALTIUM_FLOW: Flow = {
         step(
           '…y vamos a <strong>Route → Auto Route → All…</strong> Se abre el diálogo <strong>Situs Routing Strategies</strong>.',
           '…and we go to <strong>Route → Auto Route → All…</strong> The <strong>Situs Routing Strategies</strong> dialog opens.',
+          [shots('auto', S('08-colocar-y-rutear/102-menu-auto-route-all.webp', [1221, 1006], ['Menú Route → Auto Route con All… resaltado', 'Route → Auto Route menu with All… highlighted'], ['Route → Auto Route → All…', 'Route → Auto Route → All…'], [[399, 42, 64, 28, ['Route', 'Route'], 'top'], [402, 504, 388, 36, ['Auto Route', 'Auto Route'], 'left'], [790, 504, 428, 36, ['All…', 'All…'], 'right']], false))]
+        ),
+        step(
+          'Arriba, el <strong>Routing Setup Report</strong> resume si las reglas están bien. Lo importante es que diga <strong>0 Errors y 0 Warnings</strong>: como ya importamos las reglas de JLCPCB, no hay errores. (La única nota es una sugerencia, <em>Hint</em>, sobre una regla SMDNeckDown que no existe; no impide rutear.)',
+          'At the top, the <strong>Routing Setup Report</strong> sums up whether the rules are fine. What matters is that it says <strong>0 Errors and 0 Warnings</strong>: since we already imported the JLCPCB rules, there are no errors. (The only note is a suggestion, a <em>Hint</em>, about a missing SMDNeckDown rule; it does not prevent routing.)',
+          [shots('auto', S('09-autoruteo-drc-y-texto/106-situs-sin-errores.webp', [945, 1051], ['Diálogo Situs Routing Strategies con 0 errores y 0 warnings', 'Situs Routing Strategies dialog with 0 errors and 0 warnings'], ['Situs Routing Strategies: ya no hay errores', 'Situs Routing Strategies: there are no errors anymore'], [[54, 124, 800, 62, ['0 Errors · 0 Warnings', '0 Errors · 0 Warnings'], 'right']], false))]
+        ),
+        step(
+          'Abajo se elige la <strong>estrategia de ruteo</strong>. Dejamos <strong>Default 2 Layer Board</strong> (la estrategia por defecto para placas de dos capas) y damos <strong>Route All</strong>.',
+          'At the bottom we pick the <strong>routing strategy</strong>. We keep <strong>Default 2 Layer Board</strong> (the default strategy for two-layer boards) and press <strong>Route All</strong>.',
           [
-            shots('auto', S('08-colocar-y-rutear/102-menu-auto-route-all.webp', [1221, 1006], ['Menú Route → Auto Route con All… resaltado', 'Route → Auto Route menu with All… highlighted'], ['Route → Auto Route → All…', 'Route → Auto Route → All…'], [[399, 42, 64, 28, ['Route', 'Route'], 'top'], [402, 504, 388, 36, ['Auto Route', 'Auto Route'], 'left'], [790, 504, 428, 36, ['All…', 'All…'], 'right']], false)),
-            pend('Falta documentar el diálogo <strong>Situs Routing Strategies</strong> (qué opciones elegir y cómo lanzar el autoruteo) y el resultado. Alessandro lo mandará en la siguiente tanda.', 'The <strong>Situs Routing Strategies</strong> dialog (which options to pick and how to launch the autorouter) and the result are still missing. Alessandro will send them in the next batch.'),
+            shots('auto', S('09-autoruteo-drc-y-texto/107-situs-route-all.webp', [939, 1040], ['Diálogo Situs con Default 2 Layer Board seleccionada y el botón Route All', 'Situs dialog with Default 2 Layer Board selected and the Route All button'], ['Default 2 Layer Board → Route All', 'Default 2 Layer Board → Route All'], [[42, 635, 870, 26, ['Default 2 Layer Board', 'Default 2 Layer Board'], 'top'], [698, 988, 112, 38, ['Route All', 'Route All'], 'top']], false)),
+            pend('Faltan por documentar los demás botones del diálogo (Edit Layer Directions, Edit Rules, Lock All Pre-routes, Rip-up Violations After Routing) y cuándo conviene usar otra estrategia.', 'The other buttons of the dialog (Edit Layer Directions, Edit Rules, Lock All Pre-routes, Rip-up Violations After Routing) and when another strategy is worth using are still to be documented.'),
+          ]
+        ),
+        step(
+          'Y veremos cómo <strong>rutea todo</strong>. En el panel <strong>Messages</strong> aparece el avance (por ejemplo, <em>26 of 46 connections</em>) hasta que termina con <strong>46 of 46 connections</strong> y el mensaje <em>Situs Routing finished</em>.',
+          'And we will see it <strong>route everything</strong>. The <strong>Messages</strong> panel shows the progress (for example, <em>26 of 46 connections</em>) until it ends with <strong>46 of 46 connections</strong> and the <em>Situs Routing finished</em> message.',
+          [
+            shots('row', S('09-autoruteo-drc-y-texto/108-autoruteo-en-progreso.webp', [1919, 1079], ['Autoruteo en proceso con algunas pistas dibujadas y el panel Messages', 'Autorouting in progress with some tracks drawn and the Messages panel'], ['Ruteando: 26 de 46 conexiones', 'Routing: 26 of 46 connections'], [[497, 214, 776, 776, ['Placa', 'Board'], 'top'], [1398, 500, 505, 52, ['Avance', 'Progress'], 'left']], false),
+              S('09-autoruteo-drc-y-texto/109-autoruteo-terminado.webp', [1919, 1079], ['Autoruteo terminado: todas las pistas dibujadas y Routing finished en Messages', 'Autorouting finished: all tracks drawn and Routing finished in Messages'], ['Terminado: 46 de 46 conexiones', 'Finished: 46 of 46 connections'], [[497, 214, 776, 776, ['Placa ruteada', 'Routed board'], 'top'], [1398, 792, 505, 32, ['Routing finished', 'Routing finished'], 'left']], false)),
+          ]
+        ),
+        step(
+          'Podemos usar la <strong>vista 3D</strong> (tecla <kbd>3</kbd>) para verificar cómo quedó la placa.',
+          'We can use the <strong>3D view</strong> (the <kbd>3</kbd> key) to check how the board turned out.',
+          [shots('auto', S('09-autoruteo-drc-y-texto/111-vista-3d-ruteada.webp', [1919, 1079], ['Vista 3D de la placa ruteada con los componentes y las pistas', '3D view of the routed board with the components and the tracks'], ['Placa ruteada en 3D', 'Routed board in 3D'], [[444, 214, 866, 792, ['Placa en 3D', 'Board in 3D'], 'top']]))]
+        ),
+      ],
+    },
+
+    // ———————————————————————————————— 12 DRC PCB
+    {
+      id: 'altium-drc-pcb',
+      chip: L('12 · DRC de la PCB', '12 · PCB DRC'),
+      title: L('Revisar la PCB antes de fabricar', 'Check the PCB before manufacturing'),
+      steps: [
+        step(
+          'Ahora corremos el <strong>DRC</strong> para verificar que no haya violaciones de las reglas de diseño: <strong>Tools → Design Rule Check…</strong>',
+          'Now we run the <strong>DRC</strong> to check there are no violations of the design rules: <strong>Tools → Design Rule Check…</strong>',
+          [shots('auto', S('09-autoruteo-drc-y-texto/112-menu-tools-drc.webp', [1038, 616], ['Menú Tools con Design Rule Check… resaltado', 'Tools menu with Design Rule Check… highlighted'], ['Tools → Design Rule Check…', 'Tools → Design Rule Check…'], [[340, 40, 64, 30, ['Tools', 'Tools'], 'top'], [342, 72, 456, 34, ['Design Rule Check…', 'Design Rule Check…'], 'right']], false))]
+        ),
+        step(
+          'Se abre la ventana <strong>Design Rule Checker</strong>. Dejamos las opciones por defecto (con <strong>Create Report File</strong> marcado, para que genere el informe) y damos <strong>Run Design Rule Check…</strong>',
+          'The <strong>Design Rule Checker</strong> window opens. We keep the default options (with <strong>Create Report File</strong> ticked, so it generates the report) and press <strong>Run Design Rule Check…</strong>',
+          [shots('auto', S('09-autoruteo-drc-y-texto/113-drc-run.webp', [1139, 1046], ['Ventana Design Rule Checker con Create Report File y el botón Run Design Rule Check', 'Design Rule Checker window with Create Report File and the Run Design Rule Check button'], ['Design Rule Checker → Run', 'Design Rule Checker → Run'], [[353, 118, 192, 32, ['Create Report File', 'Create Report File'], 'right'], [2, 992, 236, 38, ['Run Design Rule Check…', 'Run Design Rule Check…'], 'top']], false))]
+        ),
+        step(
+          'Se abre el <strong>Design Rule Verification Report</strong>, donde se detallan todas las violaciones a las reglas de diseño. Arriba aparecen el número de <strong>Warnings</strong> y de <strong>Rule Violations</strong>; las violaciones también se listan en el panel <strong>Messages</strong>.',
+          'The <strong>Design Rule Verification Report</strong> opens, detailing every violation of the design rules. At the top it shows the number of <strong>Warnings</strong> and <strong>Rule Violations</strong>; the violations are also listed in the <strong>Messages</strong> panel.',
+          [
+            shots('auto', S('09-autoruteo-drc-y-texto/114-informe-drc.webp', [1919, 1079], ['Informe de verificación de reglas con 0 warnings y 22 violaciones, y el panel Messages', 'Rule verification report with 0 warnings and 22 violations, and the Messages panel'], ['El informe del DRC', 'The DRC report'], [[1214, 418, 134, 84, ['0 Warnings · 22 Violations', '0 Warnings · 22 Violations'], 'left'], [1398, 130, 505, 790, ['Messages', 'Messages'], 'left']])),
+            shots('auto', S('09-autoruteo-drc-y-texto/115-informe-resumen.webp', [1090, 937], ['Resumen del informe: Warnings 0 y la lista de reglas con su número de violaciones', 'Report summary: Warnings 0 and the rule list with its violation count'], ['Resumen: 0 warnings y la lista de reglas', 'Summary: 0 warnings and the rule list'], [[12, 346, 1048, 64, ['Warnings: 0', 'Warnings: 0'], 'top'], [12, 446, 1048, 480, ['Reglas y violaciones', 'Rules and violations'], 'right']], false)),
+          ]
+        ),
+        step(
+          'En nuestro caso aparecen <strong>22 Rule Violations</strong>: 20 de <em>Silk To Solder Mask Clearance</em> (la serigrafía de los capacitores y resistencias queda a 0.125 mm de la máscara de soldadura, cuando la regla pide 0.127 mm) y 2 de <em>Board Clearance</em> (textos de la serigrafía muy cerca del borde de la placa). Son <strong>estéticos</strong>: no afectan nada eléctrico y la placa <strong>se puede mandar a producir</strong>.',
+          'In our case there are <strong>22 Rule Violations</strong>: 20 of <em>Silk To Solder Mask Clearance</em> (the silkscreen of the capacitors and resistors sits 0.125 mm from the solder mask, when the rule asks for 0.127 mm) and 2 of <em>Board Clearance</em> (silkscreen texts very close to the board edge). They are <strong>cosmetic</strong>: they affect nothing electrical and the board <strong>can be sent to production</strong>.',
+          [
+            shots('row', S('09-autoruteo-drc-y-texto/116-informe-silk-solder-mask.webp', [1088, 959], ['Lista de violaciones Silk To Solder Mask Clearance entre pads y serigrafía', 'List of Silk To Solder Mask Clearance violations between pads and silkscreen'], ['Silk To Solder Mask Clearance (20)', 'Silk To Solder Mask Clearance (20)'], [[12, 152, 1048, 38, ['Silk To Solder Mask', 'Silk To Solder Mask'], 'top'], [840, 96, 220, 34, ['Total: 22', 'Total: 22'], 'bottom']], false),
+              S('09-autoruteo-drc-y-texto/117-informe-board-clearance.webp', [1079, 927], ['Violaciones de Board Clearance entre el borde de la placa y los textos J1 y J4', 'Board Clearance violations between the board edge and the J1 and J4 texts'], ['Board Clearance (2)', 'Board Clearance (2)'], [[6, 740, 1048, 40, ['Board Clearance', 'Board Clearance'], 'top'], [12, 784, 1048, 68, ['Textos J1 y J4', 'J1 and J4 texts'], 'bottom']], false)),
+            important('Lo importante es que <b>no haya warnings</b>. Si aparece alguno, hay que revisarlo y corregirlo antes de fabricar.', 'What matters is that there are <b>no warnings</b>. If one shows up, it must be reviewed and fixed before manufacturing.'),
           ]
         ),
       ],
     },
 
-    // ———————————————————————————————— 12 cobre y serigrafía
+    // ———————————————————————————————— 13 texto y logo
     {
       id: 'altium-cobre',
-      chip: L('12 · Cobre y serigrafía', '12 · Copper and silkscreen'),
-      title: L('Plano de tierra y serigrafía', 'Ground plane and silkscreen'),
+      chip: L('13 · Texto y logo', '13 · Text and logo'),
+      title: L('Texto y logo en la serigrafía', 'Text and logo on the silkscreen'),
       steps: [
         step(
-          'Un <strong>plano de cobre</strong> conectado a GND mejora el ruido y simplifica el ruteo. Se hace con <strong>Place → Polygon Pour</strong>: dibujamos la zona sobre la placa, elegimos la capa y la red <strong>GND</strong>, y Altium la rellena alrededor de las pistas.',
-          'A <strong>copper plane</strong> tied to GND reduces noise and simplifies routing. It is made with <strong>Place → Polygon Pour</strong>: we draw the area over the board, choose the layer and the <strong>GND</strong> net, and Altium fills it around the tracks.',
-          [prov(), ph('Polygon Pour sobre la placa conectado a la red GND.', 'Polygon Pour over the board connected to the GND net.')]
+          'Sabiendo que la placa no tiene warnings, podemos pasar a cosas como agregar <strong>texto o un logo</strong> en la capa <strong>Top Overlay</strong> (la serigrafía de arriba, la <strong>amarilla</strong>). Primero seleccionamos la capa <strong>Top Overlay</strong> en la barra inferior y luego vamos a <strong>Place → String</strong> (o el atajo <kbd>P</kbd> y luego <kbd>S</kbd>).',
+          'Knowing the board has no warnings, we can move on to things like adding <strong>text or a logo</strong> on the <strong>Top Overlay</strong> layer (the top silkscreen, the <strong>yellow</strong> one). First we select the <strong>Top Overlay</strong> layer in the bottom bar and then go to <strong>Place → String</strong> (or the <kbd>P</kbd> then <kbd>S</kbd> shortcut).',
+          [
+            shots('auto', S('09-autoruteo-drc-y-texto/118-menu-place-string.webp', [723, 653], ['Menú Place con String resaltado', 'Place menu with String highlighted'], ['Place → String', 'Place → String'], [[212, 38, 66, 32, ['Place', 'Place'], 'top'], [216, 348, 334, 36, ['String', 'String'], 'right']], false)),
+            shots('auto', S('09-autoruteo-drc-y-texto/119-string-flotando.webp', [261, 230], ['Texto String flotando con el cursor, en rojo', 'String text floating with the cursor, in red'], ['El texto flota con el cursor', 'The text floats with the cursor'], [[80, 92, 128, 42, ['String (en rojo)', 'String (in red)'], 'bottom']], false)),
+            important('Si el texto sale en <b>rojo</b>, está en la capa <b>Top Layer</b> (cobre) y no en la serigrafía: hay que cambiarlo a <b>Top Overlay</b> (amarilla). Alessandro lo tuvo que cambiar después porque no lo había hecho antes.', 'If the text shows up in <b>red</b>, it is on the <b>Top Layer</b> (copper) and not on the silkscreen: it must be changed to <b>Top Overlay</b> (yellow). Alessandro had to change it afterwards because he had not done it before.'),
+          ]
         ),
         step(
-          'La <strong>serigrafía</strong> (capa Top Overlay) son los textos impresos sobre la placa: designadores, polaridades y nombre. Revisamos que se lean y que <strong>no queden encima de las almohadillas</strong>.',
-          'The <strong>silkscreen</strong> (Top Overlay layer) is the text printed on the board: designators, polarities and name. We check that it is legible and that it <strong>does not sit on top of the pads</strong>.',
-          [ph('Placa con la serigrafía visible (designadores) sin tapar las almohadillas.', 'Board with visible silkscreen (designators) not covering the pads.')]
-        ),
-      ],
-    },
-
-    // ———————————————————————————————— 13 DRC PCB
-    {
-      id: 'altium-drc-pcb',
-      chip: L('13 · DRC de la PCB', '13 · PCB DRC'),
-      title: L('Revisar la PCB antes de fabricar', 'Check the PCB before manufacturing'),
-      steps: [
-        step(
-          'Igual que con el esquemático, corremos un <strong>DRC de la PCB</strong>: <strong>Tools → Design Rule Check…</strong> y <strong>Run Design Rule Check</strong>. Revisa que se cumplan las reglas definidas (separaciones, anchos, conexiones sin rutear, etc.) y genera un reporte con los errores, marcados en la placa.',
-          'As with the schematic, we run a <strong>PCB DRC</strong>: <strong>Tools → Design Rule Check…</strong> and <strong>Run Design Rule Check</strong>. It checks that the defined rules are met (clearances, widths, unrouted connections, etc.) and produces a report with the errors, marked on the board.',
-          [prov(), ph('Ventana Design Rule Checker y el reporte con la lista de violaciones.', 'Design Rule Checker window and the report with the violations list.'), important('<b>No se manda a fabricar</b> con errores de DRC sin entender. Cada uno se corrige o se justifica.', 'Do <b>not send to manufacturing</b> with DRC errors you do not understand. Each one is fixed or justified.')]
+          'Con el texto seleccionado, en <strong>Properties</strong> cambiamos la capa a <strong>Top Overlay</strong> y podemos modificar el <strong>texto</strong>, la <strong>altura</strong> (Text Height), el tipo y la <strong>fuente</strong> (Font) y el <strong>grosor del trazo</strong> (Stroke Width).',
+          'With the text selected, in <strong>Properties</strong> we change the layer to <strong>Top Overlay</strong> and can edit the <strong>text</strong>, the <strong>height</strong> (Text Height), the type and the <strong>font</strong> (Font) and the <strong>stroke width</strong> (Stroke Width).',
+          [shots('auto', S('09-autoruteo-drc-y-texto/120-propiedades-string.webp', [1919, 1079], ['Texto String seleccionado y su panel Properties con capa, altura, tipo de fuente y grosor', 'Selected String text and its Properties panel with layer, height, font type and stroke width'], ['Propiedades del texto', 'Text properties'], [[390, 478, 196, 62, ['Texto', 'Text'], 'top'], [1572, 392, 306, 36, ['Text', 'Text'], 'top'], [1572, 433, 306, 36, ['Layer: Top Overlay', 'Layer: Top Overlay'], 'top'], [1572, 505, 306, 34, ['Text Height', 'Text Height'], 'bottom'], [1406, 592, 472, 42, ['Font Type', 'Font Type'], 'top'], [1572, 683, 306, 36, ['Font', 'Font'], 'top'], [1572, 724, 306, 36, ['Stroke Width', 'Stroke Width'], 'bottom']]))]
         ),
         step(
-          'Como última revisión, miramos la placa en <strong>3D</strong> (tecla <kbd>3</kbd>) para comprobar que las huellas y los conectores quedaron como esperamos.',
-          'As a last check, we look at the board in <strong>3D</strong> (the <kbd>3</kbd> key) to confirm the footprints and connectors ended up as expected.',
-          [ph('Vista 3D de la placa terminada.', '3D view of the finished board.')]
+          'Y acomodando los textos podemos poner, por ejemplo, el <strong>nombre del proyecto</strong> y los <strong>diseñadores</strong>. En la vista 3D se ve cómo quedan impresos sobre la placa.',
+          'And by arranging the texts we can put, for example, the <strong>project name</strong> and the <strong>designers</strong>. The 3D view shows how they end up printed on the board.',
+          [
+            shots('row', S('09-autoruteo-drc-y-texto/122-texto-disenadores-alux.webp', [1919, 1077], ['Placa con el texto designed by Alexa and Alessandro y el nombre Alux sobre la serigrafía', 'Board with the text designed by Alexa and Alessandro and the name Alux on the silkscreen'], ['Textos acomodados en la placa', 'Texts arranged on the board'], [[845, 548, 296, 94, ['Diseñadores', 'Designers'], 'top'], [527, 712, 182, 88, ['Nombre del proyecto', 'Project name'], 'top']], false),
+              S('09-autoruteo-drc-y-texto/124-vista-3d-texto.webp', [1911, 1079], ['Vista 3D de la placa con los textos impresos', '3D view of the board with the printed texts'], ['Los textos en la vista 3D', 'The texts in the 3D view'], [[815, 470, 272, 104, ['Diseñadores', 'Designers'], 'top'], [603, 695, 142, 84, ['Alux', 'Alux'], 'top']], false)),
+          ]
+        ),
+        step(
+          'Si queremos añadir un <strong>logo o una imagen</strong>, se hace desde el mismo menú <strong>Place</strong> (la opción <strong>Graphics</strong>, que aparece en el menú).',
+          'If we want to add a <strong>logo or an image</strong>, it is done from the same <strong>Place</strong> menu (the <strong>Graphics</strong> option, which shows in the menu).',
+          [pend('Falta documentar paso a paso cómo se añade el logo (formato de imagen, tamaño y capa). Alessandro lo mandará en la siguiente tanda.', 'How to add the logo step by step (image format, size and layer) is still missing. Alessandro will send it in the next batch.')]
         ),
       ],
     },
