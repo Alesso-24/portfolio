@@ -1,11 +1,11 @@
 // Flujo de Altium Designer: de un proyecto vacío al pedido en JLCPCB.
-// ESTADO (2026-11-10): publicado como BORRADOR. Las secciones 1-7 salen de lo que Alessandro ya hizo y explicó
+// ESTADO (2026-11-10): publicado como BORRADOR; el mismo día se integraron las 43 capturas ya recibidas (secciones 1-7) con recuadros naranjas.
 // (material en docs-source/.../10-altium/); las secciones 8-14 son PROVISIONALES (flujo estándar de Altium, aún sin
 // capturas ni confirmación): su orden y su contenido pueden cambiar cuando Alessandro avance. Cada una lo avisa con un
 // bloque `pending`. Los huecos de imagen son bloques `placeholder` (cada uno dice qué mostrar); las capturas reales
 // van con recuadros naranjas cuando Alessandro diga que terminó.
 // El inglés vive aquí mismo (L(es, en)) y se registra en docs-en.ts vía ALTIUM_EN.
-import type { Flow, FlowStep, Block } from './flow-types'
+import type { Flow, FlowStep, Block, Shot } from './flow-types'
 
 const tr: Record<string, string> = {}
 /** registra la traducción y devuelve el texto en español (la clave del diccionario) */
@@ -15,6 +15,20 @@ const L = (es: string, en: string) => {
 }
 export const ALTIUM_EN = tr
 
+// Capturas reales (carpeta 10-altium/ dentro de PRACTICA_BASE). Recuadros en PÍXELES de la captura original, medidos con cuadrícula.
+const DIR = '10-altium/'
+type Pos = 'top' | 'bottom' | 'left' | 'right'
+type Pair = [string, string]
+type BoxDef = [number, number, number, number, Pair, Pos?]
+const S = (file: string, size: [number, number], alt: Pair, caption: Pair, boxes: BoxDef[] = [], wide = true): Shot => ({
+  file: DIR + file,
+  alt: L(...alt),
+  caption: L(...caption),
+  size,
+  boxes: boxes.length ? boxes.map(([x, y, w, h, lab, pos]) => ({ x, y, w, h, label: L(...lab), pos })) : undefined,
+  wide,
+})
+const shots = (layout: 'auto' | 'row' | 'carousel', ...s: Shot[]): Block => ({ kind: 'shots', shots: s, layout })
 const ph = (es: string, en: string): Block => ({ kind: 'placeholder', caption: L(es, en) })
 const pend = (es: string, en: string): Block => ({ kind: 'pending', html: L(es, en) })
 const note = (es: string, en: string): Block => ({ kind: 'note', html: L(es, en) })
@@ -44,20 +58,23 @@ export const ALTIUM_FLOW: Flow = {
           'Abrimos <strong>Altium Designer</strong> (por ejemplo, buscándolo en el menú de Windows). Se abre la <strong>ventana principal</strong>, con el panel <strong>Projects</strong> a la izquierda.',
           'We open <strong>Altium Designer</strong> (for example, by searching for it in the Windows menu). The <strong>main window</strong> opens, with the <strong>Projects</strong> panel on the left.',
           [
-            ph('Buscador de Windows con Altium Designer y, después, la ventana principal con el panel Projects señalado.', 'Windows search with Altium Designer and then the main window with the Projects panel marked.'),
+            shots('auto', S('01-crear-proyecto/01-buscar-abrir-altium-designer.webp', [1918, 1078], ['Buscador de Windows con "altium" escrito y Altium Designer como mejor coincidencia', 'Windows search with "altium" typed and Altium Designer as the best match'], ['Buscamos "altium" en el menú de Windows y abrimos Altium Designer', 'We search "altium" in the Windows menu and open Altium Designer'], [[430, 98, 1062, 48, ['Escribimos "altium"', 'We type "altium"']], [418, 316, 452, 80, ['Altium Designer', 'Altium Designer'], 'bottom']])),
+            shots('auto', S('01-crear-proyecto/02-ventana-principal-altium.webp', [1909, 1069], ['Ventana principal de Altium Designer con el panel Projects a la izquierda', 'Altium Designer main window with the Projects panel on the left'], ['Ventana principal de Altium Designer', 'Altium Designer main window'], [[4, 82, 276, 935, ['Panel Projects', 'Projects panel'], 'right']])),
             note('En todo este tutorial se usan <strong>imágenes generales</strong> de la ventana, con recuadros naranjas que señalan de qué se habla.', 'Throughout this tutorial we use <strong>full-window images</strong>, with orange boxes marking what is being talked about.'),
           ]
         ),
         step(
           'Para crear un proyecto nuevo vamos a <strong>File → New → Project…</strong>',
           'To create a new project we go to <strong>File → New → Project…</strong>',
-          [ph('Menú File abierto con New y Project… resaltados.', 'File menu open with New and Project… highlighted.')]
+          [shots('auto', S('01-crear-proyecto/04-file-new-project.webp', [1918, 1078], ['Menú File abierto con New y Project… resaltados', 'File menu open with New and Project… highlighted'], ['File → New → Project…', 'File → New → Project…'], [[2, 42, 40, 28, ['File', 'File']], [4, 72, 366, 36, ['New', 'New'], 'bottom'], [372, 72, 268, 36, ['Project…', 'Project…'], 'right']]))]
         ),
         step(
           'Se abre la ventana <strong>Create Project</strong>. Dejamos el tipo <strong>PCB → &lt;Empty&gt;</strong>, escribimos el <strong>nombre del proyecto</strong> y, en <strong>Advanced</strong>, revisamos la <strong>carpeta</strong> y el <strong>Local Storage</strong> (la ubicación en el disco). Con el nombre y la ubicación listos, damos <strong>Create</strong>.',
           'The <strong>Create Project</strong> window opens. We keep the <strong>PCB → &lt;Empty&gt;</strong> type, type the <strong>project name</strong> and, under <strong>Advanced</strong>, check the <strong>folder</strong> and the <strong>Local Storage</strong> (the location on disk). With the name and location ready, we press <strong>Create</strong>.',
           [
-            ph('Ventana Create Project con el tipo PCB Empty, el nombre, la carpeta, el Local Storage y el botón Create señalados.', 'Create Project window with the PCB Empty type, the name, the folder, the Local Storage and the Create button marked.'),
+            shots('auto', S('01-crear-proyecto/05-ventana-create-project.webp', [1479, 885], ['Ventana Create Project con el tipo PCB Empty seleccionado', 'Create Project window with the PCB Empty type selected'], ['Ventana Create Project: tipo, nombre y botón Create', 'Create Project window: type, name and Create button'], [[282, 135, 427, 30, ['PCB → <Empty>', 'PCB → <Empty>'], 'right'], [750, 118, 682, 34, ['Nombre del proyecto', 'Project name']], [750, 412, 92, 24, ['Advanced', 'Advanced'], 'bottom'], [1236, 836, 112, 38, ['Create', 'Create'], 'top']])),
+            shots('auto', S('01-crear-proyecto/06-nombre-proyecto-advanced.webp', [1486, 876], ['Campo de nombre en rojo con un icono de error y el botón Create deshabilitado', 'Name field in red with an error icon and the Create button disabled'], ['Si el nombre ya existe, el campo se pone rojo y Create se deshabilita', 'If the name already exists, the field turns red and Create is disabled'], [[750, 112, 682, 34, ['Nombre repetido', 'Duplicate name']], [1236, 830, 112, 38, ['Create deshabilitado', 'Create disabled'], 'top']])),
+            shots('auto', S('01-crear-proyecto/07-ubicacion-local-storage.webp', [1483, 877], ['Ventana Create Project con nombre PCB_ALTIUM, carpeta y Local Storage', 'Create Project window with the name PCB_ALTIUM, the folder and Local Storage'], ['Nombre listo y ubicación en el disco (Folder y Local Storage)', 'Name ready and location on disk (Folder and Local Storage)'], [[750, 115, 682, 34, ['Nombre: PCB_ALTIUM', 'Name: PCB_ALTIUM']], [750, 472, 682, 34, ['Folder', 'Folder']], [750, 547, 682, 34, ['Local Storage', 'Local Storage']], [1236, 833, 112, 38, ['Create', 'Create'], 'top']])),
             note('Si el nombre ya existe en la carpeta o en el servidor, el campo se marca en rojo y <strong>Create</strong> queda deshabilitado: hay que elegir otro nombre.', 'If the name already exists in the folder or on the server, the field turns red and <strong>Create</strong> stays disabled: pick another name.'),
           ]
         ),
@@ -73,12 +90,15 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'El proyecto aparece en el panel <strong>Projects</strong> todavía sin documentos ("No Document"). Hacemos <strong>clic derecho</strong> sobre el proyecto (<code>.PrjPcb</code>) → <strong>Add New to Project → Schematic</strong>.',
           'The project shows up in the <strong>Projects</strong> panel still without documents ("No Document"). We <strong>right-click</strong> the project (<code>.PrjPcb</code>) → <strong>Add New to Project → Schematic</strong>.',
-          [ph('Panel Projects con el menú contextual del proyecto: Add New to Project y Schematic resaltados.', 'Projects panel with the project context menu: Add New to Project and Schematic highlighted.')]
+          [shots('auto', S('02-esquematico-y-componentes/08-proyecto-creado-sin-documentos.webp', [1918, 1078], ['Panel Projects con el proyecto nuevo y la carpeta No Document', 'Projects panel with the new project and the No Document folder'], ['El proyecto nuevo aparece sin documentos', 'The new project shows up without documents'], [[44, 308, 214, 30, ['Proyecto nuevo', 'New project'], 'right'], [62, 340, 150, 26, ['No Document', 'No Document'], 'right']])),
+            shots('auto', S('02-esquematico-y-componentes/09-clic-derecho-add-new-schematic.webp', [1918, 1078], ['Menú contextual del proyecto con Add New to Project y Schematic resaltados', 'Project context menu with Add New to Project and Schematic highlighted'], ['Clic derecho sobre el proyecto → Add New to Project → Schematic', 'Right-click the project → Add New to Project → Schematic'], [[78, 308, 182, 30, ['Clic derecho aquí', 'Right-click here'], 'top'], [140, 364, 396, 34, ['Add New to Project', 'Add New to Project'], 'left'], [538, 364, 250, 34, ['Schematic', 'Schematic'], 'right']]))]
         ),
         step(
           'Se abre una <strong>hoja vacía</strong> (<code>Sheet1.SchDoc</code>). Presionamos <kbd>Ctrl</kbd>+<kbd>S</kbd> para guardarla, le ponemos el <strong>nombre correcto</strong> (por ejemplo, <code>Esquematico_altium</code>) y damos <strong>Guardar</strong>. La pestaña y el árbol de Projects ya muestran el nombre nuevo.',
           'An <strong>empty sheet</strong> opens (<code>Sheet1.SchDoc</code>). We press <kbd>Ctrl</kbd>+<kbd>S</kbd> to save it, give it the <strong>right name</strong> (for example, <code>Esquematico_altium</code>) and press <strong>Save</strong>. The tab and the Projects tree now show the new name.',
-          [ph('Hoja vacía, el diálogo de guardado con el nombre y la hoja ya renombrada.', 'Empty sheet, the save dialog with the name and the renamed sheet.')]
+          [shots('auto', S('02-esquematico-y-componentes/10-hoja-esquematico-vacia.webp', [1918, 1078], ['Hoja de esquemático vacía llamada Sheet1.SchDoc', 'Empty schematic sheet called Sheet1.SchDoc'], ['Hoja vacía con el nombre por defecto (Sheet1.SchDoc)', 'Empty sheet with the default name (Sheet1.SchDoc)'], [[292, 84, 190, 30, ['Nombre por defecto', 'Default name'], 'right'], [80, 372, 180, 30, ['En el árbol', 'In the tree'], 'bottom']])),
+            shots('auto', S('02-esquematico-y-componentes/11-guardar-como-nombre.webp', [937, 706], ['Diálogo Guardar como con el nombre Esquematico_altium', 'Save As dialog with the name Esquematico_altium'], ['Ctrl+S: escribimos el nombre y damos Guardar', 'Ctrl+S: we type the name and press Save'], [[186, 478, 742, 34, ['Nombre del archivo', 'File name']], [630, 645, 130, 38, ['Guardar', 'Save'], 'top']], false)),
+            shots('auto', S('02-esquematico-y-componentes/12-hoja-con-nombre-correcto.webp', [1911, 1069], ['Hoja ya renombrada a Esquematico_altium.SchDoc', 'Sheet already renamed to Esquematico_altium.SchDoc'], ['La pestaña y el árbol ya muestran el nombre nuevo', 'The tab and the tree now show the new name'], [[292, 84, 292, 30, ['Nombre nuevo', 'New name'], 'right'], [80, 372, 180, 30, ['En el árbol', 'In the tree'], 'bottom']]))]
         ),
       ],
     },
@@ -92,32 +112,41 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Para agregar componentes presionamos la letra <kbd>P</kbd>: se abre un menú y elegimos <strong>Part…</strong>. Se abre a la derecha el panel <strong>Components</strong>.',
           'To add components we press the <kbd>P</kbd> key: a menu opens and we choose <strong>Part…</strong>. The <strong>Components</strong> panel opens on the right.',
-          [ph('Hoja con el menú de la tecla P (Part… resaltado) y el panel Components a la derecha.', 'Sheet with the P-key menu (Part… highlighted) and the Components panel on the right.')]
+          [shots('auto', S('02-esquematico-y-componentes/13-menu-p-part.webp', [1918, 1078], ['Hoja con el menú de la tecla P abierto y Part… resaltado', 'Sheet with the P-key menu open and Part… highlighted'], ['Tecla P → Part…', 'P key → Part…'], [[836, 420, 284, 640, ['Menú de la tecla P', 'P-key menu'], 'left'], [838, 490, 280, 34, ['Part…', 'Part…'], 'right']])),
+            shots('auto', S('02-esquematico-y-componentes/14-panel-components.webp', [1918, 1077], ['Panel Components abierto a la derecha de la hoja', 'Components panel open on the right of the sheet'], ['El panel Components se abre a la derecha', 'The Components panel opens on the right'], [[1438, 122, 440, 890, ['Panel Components', 'Components panel'], 'left']]))]
         ),
         step(
           'Arriba del panel hay un <strong>menú desplegable</strong> con todos los grupos de componentes clasificados. Ahí están tanto los <strong>predeterminados de Altium</strong> (Capacitors, Connectors, Resistors, LED, Switches…) como las <strong>librerías que hemos agregado nosotros</strong> (en la sección <strong>File-based libraries</strong>).',
           'At the top of the panel there is a <strong>drop-down menu</strong> with every component group sorted out. It holds both the <strong>Altium defaults</strong> (Capacitors, Connectors, Resistors, LED, Switches…) and the <strong>libraries we have added ourselves</strong> (under <strong>File-based libraries</strong>).',
-          [ph('Desplegable de categorías (All) y, al final de la lista, las librerías File-based.', 'Categories drop-down (All) and, at the end of the list, the File-based libraries.')]
+          [shots('row', S('02-esquematico-y-componentes/15-panel-components-recorte.webp', [436, 910], ['Panel Components con el menú desplegable de categorías arriba', 'Components panel with the category drop-down at the top'], ['El menú desplegable, arriba del panel', 'The drop-down, at the top of the panel'], [[72, 56, 244, 40, ['Menú desplegable', 'Drop-down']]], false),
+            S('02-esquematico-y-componentes/16-desplegable-categorias.webp', [382, 748], ['Menú desplegable abierto con los grupos de componentes de Altium', 'Open drop-down with the Altium component groups'], ['Grupos predeterminados de Altium', 'Altium default groups'], [[34, 10, 330, 668, ['Predeterminados', 'Defaults'], 'bottom']], false),
+            S('02-esquematico-y-componentes/17-desplegable-librerias-file-based.webp', [372, 786], ['Final de la lista con la sección File-based libraries y las librerías agregadas', 'End of the list with the File-based libraries section and the added libraries'], ['Nuestras librerías (File-based libraries)', 'Our libraries (File-based libraries)'], [[38, 566, 334, 214, ['Librerías propias', 'Our libraries'], 'top']], false))]
         ),
         step(
           'Ejemplo con una <strong>resistencia</strong>: elegimos la categoría <strong>Resistors</strong>. Al seleccionar una, el panel muestra toda su información: su <strong>símbolo</strong> (esquemático), su <strong>vista 3D</strong> y su <strong>huella</strong> (footprint) para la PCB.',
           'Example with a <strong>resistor</strong>: we pick the <strong>Resistors</strong> category. When one is selected, the panel shows all its information: its <strong>symbol</strong> (schematic), its <strong>3D view</strong> and its <strong>footprint</strong> for the PCB.',
-          [ph('Panel Components con Resistors: lista, símbolo, vista 3D y huella 2D, cada uno señalado.', 'Components panel with Resistors: list, symbol, 3D view and 2D footprint, each one marked.')]
+          [shots('row', S('03-componentes-y-conexiones/21-panel-components-categorias-resistors.webp', [631, 997], ['Panel Components con las categorías y Resistors resaltada', 'Components panel with the categories and Resistors highlighted'], ['Elegimos la categoría Resistors', 'We pick the Resistors category'], [[54, 534, 154, 154, ['Resistors', 'Resistors'], 'right']], false),
+            S('03-componentes-y-conexiones/22-resistors-lista-y-simbolo.webp', [625, 991], ['Lista de resistencias y su símbolo esquemático', 'Resistor list and its schematic symbol'], ['La lista y el símbolo (esquemático)', 'The list and the symbol (schematic)'], [[20, 160, 580, 300, ['Lista de resistencias', 'Resistor list'], 'left'], [42, 702, 520, 235, ['Símbolo', 'Symbol'], 'top']], false)),
+            shots('row', S('03-componentes-y-conexiones/23-resistors-vista-3d.webp', [633, 1005], ['Vista 3D de la resistencia seleccionada', '3D view of the selected resistor'], ['Vista 3D del componente', '3D view of the component'], [[51, 580, 520, 292, ['Vista 3D', '3D view'], 'top']], false),
+            S('03-componentes-y-conexiones/24-resistors-huella-2d.webp', [627, 1000], ['Huella (footprint) 2D de la resistencia para la PCB', '2D footprint of the resistor for the PCB'], ['Huella (footprint) para la PCB', 'Footprint for the PCB'], [[46, 602, 520, 300, ['Huella', 'Footprint'], 'top']], false))]
         ),
         step(
           'Damos <strong>doble clic</strong> sobre la resistencia que queremos (su valor se puede cambiar después). La resistencia queda <strong>flotando con el cursor</strong> hasta que hacemos clic para colocarla, en cualquier parte de la hoja. Mientras flota, la tecla <kbd>Espacio</kbd> la <strong>rota</strong>.',
           'We <strong>double-click</strong> the resistor we want (its value can be changed later). The resistor stays <strong>floating on the cursor</strong> until we click to place it, anywhere on the sheet. While it floats, the <kbd>Space</kbd> key <strong>rotates</strong> it.',
-          [ph('Fila de la resistencia seleccionada en el panel y la resistencia ya colocada en la hoja.', 'Selected resistor row in the panel and the resistor already placed on the sheet.')]
+          [shots('auto', S('03-componentes-y-conexiones/25-doble-clic-resistencia-flotando.webp', [1918, 1078], ['Resistencia seleccionada en el panel Components, lista para colocarse', 'Resistor selected in the Components panel, ready to be placed'], ['Doble clic sobre la resistencia: queda flotando con el cursor', 'Double-click the resistor: it stays floating on the cursor'], [[1312, 262, 570, 28, ['Doble clic aquí', 'Double-click here'], 'left']])),
+            shots('auto', S('03-componentes-y-conexiones/26-resistencia-colocada-propiedades.webp', [1918, 1078], ['Resistencia colocada en la hoja con el panel Properties a la derecha', 'Resistor placed on the sheet with the Properties panel on the right'], ['Resistencia colocada y panel Properties', 'Placed resistor and Properties panel'], [[684, 452, 266, 134, ['Resistencia colocada', 'Placed resistor'], 'left'], [1300, 84, 618, 940, ['Panel Properties', 'Properties panel'], 'left']]))]
         ),
         step(
           'Con la resistencia seleccionada, el panel <strong>Properties</strong> permite asignar el <strong>designador</strong> (el nombre en el circuito, como <code>R1</code>). Si queremos otro <strong>valor</strong>, hacemos doble clic sobre el valor mostrado y lo cambiamos (por ejemplo, de 953k a <code>1K</code>).',
           'With the resistor selected, the <strong>Properties</strong> panel lets us assign the <strong>designator</strong> (the name in the circuit, like <code>R1</code>). If we want another <strong>value</strong>, we double-click the displayed value and change it (for example, from 953k to <code>1K</code>).',
-          [ph('Campo Designator con R1 y campo Value antes (953k) y después del cambio (1K).', 'Designator field with R1 and Value field before (953k) and after the change (1K).')]
+          [shots('auto', S('03-componentes-y-conexiones/27-designador-r1.webp', [1918, 1078], ['Campo Designator con R1 en el panel Properties y la resistencia ya llamada R1', 'Designator field with R1 in the Properties panel and the resistor now called R1'], ['Designador R1 en Properties', 'R1 designator in Properties'], [[1484, 332, 302, 34, ['Designator: R1', 'Designator: R1'], 'top'], [736, 452, 60, 50, ['R1', 'R1'], 'top']])),
+            shots('row', S('03-componentes-y-conexiones/28-editar-valor-953k.webp', [1918, 1078], ['Campo Value con 953k en el panel Properties', 'Value field with 953k in the Properties panel'], ['Antes: valor 953k', 'Before: value 953k'], [[1484, 514, 366, 34, ['Value', 'Value'], 'top'], [738, 540, 92, 48, ['953k', '953k'], 'bottom']]),
+            S('03-componentes-y-conexiones/29-valor-1k.webp', [1918, 1077], ['Campo Value con 1K y el valor ya cambiado en la hoja', 'Value field with 1K and the value already changed on the sheet'], ['Después: valor 1K', 'After: value 1K'], [[1484, 514, 366, 34, ['Value', 'Value'], 'top'], [738, 540, 58, 48, ['1K', '1K'], 'bottom']]))]
         ),
         step(
           'Añadimos otra resistencia y le damos otro designador, <code>R2</code>. Así vamos colocando todos los componentes del circuito.',
           'We add another resistor and give it another designator, <code>R2</code>. That is how we place every component of the circuit.',
-          [ph('Hoja con R1 y R2 colocadas.', 'Sheet with R1 and R2 placed.')]
+          [shots('auto', S('03-componentes-y-conexiones/30-segunda-resistencia-r2.webp', [1918, 1078], ['Hoja con las resistencias R1 y R2 colocadas', 'Sheet with resistors R1 and R2 placed'], ['R1 y R2 colocadas', 'R1 and R2 placed'], [[684, 452, 266, 134, ['R1', 'R1'], 'left'], [684, 642, 266, 134, ['R2', 'R2'], 'left']]))]
         ),
       ],
     },
@@ -131,22 +160,27 @@ export const ALTIUM_FLOW: Flow = {
         step(
           '<strong>Tierra.</strong> Con la letra <kbd>P</kbd> vamos a <strong>Power Port</strong>. Por defecto coloca <strong>tierra (GND)</strong>, pero sirve tanto para tierra como para voltajes (+). Lo llevamos al pin del componente donde va y hacemos clic para colocarlo.',
           '<strong>Ground.</strong> With the <kbd>P</kbd> key we go to <strong>Power Port</strong>. By default it places <strong>ground (GND)</strong>, but it works for both ground and voltages (+). We take it to the component pin where it belongs and click to place it.',
-          [ph('Menú P con Power Port resaltado y el símbolo GND colocado sobre el pin 1 de la resistencia.', 'P-key menu with Power Port highlighted and the GND symbol placed on resistor pin 1.')]
+          [shots('auto', S('03-componentes-y-conexiones/31-menu-p-power-port.webp', [1918, 1078], ['Menú de la tecla P con Power Port resaltado', 'P-key menu with Power Port highlighted'], ['Tecla P → Power Port', 'P key → Power Port'], [[1406, 420, 284, 640, ['Menú de la tecla P', 'P-key menu'], 'left'], [1408, 524, 280, 34, ['Power Port', 'Power Port'], 'left']])),
+            shots('row', S('03-componentes-y-conexiones/33-menu-power-port-recorte.webp', [367, 664], ['Detalle del menú con Power Port resaltado', 'Menu detail with Power Port highlighted'], ['Detalle del menú', 'Menu detail'], [[26, 108, 280, 40, ['Power Port', 'Power Port'], 'top']], false),
+            S('03-componentes-y-conexiones/32-gnd-colocado-recorte.webp', [774, 526], ['Símbolo GND colocado sobre el pin 1 de la resistencia R1', 'GND symbol placed on pin 1 of resistor R1'], ['GND en el pin 1 de R1', 'GND on pin 1 of R1'], [[160, 156, 164, 70, ['GND', 'GND'], 'top']], false)),
+            shots('auto', S('03-componentes-y-conexiones/34-gnd-colocado-en-ambos-lados.webp', [1918, 1078], ['GND colocado en ambos lados de R1 y su configuración en Properties', 'GND placed on both sides of R1 and its setup in Properties'], ['GND a ambos lados y su nombre en Properties', 'GND on both sides and its name in Properties'], [[436, 500, 154, 56, ['GND', 'GND'], 'top'], [826, 500, 160, 56, ['GND', 'GND'], 'top'], [1484, 438, 358, 32, ['Name: GND', 'Name: GND'], 'top']]))]
         ),
         step(
           '<strong>Voltaje (por ejemplo, 3V3).</strong> Repetimos con <strong>Power Port</strong> y lo colocamos. Para <strong>rotarlo</strong> usamos <kbd>Espacio</kbd>. Después le cambiamos el nombre a <code>+3V3</code> en el panel Properties.',
           '<strong>Voltage (for example, 3V3).</strong> We repeat with <strong>Power Port</strong> and place it. To <strong>rotate</strong> it we use <kbd>Space</kbd>. Then we rename it to <code>+3V3</code> in the Properties panel.',
-          [ph('Power Port colocado en el otro extremo de la resistencia y renombrado a +3V3 en Properties.', 'Power Port placed on the resistor\'s other end and renamed to +3V3 in Properties.'), note('Con esto queda cubierto todo lo de alimentaciones.', 'That covers everything about power.')]
+          [shots('auto', S('03-componentes-y-conexiones/35-power-port-renombrado-3v3.webp', [1918, 1078], ['Power Port del lado derecho renombrado a +3V3 en el panel Properties', 'Right-hand Power Port renamed to +3V3 in the Properties panel'], ['Power Port renombrado a +3V3', 'Power Port renamed to +3V3'], [[824, 502, 164, 52, ['+3V3', '+3V3'], 'top'], [1484, 438, 358, 32, ['Name: +3V3', 'Name: +3V3'], 'top']])), note('Con esto queda cubierto todo lo de alimentaciones.', 'That covers everything about power.')]
         ),
         step(
           '<strong>Conexiones en general.</strong> Lo común, y una buena práctica, es usar <strong>etiquetas</strong> en lugar de cables largos: con <kbd>P</kbd> elegimos <strong>Net Label</strong>, la colocamos donde queramos y le damos un nombre (por ejemplo, <code>P1</code>). Cuando colocamos otra etiqueta con <strong>el mismo nombre</strong> en otro componente, Altium las interpreta como <strong>conectadas</strong>.',
           '<strong>Connections in general.</strong> The usual practice, and a good one, is to use <strong>labels</strong> instead of long wires: with <kbd>P</kbd> we pick <strong>Net Label</strong>, place it where we want and give it a name (for example, <code>P1</code>). When we place another label with <strong>the same name</strong> on another component, Altium treats them as <strong>connected</strong>.',
-          [ph('Menú P con Net Label resaltado y la etiqueta P1 colocada en un pin, con su nombre en Properties.', 'P-key menu with Net Label highlighted and the P1 label placed on a pin, with its name in Properties.'), important('Las etiquetas solo conectan si el nombre es <b>exactamente el mismo</b> (mayúsculas incluidas).', 'Labels only connect if the name is <b>exactly the same</b> (capitals included).')]
+          [shots('row', S('03-componentes-y-conexiones/36-menu-net-label-recorte.webp', [333, 712], ['Detalle del menú de la tecla P con Net Label resaltado', 'P-key menu detail with Net Label highlighted'], ['Tecla P → Net Label', 'P key → Net Label'], [[26, 192, 278, 34, ['Net Label', 'Net Label'], 'top']], false)),
+            shots('auto', S('03-componentes-y-conexiones/37-net-label-p1.webp', [1918, 1078], ['Etiqueta de red P1 colocada en el pin de R2 y su nombre en Properties', 'Net label P1 placed on R2 pin and its name in Properties'], ['Etiqueta P1 y su Net Name en Properties', 'P1 label and its Net Name in Properties'], [[856, 644, 44, 50, ['Etiqueta P1', 'P1 label'], 'top'], [1572, 452, 318, 34, ['Net Name', 'Net Name'], 'top']])), important('Las etiquetas solo conectan si el nombre es <b>exactamente el mismo</b> (mayúsculas incluidas).', 'Labels only connect if the name is <b>exactly the same</b> (capitals included).')]
         ),
         step(
           '<strong>Pines que no se usan.</strong> Para dejar un pin sin conexión y que no marque error, con <kbd>P</kbd> vamos a <strong>Directives → Generic No ERC</strong>. Aparece una <strong>X</strong> que colocamos sobre cualquier pin que no vayamos a usar.',
           '<strong>Unused pins.</strong> To leave a pin unconnected without it raising an error, with <kbd>P</kbd> we go to <strong>Directives → Generic No ERC</strong>. An <strong>X</strong> appears and we place it on any pin we will not use.',
-          [ph('Menú P → Directives → Generic No ERC y la X roja sobre un pin.', 'P-key menu → Directives → Generic No ERC and the red X on a pin.')]
+          [shots('row', S('03-componentes-y-conexiones/38-directives-generic-no-erc.webp', [498, 670], ['Menú P con Directives abierto y Generic No ERC resaltado', 'P menu with Directives open and Generic No ERC highlighted'], ['Tecla P → Directives → Generic No ERC', 'P key → Directives → Generic No ERC'], [[12, 446, 282, 36, ['Directives', 'Directives'], 'top'], [294, 446, 202, 36, ['Generic No ERC', 'Generic No ERC'], 'bottom']], false),
+            S('03-componentes-y-conexiones/39-marca-no-erc-en-pin.webp', [238, 169], ['X roja de No ERC colocada sobre el pin 1 de R2', 'Red No ERC X placed on pin 1 of R2'], ['La X sobre un pin sin usar', 'The X on an unused pin'], [[96, 48, 60, 56, ['X de No ERC', 'No ERC X'], 'top']], false))]
         ),
       ],
     },
@@ -161,7 +195,7 @@ export const ALTIUM_FLOW: Flow = {
           'Sabiendo lo básico, el primer esquemático quedaría <strong>algo así</strong>: con conexiones, etiquetas y alimentaciones, de manera <strong>limpia y organizada</strong>, sin cables enredados, para que se lea bien.',
           'Knowing the basics, the first schematic would look <strong>something like this</strong>: with connections, labels and power, <strong>clean and organised</strong>, with no tangled wires, so it reads well.',
           [
-            ph('Esquemático completo de ejemplo (proyecto TAMAGOCHI) en pantalla completa, con recuadros sobre: etiquetas de red, power ports +3V3/GND, X de No ERC, designadores y valores.', 'Full example schematic (TAMAGOCHI project) in full window, with boxes on: net labels, +3V3/GND power ports, No ERC X marks, designators and values.'),
+            shots('auto', S('04-esquematico-completo-ejemplo/40-esquematico-ejemplo-tamagochi.webp', [1918, 1078], ['Esquemático completo de ejemplo (proyecto TAMAGOCHI) con etiquetas, power ports y marcas No ERC', 'Full example schematic (TAMAGOCHI project) with labels, power ports and No ERC marks'], ['Esquemático completo de ejemplo (TAMAGOCHI)', 'Full example schematic (TAMAGOCHI)'], [[374, 204, 128, 184, ['Etiquetas de red', 'Net labels'], 'top'], [938, 636, 138, 250, ['Power ports +3V3 / GND', '+3V3 / GND power ports'], 'top'], [668, 250, 40, 128, ['X de No ERC', 'No ERC X'], 'right'], [1368, 362, 184, 42, ['Designador y valor', 'Designator and value'], 'top']])),
             callout(
               ['Qué hace legible un esquemático', 'What makes a schematic readable'],
               '<ul><li><strong>Etiquetas de red</strong> en vez de cables largos que cruzan la hoja.</li><li><strong>Power ports</strong> (+3V3, GND) repetidos junto a cada componente que los usa.</li><li><strong>Componentes agrupados por función</strong> (conectores, desacople, microcontrolador…).</li><li><strong>X de No ERC</strong> en los pines que no se usan.</li><li><strong>Designadores y valores</strong> visibles y sin encimarse.</li></ul>',
@@ -181,13 +215,13 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Antes de pasar al diseño de la PCB es <strong>muy importante</strong> correr un <strong>DRC del esquemático</strong>, para ver que no falten conexiones ni haya nada fuera de lugar. Vamos a <strong>Project → Validate PCB Project</strong>.',
           'Before moving on to the PCB design it is <strong>very important</strong> to run a <strong>schematic DRC</strong>, to check that no connections are missing and nothing is out of place. We go to <strong>Project → Validate PCB Project</strong>.',
-          [ph('Menú Project con Validate PCB Project resaltado.', 'Project menu with Validate PCB Project highlighted.')]
+          [shots('auto', S('05-drc-y-pcb/41-menu-project-validate-pcb-project.webp', [1063, 805], ['Menú Project con Validate PCB Project resaltado', 'Project menu with Validate PCB Project highlighted'], ['Project → Validate PCB Project', 'Project → Validate PCB Project'], [[146, 42, 64, 30, ['Project', 'Project'], 'top'], [146, 72, 492, 34, ['Validate PCB Project', 'Validate PCB Project'], 'right']], false))]
         ),
         step(
           'Se abre el panel <strong>Messages</strong> con los <strong>errores y avisos</strong> encontrados, antes de pasar a editar la PCB. Al seleccionar un mensaje, abajo (<strong>Details</strong>) se explica el problema y se marcan los componentes involucrados.',
           'The <strong>Messages</strong> panel opens with the <strong>errors and warnings</strong> found, before moving on to edit the PCB. Selecting a message shows the problem under <strong>Details</strong> and marks the components involved.',
           [
-            ph('Panel Messages con la lista de errores (Duplicate Component Designators, Un-Designated Part, pines IO…) y el panel Details.', 'Messages panel with the error list (Duplicate Component Designators, Un-Designated Part, IO pins…) and the Details panel.'),
+            shots('auto', S('05-drc-y-pcb/42-mensajes-drc-errores.webp', [1918, 1078], ['Panel Messages con los errores y avisos del DRC y el panel Details', 'Messages panel with the DRC errors and warnings and the Details panel'], ['Panel Messages: errores y avisos del esquemático', 'Messages panel: schematic errors and warnings'], [[1398, 158, 486, 760, ['Errores y avisos', 'Errors and warnings'], 'left'], [1398, 926, 486, 100, ['Details', 'Details'], 'left']])),
             callout(
               ['Mensajes que aparecieron en este ejemplo', 'Messages that showed up in this example'],
               '<ul><li><strong>Duplicate Component Designators</strong> (por ejemplo, varios <code>C?</code>): hay componentes con el mismo designador.</li><li><strong>Un-Designated Part</strong>: componentes que todavía tienen <code>?</code> en el designador (sin numerar).</li><li><strong>… contains IO Pin and …</strong>: una red (GND, LIS_INT2) que mezcla tipos de pin distintos.</li></ul>',
@@ -214,18 +248,19 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Primero agregamos el <strong>archivo PCB</strong> al proyecto: <strong>clic derecho</strong> sobre el proyecto (<code>.PrjPcb</code>) en el panel Projects → <strong>Add New to Project → PCB</strong>.',
           'First we add the <strong>PCB file</strong> to the project: <strong>right-click</strong> the project (<code>.PrjPcb</code>) in the Projects panel → <strong>Add New to Project → PCB</strong>.',
-          [ph('Menú contextual del proyecto con Add New to Project y PCB resaltados.', 'Project context menu with Add New to Project and PCB highlighted.')]
+          [shots('auto', S('05-drc-y-pcb/43-clic-derecho-add-new-pcb.webp', [853, 489], ['Menú contextual del proyecto con Add New to Project y PCB resaltados', 'Project context menu with Add New to Project and PCB highlighted'], ['Clic derecho sobre el proyecto → Add New to Project → PCB', 'Right-click the project → Add New to Project → PCB'], [[140, 64, 398, 38, ['Add New to Project', 'Add New to Project'], 'left'], [540, 98, 250, 36, ['PCB', 'PCB'], 'right']], false))]
         ),
         step(
           'Una vez creada se abre el <strong>editor de PCB</strong>: un tablero negro vacío, con la barra de capas abajo (Top Layer, Bottom Layer, Top Overlay…). Presionamos <kbd>Ctrl</kbd>+<kbd>S</kbd> para guardarlo con el <strong>nombre correcto</strong> y damos <strong>Guardar</strong>; la pestaña pasa a llamarse como el proyecto (<code>PCB_ALTIUM.PcbDoc</code>).',
           'Once created, the <strong>PCB editor</strong> opens: an empty black board, with the layer bar at the bottom (Top Layer, Bottom Layer, Top Overlay…). We press <kbd>Ctrl</kbd>+<kbd>S</kbd> to save it with the <strong>right name</strong> and press <strong>Save</strong>; the tab is renamed after the project (<code>PCB_ALTIUM.PcbDoc</code>).',
-          [ph('Editor de PCB vacío con la barra de capas señalada y la pestaña ya renombrada.', 'Empty PCB editor with the layer bar marked and the tab already renamed.')]
+          [shots('auto', S('05-drc-y-pcb/44-pcb-nuevo-vacio.webp', [1918, 1045], ['Editor de PCB vacío con la barra de capas abajo', 'Empty PCB editor with the layer bar at the bottom'], ['Editor de PCB: tablero vacío y barra de capas', 'PCB editor: empty board and layer bar'], [[440, 1006, 1478, 38, ['Barra de capas', 'Layer bar'], 'top'], [586, 126, 156, 30, ['Pestaña del PCB', 'PCB tab'], 'bottom']])),
+            shots('auto', S('05-drc-y-pcb/45-pestana-pcb-altium-pcbdoc.webp', [235, 60], ['Pestaña del PCB ya renombrada como PCB_ALTIUM.PcbDoc', 'PCB tab already renamed to PCB_ALTIUM.PcbDoc'], ['La pestaña con el nombre correcto', 'The tab with the right name'], [], false))]
         ),
         step(
           'Para pasar todo lo que hicimos en el esquemático a la placa vamos a <strong>Design → Update Schematics in</strong> <em>(nombre del proyecto)</em><code>.PrjPcb</code>.',
           'To move everything we did in the schematic onto the board we go to <strong>Design → Update Schematics in</strong> <em>(project name)</em><code>.PrjPcb</code>.',
           [
-            ph('Menú Design con la opción Update Schematics in … resaltada.', 'Design menu with the Update Schematics in … option highlighted.'),
+            shots('auto', S('05-drc-y-pcb/46-menu-design-update-schematics.webp', [1024, 685], ['Menú Design con Update Schematics in PCB_ALTIUM.PrjPcb resaltado', 'Design menu with Update Schematics in PCB_ALTIUM.PrjPcb highlighted'], ['Design → Update Schematics in…', 'Design → Update Schematics in…'], [[270, 42, 68, 30, ['Design', 'Design'], 'top'], [272, 74, 434, 34, ['Update Schematics in…', 'Update Schematics in…'], 'right']], false)),
             pend('Falta el resultado de ese paso (la ventana de cambios, cómo ejecutarlos y la placa con los componentes y las líneas de conexión). Alessandro lo mandará en la siguiente tanda.', 'The outcome of this step is still missing (the changes window, how to execute them and the board with the components and connection lines). Alessandro will send it in the next batch.'),
           ]
         ),
