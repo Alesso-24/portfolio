@@ -2,6 +2,7 @@
 // Clave = texto en español EXACTO tal como está en los datos / páginas; valor = inglés con las mismas etiquetas HTML.
 // Nombres de la interfaz de KiCad: en inglés + la etiqueta en español entre paréntesis (las capturas están en español).
 import { MULTISIM_EN } from './multisim-flow'
+import { ALTIUM_EN } from './altium-flow'
 
 export const EN: Record<string, string> = {
   "Creación de PCBs": "PCB Creation",
@@ -579,4 +580,5 @@ export const EN: Record<string, string> = {
     "A multimeter in continuity mode instantly catches a badly cut track or a copper bridge that wasn't isolated well — faster than checking by eye alone.",
 
   ...MULTISIM_EN,
+  ...ALTIUM_EN,
 }

@@ -1,5 +1,14 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🟠 2026-11-10: ALTIUM PUBLICADO COMO BORRADOR (secciones 1-7 reales; 8-15 PROVISIONALES, su orden puede cambiar; imágenes = huecos `placeholder`). Leer `10-altium/ACTUALIZACION-CONTEXTO.md` → "ESTADO DE LA PUBLICACIÓN". Seguimos recibiendo tandas: organizar primero, publicar solo cuando Alessandro lo pida; imágenes reales con recuadros naranjas al terminar. Nos quedamos tras `Design → Update Schematics`.
+>
+> ## 🚧 2026-11-09: pestaña ALTIUM (rama `feat/altium`)
+> Alessandro hará una placa desde cero en Altium y la documentará por tandas (capturas + explicación).
+> **Fase actual: SOLO organizar y guardar** en `docs-source/produccion-electronica/practicas/01-primera-placa/10-altium/`
+> (bitácora: `ACTUALIZACION-CONTEXTO.md` ahí). No tocar el sitio hasta que diga que terminó. Al construir:
+> recuadros naranjas en píxeles con verificación visual de cada uno (ver plan en la bitácora).
+> Antes de esto: revisión del sitio 2026-11-09 — build y `astro check` OK; Multisim sigue con ~44 capturas pendientes.
+
 > ## 🆕 2026-10-13: pestaña MULTISIM añadida (rama `feat/multisim`, SIN commit ni deploy)
 > **Qué:** nueva pestaña **Multisim** (entre MonoFab y Altium) en `primera-placa-kicad.astro`, con el contenido de las 2 clases grabadas
 > (`~/Downloads/tutorial_multisim.docx` + `Multisim_transcripciones_y_estructura_web.md`). 13 secciones / ~40 pasos en `src/data/multisim-flow.ts`
