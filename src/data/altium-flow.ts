@@ -337,6 +337,16 @@ export const ALTIUM_FLOW: Flow = {
           ]
         ),
         step(
+          'Se abre la ventana <strong>Select Design Rules</strong> con todas las reglas que trae el archivo (eléctricas, de ruteo, de máscara, de plano…), todas marcadas. Damos <strong>Import</strong>.',
+          'The <strong>Select Design Rules</strong> window opens with every rule the file contains (electrical, routing, mask, plane…), all ticked. We press <strong>Import</strong>.',
+          [shots('auto', S('06-importar-cambios-y-reglas/103-seleccionar-reglas-import.webp', [1348, 987], ['Ventana Select Design Rules con el archivo 2layer-1oz.RUL y el botón Import', 'Select Design Rules window with the 2layer-1oz.RUL file and the Import button'], ['Select Design Rules → Import', 'Select Design Rules → Import'], [[378, 66, 260, 64, ['Archivo .RUL', '.RUL file'], 'right'], [368, 144, 600, 760, ['Reglas que se importan', 'Rules being imported'], 'left'], [766, 928, 112, 38, ['Import', 'Import'], 'top']], false))]
+        ),
+        step(
+          'Como ya existe un <em>Default Rule Set</em>, Altium pregunta qué hacer con las reglas importadas. Elegimos <strong>Replace all</strong>: borra las reglas actuales de ese conjunto y deja solo las del archivo de JLCPCB.',
+          'Since a <em>Default Rule Set</em> already exists, Altium asks what to do with the imported rules. We choose <strong>Replace all</strong>: it removes the current rules of that set and keeps only the ones from the JLCPCB file.',
+          [shots('auto', S('06-importar-cambios-y-reglas/104-rule-set-ya-existe-replace-all.webp', [731, 482], ['Diálogo Rule Set Already Exists con tres opciones y Replace all', 'Rule Set Already Exists dialog with three options and Replace all'], ['Rule Set Already Exists → Replace all', 'Rule Set Already Exists → Replace all'], [[96, 370, 618, 92, ['Replace all', 'Replace all'], 'top']], false))]
+        ),
+        step(
           'Damos clic en <strong>Apply</strong> (abajo a la derecha) y después en <strong>OK</strong> para cerrar la ventana. Ahora sí podemos empezar a diseñar.',
           'We click <strong>Apply</strong> (bottom right) and then <strong>OK</strong> to close the window. Now we can start designing.',
           [
@@ -347,21 +357,125 @@ export const ALTIUM_FLOW: Flow = {
       ],
     },
 
-    // ———————————————————————————————— 9 forma
+    // ———————————————————————————————— 9 origen y forma
     {
       id: 'altium-forma',
       chip: L('9 · Forma de la placa', '9 · Board shape'),
-      title: L('Forma y capas de la placa', 'Board shape and layers'),
+      title: L('Origen y forma de la placa', 'Origin and board shape'),
       steps: [
         step(
-          'Con los componentes ya en el editor, lo primero es definir la <strong>forma de la placa</strong> (el contorno). Se dibuja una figura cerrada en la capa mecánica y se le indica a Altium que esa es la forma: <strong>Design → Board Shape</strong>.',
-          'With the components in the editor, the first thing is to define the <strong>board shape</strong> (the outline). A closed shape is drawn on the mechanical layer and Altium is told that it is the board shape: <strong>Design → Board Shape</strong>.',
-          [prov(), ph('Contorno de la placa dibujado y el menú Design → Board Shape.', 'Board outline drawn and the Design → Board Shape menu.')]
+          'Primero establecemos un <strong>origen</strong>: el punto (0, 0) desde el que Altium mide todas las coordenadas. Vamos a <strong>Edit → Origin → Set</strong>. Aparece una <strong>cruz verde</strong> y la colocamos donde queramos, normalmente en la <strong>esquina inferior izquierda del fondo negro</strong>. Después el origen queda marcado con una <strong>cruz blanca con un círculo</strong> en esa esquina.',
+          'First we set an <strong>origin</strong>: the (0, 0) point from which Altium measures every coordinate. We go to <strong>Edit → Origin → Set</strong>. A <strong>green cross</strong> appears and we place it wherever we want, usually at the <strong>bottom-left corner of the black background</strong>. The origin is then marked with a <strong>white cross with a circle</strong> in that corner.',
+          [shots('auto', S('07-origen-y-forma-de-placa/62-menu-edit-origin-set.webp', [749, 768], ['Menú Edit con Origin y Set resaltados', 'Edit menu with Origin and Set highlighted'], ['Edit → Origin → Set', 'Edit → Origin → Set'], [[46, 40, 48, 32, ['Edit', 'Edit'], 'top'], [46, 563, 320, 36, ['Origin', 'Origin'], 'left'], [368, 563, 122, 36, ['Set', 'Set'], 'right']], false))]
+        ),
+        step(
+          'Antes de dibujar, un vistazo a la <strong>barra de herramientas</strong> que flota sobre la zona de trabajo. De izquierda a derecha, cada botón (los que tienen una flechita abajo esconden más herramientas):',
+          'Before drawing, a look at the <strong>toolbar</strong> floating over the work area. From left to right, each button (the ones with a small arrow hide more tools):',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/63-barra-herramientas-pcb.webp', [752, 80], ['Barra de herramientas del editor de PCB con sus botones numerados', 'PCB editor toolbar with its buttons numbered'], ['Barra de herramientas del editor de PCB', 'PCB editor toolbar'], [[33, 16, 48, 46, ['1', '1'], 'bottom'], [82, 16, 48, 46, ['2', '2'], 'bottom'], [132, 16, 48, 46, ['3', '3'], 'bottom'], [181, 16, 48, 46, ['4', '4'], 'bottom'], [231, 16, 48, 46, ['5', '5'], 'bottom'], [284, 16, 48, 46, ['6', '6'], 'bottom'], [334, 16, 48, 46, ['7', '7'], 'bottom'], [383, 16, 48, 46, ['8', '8'], 'bottom'], [432, 16, 48, 46, ['9', '9'], 'bottom'], [483, 16, 48, 46, ['10', '10'], 'bottom'], [532, 16, 48, 46, ['11', '11'], 'bottom'], [583, 16, 48, 46, ['12', '12'], 'bottom'], [633, 16, 48, 46, ['13', '13'], 'bottom'], [684, 16, 48, 46, ['14', '14'], 'bottom']], false)),
+            table(
+              [['N.º', 'No.'], ['Herramienta', 'Tool'], ['Para qué sirve', 'What it is for']],
+              [
+                [['1', '1'], ['Filter', 'Filter'], ['Elegir qué tipos de objetos se pueden seleccionar', 'Choose which object types can be selected']],
+                [['2', '2'], ['Snap Options', 'Snap Options'], ['Imán: ajusta el cursor a la cuadrícula y a los objetos', 'Magnet: snaps the cursor to the grid and to objects']],
+                [['3', '3'], ['Move', 'Move'], ['Mover objetos', 'Move objects']],
+                [['4', '4'], ['Select', 'Select'], ['Seleccionar objetos dibujando un área', 'Select objects by drawing an area']],
+                [['5', '5'], ['Align', 'Align'], ['Alinear y distribuir los objetos seleccionados', 'Align and distribute the selected objects']],
+                [['6', '6'], ['Component', 'Component'], ['Colocar un componente', 'Place a component']],
+                [['7', '7'], ['Route', 'Route'], ['Rutear: dibujar pistas de cobre', 'Route: draw copper tracks']],
+                [['8 – 11', '8 – 11'], ['Longitud, pad, polígono…', 'Length, pad, polygon…'], ['Ajuste de longitud de pistas, pads, planos de cobre y otras herramientas de colocación', 'Track length tuning, pads, copper pours and other placement tools']],
+                [['12', '12'], ['Dimension', 'Dimension'], ['Poner cotas (medidas) sobre la placa', 'Add dimensions (measurements) to the board']],
+                [['13', '13'], ['Text String', 'Text String'], ['Escribir texto sobre la placa', 'Write text on the board']],
+                [['14', '14'], ['Drawing tools', 'Drawing tools'], ['Dibujar: Line, Arc, Full Circle, Fill, Solid Region, Rectangle y Bond Wire', 'Draw: Line, Arc, Full Circle, Fill, Solid Region, Rectangle and Bond Wire']],
+              ]
+            ),
+            pend('Los botones 8 a 11 están descritos de forma general; falta que Alessandro confirme el nombre exacto de cada uno.', 'Buttons 8 to 11 are described in general terms; Alessandro still needs to confirm the exact name of each one.'),
+          ]
+        ),
+        step(
+          'También hay que conocer las <strong>capas</strong>, que están en la barra de abajo. Cada una es como una hoja transparente donde se dibuja algo distinto:',
+          'We also need to know the <strong>layers</strong>, in the bar at the bottom. Each one is like a transparent sheet where something different is drawn:',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/67-barra-de-capas.webp', [1081, 51], ['Barra de capas del editor de PCB', 'PCB editor layer bar'], ['Barra de capas', 'Layer bar'], [[152, 12, 152, 32, ['Cobre de arriba', 'Top copper'], 'top'], [310, 12, 166, 32, ['Cobre de abajo', 'Bottom copper'], 'top'], [484, 12, 136, 32, ['Capa mecánica', 'Mechanical layer'], 'top'], [628, 12, 152, 32, ['Serigrafía', 'Silkscreen'], 'top']], false)),
+            table(
+              [['Capa', 'Layer'], ['Qué es', 'What it is']],
+              [
+                [['Top Layer / Bottom Layer', 'Top Layer / Bottom Layer'], ['El cobre de arriba y de abajo: ahí van las pistas y los pads', 'The top and bottom copper: tracks and pads go there']],
+                [['Mechanical 1', 'Mechanical 1'], ['Capa mecánica: contornos, medidas y dibujos que no son cobre. Aquí dibujaremos el contorno de la placa', 'Mechanical layer: outlines, measurements and drawings that are not copper. This is where we will draw the board outline']],
+                [['Top Overlay / Bottom Overlay', 'Top Overlay / Bottom Overlay'], ['La serigrafía: los textos y marcas impresos sobre la placa (designadores, polaridad…)', 'The silkscreen: the text and marks printed on the board (designators, polarity…)']],
+                [['Top Paste / Bottom Paste', 'Top Paste / Bottom Paste'], ['Dónde se aplica la pasta de soldar (para montar componentes SMD)', 'Where solder paste is applied (to mount SMD components)']],
+                [['Top Solder / Bottom Solder', 'Top Solder / Bottom Solder'], ['La máscara de soldadura: las zonas del cobre que quedan al descubierto', 'The solder mask: the areas of copper left exposed']],
+                [['Drill Guide', 'Drill Guide'], ['Guía de los taladros', 'Drill guide']],
+                [['LS', 'LS'], ['Selector de conjuntos de capas (Layer Sets)', 'Layer set selector (Layer Sets)']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Si ya tenemos una figura donde queremos acomodar todo, podemos <strong>dibujarla o importarla</strong>. Para este caso usaremos un <strong>círculo</strong>. Hacemos clic derecho en la herramienta de <strong>línea</strong> (la última de la barra) y elegimos <strong>Full Circle</strong>.',
+          'If we already have a shape where we want to arrange everything, we can <strong>draw it or import it</strong>. For this case we will use a <strong>circle</strong>. We right-click the <strong>line</strong> tool (the last one in the bar) and choose <strong>Full Circle</strong>.',
+          [shots('auto', S('07-origen-y-forma-de-placa/64-menu-line-full-circle.webp', [1919, 1078], ['Menú de la herramienta de línea con Full Circle resaltado', 'Line tool menu with Full Circle highlighted'], ['Herramienta de línea → Full Circle', 'Line tool → Full Circle'], [[1404, 168, 52, 48, ['Herramienta de línea', 'Line tool'], 'left'], [1404, 396, 210, 42, ['Full Circle', 'Full Circle'], 'left']]))]
+        ),
+        step(
+          'Seleccionamos el <strong>centro</strong> del círculo con un clic y movemos el cursor hasta darle el tamaño; otro clic lo dibuja.',
+          'We click the <strong>center</strong> of the circle and move the cursor to size it; another click draws it.',
+          [shots('auto', S('07-origen-y-forma-de-placa/65-circulo-dibujado-origen.webp', [1919, 1079], ['Círculo dibujado en el fondo negro, con su centro y el origen en la esquina', 'Circle drawn on the black background, with its center and the origin in the corner'], ['Círculo dibujado y el origen en la esquina', 'Drawn circle and the origin in the corner'], [[650, 636, 196, 198, ['Círculo', 'Circle'], 'top'], [738, 724, 20, 20, ['Centro', 'Center'], 'bottom'], [556, 876, 46, 46, ['Origen', 'Origin'], 'left']]))]
+        ),
+        step(
+          'Damos <strong>clic derecho</strong> sobre el borde del círculo y elegimos <strong>Properties…</strong>',
+          'We <strong>right-click</strong> the edge of the circle and choose <strong>Properties…</strong>',
+          [shots('auto', S('07-origen-y-forma-de-placa/66-clic-derecho-properties.webp', [621, 853], ['Menú contextual del círculo con Properties… resaltado', 'Circle context menu with Properties… highlighted'], ['Clic derecho en el borde → Properties…', 'Right-click the edge → Properties…'], [[96, 410, 200, 198, ['Borde del círculo', 'Circle edge'], 'top'], [288, 796, 280, 38, ['Properties…', 'Properties…'], 'left']], false))]
+        ),
+        step(
+          'En el panel <strong>Properties</strong> aparecen las medidas del círculo (Altium lo llama <em>Arc</em>, un arco de 0° a 360°). Estas son las relevantes:',
+          'The <strong>Properties</strong> panel shows the circle\'s measurements (Altium calls it an <em>Arc</em>, an arc from 0° to 360°). These are the relevant ones:',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/68-propiedades-del-arco.webp', [546, 954], ['Panel Properties del arco con ubicación, capa, ancho, radio y ángulos', 'Arc Properties panel with location, layer, width, radius and angles'], ['Propiedades del círculo (Arc)', 'Circle (Arc) properties'], [[198, 214, 264, 34, ['Location (X/Y)', 'Location (X/Y)'], 'top'], [198, 365, 306, 36, ['Layer', 'Layer'], 'top'], [198, 473, 298, 34, ['Width', 'Width'], 'top'], [198, 515, 298, 34, ['Radius', 'Radius'], 'bottom'], [198, 556, 298, 76, ['Ángulos', 'Angles'], 'bottom']], false)),
+            table(
+              [['Campo', 'Field'], ['Qué es', 'What it is']],
+              [
+                [['Location (X/Y)', 'Location (X/Y)'], ['Dónde está el centro del círculo, medido desde el origen', 'Where the center of the circle is, measured from the origin']],
+                [['Net', 'Net'], ['La red eléctrica a la que pertenece; es un dibujo, así que queda en No Net', 'The electrical net it belongs to; it is a drawing, so it stays No Net']],
+                [['Layer', 'Layer'], ['La capa en la que está dibujado', 'The layer it is drawn on']],
+                [['Width', 'Width'], ['El grosor de la línea del círculo', 'The thickness of the circle line']],
+                [['Radius', 'Radius'], ['El radio del círculo', 'The radius of the circle']],
+                [['Start Angle / End Angle', 'Start Angle / End Angle'], ['Dónde empieza y termina el arco: de 0 a 360 es un círculo completo', 'Where the arc starts and ends: 0 to 360 is a full circle']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Lo importante a cambiar es la <strong>capa</strong>: en <strong>Layer</strong> elegimos <strong>Mechanical 1</strong>, que es donde va el contorno de la placa.',
+          'The important thing to change is the <strong>layer</strong>: under <strong>Layer</strong> we choose <strong>Mechanical 1</strong>, which is where the board outline goes.',
+          [shots('auto', S('07-origen-y-forma-de-placa/69-capa-mechanical-1.webp', [536, 966], ['Lista de capas con Mechanical 1 resaltada', 'Layer list with Mechanical 1 highlighted'], ['Layer → Mechanical 1', 'Layer → Mechanical 1'], [[188, 376, 322, 40, ['Layer', 'Layer'], 'top'], [190, 478, 296, 36, ['Mechanical 1', 'Mechanical 1'], 'right']], false))]
+        ),
+        step(
+          'Otra cosa importante: cambiar las <strong>unidades a milímetros</strong>. Se hace con solo presionar la letra <kbd>Q</kbd>. Con todo en mm, ponemos el <strong>radio</strong> que queramos; para este ejemplo, <code>27.5mm</code> (depende de cada quien y de la forma que elija).',
+          'Another important thing: switch the <strong>units to millimetres</strong>. It is done by just pressing the <kbd>Q</kbd> key. With everything in mm, we set the <strong>radius</strong> we want; for this example, <code>27.5mm</code> (it is up to each person and the shape they choose).',
+          [note('La tecla <kbd>Q</kbd> alterna entre mm y mil (milésimas de pulgada).', 'The <kbd>Q</kbd> key toggles between mm and mil (thousandths of an inch).')]
+        ),
+        step(
+          'Además, ajustamos la <strong>ubicación</strong> de acuerdo con el radio: si <code>X</code> y <code>Y</code> valen lo mismo que el radio (<code>27.5mm</code>), el círculo queda justo contra el origen. Hay que asegurarse de que la ubicación <strong>no deje la figura fuera del origen</strong>.',
+          'We also adjust the <strong>location</strong> according to the radius: if <code>X</code> and <code>Y</code> equal the radius (<code>27.5mm</code>), the circle sits right against the origin. Make sure the location <strong>does not leave the shape outside the origin</strong>.',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/72-location-segun-radio.webp', [520, 128], ['Campos Location X e Y con 27.5mm cada uno', 'Location X and Y fields with 27.5mm each'], ['Location = radio (27.5mm, 27.5mm)', 'Location = radius (27.5mm, 27.5mm)'], [[188, 52, 126, 34, ['X = 27.5mm', 'X = 27.5mm'], 'bottom'], [322, 52, 130, 34, ['Y = 27.5mm', 'Y = 27.5mm'], 'bottom']], false)),
+            important('Si el centro quedara más cerca del origen que el radio, parte del círculo caería en coordenadas negativas, fuera del origen.', 'If the center were closer to the origin than the radius, part of the circle would fall into negative coordinates, outside the origin.'),
+          ]
+        ),
+        step(
+          '¿Cómo le decimos a Altium que lo dibujado es el <strong>contorno de la placa</strong>? Con el círculo seleccionado vamos a <strong>Design → Board Shape → Define Board Shape from Selected Objects</strong>.',
+          'How do we tell Altium that what we drew is the <strong>board outline</strong>? With the circle selected we go to <strong>Design → Board Shape → Define Board Shape from Selected Objects</strong>.',
+          [shots('auto', S('07-origen-y-forma-de-placa/70-design-board-shape-define.webp', [1052, 543], ['Menú Design → Board Shape con Define Board Shape from Selected Objects resaltado', 'Design → Board Shape menu with Define Board Shape from Selected Objects highlighted'], ['Design → Board Shape → Define Board Shape from Selected Objects', 'Design → Board Shape → Define Board Shape from Selected Objects'], [[2, 6, 72, 34, ['Design', 'Design'], 'top'], [2, 220, 512, 36, ['Board Shape', 'Board Shape'], 'left'], [514, 222, 534, 34, ['Define Board Shape…', 'Define Board Shape…'], 'top']], false))]
+        ),
+        step(
+          'Ahora solo nos queda nuestro <strong>círculo</strong> como placa: lo de fuera se ve gris. Ya podemos empezar a <strong>diseñar</strong> y a <strong>acomodar los componentes</strong>; cómo se acomoden depende de cada quien.',
+          'Now only our <strong>circle</strong> is left as the board: what is outside shows grey. We can start <strong>designing</strong> and <strong>arranging the components</strong>; how they are arranged is up to each person.',
+          [shots('auto', S('07-origen-y-forma-de-placa/71-contorno-circular-listo.webp', [1919, 1079], ['Placa circular definida con el círculo como contorno y el origen en su esquina', 'Circular board defined with the circle as outline and the origin at its corner'], ['La placa ya tiene forma de círculo', 'The board is now circle-shaped'], [[690, 444, 346, 346, ['Contorno de la placa', 'Board outline'], 'top'], [670, 766, 46, 46, ['Origen', 'Origin'], 'left'], [1570, 482, 306, 40, ['Location', 'Location'], 'left'], [1570, 784, 300, 36, ['Radius = 27.5mm', 'Radius = 27.5mm'], 'left']]))]
         ),
         step(
           'Revisamos el <strong>número de capas</strong> en <strong>Design → Layer Stack Manager</strong>. Para esta placa de práctica se usan <strong>2 capas</strong> (Top y Bottom).',
           'We check the <strong>number of layers</strong> in <strong>Design → Layer Stack Manager</strong>. This practice board uses <strong>2 layers</strong> (Top and Bottom).',
-          [ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
+          [prov(), ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
         ),
       ],
     },
@@ -373,14 +487,80 @@ export const ALTIUM_FLOW: Flow = {
       title: L('Acomodar los componentes en la placa', 'Arrange the components on the board'),
       steps: [
         step(
-          'Los componentes llegan <strong>amontonados</strong> fuera del contorno, unidos por <strong>líneas de conexión</strong> (ratsnest) que indican qué pines van juntos. Los arrastramos dentro de la placa y los acomodamos: <strong>agrupados por función</strong>, lo más cerca posible los que se conectan entre sí, y con los conectores en los bordes.',
-          'The components arrive <strong>piled up</strong> outside the outline, joined by <strong>connection lines</strong> (ratsnest) showing which pins go together. We drag them inside the board and arrange them: <strong>grouped by function</strong>, as close as possible to the ones they connect to, and with the connectors on the edges.',
-          [prov(), ph('Componentes acomodados dentro del contorno, con las líneas de conexión visibles.', 'Components arranged inside the outline, with the connection lines visible.')]
+          'Ahora toca <strong>acomodar</strong> los componentes dentro de la placa. Recomendaciones antes de empezar: empezar con los <strong>componentes grandes</strong> y después los <strong>chicos</strong>, y tratar de <strong>no enredar las conexiones</strong> (las líneas finas) a ojo.',
+          'Now it is time to <strong>arrange</strong> the components inside the board. Recommendations before starting: begin with the <strong>large components</strong> and then the <strong>small</strong> ones, and try not to <strong>tangle the connections</strong> (the thin lines) by eye.',
+          [
+            shots('auto', S('08-colocar-y-rutear/82-inicio-acomodar.webp', [1919, 1079], ['Placa circular con algunos componentes ya dentro y el resto todavía fuera', 'Circular board with some components already inside and the rest still outside'], ['Empezamos con los componentes grandes', 'We start with the large components'], [[396, 312, 546, 546, ['Placa', 'Board'], 'top'], [570, 336, 320, 366, ['Ya acomodados', 'Already placed'], 'right'], [984, 682, 836, 150, ['Todavía sin acomodar', 'Not placed yet'], 'top']])),
+            note('Un buen orden: primero los conectores y el microcontrolador (lo más grande), después los capacitores y resistencias cerca de los pines que usan.', 'A good order: first the connectors and the microcontroller (the largest), then the capacitors and resistors close to the pins they use.'),
+          ]
         ),
         step(
-          'Los capacitores de <strong>desacople</strong> van lo más cerca posible del pin de alimentación del circuito integrado al que protegen. Con la tecla <kbd>Espacio</kbd> rotamos el componente mientras lo movemos.',
-          '<strong>Decoupling</strong> capacitors go as close as possible to the power pin of the integrated circuit they protect. With the <kbd>Space</kbd> key we rotate the component while moving it.',
-          [ph('Capacitor de desacople junto al pin de alimentación de un circuito integrado.', 'Decoupling capacitor next to an integrated circuit\'s power pin.')]
+          'Para mover un componente lo arrastramos; mientras lo movemos hay atajos muy útiles:',
+          'To move a component we drag it; while moving it, some shortcuts are very useful:',
+          [
+            table(
+              [['Tecla', 'Key'], ['Acción', 'Action']],
+              [
+                [['Space', 'Space'], ['Rotar 90° mientras arrastras un componente', 'Rotate 90° while dragging a component']],
+                [['X', 'X'], ['Espejo horizontal (mirror)', 'Horizontal mirror']],
+                [['L', 'L'], ['Pasar el componente al otro lado de la placa (Top ↔ Bottom)', 'Flip the component to the other side of the board (Top ↔ Bottom)']],
+                [['Ctrl + Z', 'Ctrl + Z'], ['Deshacer', 'Undo']],
+                [['Tab', 'Tab'], ['Abrir Properties mientras colocas', 'Open Properties while placing']],
+                [['Q', 'Q'], ['Alternar mils ↔ mm', 'Toggle mils ↔ mm']],
+                [['G', 'G'], ['Cambiar el tamaño del grid de snap', 'Change the snap grid size']],
+              ]
+            ),
+            note('Atajos tal como los anotó Alessandro; conviene probarlos en tu versión de Altium.', 'Shortcuts as noted by Alessandro; it is worth trying them in your Altium version.'),
+          ]
+        ),
+        step(
+          'Si trabajamos con un componente y queremos pasarlo a la <strong>parte de atrás</strong>, lo seleccionamos y en <strong>Properties</strong> cambiamos su <strong>capa</strong>. Ahorita estamos en la capa superior (<strong>Top Layer</strong>, la roja); la azul es la inferior (<strong>Bottom Layer</strong>).',
+          'If we are working with a component and want to move it to the <strong>back side</strong>, we select it and change its <strong>layer</strong> in <strong>Properties</strong>. Right now we are on the top layer (<strong>Top Layer</strong>, the red one); the blue one is the bottom (<strong>Bottom Layer</strong>).',
+          [
+            shots('auto', S('08-colocar-y-rutear/73-cambiar-capa-top-bottom.webp', [1919, 1079], ['Componente U1 seleccionado y el desplegable de Layer con Top Layer y Bottom Layer', 'Component U1 selected and the Layer drop-down with Top Layer and Bottom Layer'], ['Properties → Layer: Top Layer o Bottom Layer', 'Properties → Layer: Top Layer or Bottom Layer'], [[710, 396, 300, 420, ['U1 en Top Layer', 'U1 on Top Layer'], 'left'], [1572, 372, 306, 108, ['Layer', 'Layer'], 'top']])),
+            shots('auto', S('08-colocar-y-rutear/74-componente-en-bottom-espejo.webp', [1919, 1079], ['Componente U1 ya en Bottom Layer, con su texto y sus pines en espejo', 'Component U1 now on Bottom Layer, with its text and pins mirrored'], ['U1 en Bottom Layer: queda en espejo', 'U1 on Bottom Layer: it ends up mirrored'], [[1572, 372, 306, 36, ['Bottom Layer', 'Bottom Layer'], 'top'], [710, 396, 44, 38, ['Texto en espejo', 'Mirrored text'], 'left'], [958, 504, 40, 40, ['Pin 1 ahora a la derecha', 'Pin 1 now on the right'], 'top']])),
+            important('Al cambiar de capa los <b>pines se invierten</b> (el componente queda en espejo): hay que tenerlo en cuenta para conectarlo del otro lado.', 'When the layer changes the <b>pins get inverted</b> (the component is mirrored): keep that in mind to connect it from the other side.'),
+          ]
+        ),
+        step(
+          'Para cambiar entre vistas: la tecla <kbd>2</kbd> es la <strong>vista 2D</strong> (la de ahorita) y la <kbd>3</kbd> es la <strong>vista 3D</strong>, muy útil para revisar.',
+          'To switch views: the <kbd>2</kbd> key is the <strong>2D view</strong> (the current one) and <kbd>3</kbd> is the <strong>3D view</strong>, very useful for checking.',
+          [
+            shots('row', S('08-colocar-y-rutear/78-vista-2d.webp', [1919, 1079], ['Vista 2D de la placa con U1', '2D view of the board with U1'], ['Tecla 2: vista 2D', 'Key 2: 2D view'], [[826, 360, 292, 420, ['U1 en 2D', 'U1 in 2D'], 'top']], false),
+              S('08-colocar-y-rutear/79-vista-3d.webp', [1919, 1079], ['Vista 3D de la placa con U1', '3D view of the board with U1'], ['Tecla 3: vista 3D', 'Key 3: 3D view'], [[776, 400, 330, 410, ['U1 en 3D', 'U1 in 3D'], 'top']], false)),
+          ]
+        ),
+        step(
+          'Para movernos en la vista 3D mantenemos la tecla <kbd>Shift</kbd> y movemos con el <strong>clic derecho</strong> del mouse.',
+          'To move around in the 3D view we hold the <kbd>Shift</kbd> key and move with the mouse <strong>right button</strong>.',
+          [
+            shots('row', S('08-colocar-y-rutear/80-vista-3d-mover.webp', [1919, 1079], ['Vista 3D con el icono de movimiento sobre la placa', '3D view with the move icon over the board'], ['Shift + clic derecho para movernos', 'Shift + right click to move around'], [[975, 298, 254, 262, ['Mover la vista', 'Move the view'], 'top']], false),
+              S('08-colocar-y-rutear/81-vista-3d-volteada.webp', [1919, 1079], ['Vista 3D volteada para ver la placa por el otro lado', '3D view flipped to see the board from the other side'], ['Vista volteada (Top Layer Flipped)', 'Flipped view (Top Layer Flipped)'], [[858, 390, 254, 262, ['Mover la vista', 'Move the view'], 'top'], [296, 212, 380, 34, ['Top Layer (Flipped)', 'Top Layer (Flipped)'], 'bottom']], false)),
+            table(
+              [['Tecla / acción', 'Key / action'], ['Para qué', 'What for']],
+              [
+                [['Ctrl + Shift + H', 'Ctrl + Shift + H'], ['Ajustar la vista a todos los objetos', 'Fit the view to all objects']],
+                [['3', '3'], ['Vista 3D (muy útil para revisar)', '3D view (very useful for checking)']],
+                [['2', '2'], ['Volver a la vista 2D', 'Back to the 2D view']],
+                [['Scroll', 'Scroll'], ['Zoom in / out', 'Zoom in / out']],
+                [['Clic de la rueda', 'Wheel click'], ['Pan (mover la vista)', 'Pan (move the view)']],
+                [['Shift + clic derecho', 'Shift + right click'], ['Moverse en la vista 3D', 'Move around the 3D view']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Sabiendo todo esto vamos acomodando: seleccionamos, movemos, rotamos y revisamos que las conexiones queden lo más ordenadas posible. Aquí ya depende de cada quien y de cómo quiera acomodar.',
+          'Knowing all this we keep arranging: we select, move, rotate and check that the connections end up as tidy as possible. From here it depends on each person and how they want to arrange.',
+          [
+            shots('auto', S('08-colocar-y-rutear/83-acomodando-seleccion.webp', [1919, 1079], ['Varios componentes seleccionados al mismo tiempo mientras se acomodan', 'Several components selected at the same time while being arranged'], ['Podemos seleccionar varios componentes a la vez', 'We can select several components at once'], [[448, 272, 548, 548, ['Placa', 'Board'], 'top'], [1010, 702, 170, 54, ['Por acomodar', 'Still to place'], 'top'], [1398, 1012, 192, 28, ['4 objetos seleccionados', '4 objects selected'], 'top']])),
+            shots('auto', S('08-colocar-y-rutear/84-placa-acomodada.webp', [1919, 1079], ['Placa circular con todos los componentes ya acomodados dentro', 'Circular board with all the components arranged inside'], ['Todos los componentes dentro de la placa', 'All the components inside the board'], [[585, 312, 548, 548, ['Componentes acomodados', 'Components arranged'], 'top']])),
+          ]
+        ),
+        step(
+          'Ya que lo tengamos de una manera que nos guste, podemos empezar a <strong>rutear</strong>.',
+          'Once we have it the way we like, we can start <strong>routing</strong>.',
+          []
         ),
       ],
     },
@@ -392,52 +572,168 @@ export const ALTIUM_FLOW: Flow = {
       title: L('Rutear las pistas', 'Route the tracks'),
       steps: [
         step(
-          'Ya acomodados, <strong>ruteamos</strong>: dibujamos las pistas de cobre que siguen las líneas de conexión. Usamos el <strong>ruteo interactivo</strong> (<kbd>Ctrl</kbd>+<kbd>W</kbd> o <strong>Route → Interactive Routing</strong>): hacemos clic en un pin y seguimos la línea hasta el otro pin.',
-          'With everything arranged, we <strong>route</strong>: we draw the copper tracks that follow the connection lines. We use <strong>interactive routing</strong> (<kbd>Ctrl</kbd>+<kbd>W</kbd> or <strong>Route → Interactive Routing</strong>): we click a pin and follow the line to the other pin.',
-          [prov(), ph('Una pista en proceso de ruteo con el ruteo interactivo activo.', 'A track being routed with interactive routing active.')]
+          'Hay <strong>dos maneras</strong> de rutear. La primera es <strong>manual</strong>: nosotros elegimos por dónde va cada pista. Antes que nada hay que estar seguros de haber <strong>importado las reglas de diseño de JLCPCB</strong> (sección 8). Lo hacemos con <kbd>Ctrl</kbd>+<kbd>W</kbd> o con <strong>Route → Interactive Routing</strong>.',
+          'There are <strong>two ways</strong> to route. The first is <strong>manual</strong>: we choose where each track goes. First of all we must be sure we have <strong>imported the JLCPCB design rules</strong> (section 8). We do it with <kbd>Ctrl</kbd>+<kbd>W</kbd> or with <strong>Route → Interactive Routing</strong>.',
+          [shots('auto', S('08-colocar-y-rutear/87-menu-route-interactive-routing.webp', [1252, 810], ['Menú Route con Interactive Routing resaltado', 'Route menu with Interactive Routing highlighted'], ['Route → Interactive Routing (Ctrl+W)', 'Route → Interactive Routing (Ctrl+W)'], [[399, 42, 64, 28, ['Route', 'Route'], 'top'], [402, 106, 388, 34, ['Interactive Routing', 'Interactive Routing'], 'right']], false))]
         ),
         step(
-          'Si una pista tiene que cruzar a otra, cambiamos de <strong>capa</strong> con una <strong>vía</strong> (se usa la tecla <kbd>*</kbd> del teclado numérico mientras rutea). Las pistas de <strong>alimentación</strong> se hacen más anchas que las de señal.',
-          'If a track has to cross another, we change <strong>layer</strong> with a <strong>via</strong> (the <kbd>*</kbd> key on the numeric keypad while routing). <strong>Power</strong> tracks are made wider than signal tracks.',
-          [ph('Placa con pistas en Top (rojo) y Bottom (azul) y una vía entre ellas.', 'Board with tracks on Top (red) and Bottom (blue) and a via between them.')]
+          'El cursor cambia a una <strong>cruz</strong>. Hacemos clic en un <strong>pad</strong> para empezar la pista, movemos el mouse siguiendo la línea de conexión (<em>ratsnest</em>) hacia el pad destino y hacemos clic en el <strong>pad destino</strong> para completar la conexión. La línea fina desaparece.',
+          'The cursor turns into a <strong>cross</strong>. We click a <strong>pad</strong> to start the track, move the mouse following the connection line (<em>ratsnest</em>) toward the destination pad and click the <strong>destination pad</strong> to complete the connection. The thin line disappears.',
+          [
+            shots('row', S('08-colocar-y-rutear/90-ruteo-cursor-cruz.webp', [660, 308], ['Cursor en forma de cruz verde junto a los pads del conector J1', 'Green cross-shaped cursor next to the pads of connector J1'], ['El cursor se vuelve una cruz', 'The cursor becomes a cross'], [[386, 120, 100, 100, ['Cursor en cruz', 'Cross cursor'], 'bottom']], false),
+              S('08-colocar-y-rutear/91-ruteo-pad-inicio.webp', [340, 368], ['Pad 7 del conector J1 (VCC_DISP) con la cruz del cursor encima', 'Pad 7 of connector J1 (VCC_DISP) with the cursor cross over it'], ['Clic en el pad donde empieza la pista', 'Click the pad where the track starts'], [[62, 62, 72, 72, ['Pad de inicio', 'Start pad'], 'top']], false)),
+            shots('auto', S('08-colocar-y-rutear/92-ruteo-en-curso.webp', [1919, 1079], ['Pista roja en proceso de ruteo desde el pad 7 de J1 y el panel Interactive Routing', 'Red track being routed from pad 7 of J1 and the Interactive Routing panel'], ['Ruteando: la pista sigue la línea de conexión', 'Routing: the track follows the connection line'], [[846, 336, 100, 330, ['Pista en proceso', 'Track in progress'], 'right'], [1572, 444, 304, 36, ['Layer', 'Layer'], 'top'], [1572, 626, 296, 36, ['Via Diameter', 'Via Diameter'], 'top'], [1572, 668, 296, 36, ['Via Hole Size', 'Via Hole Size'], 'bottom'], [1572, 744, 296, 40, ['Width', 'Width'], 'bottom']])),
+            shots('row', S('08-colocar-y-rutear/93-ruteo-pad-destino.webp', [459, 490], ['Pad 1 del capacitor C1 (VCC_DISP) al que llega la pista', 'Pad 1 of capacitor C1 (VCC_DISP) where the track arrives'], ['Clic en el pad destino', 'Click the destination pad'], [[168, 258, 68, 68, ['Pad destino', 'Destination pad'], 'bottom']], false)),
+            shots('auto', S('08-colocar-y-rutear/94-pista-completada.webp', [1919, 1079], ['Pista roja completa desde J1 hasta C1', 'Complete red track from J1 to C1'], ['La pista llega al pad destino y la línea fina desaparece', 'The track reaches the destination pad and the thin line disappears'], [[910, 308, 134, 612, ['Pista VCC_DISP', 'VCC_DISP track'], 'right']])),
+            note('En el panel <strong>Properties</strong> del ruteo se ven la <strong>capa</strong> (Layer), el diámetro y el agujero de la vía (Via Diameter, Via Hole Size) y el <strong>ancho</strong> de la pista (Width).', 'In the routing <strong>Properties</strong> panel you can see the <strong>layer</strong> (Layer), the via diameter and hole (Via Diameter, Via Hole Size) and the track <strong>width</strong> (Width).'),
+          ]
+        ),
+        step(
+          'Atajos durante el ruteo:',
+          'Shortcuts while routing:',
+          [
+            table(
+              [['Tecla', 'Key'], ['Acción', 'Action']],
+              [
+                [['Shift + Space', 'Shift + Space'], ['Cambiar el modo de esquina: 45° → 90° → freestyle', 'Change the corner mode: 45° → 90° → freestyle']],
+                [['Backspace', 'Backspace'], ['Borrar el último segmento', 'Delete the last segment']],
+                [['* (asterisco del teclado numérico)', '* (numeric keypad asterisk)'], ['Cambiar de Top a Bottom Layer (agrega una vía automáticamente)', 'Switch from Top to Bottom Layer (adds a via automatically)']],
+                [['Tab', 'Tab'], ['Cambiar el ancho de la pista', 'Change the track width']],
+                [['Esc', 'Esc'], ['Cancelar', 'Cancel']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Ahí mismo modificamos la <strong>capa</strong> y todo lo que se rutea. Se puede rutear en <strong>ambas capas</strong>: por ejemplo, esta pista azul está en la <strong>Bottom Layer</strong>.',
+          'Right there we change the <strong>layer</strong> and everything that is routed. We can route on <strong>both layers</strong>: for example, this blue track is on the <strong>Bottom Layer</strong>.',
+          [shots('auto', S('08-colocar-y-rutear/96-pista-bottom-azul.webp', [1919, 1079], ['Pista azul en la Bottom Layer saliendo del pin 1 de J1', 'Blue track on the Bottom Layer leaving pin 1 of J1'], ['Una pista en la Bottom Layer (azul)', 'A track on the Bottom Layer (blue)'], [[610, 380, 176, 204, ['Pista Bottom (azul)', 'Bottom track (blue)'], 'right'], [1572, 444, 304, 36, ['Layer: Bottom Layer', 'Layer: Bottom Layer'], 'top'], [590, 1008, 172, 28, ['Capa activa', 'Active layer'], 'top']]))]
+        ),
+        step(
+          'Cuando una pista no puede llegar a su destino sin cruzar otra, cambiamos de capa con una <strong>vía</strong>: un agujero metalizado que conecta una pista del Top Layer con el Bottom Layer.',
+          'When a track cannot reach its destination without crossing another, we change layer with a <strong>via</strong>: a plated hole that joins a Top Layer track to the Bottom Layer.',
+          [
+            shots('row', S('08-colocar-y-rutear/99-via-detalle.webp', [138, 129], ['Vía en la red GND, vista de cerca', 'Via on the GND net, close up'], ['Una vía (círculo con punto central)', 'A via (circle with a center dot)'], [], false)),
+            shots('auto', S('08-colocar-y-rutear/100-vias-top-y-bottom.webp', [1035, 654], ['Pistas en Top (rojo) y Bottom (azul) unidas por una vía en la red GND', 'Tracks on Top (red) and Bottom (blue) joined by a via on the GND net'], ['Pistas de las dos capas unidas por una vía', 'Tracks on both layers joined by a via'], [[606, 318, 84, 84, ['Vía', 'Via'], 'top'], [130, 130, 330, 390, ['Pista Bottom', 'Bottom track'], 'right'], [210, 510, 440, 100, ['Pista Top', 'Top track'], 'bottom']], false)),
+            important('<b>Método 1 (el más común):</b> durante el ruteo con <kbd>Ctrl</kbd>+<kbd>W</kbd>, en el momento en que necesitas cambiar de capa presiona <kbd>*</kbd> (asterisco del teclado numérico). Altium coloca una vía en el punto actual y cambia al otro lado; sigues ruteando. Con <kbd>*</kbd> de nuevo regresas al Top Layer con otra vía.', '<b>Method 1 (the most common):</b> while routing with <kbd>Ctrl</kbd>+<kbd>W</kbd>, at the moment you need to change layer press <kbd>*</kbd> (numeric keypad asterisk). Altium places a via at the current point and switches to the other side; you keep routing. With <kbd>*</kbd> again you go back to the Top Layer with another via.'),
+            note('<strong>Método 2 (vía suelta):</strong> sin estar ruteando, con <strong>Place → Via</strong> o los atajos <kbd>P</kbd> y luego <kbd>V</kbd>. Sirve si ya hay dos segmentos y quieres unirlos colocando la vía entre ellos.', '<strong>Method 2 (loose via):</strong> without routing, with <strong>Place → Via</strong> or the <kbd>P</kbd> then <kbd>V</kbd> shortcuts. It is useful if there are already two segments and you want to join them by placing the via between them.'),
+            table(
+              [['Parámetro', 'Parameter'], ['Mínimo JLCPCB', 'JLCPCB minimum']],
+              [
+                [['Drill (taladro)', 'Drill (hole)'], ['0.3 mm', '0.3 mm']],
+                [['Pad diameter', 'Pad diameter'], ['0.6 mm', '0.6 mm']],
+              ]
+            ),
+            note('En el <strong>Properties</strong> de la vía hay que verificar que cumpla esos mínimos (valores que indicó Alessandro; conviene confirmarlos con las capacidades vigentes de JLCPCB). En la vista 2D las vías son círculos con un punto central y en 3D se ven como los agujeros reales de la placa.', 'In the via <strong>Properties</strong> check that it meets those minimums (values given by Alessandro; it is worth confirming them against JLCPCB\'s current capabilities). In the 2D view vias are circles with a center dot and in 3D they look like the real holes in the board.'),
+          ]
+        ),
+        step(
+          'Si bien rutear a mano es válido y profesional, lo <strong>eficiente y óptimo para nosotros</strong> es usar el <strong>autoruteo</strong>. Volvemos a la placa con todo acomodado…',
+          'While routing by hand is valid and professional, what is <strong>efficient and optimal for us</strong> is the <strong>autorouter</strong>. We go back to the board with everything arranged…',
+          [shots('auto', S('08-colocar-y-rutear/101-placa-lista-para-autoruteo.webp', [1909, 1079], ['Placa circular con todos los componentes acomodados y las líneas de conexión sin rutear', 'Circular board with all the components arranged and the connection lines still unrouted'], ['La placa acomodada, lista para el autoruteo', 'The arranged board, ready for the autorouter'], [[497, 214, 776, 776, ['Placa lista', 'Board ready'], 'top']]))]
+        ),
+        step(
+          '…y vamos a <strong>Route → Auto Route → All…</strong> Se abre el diálogo <strong>Situs Routing Strategies</strong>.',
+          '…and we go to <strong>Route → Auto Route → All…</strong> The <strong>Situs Routing Strategies</strong> dialog opens.',
+          [shots('auto', S('08-colocar-y-rutear/102-menu-auto-route-all.webp', [1221, 1006], ['Menú Route → Auto Route con All… resaltado', 'Route → Auto Route menu with All… highlighted'], ['Route → Auto Route → All…', 'Route → Auto Route → All…'], [[399, 42, 64, 28, ['Route', 'Route'], 'top'], [402, 504, 388, 36, ['Auto Route', 'Auto Route'], 'left'], [790, 504, 428, 36, ['All…', 'All…'], 'right']], false))]
+        ),
+        step(
+          'Arriba, el <strong>Routing Setup Report</strong> resume si las reglas están bien. Lo importante es que diga <strong>0 Errors y 0 Warnings</strong>: como ya importamos las reglas de JLCPCB, no hay errores. (La única nota es una sugerencia, <em>Hint</em>, sobre una regla SMDNeckDown que no existe; no impide rutear.)',
+          'At the top, the <strong>Routing Setup Report</strong> sums up whether the rules are fine. What matters is that it says <strong>0 Errors and 0 Warnings</strong>: since we already imported the JLCPCB rules, there are no errors. (The only note is a suggestion, a <em>Hint</em>, about a missing SMDNeckDown rule; it does not prevent routing.)',
+          [shots('auto', S('09-autoruteo-drc-y-texto/106-situs-sin-errores.webp', [945, 1051], ['Diálogo Situs Routing Strategies con 0 errores y 0 warnings', 'Situs Routing Strategies dialog with 0 errors and 0 warnings'], ['Situs Routing Strategies: ya no hay errores', 'Situs Routing Strategies: there are no errors anymore'], [[54, 124, 800, 62, ['0 Errors · 0 Warnings', '0 Errors · 0 Warnings'], 'right']], false))]
+        ),
+        step(
+          'Abajo se elige la <strong>estrategia de ruteo</strong>. Dejamos <strong>Default 2 Layer Board</strong> (la estrategia por defecto para placas de dos capas) y damos <strong>Route All</strong>.',
+          'At the bottom we pick the <strong>routing strategy</strong>. We keep <strong>Default 2 Layer Board</strong> (the default strategy for two-layer boards) and press <strong>Route All</strong>.',
+          [
+            shots('auto', S('09-autoruteo-drc-y-texto/107-situs-route-all.webp', [939, 1040], ['Diálogo Situs con Default 2 Layer Board seleccionada y el botón Route All', 'Situs dialog with Default 2 Layer Board selected and the Route All button'], ['Default 2 Layer Board → Route All', 'Default 2 Layer Board → Route All'], [[42, 635, 870, 26, ['Default 2 Layer Board', 'Default 2 Layer Board'], 'top'], [698, 988, 112, 38, ['Route All', 'Route All'], 'top']], false)),
+            pend('Faltan por documentar los demás botones del diálogo (Edit Layer Directions, Edit Rules, Lock All Pre-routes, Rip-up Violations After Routing) y cuándo conviene usar otra estrategia.', 'The other buttons of the dialog (Edit Layer Directions, Edit Rules, Lock All Pre-routes, Rip-up Violations After Routing) and when another strategy is worth using are still to be documented.'),
+          ]
+        ),
+        step(
+          'Y veremos cómo <strong>rutea todo</strong>. En el panel <strong>Messages</strong> aparece el avance (por ejemplo, <em>26 of 46 connections</em>) hasta que termina con <strong>46 of 46 connections</strong> y el mensaje <em>Situs Routing finished</em>.',
+          'And we will see it <strong>route everything</strong>. The <strong>Messages</strong> panel shows the progress (for example, <em>26 of 46 connections</em>) until it ends with <strong>46 of 46 connections</strong> and the <em>Situs Routing finished</em> message.',
+          [
+            shots('row', S('09-autoruteo-drc-y-texto/108-autoruteo-en-progreso.webp', [1919, 1079], ['Autoruteo en proceso con algunas pistas dibujadas y el panel Messages', 'Autorouting in progress with some tracks drawn and the Messages panel'], ['Ruteando: 26 de 46 conexiones', 'Routing: 26 of 46 connections'], [[497, 214, 776, 776, ['Placa', 'Board'], 'top'], [1398, 500, 505, 52, ['Avance', 'Progress'], 'left']], false),
+              S('09-autoruteo-drc-y-texto/109-autoruteo-terminado.webp', [1919, 1079], ['Autoruteo terminado: todas las pistas dibujadas y Routing finished en Messages', 'Autorouting finished: all tracks drawn and Routing finished in Messages'], ['Terminado: 46 de 46 conexiones', 'Finished: 46 of 46 connections'], [[497, 214, 776, 776, ['Placa ruteada', 'Routed board'], 'top'], [1398, 792, 505, 32, ['Routing finished', 'Routing finished'], 'left']], false)),
+          ]
+        ),
+        step(
+          'Podemos usar la <strong>vista 3D</strong> (tecla <kbd>3</kbd>) para verificar cómo quedó la placa.',
+          'We can use the <strong>3D view</strong> (the <kbd>3</kbd> key) to check how the board turned out.',
+          [shots('auto', S('09-autoruteo-drc-y-texto/111-vista-3d-ruteada.webp', [1919, 1079], ['Vista 3D de la placa ruteada con los componentes y las pistas', '3D view of the routed board with the components and the tracks'], ['Placa ruteada en 3D', 'Routed board in 3D'], [[444, 214, 866, 792, ['Placa en 3D', 'Board in 3D'], 'top']]))]
         ),
       ],
     },
 
-    // ———————————————————————————————— 12 cobre y serigrafía
-    {
-      id: 'altium-cobre',
-      chip: L('12 · Cobre y serigrafía', '12 · Copper and silkscreen'),
-      title: L('Plano de tierra y serigrafía', 'Ground plane and silkscreen'),
-      steps: [
-        step(
-          'Un <strong>plano de cobre</strong> conectado a GND mejora el ruido y simplifica el ruteo. Se hace con <strong>Place → Polygon Pour</strong>: dibujamos la zona sobre la placa, elegimos la capa y la red <strong>GND</strong>, y Altium la rellena alrededor de las pistas.',
-          'A <strong>copper plane</strong> tied to GND reduces noise and simplifies routing. It is made with <strong>Place → Polygon Pour</strong>: we draw the area over the board, choose the layer and the <strong>GND</strong> net, and Altium fills it around the tracks.',
-          [prov(), ph('Polygon Pour sobre la placa conectado a la red GND.', 'Polygon Pour over the board connected to the GND net.')]
-        ),
-        step(
-          'La <strong>serigrafía</strong> (capa Top Overlay) son los textos impresos sobre la placa: designadores, polaridades y nombre. Revisamos que se lean y que <strong>no queden encima de las almohadillas</strong>.',
-          'The <strong>silkscreen</strong> (Top Overlay layer) is the text printed on the board: designators, polarities and name. We check that it is legible and that it <strong>does not sit on top of the pads</strong>.',
-          [ph('Placa con la serigrafía visible (designadores) sin tapar las almohadillas.', 'Board with visible silkscreen (designators) not covering the pads.')]
-        ),
-      ],
-    },
-
-    // ———————————————————————————————— 13 DRC PCB
+    // ———————————————————————————————— 12 DRC PCB
     {
       id: 'altium-drc-pcb',
-      chip: L('13 · DRC de la PCB', '13 · PCB DRC'),
+      chip: L('12 · DRC de la PCB', '12 · PCB DRC'),
       title: L('Revisar la PCB antes de fabricar', 'Check the PCB before manufacturing'),
       steps: [
         step(
-          'Igual que con el esquemático, corremos un <strong>DRC de la PCB</strong>: <strong>Tools → Design Rule Check…</strong> y <strong>Run Design Rule Check</strong>. Revisa que se cumplan las reglas definidas (separaciones, anchos, conexiones sin rutear, etc.) y genera un reporte con los errores, marcados en la placa.',
-          'As with the schematic, we run a <strong>PCB DRC</strong>: <strong>Tools → Design Rule Check…</strong> and <strong>Run Design Rule Check</strong>. It checks that the defined rules are met (clearances, widths, unrouted connections, etc.) and produces a report with the errors, marked on the board.',
-          [prov(), ph('Ventana Design Rule Checker y el reporte con la lista de violaciones.', 'Design Rule Checker window and the report with the violations list.'), important('<b>No se manda a fabricar</b> con errores de DRC sin entender. Cada uno se corrige o se justifica.', 'Do <b>not send to manufacturing</b> with DRC errors you do not understand. Each one is fixed or justified.')]
+          'Ahora corremos el <strong>DRC</strong> para verificar que no haya violaciones de las reglas de diseño: <strong>Tools → Design Rule Check…</strong>',
+          'Now we run the <strong>DRC</strong> to check there are no violations of the design rules: <strong>Tools → Design Rule Check…</strong>',
+          [shots('auto', S('09-autoruteo-drc-y-texto/112-menu-tools-drc.webp', [1038, 616], ['Menú Tools con Design Rule Check… resaltado', 'Tools menu with Design Rule Check… highlighted'], ['Tools → Design Rule Check…', 'Tools → Design Rule Check…'], [[340, 40, 64, 30, ['Tools', 'Tools'], 'top'], [342, 72, 456, 34, ['Design Rule Check…', 'Design Rule Check…'], 'right']], false))]
         ),
         step(
-          'Como última revisión, miramos la placa en <strong>3D</strong> (tecla <kbd>3</kbd>) para comprobar que las huellas y los conectores quedaron como esperamos.',
-          'As a last check, we look at the board in <strong>3D</strong> (the <kbd>3</kbd> key) to confirm the footprints and connectors ended up as expected.',
-          [ph('Vista 3D de la placa terminada.', '3D view of the finished board.')]
+          'Se abre la ventana <strong>Design Rule Checker</strong>. Dejamos las opciones por defecto (con <strong>Create Report File</strong> marcado, para que genere el informe) y damos <strong>Run Design Rule Check…</strong>',
+          'The <strong>Design Rule Checker</strong> window opens. We keep the default options (with <strong>Create Report File</strong> ticked, so it generates the report) and press <strong>Run Design Rule Check…</strong>',
+          [shots('auto', S('09-autoruteo-drc-y-texto/113-drc-run.webp', [1139, 1046], ['Ventana Design Rule Checker con Create Report File y el botón Run Design Rule Check', 'Design Rule Checker window with Create Report File and the Run Design Rule Check button'], ['Design Rule Checker → Run', 'Design Rule Checker → Run'], [[353, 118, 192, 32, ['Create Report File', 'Create Report File'], 'right'], [2, 992, 236, 38, ['Run Design Rule Check…', 'Run Design Rule Check…'], 'top']], false))]
+        ),
+        step(
+          'Se abre el <strong>Design Rule Verification Report</strong>, donde se detallan todas las violaciones a las reglas de diseño. Arriba aparecen el número de <strong>Warnings</strong> y de <strong>Rule Violations</strong>; las violaciones también se listan en el panel <strong>Messages</strong>.',
+          'The <strong>Design Rule Verification Report</strong> opens, detailing every violation of the design rules. At the top it shows the number of <strong>Warnings</strong> and <strong>Rule Violations</strong>; the violations are also listed in the <strong>Messages</strong> panel.',
+          [
+            shots('auto', S('09-autoruteo-drc-y-texto/114-informe-drc.webp', [1919, 1079], ['Informe de verificación de reglas con 0 warnings y 22 violaciones, y el panel Messages', 'Rule verification report with 0 warnings and 22 violations, and the Messages panel'], ['El informe del DRC', 'The DRC report'], [[1214, 418, 134, 84, ['0 Warnings · 22 Violations', '0 Warnings · 22 Violations'], 'left'], [1398, 130, 505, 790, ['Messages', 'Messages'], 'left']])),
+            shots('auto', S('09-autoruteo-drc-y-texto/115-informe-resumen.webp', [1090, 937], ['Resumen del informe: Warnings 0 y la lista de reglas con su número de violaciones', 'Report summary: Warnings 0 and the rule list with its violation count'], ['Resumen: 0 warnings y la lista de reglas', 'Summary: 0 warnings and the rule list'], [[12, 346, 1048, 64, ['Warnings: 0', 'Warnings: 0'], 'top'], [12, 446, 1048, 480, ['Reglas y violaciones', 'Rules and violations'], 'right']], false)),
+          ]
+        ),
+        step(
+          'En nuestro caso aparecen <strong>22 Rule Violations</strong>: 20 de <em>Silk To Solder Mask Clearance</em> (la serigrafía de los capacitores y resistencias queda a 0.125 mm de la máscara de soldadura, cuando la regla pide 0.127 mm) y 2 de <em>Board Clearance</em> (textos de la serigrafía muy cerca del borde de la placa). Son <strong>estéticos</strong>: no afectan nada eléctrico y la placa <strong>se puede mandar a producir</strong>.',
+          'In our case there are <strong>22 Rule Violations</strong>: 20 of <em>Silk To Solder Mask Clearance</em> (the silkscreen of the capacitors and resistors sits 0.125 mm from the solder mask, when the rule asks for 0.127 mm) and 2 of <em>Board Clearance</em> (silkscreen texts very close to the board edge). They are <strong>cosmetic</strong>: they affect nothing electrical and the board <strong>can be sent to production</strong>.',
+          [
+            shots('row', S('09-autoruteo-drc-y-texto/116-informe-silk-solder-mask.webp', [1088, 959], ['Lista de violaciones Silk To Solder Mask Clearance entre pads y serigrafía', 'List of Silk To Solder Mask Clearance violations between pads and silkscreen'], ['Silk To Solder Mask Clearance (20)', 'Silk To Solder Mask Clearance (20)'], [[12, 152, 1048, 38, ['Silk To Solder Mask', 'Silk To Solder Mask'], 'top'], [840, 96, 220, 34, ['Total: 22', 'Total: 22'], 'bottom']], false),
+              S('09-autoruteo-drc-y-texto/117-informe-board-clearance.webp', [1079, 927], ['Violaciones de Board Clearance entre el borde de la placa y los textos J1 y J4', 'Board Clearance violations between the board edge and the J1 and J4 texts'], ['Board Clearance (2)', 'Board Clearance (2)'], [[6, 740, 1048, 40, ['Board Clearance', 'Board Clearance'], 'top'], [12, 784, 1048, 68, ['Textos J1 y J4', 'J1 and J4 texts'], 'bottom']], false)),
+            important('Lo importante es que <b>no haya warnings</b>. Si aparece alguno, hay que revisarlo y corregirlo antes de fabricar.', 'What matters is that there are <b>no warnings</b>. If one shows up, it must be reviewed and fixed before manufacturing.'),
+          ]
+        ),
+      ],
+    },
+
+    // ———————————————————————————————— 13 texto y logo
+    {
+      id: 'altium-cobre',
+      chip: L('13 · Texto y logo', '13 · Text and logo'),
+      title: L('Texto y logo en la serigrafía', 'Text and logo on the silkscreen'),
+      steps: [
+        step(
+          'Sabiendo que la placa no tiene warnings, podemos pasar a cosas como agregar <strong>texto o un logo</strong> en la capa <strong>Top Overlay</strong> (la serigrafía de arriba, la <strong>amarilla</strong>). Primero seleccionamos la capa <strong>Top Overlay</strong> en la barra inferior y luego vamos a <strong>Place → String</strong> (o el atajo <kbd>P</kbd> y luego <kbd>S</kbd>).',
+          'Knowing the board has no warnings, we can move on to things like adding <strong>text or a logo</strong> on the <strong>Top Overlay</strong> layer (the top silkscreen, the <strong>yellow</strong> one). First we select the <strong>Top Overlay</strong> layer in the bottom bar and then go to <strong>Place → String</strong> (or the <kbd>P</kbd> then <kbd>S</kbd> shortcut).',
+          [
+            shots('auto', S('09-autoruteo-drc-y-texto/118-menu-place-string.webp', [723, 653], ['Menú Place con String resaltado', 'Place menu with String highlighted'], ['Place → String', 'Place → String'], [[212, 38, 66, 32, ['Place', 'Place'], 'top'], [216, 348, 334, 36, ['String', 'String'], 'right']], false)),
+            shots('auto', S('09-autoruteo-drc-y-texto/119-string-flotando.webp', [261, 230], ['Texto String flotando con el cursor, en rojo', 'String text floating with the cursor, in red'], ['El texto flota con el cursor', 'The text floats with the cursor'], [[80, 92, 128, 42, ['String (en rojo)', 'String (in red)'], 'bottom']], false)),
+            important('Si el texto sale en <b>rojo</b>, está en la capa <b>Top Layer</b> (cobre) y no en la serigrafía: hay que cambiarlo a <b>Top Overlay</b> (amarilla). Alessandro lo tuvo que cambiar después porque no lo había hecho antes.', 'If the text shows up in <b>red</b>, it is on the <b>Top Layer</b> (copper) and not on the silkscreen: it must be changed to <b>Top Overlay</b> (yellow). Alessandro had to change it afterwards because he had not done it before.'),
+          ]
+        ),
+        step(
+          'Con el texto seleccionado, en <strong>Properties</strong> cambiamos la capa a <strong>Top Overlay</strong> y podemos modificar el <strong>texto</strong>, la <strong>altura</strong> (Text Height), el tipo y la <strong>fuente</strong> (Font) y el <strong>grosor del trazo</strong> (Stroke Width).',
+          'With the text selected, in <strong>Properties</strong> we change the layer to <strong>Top Overlay</strong> and can edit the <strong>text</strong>, the <strong>height</strong> (Text Height), the type and the <strong>font</strong> (Font) and the <strong>stroke width</strong> (Stroke Width).',
+          [shots('auto', S('09-autoruteo-drc-y-texto/120-propiedades-string.webp', [1919, 1079], ['Texto String seleccionado y su panel Properties con capa, altura, tipo de fuente y grosor', 'Selected String text and its Properties panel with layer, height, font type and stroke width'], ['Propiedades del texto', 'Text properties'], [[390, 478, 196, 62, ['Texto', 'Text'], 'top'], [1572, 392, 306, 36, ['Text', 'Text'], 'top'], [1572, 433, 306, 36, ['Layer: Top Overlay', 'Layer: Top Overlay'], 'top'], [1572, 505, 306, 34, ['Text Height', 'Text Height'], 'bottom'], [1406, 592, 472, 42, ['Font Type', 'Font Type'], 'top'], [1572, 683, 306, 36, ['Font', 'Font'], 'top'], [1572, 724, 306, 36, ['Stroke Width', 'Stroke Width'], 'bottom']]))]
+        ),
+        step(
+          'Y acomodando los textos podemos poner, por ejemplo, el <strong>nombre del proyecto</strong> y los <strong>diseñadores</strong>. En la vista 3D se ve cómo quedan impresos sobre la placa.',
+          'And by arranging the texts we can put, for example, the <strong>project name</strong> and the <strong>designers</strong>. The 3D view shows how they end up printed on the board.',
+          [
+            shots('row', S('09-autoruteo-drc-y-texto/122-texto-disenadores-alux.webp', [1919, 1077], ['Placa con el texto designed by Alexa and Alessandro y el nombre Alux sobre la serigrafía', 'Board with the text designed by Alexa and Alessandro and the name Alux on the silkscreen'], ['Textos acomodados en la placa', 'Texts arranged on the board'], [[845, 548, 296, 94, ['Diseñadores', 'Designers'], 'top'], [527, 712, 182, 88, ['Nombre del proyecto', 'Project name'], 'top']], false),
+              S('09-autoruteo-drc-y-texto/124-vista-3d-texto.webp', [1911, 1079], ['Vista 3D de la placa con los textos impresos', '3D view of the board with the printed texts'], ['Los textos en la vista 3D', 'The texts in the 3D view'], [[815, 470, 272, 104, ['Diseñadores', 'Designers'], 'top'], [603, 695, 142, 84, ['Alux', 'Alux'], 'top']], false)),
+          ]
+        ),
+        step(
+          'Si queremos añadir un <strong>logo o una imagen</strong>, se hace desde el mismo menú <strong>Place</strong> (la opción <strong>Graphics</strong>, que aparece en el menú).',
+          'If we want to add a <strong>logo or an image</strong>, it is done from the same <strong>Place</strong> menu (the <strong>Graphics</strong> option, which shows in the menu).',
+          [pend('Falta documentar paso a paso cómo se añade el logo (formato de imagen, tamaño y capa). Alessandro lo mandará en la siguiente tanda.', 'How to add the logo step by step (image format, size and layer) is still missing. Alessandro will send it in the next batch.')]
         ),
       ],
     },

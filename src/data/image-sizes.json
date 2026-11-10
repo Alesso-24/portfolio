@@ -667,6 +667,14 @@
   1024,
   685
  ],
+ "10-altium/06-importar-cambios-y-reglas/103-seleccionar-reglas-import.webp": [
+  1348,
+  987
+ ],
+ "10-altium/06-importar-cambios-y-reglas/104-rule-set-ya-existe-replace-all.webp": [
+  731,
+  482
+ ],
  "10-altium/06-importar-cambios-y-reglas/47-esquematico-listo-para-drc.webp": [
   1919,
   1079
@@ -726,6 +734,194 @@
  "10-altium/06-importar-cambios-y-reglas/61-editor-reglas-ok.webp": [
   1325,
   978
+ ],
+ "10-altium/07-origen-y-forma-de-placa/62-menu-edit-origin-set.webp": [
+  749,
+  768
+ ],
+ "10-altium/07-origen-y-forma-de-placa/63-barra-herramientas-pcb.webp": [
+  752,
+  80
+ ],
+ "10-altium/07-origen-y-forma-de-placa/64-menu-line-full-circle.webp": [
+  1919,
+  1078
+ ],
+ "10-altium/07-origen-y-forma-de-placa/65-circulo-dibujado-origen.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/07-origen-y-forma-de-placa/66-clic-derecho-properties.webp": [
+  621,
+  853
+ ],
+ "10-altium/07-origen-y-forma-de-placa/67-barra-de-capas.webp": [
+  1081,
+  51
+ ],
+ "10-altium/07-origen-y-forma-de-placa/68-propiedades-del-arco.webp": [
+  546,
+  954
+ ],
+ "10-altium/07-origen-y-forma-de-placa/69-capa-mechanical-1.webp": [
+  536,
+  966
+ ],
+ "10-altium/07-origen-y-forma-de-placa/70-design-board-shape-define.webp": [
+  1052,
+  543
+ ],
+ "10-altium/07-origen-y-forma-de-placa/71-contorno-circular-listo.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/07-origen-y-forma-de-placa/72-location-segun-radio.webp": [
+  520,
+  128
+ ],
+ "10-altium/08-colocar-y-rutear/100-vias-top-y-bottom.webp": [
+  1035,
+  654
+ ],
+ "10-altium/08-colocar-y-rutear/101-placa-lista-para-autoruteo.webp": [
+  1909,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/102-menu-auto-route-all.webp": [
+  1221,
+  1006
+ ],
+ "10-altium/08-colocar-y-rutear/73-cambiar-capa-top-bottom.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/74-componente-en-bottom-espejo.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/78-vista-2d.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/79-vista-3d.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/80-vista-3d-mover.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/81-vista-3d-volteada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/82-inicio-acomodar.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/83-acomodando-seleccion.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/84-placa-acomodada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/87-menu-route-interactive-routing.webp": [
+  1252,
+  810
+ ],
+ "10-altium/08-colocar-y-rutear/90-ruteo-cursor-cruz.webp": [
+  660,
+  308
+ ],
+ "10-altium/08-colocar-y-rutear/91-ruteo-pad-inicio.webp": [
+  340,
+  368
+ ],
+ "10-altium/08-colocar-y-rutear/92-ruteo-en-curso.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/93-ruteo-pad-destino.webp": [
+  459,
+  490
+ ],
+ "10-altium/08-colocar-y-rutear/94-pista-completada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/96-pista-bottom-azul.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/08-colocar-y-rutear/99-via-detalle.webp": [
+  138,
+  129
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/106-situs-sin-errores.webp": [
+  945,
+  1051
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/107-situs-route-all.webp": [
+  939,
+  1040
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/108-autoruteo-en-progreso.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/109-autoruteo-terminado.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/111-vista-3d-ruteada.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/112-menu-tools-drc.webp": [
+  1038,
+  616
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/113-drc-run.webp": [
+  1139,
+  1046
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/114-informe-drc.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/115-informe-resumen.webp": [
+  1090,
+  937
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/116-informe-silk-solder-mask.webp": [
+  1088,
+  959
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/117-informe-board-clearance.webp": [
+  1079,
+  927
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/118-menu-place-string.webp": [
+  723,
+  653
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/119-string-flotando.webp": [
+  261,
+  230
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/120-propiedades-string.webp": [
+  1919,
+  1079
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/122-texto-disenadores-alux.webp": [
+  1919,
+  1077
+ ],
+ "10-altium/09-autoruteo-drc-y-texto/124-vista-3d-texto.webp": [
+  1911,
+  1079
  ],
  "referencia-componentes/led/01-simbolo-led-1206.png": [
   645,
