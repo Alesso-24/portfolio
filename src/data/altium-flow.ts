@@ -347,21 +347,125 @@ export const ALTIUM_FLOW: Flow = {
       ],
     },
 
-    // ———————————————————————————————— 9 forma
+    // ———————————————————————————————— 9 origen y forma
     {
       id: 'altium-forma',
       chip: L('9 · Forma de la placa', '9 · Board shape'),
-      title: L('Forma y capas de la placa', 'Board shape and layers'),
+      title: L('Origen y forma de la placa', 'Origin and board shape'),
       steps: [
         step(
-          'Con los componentes ya en el editor, lo primero es definir la <strong>forma de la placa</strong> (el contorno). Se dibuja una figura cerrada en la capa mecánica y se le indica a Altium que esa es la forma: <strong>Design → Board Shape</strong>.',
-          'With the components in the editor, the first thing is to define the <strong>board shape</strong> (the outline). A closed shape is drawn on the mechanical layer and Altium is told that it is the board shape: <strong>Design → Board Shape</strong>.',
-          [prov(), ph('Contorno de la placa dibujado y el menú Design → Board Shape.', 'Board outline drawn and the Design → Board Shape menu.')]
+          'Primero establecemos un <strong>origen</strong>: el punto (0, 0) desde el que Altium mide todas las coordenadas. Vamos a <strong>Edit → Origin → Set</strong>. Aparece una <strong>cruz verde</strong> y la colocamos donde queramos, normalmente en la <strong>esquina inferior izquierda del fondo negro</strong>. Después el origen queda marcado con una <strong>cruz blanca con un círculo</strong> en esa esquina.',
+          'First we set an <strong>origin</strong>: the (0, 0) point from which Altium measures every coordinate. We go to <strong>Edit → Origin → Set</strong>. A <strong>green cross</strong> appears and we place it wherever we want, usually at the <strong>bottom-left corner of the black background</strong>. The origin is then marked with a <strong>white cross with a circle</strong> in that corner.',
+          [shots('auto', S('07-origen-y-forma-de-placa/62-menu-edit-origin-set.webp', [749, 768], ['Menú Edit con Origin y Set resaltados', 'Edit menu with Origin and Set highlighted'], ['Edit → Origin → Set', 'Edit → Origin → Set'], [[46, 40, 48, 32, ['Edit', 'Edit'], 'top'], [46, 563, 320, 36, ['Origin', 'Origin'], 'left'], [368, 563, 122, 36, ['Set', 'Set'], 'right']], false))]
+        ),
+        step(
+          'Antes de dibujar, un vistazo a la <strong>barra de herramientas</strong> que flota sobre la zona de trabajo. De izquierda a derecha, cada botón (los que tienen una flechita abajo esconden más herramientas):',
+          'Before drawing, a look at the <strong>toolbar</strong> floating over the work area. From left to right, each button (the ones with a small arrow hide more tools):',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/63-barra-herramientas-pcb.webp', [752, 80], ['Barra de herramientas del editor de PCB con sus botones numerados', 'PCB editor toolbar with its buttons numbered'], ['Barra de herramientas del editor de PCB', 'PCB editor toolbar'], [[33, 16, 48, 46, ['1', '1'], 'bottom'], [82, 16, 48, 46, ['2', '2'], 'bottom'], [132, 16, 48, 46, ['3', '3'], 'bottom'], [181, 16, 48, 46, ['4', '4'], 'bottom'], [231, 16, 48, 46, ['5', '5'], 'bottom'], [284, 16, 48, 46, ['6', '6'], 'bottom'], [334, 16, 48, 46, ['7', '7'], 'bottom'], [383, 16, 48, 46, ['8', '8'], 'bottom'], [432, 16, 48, 46, ['9', '9'], 'bottom'], [483, 16, 48, 46, ['10', '10'], 'bottom'], [532, 16, 48, 46, ['11', '11'], 'bottom'], [583, 16, 48, 46, ['12', '12'], 'bottom'], [633, 16, 48, 46, ['13', '13'], 'bottom'], [684, 16, 48, 46, ['14', '14'], 'bottom']], false)),
+            table(
+              [['N.º', 'No.'], ['Herramienta', 'Tool'], ['Para qué sirve', 'What it is for']],
+              [
+                [['1', '1'], ['Filter', 'Filter'], ['Elegir qué tipos de objetos se pueden seleccionar', 'Choose which object types can be selected']],
+                [['2', '2'], ['Snap Options', 'Snap Options'], ['Imán: ajusta el cursor a la cuadrícula y a los objetos', 'Magnet: snaps the cursor to the grid and to objects']],
+                [['3', '3'], ['Move', 'Move'], ['Mover objetos', 'Move objects']],
+                [['4', '4'], ['Select', 'Select'], ['Seleccionar objetos dibujando un área', 'Select objects by drawing an area']],
+                [['5', '5'], ['Align', 'Align'], ['Alinear y distribuir los objetos seleccionados', 'Align and distribute the selected objects']],
+                [['6', '6'], ['Component', 'Component'], ['Colocar un componente', 'Place a component']],
+                [['7', '7'], ['Route', 'Route'], ['Rutear: dibujar pistas de cobre', 'Route: draw copper tracks']],
+                [['8 – 11', '8 – 11'], ['Longitud, pad, polígono…', 'Length, pad, polygon…'], ['Ajuste de longitud de pistas, pads, planos de cobre y otras herramientas de colocación', 'Track length tuning, pads, copper pours and other placement tools']],
+                [['12', '12'], ['Dimension', 'Dimension'], ['Poner cotas (medidas) sobre la placa', 'Add dimensions (measurements) to the board']],
+                [['13', '13'], ['Text String', 'Text String'], ['Escribir texto sobre la placa', 'Write text on the board']],
+                [['14', '14'], ['Drawing tools', 'Drawing tools'], ['Dibujar: Line, Arc, Full Circle, Fill, Solid Region, Rectangle y Bond Wire', 'Draw: Line, Arc, Full Circle, Fill, Solid Region, Rectangle and Bond Wire']],
+              ]
+            ),
+            pend('Los botones 8 a 11 están descritos de forma general; falta que Alessandro confirme el nombre exacto de cada uno.', 'Buttons 8 to 11 are described in general terms; Alessandro still needs to confirm the exact name of each one.'),
+          ]
+        ),
+        step(
+          'También hay que conocer las <strong>capas</strong>, que están en la barra de abajo. Cada una es como una hoja transparente donde se dibuja algo distinto:',
+          'We also need to know the <strong>layers</strong>, in the bar at the bottom. Each one is like a transparent sheet where something different is drawn:',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/67-barra-de-capas.webp', [1081, 51], ['Barra de capas del editor de PCB', 'PCB editor layer bar'], ['Barra de capas', 'Layer bar'], [[152, 12, 152, 32, ['Cobre de arriba', 'Top copper'], 'top'], [310, 12, 166, 32, ['Cobre de abajo', 'Bottom copper'], 'top'], [484, 12, 136, 32, ['Capa mecánica', 'Mechanical layer'], 'top'], [628, 12, 152, 32, ['Serigrafía', 'Silkscreen'], 'top']], false)),
+            table(
+              [['Capa', 'Layer'], ['Qué es', 'What it is']],
+              [
+                [['Top Layer / Bottom Layer', 'Top Layer / Bottom Layer'], ['El cobre de arriba y de abajo: ahí van las pistas y los pads', 'The top and bottom copper: tracks and pads go there']],
+                [['Mechanical 1', 'Mechanical 1'], ['Capa mecánica: contornos, medidas y dibujos que no son cobre. Aquí dibujaremos el contorno de la placa', 'Mechanical layer: outlines, measurements and drawings that are not copper. This is where we will draw the board outline']],
+                [['Top Overlay / Bottom Overlay', 'Top Overlay / Bottom Overlay'], ['La serigrafía: los textos y marcas impresos sobre la placa (designadores, polaridad…)', 'The silkscreen: the text and marks printed on the board (designators, polarity…)']],
+                [['Top Paste / Bottom Paste', 'Top Paste / Bottom Paste'], ['Dónde se aplica la pasta de soldar (para montar componentes SMD)', 'Where solder paste is applied (to mount SMD components)']],
+                [['Top Solder / Bottom Solder', 'Top Solder / Bottom Solder'], ['La máscara de soldadura: las zonas del cobre que quedan al descubierto', 'The solder mask: the areas of copper left exposed']],
+                [['Drill Guide', 'Drill Guide'], ['Guía de los taladros', 'Drill guide']],
+                [['LS', 'LS'], ['Selector de conjuntos de capas (Layer Sets)', 'Layer set selector (Layer Sets)']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Si ya tenemos una figura donde queremos acomodar todo, podemos <strong>dibujarla o importarla</strong>. Para este caso usaremos un <strong>círculo</strong>. Hacemos clic derecho en la herramienta de <strong>línea</strong> (la última de la barra) y elegimos <strong>Full Circle</strong>.',
+          'If we already have a shape where we want to arrange everything, we can <strong>draw it or import it</strong>. For this case we will use a <strong>circle</strong>. We right-click the <strong>line</strong> tool (the last one in the bar) and choose <strong>Full Circle</strong>.',
+          [shots('auto', S('07-origen-y-forma-de-placa/64-menu-line-full-circle.webp', [1919, 1078], ['Menú de la herramienta de línea con Full Circle resaltado', 'Line tool menu with Full Circle highlighted'], ['Herramienta de línea → Full Circle', 'Line tool → Full Circle'], [[1404, 168, 52, 48, ['Herramienta de línea', 'Line tool'], 'left'], [1404, 396, 210, 42, ['Full Circle', 'Full Circle'], 'left']]))]
+        ),
+        step(
+          'Seleccionamos el <strong>centro</strong> del círculo con un clic y movemos el cursor hasta darle el tamaño; otro clic lo dibuja.',
+          'We click the <strong>center</strong> of the circle and move the cursor to size it; another click draws it.',
+          [shots('auto', S('07-origen-y-forma-de-placa/65-circulo-dibujado-origen.webp', [1919, 1079], ['Círculo dibujado en el fondo negro, con su centro y el origen en la esquina', 'Circle drawn on the black background, with its center and the origin in the corner'], ['Círculo dibujado y el origen en la esquina', 'Drawn circle and the origin in the corner'], [[650, 636, 196, 198, ['Círculo', 'Circle'], 'top'], [738, 724, 20, 20, ['Centro', 'Center'], 'bottom'], [556, 876, 46, 46, ['Origen', 'Origin'], 'left']]))]
+        ),
+        step(
+          'Damos <strong>clic derecho</strong> sobre el borde del círculo y elegimos <strong>Properties…</strong>',
+          'We <strong>right-click</strong> the edge of the circle and choose <strong>Properties…</strong>',
+          [shots('auto', S('07-origen-y-forma-de-placa/66-clic-derecho-properties.webp', [621, 853], ['Menú contextual del círculo con Properties… resaltado', 'Circle context menu with Properties… highlighted'], ['Clic derecho en el borde → Properties…', 'Right-click the edge → Properties…'], [[96, 410, 200, 198, ['Borde del círculo', 'Circle edge'], 'top'], [288, 796, 280, 38, ['Properties…', 'Properties…'], 'left']], false))]
+        ),
+        step(
+          'En el panel <strong>Properties</strong> aparecen las medidas del círculo (Altium lo llama <em>Arc</em>, un arco de 0° a 360°). Estas son las relevantes:',
+          'The <strong>Properties</strong> panel shows the circle\'s measurements (Altium calls it an <em>Arc</em>, an arc from 0° to 360°). These are the relevant ones:',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/68-propiedades-del-arco.webp', [546, 954], ['Panel Properties del arco con ubicación, capa, ancho, radio y ángulos', 'Arc Properties panel with location, layer, width, radius and angles'], ['Propiedades del círculo (Arc)', 'Circle (Arc) properties'], [[198, 214, 264, 34, ['Location (X/Y)', 'Location (X/Y)'], 'top'], [198, 365, 306, 36, ['Layer', 'Layer'], 'top'], [198, 473, 298, 34, ['Width', 'Width'], 'top'], [198, 515, 298, 34, ['Radius', 'Radius'], 'bottom'], [198, 556, 298, 76, ['Ángulos', 'Angles'], 'bottom']], false)),
+            table(
+              [['Campo', 'Field'], ['Qué es', 'What it is']],
+              [
+                [['Location (X/Y)', 'Location (X/Y)'], ['Dónde está el centro del círculo, medido desde el origen', 'Where the center of the circle is, measured from the origin']],
+                [['Net', 'Net'], ['La red eléctrica a la que pertenece; es un dibujo, así que queda en No Net', 'The electrical net it belongs to; it is a drawing, so it stays No Net']],
+                [['Layer', 'Layer'], ['La capa en la que está dibujado', 'The layer it is drawn on']],
+                [['Width', 'Width'], ['El grosor de la línea del círculo', 'The thickness of the circle line']],
+                [['Radius', 'Radius'], ['El radio del círculo', 'The radius of the circle']],
+                [['Start Angle / End Angle', 'Start Angle / End Angle'], ['Dónde empieza y termina el arco: de 0 a 360 es un círculo completo', 'Where the arc starts and ends: 0 to 360 is a full circle']],
+              ]
+            ),
+          ]
+        ),
+        step(
+          'Lo importante a cambiar es la <strong>capa</strong>: en <strong>Layer</strong> elegimos <strong>Mechanical 1</strong>, que es donde va el contorno de la placa.',
+          'The important thing to change is the <strong>layer</strong>: under <strong>Layer</strong> we choose <strong>Mechanical 1</strong>, which is where the board outline goes.',
+          [shots('auto', S('07-origen-y-forma-de-placa/69-capa-mechanical-1.webp', [536, 966], ['Lista de capas con Mechanical 1 resaltada', 'Layer list with Mechanical 1 highlighted'], ['Layer → Mechanical 1', 'Layer → Mechanical 1'], [[188, 376, 322, 40, ['Layer', 'Layer'], 'top'], [190, 478, 296, 36, ['Mechanical 1', 'Mechanical 1'], 'right']], false))]
+        ),
+        step(
+          'Otra cosa importante: cambiar las <strong>unidades a milímetros</strong>. Se hace con solo presionar la letra <kbd>Q</kbd>. Con todo en mm, ponemos el <strong>radio</strong> que queramos; para este ejemplo, <code>27.5mm</code> (depende de cada quien y de la forma que elija).',
+          'Another important thing: switch the <strong>units to millimetres</strong>. It is done by just pressing the <kbd>Q</kbd> key. With everything in mm, we set the <strong>radius</strong> we want; for this example, <code>27.5mm</code> (it is up to each person and the shape they choose).',
+          [note('La tecla <kbd>Q</kbd> alterna entre mm y mil (milésimas de pulgada).', 'The <kbd>Q</kbd> key toggles between mm and mil (thousandths of an inch).')]
+        ),
+        step(
+          'Además, ajustamos la <strong>ubicación</strong> de acuerdo con el radio: si <code>X</code> y <code>Y</code> valen lo mismo que el radio (<code>27.5mm</code>), el círculo queda justo contra el origen. Hay que asegurarse de que la ubicación <strong>no deje la figura fuera del origen</strong>.',
+          'We also adjust the <strong>location</strong> according to the radius: if <code>X</code> and <code>Y</code> equal the radius (<code>27.5mm</code>), the circle sits right against the origin. Make sure the location <strong>does not leave the shape outside the origin</strong>.',
+          [
+            shots('auto', S('07-origen-y-forma-de-placa/72-location-segun-radio.webp', [520, 128], ['Campos Location X e Y con 27.5mm cada uno', 'Location X and Y fields with 27.5mm each'], ['Location = radio (27.5mm, 27.5mm)', 'Location = radius (27.5mm, 27.5mm)'], [[188, 52, 126, 34, ['X = 27.5mm', 'X = 27.5mm'], 'bottom'], [322, 52, 130, 34, ['Y = 27.5mm', 'Y = 27.5mm'], 'bottom']], false)),
+            important('Si el centro quedara más cerca del origen que el radio, parte del círculo caería en coordenadas negativas, fuera del origen.', 'If the center were closer to the origin than the radius, part of the circle would fall into negative coordinates, outside the origin.'),
+          ]
+        ),
+        step(
+          '¿Cómo le decimos a Altium que lo dibujado es el <strong>contorno de la placa</strong>? Con el círculo seleccionado vamos a <strong>Design → Board Shape → Define Board Shape from Selected Objects</strong>.',
+          'How do we tell Altium that what we drew is the <strong>board outline</strong>? With the circle selected we go to <strong>Design → Board Shape → Define Board Shape from Selected Objects</strong>.',
+          [shots('auto', S('07-origen-y-forma-de-placa/70-design-board-shape-define.webp', [1052, 543], ['Menú Design → Board Shape con Define Board Shape from Selected Objects resaltado', 'Design → Board Shape menu with Define Board Shape from Selected Objects highlighted'], ['Design → Board Shape → Define Board Shape from Selected Objects', 'Design → Board Shape → Define Board Shape from Selected Objects'], [[2, 6, 72, 34, ['Design', 'Design'], 'top'], [2, 220, 512, 36, ['Board Shape', 'Board Shape'], 'left'], [514, 222, 534, 34, ['Define Board Shape…', 'Define Board Shape…'], 'top']], false))]
+        ),
+        step(
+          'Ahora solo nos queda nuestro <strong>círculo</strong> como placa: lo de fuera se ve gris. Ya podemos empezar a <strong>diseñar</strong> y a <strong>acomodar los componentes</strong>; cómo se acomoden depende de cada quien.',
+          'Now only our <strong>circle</strong> is left as the board: what is outside shows grey. We can start <strong>designing</strong> and <strong>arranging the components</strong>; how they are arranged is up to each person.',
+          [shots('auto', S('07-origen-y-forma-de-placa/71-contorno-circular-listo.webp', [1919, 1079], ['Placa circular definida con el círculo como contorno y el origen en su esquina', 'Circular board defined with the circle as outline and the origin at its corner'], ['La placa ya tiene forma de círculo', 'The board is now circle-shaped'], [[690, 444, 346, 346, ['Contorno de la placa', 'Board outline'], 'top'], [670, 766, 46, 46, ['Origen', 'Origin'], 'left'], [1570, 482, 306, 40, ['Location', 'Location'], 'left'], [1570, 784, 300, 36, ['Radius = 27.5mm', 'Radius = 27.5mm'], 'left']]))]
         ),
         step(
           'Revisamos el <strong>número de capas</strong> en <strong>Design → Layer Stack Manager</strong>. Para esta placa de práctica se usan <strong>2 capas</strong> (Top y Bottom).',
           'We check the <strong>number of layers</strong> in <strong>Design → Layer Stack Manager</strong>. This practice board uses <strong>2 layers</strong> (Top and Bottom).',
-          [ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
+          [prov(), ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
         ),
       ],
     },
