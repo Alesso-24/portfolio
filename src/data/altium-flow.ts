@@ -213,6 +213,11 @@ export const ALTIUM_FLOW: Flow = {
       title: L('Revisar el esquemático antes de la PCB', 'Check the schematic before the PCB'),
       steps: [
         step(
+          'Así se ve un esquemático <strong>listo para correr el DRC</strong>: todos los componentes colocados y conectados con etiquetas y alimentaciones, y las marcas No ERC en los pines sin usar.',
+          'This is what a schematic <strong>ready to run the DRC</strong> looks like: every component placed and connected with labels and power ports, and No ERC marks on the unused pins.',
+          [shots('auto', S('06-importar-cambios-y-reglas/47-esquematico-listo-para-drc.webp', [1919, 1079], ['Esquemático completo de la práctica, listo para correr el DRC', 'Complete schematic of the practice, ready to run the DRC'], ['Esquemático de ejemplo listo para el DRC', 'Example schematic ready for the DRC'], [[404, 118, 1388, 890, ['Esquemático listo', 'Schematic ready'], 'bottom'], [292, 84, 292, 32, ['Hoja del esquemático', 'Schematic sheet'], 'bottom']]))]
+        ),
+        step(
           'Antes de pasar al diseño de la PCB es <strong>muy importante</strong> correr un <strong>DRC del esquemático</strong>, para ver que no falten conexiones ni haya nada fuera de lugar. Vamos a <strong>Project → Validate PCB Project</strong>.',
           'Before moving on to the PCB design it is <strong>very important</strong> to run a <strong>schematic DRC</strong>, to check that no connections are missing and nothing is out of place. We go to <strong>Project → Validate PCB Project</strong>.',
           [shots('auto', S('05-drc-y-pcb/41-menu-project-validate-pcb-project.webp', [1063, 805], ['Menú Project con Validate PCB Project resaltado', 'Project menu with Validate PCB Project highlighted'], ['Project → Validate PCB Project', 'Project → Validate PCB Project'], [[146, 42, 64, 30, ['Project', 'Project'], 'top'], [146, 72, 492, 34, ['Validate PCB Project', 'Validate PCB Project'], 'right']], false))]
@@ -257,20 +262,95 @@ export const ALTIUM_FLOW: Flow = {
             shots('auto', S('05-drc-y-pcb/45-pestana-pcb-altium-pcbdoc.webp', [235, 60], ['Pestaña del PCB ya renombrada como PCB_ALTIUM.PcbDoc', 'PCB tab already renamed to PCB_ALTIUM.PcbDoc'], ['La pestaña con el nombre correcto', 'The tab with the right name'], [], false))]
         ),
         step(
-          'Para pasar todo lo que hicimos en el esquemático a la placa vamos a <strong>Design → Update Schematics in</strong> <em>(nombre del proyecto)</em><code>.PrjPcb</code>.',
-          'To move everything we did in the schematic onto the board we go to <strong>Design → Update Schematics in</strong> <em>(project name)</em><code>.PrjPcb</code>.',
+          'Para pasar todo lo que hicimos en el esquemático a la placa existe <strong>Design → Update Schematics in</strong> <em>(nombre del proyecto)</em><code>.PrjPcb</code>. Pero <strong>a veces no pasa los cambios</strong>, así que lo que de verdad funciona es el paso siguiente: <strong>importarlos</strong>.',
+          'To move everything we did in the schematic onto the board there is <strong>Design → Update Schematics in</strong> <em>(project name)</em><code>.PrjPcb</code>. But <strong>sometimes it does not pass the changes</strong>, so what really works is the next step: <strong>importing them</strong>.',
           [
             shots('auto', S('05-drc-y-pcb/46-menu-design-update-schematics.webp', [1024, 685], ['Menú Design con Update Schematics in PCB_ALTIUM.PrjPcb resaltado', 'Design menu with Update Schematics in PCB_ALTIUM.PrjPcb highlighted'], ['Design → Update Schematics in…', 'Design → Update Schematics in…'], [[270, 42, 68, 30, ['Design', 'Design'], 'top'], [272, 74, 434, 34, ['Update Schematics in…', 'Update Schematics in…'], 'right']], false)),
-            pend('Falta el resultado de ese paso (la ventana de cambios, cómo ejecutarlos y la placa con los componentes y las líneas de conexión). Alessandro lo mandará en la siguiente tanda.', 'The outcome of this step is still missing (the changes window, how to execute them and the board with the components and connection lines). Alessandro will send it in the next batch.'),
+          ]
+        ),
+        step(
+          'Para que los cambios se importen de verdad, en el menú <strong>Design</strong> elegimos <strong>Import Changes From</strong> <em>(nombre del proyecto)</em><code>.PrjPcb</code>.',
+          'For the changes to really get imported, in the <strong>Design</strong> menu we choose <strong>Import Changes From</strong> <em>(project name)</em><code>.PrjPcb</code>.',
+          [shots('auto', S('06-importar-cambios-y-reglas/48-menu-design-import-changes.webp', [1919, 1058], ['Menú Design con Import Changes From resaltado', 'Design menu with Import Changes From highlighted'], ['Design → Import Changes From…', 'Design → Import Changes From…'], [[270, 42, 70, 30, ['Design', 'Design'], 'top'], [272, 106, 508, 34, ['Import Changes From…', 'Import Changes From…'], 'right']]))]
+        ),
+        step(
+          'Se abre la ventana <strong>Engineering Change Order</strong> con la lista de todos los cambios por hacer (componentes, redes…). Abajo a la izquierda damos clic en <strong>Validate Changes</strong>.',
+          'The <strong>Engineering Change Order</strong> window opens with the list of every change to make (components, nets…). At the bottom left we click <strong>Validate Changes</strong>.',
+          [
+            shots('auto', S('06-importar-cambios-y-reglas/49-ventana-eco.webp', [1919, 1079], ['Ventana Engineering Change Order con la lista de cambios y los botones de abajo', 'Engineering Change Order window with the change list and the buttons below'], ['Ventana Engineering Change Order (ECO)', 'Engineering Change Order (ECO) window'], [[150, 166, 1622, 750, ['Lista de cambios', 'Change list'], 'top'], [158, 868, 158, 38, ['Validate Changes', 'Validate Changes'], 'top']])),
+            shots('auto', S('06-importar-cambios-y-reglas/50-eco-validate-changes.webp', [1636, 752], ['Detalle de la ventana ECO con el botón Validate Changes', 'ECO window detail with the Validate Changes button'], ['Validate Changes, abajo a la izquierda', 'Validate Changes, at the bottom left'], [[13, 703, 155, 40, ['Validate Changes', 'Validate Changes'], 'top'], [1146, 88, 430, 28, ['Estado (Check / Done)', 'Status (Check / Done)'], 'bottom']], false)),
+          ]
+        ),
+        step(
+          'Si el estado de todo se marca con una <strong>palomita verde</strong> en la columna <strong>Check</strong>, está todo en orden. Se revisa la lista de componentes y también la de redes.',
+          'If the status of everything is marked with a <strong>green check</strong> in the <strong>Check</strong> column, all is in order. We review the component list and the net list too.',
+          [
+            shots('row', S('06-importar-cambios-y-reglas/51-eco-validado-componentes.webp', [1615, 734], ['Componentes validados, todos con palomita verde en Check', 'Components validated, all with a green check in Check'], ['Componentes validados', 'Validated components'], [[1144, 144, 36, 536, ['Check ✔', 'Check ✔'], 'top']], false),
+              S('06-importar-cambios-y-reglas/52-eco-validado-redes.webp', [1625, 750], ['Redes validadas, todas con palomita verde en Check', 'Nets validated, all with a green check in Check'], ['Redes validadas', 'Validated nets'], [[1150, 142, 36, 512, ['Check ✔', 'Check ✔'], 'top']], false)),
+            important('Si aparece <b>alguna X roja</b> en lugar de la palomita, ese cambio tiene un problema: se corrige en el esquemático y se vuelve a validar.', 'If a <b>red X</b> shows up instead of the check, that change has a problem: fix it in the schematic and validate again.'),
+          ]
+        ),
+        step(
+          'Con todo validado damos <strong>Execute Changes</strong>. Ahora la columna <strong>Done</strong> también se llena de palomitas verdes. Cerramos la ventana con <strong>Close</strong>.',
+          'With everything validated we click <strong>Execute Changes</strong>. Now the <strong>Done</strong> column also fills with green checks. We close the window with <strong>Close</strong>.',
+          [
+            shots('row', S('06-importar-cambios-y-reglas/53-eco-validado-lista.webp', [1622, 742], ['Ventana ECO validada con el botón Execute Changes habilitado', 'Validated ECO window with the Execute Changes button enabled'], ['Execute Changes', 'Execute Changes'], [[175, 695, 156, 38, ['Execute Changes', 'Execute Changes'], 'top']], false),
+              S('06-importar-cambios-y-reglas/54-eco-ejecutado-done.webp', [1620, 754], ['Ventana ECO con las columnas Check y Done en verde y el botón Close', 'ECO window with the Check and Done columns in green and the Close button'], ['Check y Done en verde; luego Close', 'Check and Done in green; then Close'], [[1148, 112, 100, 540, ['Check y Done ✔', 'Check and Done ✔'], 'top'], [1502, 700, 112, 40, ['Close', 'Close'], 'top']], false)),
+          ]
+        ),
+        step(
+          'Ahora aparecen en el editor de PCB todas las <strong>huellas</strong> de nuestros componentes, unidas por sus <strong>conexiones</strong> (las líneas finas), fuera del contorno de la placa. Hay que empezar a <strong>acomodarlas</strong>, tratando de no enredar de más las conexiones.',
+          'The <strong>footprints</strong> of all our components now show up in the PCB editor, joined by their <strong>connections</strong> (the thin lines), outside the board outline. We have to start <strong>arranging</strong> them, trying not to tangle the connections more than needed.',
+          [
+            shots('auto', S('06-importar-cambios-y-reglas/55-placa-con-huellas-y-conexiones.webp', [1919, 1079], ['Editor de PCB con el contorno vacío y las huellas con sus conexiones a un lado', 'PCB editor with the empty outline and the footprints with their connections on one side'], ['Huellas y conexiones listas para acomodar', 'Footprints and connections ready to arrange'], [[512, 314, 748, 498, ['Contorno de la placa', 'Board outline'], 'top'], [1264, 684, 520, 134, ['Huellas con sus conexiones', 'Footprints with their connections'], 'top']])),
+            pend('Se importan siempre fuera del contorno (en la captura aparecen a la derecha de la placa); falta confirmar con Alessandro de qué lado le salen normalmente.', 'They are always imported outside the outline (in the capture they appear to the right of the board); it still needs confirming with Alessandro which side they normally land on.'),
           ]
         ),
       ],
     },
 
-    // ———————————————————————————————— 8 forma
+    // ———————————————————————————————— 8 reglas (JLCPCB)
+    {
+      id: 'altium-reglas',
+      chip: L('8 · Reglas', '8 · Rules'),
+      title: L('Importar las reglas de diseño de JLCPCB', 'Import the JLCPCB design rules'),
+      steps: [
+        step(
+          'Antes de empezar a diseñar hay que <strong>importar las reglas de diseño</strong> del fabricante, que le dicen a Altium qué es aceptable (ancho mínimo de pista, separaciones, agujeros…). Nosotros usaremos <strong>JLCPCB</strong>. Vamos a <strong>Design → Rules…</strong>',
+          'Before starting to design we must <strong>import the manufacturer\'s design rules</strong>, which tell Altium what is acceptable (minimum track width, clearances, holes…). We will use <strong>JLCPCB</strong>. We go to <strong>Design → Rules…</strong>',
+          [
+            shots('auto', S('06-importar-cambios-y-reglas/56-menu-design-rules.webp', [955, 632], ['Menú Design con Rules… resaltado', 'Design menu with Rules… highlighted'], ['Design → Rules…', 'Design → Rules…'], [[270, 42, 70, 30, ['Design', 'Design'], 'top'], [272, 144, 508, 34, ['Rules…', 'Rules…'], 'right']], false)),
+            shots('auto', S('06-importar-cambios-y-reglas/57-editor-reglas-default.webp', [1919, 1079], ['Ventana PCB Rules and Constraints Editor con el Default Rule Set', 'PCB Rules and Constraints Editor window with the Default Rule Set'], ['PCB Rules and Constraints Editor', 'PCB Rules and Constraints Editor'], [[374, 184, 286, 30, ['Default Rule Set', 'Default Rule Set'], 'top'], [700, 108, 906, 800, ['Reglas actuales', 'Current rules'], 'top']])),
+          ]
+        ),
+        step(
+          'Hacemos <strong>clic derecho</strong> sobre <strong>Default Rule Set</strong> y elegimos <strong>Import Rules…</strong>',
+          'We <strong>right-click</strong> <strong>Default Rule Set</strong> and choose <strong>Import Rules…</strong>',
+          [shots('auto', S('06-importar-cambios-y-reglas/58-clic-derecho-import-rules.webp', [1343, 975], ['Menú contextual del Default Rule Set con Import Rules… resaltado', 'Default Rule Set context menu with Import Rules… highlighted'], ['Clic derecho en Default Rule Set → Import Rules…', 'Right-click Default Rule Set → Import Rules…'], [[88, 130, 288, 30, ['Default Rule Set', 'Default Rule Set'], 'top'], [248, 274, 234, 34, ['Import Rules…', 'Import Rules…'], 'right']], false))]
+        ),
+        step(
+          'Buscamos el <strong>archivo de reglas</strong> (<code>.RUL</code>) de JLCPCB que descargamos antes (para 2 capas y cobre de 1 oz, <code>2layer-1oz.RUL</code>) y damos <strong>Abrir</strong>.',
+          'We look for the JLCPCB <strong>rules file</strong> (<code>.RUL</code>) we downloaded earlier (for 2 layers and 1 oz copper, <code>2layer-1oz.RUL</code>) and press <strong>Open</strong>.',
+          [
+            shots('auto', S('06-importar-cambios-y-reglas/59-importar-archivo-rul.webp', [943, 713], ['Ventana Import File con el archivo 2layer-1oz.RUL seleccionado', 'Import File window with the 2layer-1oz.RUL file selected'], ['Seleccionamos el archivo .RUL y damos Abrir', 'We select the .RUL file and press Open'], [[266, 220, 112, 160, ['Archivo .RUL', '.RUL file'], 'right'], [186, 601, 428, 38, ['Nombre del archivo', 'File name'], 'top'], [634, 646, 132, 38, ['Abrir', 'Open'], 'top']], false)),
+            pend('Falta poner aquí un <strong>botón para descargar</strong> el archivo de reglas de JLCPCB directamente (no se ha confirmado todavía una fuente oficial para enlazarlo).', 'A <strong>download button</strong> for the JLCPCB rules file still needs to go here (an official source to link to has not been confirmed yet).'),
+          ]
+        ),
+        step(
+          'Damos clic en <strong>Apply</strong> (abajo a la derecha) y después en <strong>OK</strong> para cerrar la ventana. Ahora sí podemos empezar a diseñar.',
+          'We click <strong>Apply</strong> (bottom right) and then <strong>OK</strong> to close the window. Now we can start designing.',
+          [
+            shots('row', S('06-importar-cambios-y-reglas/60-editor-reglas-apply.webp', [1347, 976], ['Editor de reglas con el botón Apply', 'Rules editor with the Apply button'], ['Primero Apply', 'First Apply'], [[1210, 924, 122, 38, ['Apply', 'Apply'], 'top']], false),
+              S('06-importar-cambios-y-reglas/61-editor-reglas-ok.webp', [1325, 978], ['Editor de reglas con el botón OK', 'Rules editor with the OK button'], ['Después OK', 'Then OK'], [[961, 925, 112, 40, ['OK', 'OK'], 'top']], false)),
+          ]
+        ),
+      ],
+    },
+
+    // ———————————————————————————————— 9 forma
     {
       id: 'altium-forma',
-      chip: L('8 · Forma de la placa', '8 · Board shape'),
+      chip: L('9 · Forma de la placa', '9 · Board shape'),
       title: L('Forma y capas de la placa', 'Board shape and layers'),
       steps: [
         step(
@@ -282,32 +362,6 @@ export const ALTIUM_FLOW: Flow = {
           'Revisamos el <strong>número de capas</strong> en <strong>Design → Layer Stack Manager</strong>. Para esta placa de práctica se usan <strong>2 capas</strong> (Top y Bottom).',
           'We check the <strong>number of layers</strong> in <strong>Design → Layer Stack Manager</strong>. This practice board uses <strong>2 layers</strong> (Top and Bottom).',
           [ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
-        ),
-      ],
-    },
-
-    // ———————————————————————————————— 9 reglas
-    {
-      id: 'altium-reglas',
-      chip: L('9 · Reglas', '9 · Rules'),
-      title: L('Reglas de diseño', 'Design rules'),
-      steps: [
-        step(
-          'Las <strong>reglas de diseño</strong> le dicen a Altium qué es aceptable: ancho mínimo de pista, separación entre cobre, tamaño de vías y agujeros. Se abren en <strong>Design → Rules…</strong>. Conviene ajustarlas a lo que <strong>el fabricante puede producir</strong> (en nuestro caso, JLCPCB).',
-          'The <strong>design rules</strong> tell Altium what is acceptable: minimum track width, copper clearance, via and hole sizes. They open from <strong>Design → Rules…</strong>. It is best to fit them to what <strong>the manufacturer can produce</strong> (in our case, JLCPCB).',
-          [
-            prov(),
-            ph('Ventana PCB Rules and Constraints Editor con Clearance, Width y Via/Hole señalados.', 'PCB Rules and Constraints Editor window with Clearance, Width and Via/Hole marked.'),
-            table(
-              [['Regla', 'Rule'], ['Qué controla', 'What it controls'], ['Valor orientativo (2 capas)', 'Indicative value (2 layers)']],
-              [
-                [['Clearance', 'Clearance'], ['Separación mínima entre objetos de cobre', 'Minimum gap between copper objects'], ['≥ 0.2 mm (el mínimo de fábrica es menor)', '≥ 0.2 mm (the factory minimum is lower)']],
-                [['Width', 'Width'], ['Ancho de las pistas', 'Track width'], ['≥ 0.25 mm para señales; más ancho para alimentación', '≥ 0.25 mm for signals; wider for power']],
-                [['Routing Via Style', 'Routing Via Style'], ['Diámetro y agujero de las vías', 'Via diameter and hole'], ['agujero ≥ 0.3 mm', 'hole ≥ 0.3 mm']],
-              ]
-            ),
-            note('Los valores son orientativos: hay que <strong>confirmarlos en las capacidades vigentes de JLCPCB</strong> antes de fabricar.', 'The values are indicative: they must be <strong>confirmed against JLCPCB\'s current capabilities</strong> before manufacturing.'),
-          ]
         ),
       ],
     },
