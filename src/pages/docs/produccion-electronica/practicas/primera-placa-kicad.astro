@@ -85,7 +85,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
       <button type="button" role="tab" class="tool-tab" id="tab-altium" data-tab="altium" aria-controls="panel-altium" aria-selected="false" tabindex="-1">
         <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--altium"><img src={`${BRAND_BASE}altium-logo.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
-          <span class="tool-tab__title">Altium<span class="tool-tab__badge"><T es="Borrador" en="Draft" /></span></span>
+          <span class="tool-tab__title">Altium<span class="tool-tab__badge"><T es="Pendiente" en="Pending" /></span></span>
           <span class="tool-tab__sub"><T es="Del esquemático al pedido en JLCPCB" en="From schematic to the JLCPCB order" /></span>
         </span>
       </button>
@@ -137,7 +137,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <section class="tool-panel" id="panel-altium" role="tabpanel" aria-labelledby="tab-altium" data-tab-panel="altium">
       <div class="tool-panel__head">
         <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}altium-logo.webp`} alt="Altium Designer" width="62" height="62" />
-        <p><T es={'<strong>Altium Designer</strong> es el programa profesional con el que se diseña la PCB completa: esquemático, revisión (DRC), placa, archivos de fabricación y pedido a <strong>JLCPCB</strong>. Esta guía está <strong>en construcción</strong>: las primeras secciones ya salen de una placa real; las siguientes son <strong>provisionales</strong> y su orden puede cambiar. Las zonas punteadas son <strong>capturas pendientes</strong>.'} en={'<strong>Altium Designer</strong> is the professional program used to design the whole PCB: schematic, checks (DRC), board, manufacturing files and the order at <strong>JLCPCB</strong>. This guide is <strong>under construction</strong>: the first sections already come from a real board; the following ones are <strong>provisional</strong> and their order may change. The dotted areas are <strong>pending screenshots</strong>.'} /></p>
+        <p><T es={'<strong>Altium Designer</strong> es el programa profesional con el que se diseña la PCB completa: esquemático, revisión (DRC), placa, archivos de fabricación y pedido a <strong>JLCPCB</strong>. Esta guía está <strong>pendiente de terminar</strong>: hasta el DRC y el texto en serigrafía (secciones 1 a 13) ya sale de una placa real; faltan el logo, los archivos de fabricación y el pedido a JLCPCB, que de momento son <strong>texto de referencia</strong> con zonas punteadas donde irán las <strong>capturas pendientes</strong>.'} en={'<strong>Altium Designer</strong> is the professional program used to design the whole PCB: schematic, checks (DRC), board, manufacturing files and the order at <strong>JLCPCB</strong>. This guide is <strong>still to be finished</strong>: up to the DRC and the silkscreen text (sections 1 to 13) it already comes from a real board; the logo, the manufacturing files and the JLCPCB order are still missing and for now are <strong>reference text</strong> with dotted areas where the <strong>pending screenshots</strong> will go.'} /></p>
       </div>
       <Flow flow={ALTIUM_FLOW} />
     </section>

@@ -41,9 +41,6 @@ const table = (head: [string, string][], rows: [string, string][][]): Block => (
 })
 const step = (es: string, en: string, blocks: Block[] = []): FlowStep => ({ html: L(es, en), blocks })
 
-const PROV_ES = 'Sección <strong>provisional</strong>: es el flujo estándar de Altium, todavía sin capturas propias. El orden y los detalles pueden cambiar cuando se documente con la placa real.'
-const PROV_EN = 'This section is <strong>provisional</strong>: it is the standard Altium flow, still without our own screenshots. The order and the details may change once it is documented with the real board.'
-const prov = (): Block => pend(PROV_ES, PROV_EN)
 
 export const ALTIUM_FLOW: Flow = {
   id: 'altium',
@@ -475,7 +472,7 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Revisamos el <strong>número de capas</strong> en <strong>Design → Layer Stack Manager</strong>. Para esta placa de práctica se usan <strong>2 capas</strong> (Top y Bottom).',
           'We check the <strong>number of layers</strong> in <strong>Design → Layer Stack Manager</strong>. This practice board uses <strong>2 layers</strong> (Top and Bottom).',
-          [prov(), ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
+          [pend('<strong>Captura pendiente.</strong> Instrucción: abrir <strong>Design → Layer Stack Manager</strong> y comprobar que solo aparecen <strong>Top Layer</strong> y <strong>Bottom Layer</strong> (2 capas de cobre).', '<strong>Screenshot pending.</strong> Instruction: open <strong>Design → Layer Stack Manager</strong> and check that only <strong>Top Layer</strong> and <strong>Bottom Layer</strong> (2 copper layers) appear.'), ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
         ),
       ],
     },
@@ -733,7 +730,7 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Si queremos añadir un <strong>logo o una imagen</strong>, se hace desde el mismo menú <strong>Place</strong> (la opción <strong>Graphics</strong>, que aparece en el menú).',
           'If we want to add a <strong>logo or an image</strong>, it is done from the same <strong>Place</strong> menu (the <strong>Graphics</strong> option, which shows in the menu).',
-          [pend('Falta documentar paso a paso cómo se añade el logo (formato de imagen, tamaño y capa). Alessandro lo mandará en la siguiente tanda.', 'How to add the logo step by step (image format, size and layer) is still missing. Alessandro will send it in the next batch.')]
+          [pend('<strong>Pendiente de documentar con capturas.</strong> Instrucciones de referencia: 1) elige la capa <strong>Top Overlay</strong>; 2) abre <strong>Place</strong> y busca la opción de gráficos (<strong>Graphics</strong>); 3) selecciona el archivo de imagen del logo (mejor en blanco y negro y con buena resolución); 4) haz clic en la placa para colocarlo y ajusta su tamaño y posición; 5) revisa en 2D y en 3D que se vea bien y que no choque con pads ni orificios, y vuelve a correr el DRC. Falta confirmar con Alessandro el formato exacto que acepta y los nombres de los menús.', '<strong>Still to be documented with screenshots.</strong> Reference instructions: 1) choose the <strong>Top Overlay</strong> layer; 2) open <strong>Place</strong> and find the graphics option (<strong>Graphics</strong>); 3) select the logo image file (preferably black and white and high resolution); 4) click on the board to place it and adjust its size and position; 5) check in 2D and 3D that it looks right and does not overlap pads or holes, and run the DRC again. The exact accepted format and the menu names still need confirming with Alessandro.')]
         ),
       ],
     },
@@ -747,7 +744,7 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Los archivos que necesita el fabricante son los <strong>Gerber</strong> (una capa por archivo: cobre, máscara, serigrafía, contorno) y los de <strong>taladrado</strong> (NC Drill). Se generan desde <strong>File → Fabrication Outputs</strong>: <strong>Gerber Files</strong> y <strong>NC Drill Files</strong>.',
           'The files the manufacturer needs are the <strong>Gerbers</strong> (one layer per file: copper, mask, silkscreen, outline) and the <strong>drill</strong> files (NC Drill). They are generated from <strong>File → Fabrication Outputs</strong>: <strong>Gerber Files</strong> and <strong>NC Drill Files</strong>.',
-          [prov(), ph('Menú File → Fabrication Outputs y las ventanas de configuración de Gerber y NC Drill.', 'File → Fabrication Outputs menu and the Gerber and NC Drill setup windows.')]
+          [pend('<strong>Pendiente de documentar con la placa real.</strong> Instrucciones de referencia: <strong>File → Fabrication Outputs → Gerber Files</strong>, revisar que estén marcadas las capas de cobre, máscara, serigrafía y contorno (Mechanical 1) y aceptar; luego <strong>File → Fabrication Outputs → NC Drill Files</strong> para los taladros. Faltan capturas de cada ventana y la configuración que use Alessandro (unidades, formato, capas).', '<strong>Still to be documented with the real board.</strong> Reference instructions: <strong>File → Fabrication Outputs → Gerber Files</strong>, check that the copper, mask, silkscreen and outline (Mechanical 1) layers are selected and accept; then <strong>File → Fabrication Outputs → NC Drill Files</strong> for the holes. Screenshots of each window and the settings Alessandro uses (units, format, layers) are missing.'), ph('Menú File → Fabrication Outputs y las ventanas de configuración de Gerber y NC Drill.', 'File → Fabrication Outputs menu and the Gerber and NC Drill setup windows.')]
         ),
         step(
           'Los archivos se guardan en una carpeta (por ejemplo, <code>Project Outputs</code>). Los <strong>comprimimos en un solo .zip</strong>, que es lo que se sube al fabricante.',
@@ -766,7 +763,7 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'En el sitio de <strong>JLCPCB</strong> entramos a cotizar/ordenar y subimos el <strong>.zip de Gerbers</strong>. JLCPCB lo procesa y muestra una <strong>vista previa</strong> de la placa: revisamos que el contorno, el cobre y los agujeros se vean bien.',
           'On the <strong>JLCPCB</strong> website we go to quote/order and upload the <strong>Gerber .zip</strong>. JLCPCB processes it and shows a <strong>preview</strong> of the board: we check that the outline, the copper and the holes look right.',
-          [prov(), ph('Página de JLCPCB con el .zip cargado y la vista previa de la placa.', 'JLCPCB page with the .zip uploaded and the board preview.')]
+          [pend('<strong>Pendiente de documentar con el pedido real.</strong> Instrucciones de referencia: entrar a JLCPCB, <strong>Order now</strong>, subir el .zip, esperar la vista previa y revisar contorno, cobre y agujeros. Faltan capturas de la página y de los parámetros elegidos.', '<strong>Still to be documented with the real order.</strong> Reference instructions: go to JLCPCB, <strong>Order now</strong>, upload the .zip, wait for the preview and check outline, copper and holes. Screenshots of the page and of the chosen parameters are missing.'), ph('Página de JLCPCB con el .zip cargado y la vista previa de la placa.', 'JLCPCB page with the .zip uploaded and the board preview.')]
         ),
         step(
           'Elegimos los parámetros del pedido: <strong>número de capas</strong> (2), <strong>dimensiones</strong> (las lee del archivo), <strong>cantidad</strong>, <strong>grosor</strong> (normalmente 1.6 mm), <strong>color de máscara</strong> y <strong>acabado superficial</strong>. Al final agregamos al carrito y finalizamos el pedido.',
