@@ -29,4 +29,4 @@ Se quitó el paso de Polygon Pour (no se usó; recuperable). Imágenes duplicada
 - Verificar con JLCPCB vigente: vía taladro 0.3 / pad 0.6 mm, holguras y tablas de atajos.
 
 ## Otros pendientes del sitio
-MonoFab: "errores de continuidad" que Alessandro indicará · Multisim: DESPLEGADO 2026-11-14 (capturas reales y atajos; los circuitos de clase quedan solo con texto, lista de capturas en IMAGENES-MULTISIM.md) · el Objetivo ya menciona Multisim/Altium · práctica marcada `completa` · revisión visual de Alessandro en su navegador.
+MonoFab: "errores de continuidad" que Alessandro indicará · Multisim: solo visible lo que tiene capturas; circuitos de clase ocultos, ver `docs-source/produccion-electronica/MULTISIM-PENDIENTE.md` · el Objetivo ya menciona Multisim/Altium · práctica marcada `completa` · revisión visual de Alessandro en su navegador.
