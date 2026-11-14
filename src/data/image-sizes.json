@@ -495,6 +495,114 @@
   1500,
   2000
  ],
+ "09-multisim/01-descarga-pagina-ni.webp": [
+  589,
+  280
+ ],
+ "09-multisim/02-descargando.webp": [
+  589,
+  273
+ ],
+ "09-multisim/03-instalador-exe.webp": [
+  105,
+  189
+ ],
+ "09-multisim/04-instalador-ventana.webp": [
+  589,
+  437
+ ],
+ "09-multisim/05-ventana-principal.webp": [
+  589,
+  313
+ ],
+ "09-multisim/06-selector-componentes.webp": [
+  1153,
+  718
+ ],
+ "09-multisim/07-selector-grupos.webp": [
+  754,
+  717
+ ],
+ "09-multisim/08-selector-buscar.webp": [
+  766,
+  720
+ ],
+ "09-multisim/09-popup-secciones.webp": [
+  589,
+  115
+ ],
+ "09-multisim/10-resistencia-colocada.webp": [
+  186,
+  100
+ ],
+ "09-multisim/11-resistencia-popup.webp": [
+  569,
+  154
+ ],
+ "09-multisim/12-selector-resistencia-1k.webp": [
+  589,
+  558
+ ],
+ "09-multisim/13-propiedades-valor.webp": [
+  496,
+  647
+ ],
+ "09-multisim/14-propiedades-etiqueta.webp": [
+  504,
+  648
+ ],
+ "09-multisim/15-renombrar-r1-r2.webp": [
+  786,
+  165
+ ],
+ "09-multisim/16-ejemplo-bjt.webp": [
+  580,
+  438
+ ],
+ "09-multisim/17-boton-run.webp": [
+  813,
+  454
+ ],
+ "09-multisim/18-boton-interactive.webp": [
+  745,
+  423
+ ],
+ "09-multisim/19-analisis-interactivo.webp": [
+  589,
+  524
+ ],
+ "09-multisim/20-analisis-punto-operacion-dc.webp": [
+  589,
+  519
+ ],
+ "09-multisim/21-run-save.webp": [
+  1186,
+  283
+ ],
+ "09-multisim/22-barra-instrumentos.webp": [
+  1396,
+  741
+ ],
+ "09-multisim/23-generador-funciones.webp": [
+  146,
+  65
+ ],
+ "09-multisim/24-contador-frecuencia.webp": [
+  589,
+  422
+ ],
+ "09-multisim/25-multimetro.webp": [
+  834,
+  592
+ ],
+ "09-multisim/26-tektronix-circuito.webp": [
+  589,
+  275
+ ],
+ "09-multisim/27-tektronix-ventana.webp": [
+  589,
+  279
+ ],
  "10-altium/01-crear-proyecto/01-buscar-abrir-altium-designer.webp": [
   1918,
   1078

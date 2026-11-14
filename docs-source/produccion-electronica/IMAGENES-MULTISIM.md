@@ -1,3 +1,5 @@
+> **Archivado 2026-11-13:** los bloques `placeholder` se eliminaron; los circuitos de clase se explican solo con texto. Esta lista queda como referencia por si algún día se quieren capturar.
+
 # Lista de capturas pendientes — Multisim (44)
 
 Cada una corresponde a un bloque `placeholder` en `src/data/multisim-flow.ts` (en el mismo orden). Nombrar `NN-descripcion.png`.

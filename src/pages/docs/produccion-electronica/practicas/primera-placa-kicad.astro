@@ -45,7 +45,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
   <!-- Objetivo -->
   <h2 id="objetivo" class="section-h2" data-reveal><T es="Objetivo." en="Goal." /></h2>
   <p class="prose" data-reveal data-reveal-delay="60">
-    <T es={'Documentar el flujo completo para producir una PCB: diseñar un circuito en <strong>KiCad</strong> (esquemático y placa), exportar los archivos de fabricación y generar las trayectorias de fresado con <strong>mods</strong> para la <strong>Roland SRM-20</strong> (MonoFab).'} />
+    <T es={'Documentar el flujo completo para producir una PCB: simular circuitos en <strong>Multisim</strong>, diseñar un circuito en <strong>KiCad</strong> (esquemático y placa), exportar los archivos de fabricación y generar las trayectorias de fresado con <strong>mods</strong> para la <strong>Roland SRM-20</strong> (MonoFab). Además, la misma placa se diseña de forma profesional en <strong>Altium</strong> para mandarla a fabricar a <strong>JLCPCB</strong>.'} en={'Document the complete flow to produce a PCB: simulate circuits in <strong>Multisim</strong>, design a circuit in <strong>KiCad</strong> (schematic and board), export the manufacturing files and generate the milling toolpaths with <strong>mods</strong> for the <strong>Roland SRM-20</strong> (MonoFab). The same board is also designed professionally in <strong>Altium</strong> to be sent to manufacture at <strong>JLCPCB</strong>.'} />
   </p>
   <p class="prose" data-reveal data-reveal-delay="100">
     <T es={'El circuito con el que se documenta el proceso es un módulo de <strong>4 pulsadores</strong> con LED indicador, cada uno con su resistencia pull-down, más un conector de alimentación (entradas) y uno de salidas que expone el estado de cada botón hacia un microcontrolador externo.'} />
@@ -85,7 +85,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
       <button type="button" role="tab" class="tool-tab" id="tab-altium" data-tab="altium" aria-controls="panel-altium" aria-selected="false" tabindex="-1">
         <span class="tool-tab__icon tool-tab__icon--dark tool-tab__icon--altium"><img src={`${BRAND_BASE}altium-logo.webp`} alt="" width="60" height="60" /></span>
         <span class="tool-tab__text">
-          <span class="tool-tab__title">Altium<span class="tool-tab__badge"><T es="Pendiente" en="Pending" /></span></span>
+          <span class="tool-tab__title">Altium</span>
           <span class="tool-tab__sub"><T es="Del esquemático al pedido en JLCPCB" en="From schematic to the JLCPCB order" /></span>
         </span>
       </button>
@@ -128,7 +128,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <section class="tool-panel" id="panel-multisim" role="tabpanel" aria-labelledby="tab-multisim" data-tab-panel="multisim">
       <div class="tool-panel__head">
         <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}multisim-icon.webp`} alt="Multisim" width="62" height="62" />
-        <p><T es={'<strong>Multisim</strong> es el programa con el que se construyen y simulan circuitos antes de fabricarlos. Aquí se documentan, en 12 pasos, la colocación de componentes, las mediciones, los osciloscopios, la lógica combinacional y los análisis. Las zonas punteadas son <strong>capturas pendientes</strong>: se irán llenando.'} en={'<strong>Multisim</strong> is the program used to build and simulate circuits before making them. Here, in 12 steps, we document component placement, measurements, oscilloscopes, combinational logic and analyses. The dotted areas are <strong>pending screenshots</strong>: they will be filled in.'} /></p>
+        <p><T es={'<strong>Multisim</strong> es el programa con el que se construyen y simulan circuitos antes de fabricarlos. Aquí se documentan la descarga e instalación, el manejo de la interfaz, la colocación y edición de componentes, la simulación, los instrumentos, los atajos de teclado y, en 12 pasos, los circuitos de clase (mediciones, osciloscopios, lógica combinacional y análisis).'} en={'<strong>Multisim</strong> is the program used to build and simulate circuits before making them. Here we document download and installation, the interface, placing and editing components, simulation, instruments, keyboard shortcuts and, in 12 steps, the class circuits (measurements, oscilloscopes, combinational logic and analyses).'} /></p>
       </div>
       <Flow flow={MULTISIM_FLOW} />
     </section>
@@ -137,7 +137,7 @@ const teamNames = subject.team.map((m) => m.name).join(' + ')
     <section class="tool-panel" id="panel-altium" role="tabpanel" aria-labelledby="tab-altium" data-tab-panel="altium">
       <div class="tool-panel__head">
         <img class="tool-panel__logo tool-panel__logo--icon" src={`${BRAND_BASE}altium-logo.webp`} alt="Altium Designer" width="62" height="62" />
-        <p><T es={'<strong>Altium Designer</strong> es el programa profesional con el que se diseña la PCB completa: esquemático, revisión (DRC), placa, archivos de fabricación y pedido a <strong>JLCPCB</strong>. Esta guía está <strong>pendiente de terminar</strong>: hasta el DRC y el texto en serigrafía (secciones 1 a 13) ya sale de una placa real; faltan el logo, los archivos de fabricación y el pedido a JLCPCB, que de momento son <strong>texto de referencia</strong> con zonas punteadas donde irán las <strong>capturas pendientes</strong>.'} en={'<strong>Altium Designer</strong> is the professional program used to design the whole PCB: schematic, checks (DRC), board, manufacturing files and the order at <strong>JLCPCB</strong>. This guide is <strong>still to be finished</strong>: up to the DRC and the silkscreen text (sections 1 to 13) it already comes from a real board; the logo, the manufacturing files and the JLCPCB order are still missing and for now are <strong>reference text</strong> with dotted areas where the <strong>pending screenshots</strong> will go.'} /></p>
+        <p><T es={'<strong>Altium Designer</strong> es el programa profesional con el que se diseña la PCB completa: esquemático, revisión (DRC), placa, archivos de fabricación y pedido a <strong>JLCPCB</strong>. Va de principio a fin: proyecto, esquemático, DRC, placa, ruteo, texto en serigrafía, archivos de fabricación y el pedido a <strong>JLCPCB</strong>.'} en={'<strong>Altium Designer</strong> is the professional program used to design the whole PCB: schematic, checks (DRC), board, manufacturing files and the order at <strong>JLCPCB</strong>. It runs from start to finish: project, schematic, DRC, board, routing, silkscreen text, manufacturing files and the order at <strong>JLCPCB</strong>.'} /></p>
       </div>
       <Flow flow={ALTIUM_FLOW} />
     </section>

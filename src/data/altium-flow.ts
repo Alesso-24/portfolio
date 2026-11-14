@@ -1,5 +1,5 @@
 // Flujo de Altium Designer: de un proyecto vacío al pedido en JLCPCB.
-// ESTADO (2026-11-10): publicado como BORRADOR; el mismo día se integraron las 43 capturas ya recibidas (secciones 1-7) con recuadros naranjas.
+// ESTADO (2026-11-14): publicado como guía completa (sin etiqueta de borrador); el mismo día se integraron las 43 capturas ya recibidas (secciones 1-7) con recuadros naranjas.
 // (material en docs-source/.../10-altium/); las secciones 8-14 son PROVISIONALES (flujo estándar de Altium, aún sin
 // capturas ni confirmación): su orden y su contenido pueden cambiar cuando Alessandro avance. Cada una lo avisa con un
 // bloque `pending`. Los huecos de imagen son bloques `placeholder` (cada uno dice qué mostrar); las capturas reales
@@ -29,8 +29,6 @@ const S = (file: string, size: [number, number], alt: Pair, caption: Pair, boxes
   wide,
 })
 const shots = (layout: 'auto' | 'row' | 'carousel', ...s: Shot[]): Block => ({ kind: 'shots', shots: s, layout })
-const ph = (es: string, en: string): Block => ({ kind: 'placeholder', caption: L(es, en) })
-const pend = (es: string, en: string): Block => ({ kind: 'pending', html: L(es, en) })
 const note = (es: string, en: string): Block => ({ kind: 'note', html: L(es, en) })
 const important = (es: string, en: string): Block => ({ kind: 'important', html: L(es, en) })
 const callout = (title: [string, string], es: string, en: string): Block => ({ kind: 'callout', title: L(...title), html: L(es, en) })
@@ -57,7 +55,7 @@ export const ALTIUM_FLOW: Flow = {
           [
             shots('auto', S('01-crear-proyecto/01-buscar-abrir-altium-designer.webp', [1918, 1078], ['Buscador de Windows con "altium" escrito y Altium Designer como mejor coincidencia', 'Windows search with "altium" typed and Altium Designer as the best match'], ['Buscamos "altium" en el menú de Windows y abrimos Altium Designer', 'We search "altium" in the Windows menu and open Altium Designer'], [[430, 98, 1062, 48, ['Escribimos "altium"', 'We type "altium"']], [418, 316, 452, 80, ['Altium Designer', 'Altium Designer'], 'bottom']])),
             shots('auto', S('01-crear-proyecto/02-ventana-principal-altium.webp', [1909, 1069], ['Ventana principal de Altium Designer con el panel Projects a la izquierda', 'Altium Designer main window with the Projects panel on the left'], ['Ventana principal de Altium Designer', 'Altium Designer main window'], [[4, 82, 276, 935, ['Panel Projects', 'Projects panel'], 'right']])),
-            note('En todo este tutorial se usan <strong>imágenes generales</strong> de la ventana, con recuadros naranjas que señalan de qué se habla.', 'Throughout this tutorial we use <strong>full-window images</strong>, with orange boxes marking what is being talked about.'),
+            note('En todo este tutorial se usan <strong>imágenes generales</strong> de la ventana, con recuadros naranjas que señalan de qué se habla.', 'Throughout this tutorial we use <strong>full-window images</strong>, with orange boxes marking what is being talked about.')
           ]
         ),
         step(
@@ -72,9 +70,9 @@ export const ALTIUM_FLOW: Flow = {
             shots('auto', S('01-crear-proyecto/05-ventana-create-project.webp', [1479, 885], ['Ventana Create Project con el tipo PCB Empty seleccionado', 'Create Project window with the PCB Empty type selected'], ['Ventana Create Project: tipo, nombre y botón Create', 'Create Project window: type, name and Create button'], [[282, 135, 427, 30, ['PCB → <Empty>', 'PCB → <Empty>'], 'right'], [750, 118, 682, 34, ['Nombre del proyecto', 'Project name']], [750, 412, 92, 24, ['Advanced', 'Advanced'], 'bottom'], [1236, 836, 112, 38, ['Create', 'Create'], 'top']])),
             shots('auto', S('01-crear-proyecto/06-nombre-proyecto-advanced.webp', [1486, 876], ['Campo de nombre en rojo con un icono de error y el botón Create deshabilitado', 'Name field in red with an error icon and the Create button disabled'], ['Si el nombre ya existe, el campo se pone rojo y Create se deshabilita', 'If the name already exists, the field turns red and Create is disabled'], [[750, 112, 682, 34, ['Nombre repetido', 'Duplicate name']], [1236, 830, 112, 38, ['Create deshabilitado', 'Create disabled'], 'top']])),
             shots('auto', S('01-crear-proyecto/07-ubicacion-local-storage.webp', [1483, 877], ['Ventana Create Project con nombre PCB_ALTIUM, carpeta y Local Storage', 'Create Project window with the name PCB_ALTIUM, the folder and Local Storage'], ['Nombre listo y ubicación en el disco (Folder y Local Storage)', 'Name ready and location on disk (Folder and Local Storage)'], [[750, 115, 682, 34, ['Nombre: PCB_ALTIUM', 'Name: PCB_ALTIUM']], [750, 472, 682, 34, ['Folder', 'Folder']], [750, 547, 682, 34, ['Local Storage', 'Local Storage']], [1236, 833, 112, 38, ['Create', 'Create'], 'top']])),
-            note('Si el nombre ya existe en la carpeta o en el servidor, el campo se marca en rojo y <strong>Create</strong> queda deshabilitado: hay que elegir otro nombre.', 'If the name already exists in the folder or on the server, the field turns red and <strong>Create</strong> stays disabled: pick another name.'),
+            note('Si el nombre ya existe en la carpeta o en el servidor, el campo se marca en rojo y <strong>Create</strong> queda deshabilitado: hay que elegir otro nombre.', 'If the name already exists in the folder or on the server, the field turns red and <strong>Create</strong> stays disabled: pick another name.')
           ]
-        ),
+        )
       ],
     },
 
@@ -96,7 +94,7 @@ export const ALTIUM_FLOW: Flow = {
           [shots('auto', S('02-esquematico-y-componentes/10-hoja-esquematico-vacia.webp', [1918, 1078], ['Hoja de esquemático vacía llamada Sheet1.SchDoc', 'Empty schematic sheet called Sheet1.SchDoc'], ['Hoja vacía con el nombre por defecto (Sheet1.SchDoc)', 'Empty sheet with the default name (Sheet1.SchDoc)'], [[292, 84, 190, 30, ['Nombre por defecto', 'Default name'], 'right'], [80, 372, 180, 30, ['En el árbol', 'In the tree'], 'bottom']])),
             shots('auto', S('02-esquematico-y-componentes/11-guardar-como-nombre.webp', [937, 706], ['Diálogo Guardar como con el nombre Esquematico_altium', 'Save As dialog with the name Esquematico_altium'], ['Ctrl+S: escribimos el nombre y damos Guardar', 'Ctrl+S: we type the name and press Save'], [[186, 478, 742, 34, ['Nombre del archivo', 'File name']], [630, 645, 130, 38, ['Guardar', 'Save'], 'top']], false)),
             shots('auto', S('02-esquematico-y-componentes/12-hoja-con-nombre-correcto.webp', [1911, 1069], ['Hoja ya renombrada a Esquematico_altium.SchDoc', 'Sheet already renamed to Esquematico_altium.SchDoc'], ['La pestaña y el árbol ya muestran el nombre nuevo', 'The tab and the tree now show the new name'], [[292, 84, 292, 30, ['Nombre nuevo', 'New name'], 'right'], [80, 372, 180, 30, ['En el árbol', 'In the tree'], 'bottom']]))]
-        ),
+        )
       ],
     },
 
@@ -144,7 +142,7 @@ export const ALTIUM_FLOW: Flow = {
           'Añadimos otra resistencia y le damos otro designador, <code>R2</code>. Así vamos colocando todos los componentes del circuito.',
           'We add another resistor and give it another designator, <code>R2</code>. That is how we place every component of the circuit.',
           [shots('auto', S('03-componentes-y-conexiones/30-segunda-resistencia-r2.webp', [1918, 1078], ['Hoja con las resistencias R1 y R2 colocadas', 'Sheet with resistors R1 and R2 placed'], ['R1 y R2 colocadas', 'R1 and R2 placed'], [[684, 452, 266, 134, ['R1', 'R1'], 'left'], [684, 642, 266, 134, ['R2', 'R2'], 'left']]))]
-        ),
+        )
       ],
     },
 
@@ -178,7 +176,7 @@ export const ALTIUM_FLOW: Flow = {
           '<strong>Unused pins.</strong> To leave a pin unconnected without it raising an error, with <kbd>P</kbd> we go to <strong>Directives → Generic No ERC</strong>. An <strong>X</strong> appears and we place it on any pin we will not use.',
           [shots('row', S('03-componentes-y-conexiones/38-directives-generic-no-erc.webp', [498, 670], ['Menú P con Directives abierto y Generic No ERC resaltado', 'P menu with Directives open and Generic No ERC highlighted'], ['Tecla P → Directives → Generic No ERC', 'P key → Directives → Generic No ERC'], [[12, 446, 282, 36, ['Directives', 'Directives'], 'top'], [294, 446, 202, 36, ['Generic No ERC', 'Generic No ERC'], 'bottom']], false),
             S('03-componentes-y-conexiones/39-marca-no-erc-en-pin.webp', [238, 169], ['X roja de No ERC colocada sobre el pin 1 de R2', 'Red No ERC X placed on pin 1 of R2'], ['La X sobre un pin sin usar', 'The X on an unused pin'], [[96, 48, 60, 56, ['X de No ERC', 'No ERC X'], 'top']], false))]
-        ),
+        )
       ],
     },
 
@@ -197,9 +195,9 @@ export const ALTIUM_FLOW: Flow = {
               ['Qué hace legible un esquemático', 'What makes a schematic readable'],
               '<ul><li><strong>Etiquetas de red</strong> en vez de cables largos que cruzan la hoja.</li><li><strong>Power ports</strong> (+3V3, GND) repetidos junto a cada componente que los usa.</li><li><strong>Componentes agrupados por función</strong> (conectores, desacople, microcontrolador…).</li><li><strong>X de No ERC</strong> en los pines que no se usan.</li><li><strong>Designadores y valores</strong> visibles y sin encimarse.</li></ul>',
               '<ul><li><strong>Net labels</strong> instead of long wires crossing the sheet.</li><li><strong>Power ports</strong> (+3V3, GND) repeated next to every component that uses them.</li><li><strong>Components grouped by function</strong> (connectors, decoupling, microcontroller…).</li><li><strong>No ERC X marks</strong> on pins that are not used.</li><li><strong>Designators and values</strong> visible and not overlapping.</li></ul>'
-            ),
+            )
           ]
-        ),
+        )
       ],
     },
 
@@ -228,16 +226,15 @@ export const ALTIUM_FLOW: Flow = {
               ['Mensajes que aparecieron en este ejemplo', 'Messages that showed up in this example'],
               '<ul><li><strong>Duplicate Component Designators</strong> (por ejemplo, varios <code>C?</code>): hay componentes con el mismo designador.</li><li><strong>Un-Designated Part</strong>: componentes que todavía tienen <code>?</code> en el designador (sin numerar).</li><li><strong>… contains IO Pin and …</strong>: una red (GND, LIS_INT2) que mezcla tipos de pin distintos.</li></ul>',
               '<ul><li><strong>Duplicate Component Designators</strong> (for example, several <code>C?</code>): some components share the same designator.</li><li><strong>Un-Designated Part</strong>: components that still have <code>?</code> in the designator (not numbered).</li><li><strong>… contains IO Pin and …</strong>: a net (GND, LIS_INT2) that mixes different pin types.</li></ul>'
-            ),
+            )
           ]
         ),
         step(
           'Corregimos <strong>todos los errores</strong> y volvemos a validar hasta que <strong>no queden problemas críticos</strong>. Solo entonces pasamos a la PCB.',
           'We fix <strong>all the errors</strong> and validate again until <strong>no critical problems are left</strong>. Only then do we move on to the PCB.',
           [
-            pend('Falta documentar <strong>cómo se corrige</strong> cada tipo de mensaje (por ejemplo, numerar los designadores automáticamente con la herramienta de anotación de Altium). Alessandro lo explicará con su placa.', 'It is still missing <strong>how each type of message is fixed</strong> (for example, numbering the designators automatically with Altium\'s annotation tool). Alessandro will explain it with his board.'),
           ]
-        ),
+        )
       ],
     },
 
@@ -262,7 +259,7 @@ export const ALTIUM_FLOW: Flow = {
           'Para pasar todo lo que hicimos en el esquemático a la placa existe <strong>Design → Update Schematics in</strong> <em>(nombre del proyecto)</em><code>.PrjPcb</code>. Pero <strong>a veces no pasa los cambios</strong>, así que lo que de verdad funciona es el paso siguiente: <strong>importarlos</strong>.',
           'To move everything we did in the schematic onto the board there is <strong>Design → Update Schematics in</strong> <em>(project name)</em><code>.PrjPcb</code>. But <strong>sometimes it does not pass the changes</strong>, so what really works is the next step: <strong>importing them</strong>.',
           [
-            shots('auto', S('05-drc-y-pcb/46-menu-design-update-schematics.webp', [1024, 685], ['Menú Design con Update Schematics in PCB_ALTIUM.PrjPcb resaltado', 'Design menu with Update Schematics in PCB_ALTIUM.PrjPcb highlighted'], ['Design → Update Schematics in…', 'Design → Update Schematics in…'], [[270, 42, 68, 30, ['Design', 'Design'], 'top'], [272, 74, 434, 34, ['Update Schematics in…', 'Update Schematics in…'], 'right']], false)),
+            shots('auto', S('05-drc-y-pcb/46-menu-design-update-schematics.webp', [1024, 685], ['Menú Design con Update Schematics in PCB_ALTIUM.PrjPcb resaltado', 'Design menu with Update Schematics in PCB_ALTIUM.PrjPcb highlighted'], ['Design → Update Schematics in…', 'Design → Update Schematics in…'], [[270, 42, 68, 30, ['Design', 'Design'], 'top'], [272, 74, 434, 34, ['Update Schematics in…', 'Update Schematics in…'], 'right']], false))
           ]
         ),
         step(
@@ -275,7 +272,7 @@ export const ALTIUM_FLOW: Flow = {
           'The <strong>Engineering Change Order</strong> window opens with the list of every change to make (components, nets…). At the bottom left we click <strong>Validate Changes</strong>.',
           [
             shots('auto', S('06-importar-cambios-y-reglas/49-ventana-eco.webp', [1919, 1079], ['Ventana Engineering Change Order con la lista de cambios y los botones de abajo', 'Engineering Change Order window with the change list and the buttons below'], ['Ventana Engineering Change Order (ECO)', 'Engineering Change Order (ECO) window'], [[150, 166, 1622, 750, ['Lista de cambios', 'Change list'], 'top'], [158, 868, 158, 38, ['Validate Changes', 'Validate Changes'], 'top']])),
-            shots('auto', S('06-importar-cambios-y-reglas/50-eco-validate-changes.webp', [1636, 752], ['Detalle de la ventana ECO con el botón Validate Changes', 'ECO window detail with the Validate Changes button'], ['Validate Changes, abajo a la izquierda', 'Validate Changes, at the bottom left'], [[13, 703, 155, 40, ['Validate Changes', 'Validate Changes'], 'top'], [1146, 88, 430, 28, ['Estado (Check / Done)', 'Status (Check / Done)'], 'bottom']], false)),
+            shots('auto', S('06-importar-cambios-y-reglas/50-eco-validate-changes.webp', [1636, 752], ['Detalle de la ventana ECO con el botón Validate Changes', 'ECO window detail with the Validate Changes button'], ['Validate Changes, abajo a la izquierda', 'Validate Changes, at the bottom left'], [[13, 703, 155, 40, ['Validate Changes', 'Validate Changes'], 'top'], [1146, 88, 430, 28, ['Estado (Check / Done)', 'Status (Check / Done)'], 'bottom']], false))
           ]
         ),
         step(
@@ -284,7 +281,7 @@ export const ALTIUM_FLOW: Flow = {
           [
             shots('row', S('06-importar-cambios-y-reglas/51-eco-validado-componentes.webp', [1615, 734], ['Componentes validados, todos con palomita verde en Check', 'Components validated, all with a green check in Check'], ['Componentes validados', 'Validated components'], [[1144, 144, 36, 536, ['Check ✔', 'Check ✔'], 'top']], false),
               S('06-importar-cambios-y-reglas/52-eco-validado-redes.webp', [1625, 750], ['Redes validadas, todas con palomita verde en Check', 'Nets validated, all with a green check in Check'], ['Redes validadas', 'Validated nets'], [[1150, 142, 36, 512, ['Check ✔', 'Check ✔'], 'top']], false)),
-            important('Si aparece <b>alguna X roja</b> en lugar de la palomita, ese cambio tiene un problema: se corrige en el esquemático y se vuelve a validar.', 'If a <b>red X</b> shows up instead of the check, that change has a problem: fix it in the schematic and validate again.'),
+            important('Si aparece <b>alguna X roja</b> en lugar de la palomita, ese cambio tiene un problema: se corrige en el esquemático y se vuelve a validar.', 'If a <b>red X</b> shows up instead of the check, that change has a problem: fix it in the schematic and validate again.')
           ]
         ),
         step(
@@ -292,17 +289,16 @@ export const ALTIUM_FLOW: Flow = {
           'With everything validated we click <strong>Execute Changes</strong>. Now the <strong>Done</strong> column also fills with green checks. We close the window with <strong>Close</strong>.',
           [
             shots('row', S('06-importar-cambios-y-reglas/53-eco-validado-lista.webp', [1622, 742], ['Ventana ECO validada con el botón Execute Changes habilitado', 'Validated ECO window with the Execute Changes button enabled'], ['Execute Changes', 'Execute Changes'], [[175, 695, 156, 38, ['Execute Changes', 'Execute Changes'], 'top']], false),
-              S('06-importar-cambios-y-reglas/54-eco-ejecutado-done.webp', [1620, 754], ['Ventana ECO con las columnas Check y Done en verde y el botón Close', 'ECO window with the Check and Done columns in green and the Close button'], ['Check y Done en verde; luego Close', 'Check and Done in green; then Close'], [[1148, 112, 100, 540, ['Check y Done ✔', 'Check and Done ✔'], 'top'], [1502, 700, 112, 40, ['Close', 'Close'], 'top']], false)),
+              S('06-importar-cambios-y-reglas/54-eco-ejecutado-done.webp', [1620, 754], ['Ventana ECO con las columnas Check y Done en verde y el botón Close', 'ECO window with the Check and Done columns in green and the Close button'], ['Check y Done en verde; luego Close', 'Check and Done in green; then Close'], [[1148, 112, 100, 540, ['Check y Done ✔', 'Check and Done ✔'], 'top'], [1502, 700, 112, 40, ['Close', 'Close'], 'top']], false))
           ]
         ),
         step(
           'Ahora aparecen en el editor de PCB todas las <strong>huellas</strong> de nuestros componentes, unidas por sus <strong>conexiones</strong> (las líneas finas), fuera del contorno de la placa. Hay que empezar a <strong>acomodarlas</strong>, tratando de no enredar de más las conexiones.',
           'The <strong>footprints</strong> of all our components now show up in the PCB editor, joined by their <strong>connections</strong> (the thin lines), outside the board outline. We have to start <strong>arranging</strong> them, trying not to tangle the connections more than needed.',
           [
-            shots('auto', S('06-importar-cambios-y-reglas/55-placa-con-huellas-y-conexiones.webp', [1919, 1079], ['Editor de PCB con el contorno vacío y las huellas con sus conexiones a un lado', 'PCB editor with the empty outline and the footprints with their connections on one side'], ['Huellas y conexiones listas para acomodar', 'Footprints and connections ready to arrange'], [[512, 314, 748, 498, ['Contorno de la placa', 'Board outline'], 'top'], [1264, 684, 520, 134, ['Huellas con sus conexiones', 'Footprints with their connections'], 'top']])),
-            pend('Se importan siempre fuera del contorno (en la captura aparecen a la derecha de la placa); falta confirmar con Alessandro de qué lado le salen normalmente.', 'They are always imported outside the outline (in the capture they appear to the right of the board); it still needs confirming with Alessandro which side they normally land on.'),
+            shots('auto', S('06-importar-cambios-y-reglas/55-placa-con-huellas-y-conexiones.webp', [1919, 1079], ['Editor de PCB con el contorno vacío y las huellas con sus conexiones a un lado', 'PCB editor with the empty outline and the footprints with their connections on one side'], ['Huellas y conexiones listas para acomodar', 'Footprints and connections ready to arrange'], [[512, 314, 748, 498, ['Contorno de la placa', 'Board outline'], 'top'], [1264, 684, 520, 134, ['Huellas con sus conexiones', 'Footprints with their connections'], 'top']]))
           ]
-        ),
+        )
       ],
     },
 
@@ -317,7 +313,7 @@ export const ALTIUM_FLOW: Flow = {
           'Before starting to design we must <strong>import the manufacturer\'s design rules</strong>, which tell Altium what is acceptable (minimum track width, clearances, holes…). We will use <strong>JLCPCB</strong>. We go to <strong>Design → Rules…</strong>',
           [
             shots('auto', S('06-importar-cambios-y-reglas/56-menu-design-rules.webp', [955, 632], ['Menú Design con Rules… resaltado', 'Design menu with Rules… highlighted'], ['Design → Rules…', 'Design → Rules…'], [[270, 42, 70, 30, ['Design', 'Design'], 'top'], [272, 144, 508, 34, ['Rules…', 'Rules…'], 'right']], false)),
-            shots('auto', S('06-importar-cambios-y-reglas/57-editor-reglas-default.webp', [1919, 1079], ['Ventana PCB Rules and Constraints Editor con el Default Rule Set', 'PCB Rules and Constraints Editor window with the Default Rule Set'], ['PCB Rules and Constraints Editor', 'PCB Rules and Constraints Editor'], [[374, 184, 286, 30, ['Default Rule Set', 'Default Rule Set'], 'top'], [700, 108, 906, 800, ['Reglas actuales', 'Current rules'], 'top']])),
+            shots('auto', S('06-importar-cambios-y-reglas/57-editor-reglas-default.webp', [1919, 1079], ['Ventana PCB Rules and Constraints Editor con el Default Rule Set', 'PCB Rules and Constraints Editor window with the Default Rule Set'], ['PCB Rules and Constraints Editor', 'PCB Rules and Constraints Editor'], [[374, 184, 286, 30, ['Default Rule Set', 'Default Rule Set'], 'top'], [700, 108, 906, 800, ['Reglas actuales', 'Current rules'], 'top']]))
           ]
         ),
         step(
@@ -329,8 +325,7 @@ export const ALTIUM_FLOW: Flow = {
           'Buscamos el <strong>archivo de reglas</strong> (<code>.RUL</code>) de JLCPCB que descargamos antes (para 2 capas y cobre de 1 oz, <code>2layer-1oz.RUL</code>) y damos <strong>Abrir</strong>.',
           'We look for the JLCPCB <strong>rules file</strong> (<code>.RUL</code>) we downloaded earlier (for 2 layers and 1 oz copper, <code>2layer-1oz.RUL</code>) and press <strong>Open</strong>.',
           [
-            shots('auto', S('06-importar-cambios-y-reglas/59-importar-archivo-rul.webp', [943, 713], ['Ventana Import File con el archivo 2layer-1oz.RUL seleccionado', 'Import File window with the 2layer-1oz.RUL file selected'], ['Seleccionamos el archivo .RUL y damos Abrir', 'We select the .RUL file and press Open'], [[266, 220, 112, 160, ['Archivo .RUL', '.RUL file'], 'right'], [186, 601, 428, 38, ['Nombre del archivo', 'File name'], 'top'], [634, 646, 132, 38, ['Abrir', 'Open'], 'top']], false)),
-            pend('Falta poner aquí un <strong>botón para descargar</strong> el archivo de reglas de JLCPCB directamente (no se ha confirmado todavía una fuente oficial para enlazarlo).', 'A <strong>download button</strong> for the JLCPCB rules file still needs to go here (an official source to link to has not been confirmed yet).'),
+            shots('auto', S('06-importar-cambios-y-reglas/59-importar-archivo-rul.webp', [943, 713], ['Ventana Import File con el archivo 2layer-1oz.RUL seleccionado', 'Import File window with the 2layer-1oz.RUL file selected'], ['Seleccionamos el archivo .RUL y damos Abrir', 'We select the .RUL file and press Open'], [[266, 220, 112, 160, ['Archivo .RUL', '.RUL file'], 'right'], [186, 601, 428, 38, ['Nombre del archivo', 'File name'], 'top'], [634, 646, 132, 38, ['Abrir', 'Open'], 'top']], false))
           ]
         ),
         step(
@@ -348,9 +343,9 @@ export const ALTIUM_FLOW: Flow = {
           'We click <strong>Apply</strong> (bottom right) and then <strong>OK</strong> to close the window. Now we can start designing.',
           [
             shots('row', S('06-importar-cambios-y-reglas/60-editor-reglas-apply.webp', [1347, 976], ['Editor de reglas con el botón Apply', 'Rules editor with the Apply button'], ['Primero Apply', 'First Apply'], [[1210, 924, 122, 38, ['Apply', 'Apply'], 'top']], false),
-              S('06-importar-cambios-y-reglas/61-editor-reglas-ok.webp', [1325, 978], ['Editor de reglas con el botón OK', 'Rules editor with the OK button'], ['Después OK', 'Then OK'], [[961, 925, 112, 40, ['OK', 'OK'], 'top']], false)),
+              S('06-importar-cambios-y-reglas/61-editor-reglas-ok.webp', [1325, 978], ['Editor de reglas con el botón OK', 'Rules editor with the OK button'], ['Después OK', 'Then OK'], [[961, 925, 112, 40, ['OK', 'OK'], 'top']], false))
           ]
-        ),
+        )
       ],
     },
 
@@ -383,10 +378,9 @@ export const ALTIUM_FLOW: Flow = {
                 [['8 – 11', '8 – 11'], ['Longitud, pad, polígono…', 'Length, pad, polygon…'], ['Ajuste de longitud de pistas, pads, planos de cobre y otras herramientas de colocación', 'Track length tuning, pads, copper pours and other placement tools']],
                 [['12', '12'], ['Dimension', 'Dimension'], ['Poner cotas (medidas) sobre la placa', 'Add dimensions (measurements) to the board']],
                 [['13', '13'], ['Text String', 'Text String'], ['Escribir texto sobre la placa', 'Write text on the board']],
-                [['14', '14'], ['Drawing tools', 'Drawing tools'], ['Dibujar: Line, Arc, Full Circle, Fill, Solid Region, Rectangle y Bond Wire', 'Draw: Line, Arc, Full Circle, Fill, Solid Region, Rectangle and Bond Wire']],
+                [['14', '14'], ['Drawing tools', 'Drawing tools'], ['Dibujar: Line, Arc, Full Circle, Fill, Solid Region, Rectangle y Bond Wire', 'Draw: Line, Arc, Full Circle, Fill, Solid Region, Rectangle and Bond Wire']]
               ]
-            ),
-            pend('Los botones 8 a 11 están descritos de forma general; falta que Alessandro confirme el nombre exacto de cada uno.', 'Buttons 8 to 11 are described in general terms; Alessandro still needs to confirm the exact name of each one.'),
+            )
           ]
         ),
         step(
@@ -403,9 +397,9 @@ export const ALTIUM_FLOW: Flow = {
                 [['Top Paste / Bottom Paste', 'Top Paste / Bottom Paste'], ['Dónde se aplica la pasta de soldar (para montar componentes SMD)', 'Where solder paste is applied (to mount SMD components)']],
                 [['Top Solder / Bottom Solder', 'Top Solder / Bottom Solder'], ['La máscara de soldadura: las zonas del cobre que quedan al descubierto', 'The solder mask: the areas of copper left exposed']],
                 [['Drill Guide', 'Drill Guide'], ['Guía de los taladros', 'Drill guide']],
-                [['LS', 'LS'], ['Selector de conjuntos de capas (Layer Sets)', 'Layer set selector (Layer Sets)']],
+                [['LS', 'LS'], ['Selector de conjuntos de capas (Layer Sets)', 'Layer set selector (Layer Sets)']]
               ]
-            ),
+            )
           ]
         ),
         step(
@@ -436,9 +430,9 @@ export const ALTIUM_FLOW: Flow = {
                 [['Layer', 'Layer'], ['La capa en la que está dibujado', 'The layer it is drawn on']],
                 [['Width', 'Width'], ['El grosor de la línea del círculo', 'The thickness of the circle line']],
                 [['Radius', 'Radius'], ['El radio del círculo', 'The radius of the circle']],
-                [['Start Angle / End Angle', 'Start Angle / End Angle'], ['Dónde empieza y termina el arco: de 0 a 360 es un círculo completo', 'Where the arc starts and ends: 0 to 360 is a full circle']],
+                [['Start Angle / End Angle', 'Start Angle / End Angle'], ['Dónde empieza y termina el arco: de 0 a 360 es un círculo completo', 'Where the arc starts and ends: 0 to 360 is a full circle']]
               ]
-            ),
+            )
           ]
         ),
         step(
@@ -456,7 +450,7 @@ export const ALTIUM_FLOW: Flow = {
           'We also adjust the <strong>location</strong> according to the radius: if <code>X</code> and <code>Y</code> equal the radius (<code>27.5mm</code>), the circle sits right against the origin. Make sure the location <strong>does not leave the shape outside the origin</strong>.',
           [
             shots('auto', S('07-origen-y-forma-de-placa/72-location-segun-radio.webp', [520, 128], ['Campos Location X e Y con 27.5mm cada uno', 'Location X and Y fields with 27.5mm each'], ['Location = radio (27.5mm, 27.5mm)', 'Location = radius (27.5mm, 27.5mm)'], [[188, 52, 126, 34, ['X = 27.5mm', 'X = 27.5mm'], 'bottom'], [322, 52, 130, 34, ['Y = 27.5mm', 'Y = 27.5mm'], 'bottom']], false)),
-            important('Si el centro quedara más cerca del origen que el radio, parte del círculo caería en coordenadas negativas, fuera del origen.', 'If the center were closer to the origin than the radius, part of the circle would fall into negative coordinates, outside the origin.'),
+            important('Si el centro quedara más cerca del origen que el radio, parte del círculo caería en coordenadas negativas, fuera del origen.', 'If the center were closer to the origin than the radius, part of the circle would fall into negative coordinates, outside the origin.')
           ]
         ),
         step(
@@ -472,8 +466,8 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Revisamos el <strong>número de capas</strong> en <strong>Design → Layer Stack Manager</strong>. Para esta placa de práctica se usan <strong>2 capas</strong> (Top y Bottom).',
           'We check the <strong>number of layers</strong> in <strong>Design → Layer Stack Manager</strong>. This practice board uses <strong>2 layers</strong> (Top and Bottom).',
-          [pend('<strong>Captura pendiente.</strong> Instrucción: abrir <strong>Design → Layer Stack Manager</strong> y comprobar que solo aparecen <strong>Top Layer</strong> y <strong>Bottom Layer</strong> (2 capas de cobre).', '<strong>Screenshot pending.</strong> Instruction: open <strong>Design → Layer Stack Manager</strong> and check that only <strong>Top Layer</strong> and <strong>Bottom Layer</strong> (2 copper layers) appear.'), ph('Layer Stack Manager con las dos capas de cobre.', 'Layer Stack Manager with the two copper layers.')]
-        ),
+          [note('Para comprobar el apilado, abre <strong>Design → Layer Stack Manager</strong>: solo deben aparecer <strong>Top Layer</strong> y <strong>Bottom Layer</strong> (2 capas de cobre).', 'To check the stack-up, open <strong>Design → Layer Stack Manager</strong>: only <strong>Top Layer</strong> and <strong>Bottom Layer</strong> (2 copper layers) should appear.')]
+        )
       ],
     },
 
@@ -488,7 +482,7 @@ export const ALTIUM_FLOW: Flow = {
           'Now it is time to <strong>arrange</strong> the components inside the board. Recommendations before starting: begin with the <strong>large components</strong> and then the <strong>small</strong> ones, and try not to <strong>tangle the connections</strong> (the thin lines) by eye.',
           [
             shots('auto', S('08-colocar-y-rutear/82-inicio-acomodar.webp', [1919, 1079], ['Placa circular con algunos componentes ya dentro y el resto todavía fuera', 'Circular board with some components already inside and the rest still outside'], ['Empezamos con los componentes grandes', 'We start with the large components'], [[396, 312, 546, 546, ['Placa', 'Board'], 'top'], [570, 336, 320, 366, ['Ya acomodados', 'Already placed'], 'right'], [984, 682, 836, 150, ['Todavía sin acomodar', 'Not placed yet'], 'top']])),
-            note('Un buen orden: primero los conectores y el microcontrolador (lo más grande), después los capacitores y resistencias cerca de los pines que usan.', 'A good order: first the connectors and the microcontroller (the largest), then the capacitors and resistors close to the pins they use.'),
+            note('Un buen orden: primero los conectores y el microcontrolador (lo más grande), después los capacitores y resistencias cerca de los pines que usan.', 'A good order: first the connectors and the microcontroller (the largest), then the capacitors and resistors close to the pins they use.')
           ]
         ),
         step(
@@ -504,10 +498,10 @@ export const ALTIUM_FLOW: Flow = {
                 [['Ctrl + Z', 'Ctrl + Z'], ['Deshacer', 'Undo']],
                 [['Tab', 'Tab'], ['Abrir Properties mientras colocas', 'Open Properties while placing']],
                 [['Q', 'Q'], ['Alternar mils ↔ mm', 'Toggle mils ↔ mm']],
-                [['G', 'G'], ['Cambiar el tamaño del grid de snap', 'Change the snap grid size']],
+                [['G', 'G'], ['Cambiar el tamaño del grid de snap', 'Change the snap grid size']]
               ]
             ),
-            note('Atajos tal como los anotó Alessandro; conviene probarlos en tu versión de Altium.', 'Shortcuts as noted by Alessandro; it is worth trying them in your Altium version.'),
+            note('Atajos tal como los anotó Alessandro; conviene probarlos en tu versión de Altium.', 'Shortcuts as noted by Alessandro; it is worth trying them in your Altium version.')
           ]
         ),
         step(
@@ -516,7 +510,7 @@ export const ALTIUM_FLOW: Flow = {
           [
             shots('auto', S('08-colocar-y-rutear/73-cambiar-capa-top-bottom.webp', [1919, 1079], ['Componente U1 seleccionado y el desplegable de Layer con Top Layer y Bottom Layer', 'Component U1 selected and the Layer drop-down with Top Layer and Bottom Layer'], ['Properties → Layer: Top Layer o Bottom Layer', 'Properties → Layer: Top Layer or Bottom Layer'], [[710, 396, 300, 420, ['U1 en Top Layer', 'U1 on Top Layer'], 'left'], [1572, 372, 306, 108, ['Layer', 'Layer'], 'top']])),
             shots('auto', S('08-colocar-y-rutear/74-componente-en-bottom-espejo.webp', [1919, 1079], ['Componente U1 ya en Bottom Layer, con su texto y sus pines en espejo', 'Component U1 now on Bottom Layer, with its text and pins mirrored'], ['U1 en Bottom Layer: queda en espejo', 'U1 on Bottom Layer: it ends up mirrored'], [[1572, 372, 306, 36, ['Bottom Layer', 'Bottom Layer'], 'top'], [710, 396, 44, 38, ['Texto en espejo', 'Mirrored text'], 'left'], [958, 504, 40, 40, ['Pin 1 ahora a la derecha', 'Pin 1 now on the right'], 'top']])),
-            important('Al cambiar de capa los <b>pines se invierten</b> (el componente queda en espejo): hay que tenerlo en cuenta para conectarlo del otro lado.', 'When the layer changes the <b>pins get inverted</b> (the component is mirrored): keep that in mind to connect it from the other side.'),
+            important('Al cambiar de capa los <b>pines se invierten</b> (el componente queda en espejo): hay que tenerlo en cuenta para conectarlo del otro lado.', 'When the layer changes the <b>pins get inverted</b> (the component is mirrored): keep that in mind to connect it from the other side.')
           ]
         ),
         step(
@@ -524,7 +518,7 @@ export const ALTIUM_FLOW: Flow = {
           'To switch views: the <kbd>2</kbd> key is the <strong>2D view</strong> (the current one) and <kbd>3</kbd> is the <strong>3D view</strong>, very useful for checking.',
           [
             shots('row', S('08-colocar-y-rutear/78-vista-2d.webp', [1919, 1079], ['Vista 2D de la placa con U1', '2D view of the board with U1'], ['Tecla 2: vista 2D', 'Key 2: 2D view'], [[826, 360, 292, 420, ['U1 en 2D', 'U1 in 2D'], 'top']], false),
-              S('08-colocar-y-rutear/79-vista-3d.webp', [1919, 1079], ['Vista 3D de la placa con U1', '3D view of the board with U1'], ['Tecla 3: vista 3D', 'Key 3: 3D view'], [[776, 400, 330, 410, ['U1 en 3D', 'U1 in 3D'], 'top']], false)),
+              S('08-colocar-y-rutear/79-vista-3d.webp', [1919, 1079], ['Vista 3D de la placa con U1', '3D view of the board with U1'], ['Tecla 3: vista 3D', 'Key 3: 3D view'], [[776, 400, 330, 410, ['U1 en 3D', 'U1 in 3D'], 'top']], false))
           ]
         ),
         step(
@@ -541,9 +535,9 @@ export const ALTIUM_FLOW: Flow = {
                 [['2', '2'], ['Volver a la vista 2D', 'Back to the 2D view']],
                 [['Scroll', 'Scroll'], ['Zoom in / out', 'Zoom in / out']],
                 [['Clic de la rueda', 'Wheel click'], ['Pan (mover la vista)', 'Pan (move the view)']],
-                [['Shift + clic derecho', 'Shift + right click'], ['Moverse en la vista 3D', 'Move around the 3D view']],
+                [['Shift + clic derecho', 'Shift + right click'], ['Moverse en la vista 3D', 'Move around the 3D view']]
               ]
-            ),
+            )
           ]
         ),
         step(
@@ -551,14 +545,14 @@ export const ALTIUM_FLOW: Flow = {
           'Knowing all this we keep arranging: we select, move, rotate and check that the connections end up as tidy as possible. From here it depends on each person and how they want to arrange.',
           [
             shots('auto', S('08-colocar-y-rutear/83-acomodando-seleccion.webp', [1919, 1079], ['Varios componentes seleccionados al mismo tiempo mientras se acomodan', 'Several components selected at the same time while being arranged'], ['Podemos seleccionar varios componentes a la vez', 'We can select several components at once'], [[448, 272, 548, 548, ['Placa', 'Board'], 'top'], [1010, 702, 170, 54, ['Por acomodar', 'Still to place'], 'top'], [1398, 1012, 192, 28, ['4 objetos seleccionados', '4 objects selected'], 'top']])),
-            shots('auto', S('08-colocar-y-rutear/84-placa-acomodada.webp', [1919, 1079], ['Placa circular con todos los componentes ya acomodados dentro', 'Circular board with all the components arranged inside'], ['Todos los componentes dentro de la placa', 'All the components inside the board'], [[585, 312, 548, 548, ['Componentes acomodados', 'Components arranged'], 'top']])),
+            shots('auto', S('08-colocar-y-rutear/84-placa-acomodada.webp', [1919, 1079], ['Placa circular con todos los componentes ya acomodados dentro', 'Circular board with all the components arranged inside'], ['Todos los componentes dentro de la placa', 'All the components inside the board'], [[585, 312, 548, 548, ['Componentes acomodados', 'Components arranged'], 'top']]))
           ]
         ),
         step(
           'Ya que lo tengamos de una manera que nos guste, podemos empezar a <strong>rutear</strong>.',
           'Once we have it the way we like, we can start <strong>routing</strong>.',
           []
-        ),
+        )
       ],
     },
 
@@ -582,7 +576,7 @@ export const ALTIUM_FLOW: Flow = {
             shots('auto', S('08-colocar-y-rutear/92-ruteo-en-curso.webp', [1919, 1079], ['Pista roja en proceso de ruteo desde el pad 7 de J1 y el panel Interactive Routing', 'Red track being routed from pad 7 of J1 and the Interactive Routing panel'], ['Ruteando: la pista sigue la línea de conexión', 'Routing: the track follows the connection line'], [[846, 336, 100, 330, ['Pista en proceso', 'Track in progress'], 'right'], [1572, 444, 304, 36, ['Layer', 'Layer'], 'top'], [1572, 626, 296, 36, ['Via Diameter', 'Via Diameter'], 'top'], [1572, 668, 296, 36, ['Via Hole Size', 'Via Hole Size'], 'bottom'], [1572, 744, 296, 40, ['Width', 'Width'], 'bottom']])),
             shots('row', S('08-colocar-y-rutear/93-ruteo-pad-destino.webp', [459, 490], ['Pad 1 del capacitor C1 (VCC_DISP) al que llega la pista', 'Pad 1 of capacitor C1 (VCC_DISP) where the track arrives'], ['Clic en el pad destino', 'Click the destination pad'], [[168, 258, 68, 68, ['Pad destino', 'Destination pad'], 'bottom']], false)),
             shots('auto', S('08-colocar-y-rutear/94-pista-completada.webp', [1919, 1079], ['Pista roja completa desde J1 hasta C1', 'Complete red track from J1 to C1'], ['La pista llega al pad destino y la línea fina desaparece', 'The track reaches the destination pad and the thin line disappears'], [[910, 308, 134, 612, ['Pista VCC_DISP', 'VCC_DISP track'], 'right']])),
-            note('En el panel <strong>Properties</strong> del ruteo se ven la <strong>capa</strong> (Layer), el diámetro y el agujero de la vía (Via Diameter, Via Hole Size) y el <strong>ancho</strong> de la pista (Width).', 'In the routing <strong>Properties</strong> panel you can see the <strong>layer</strong> (Layer), the via diameter and hole (Via Diameter, Via Hole Size) and the track <strong>width</strong> (Width).'),
+            note('En el panel <strong>Properties</strong> del ruteo se ven la <strong>capa</strong> (Layer), el diámetro y el agujero de la vía (Via Diameter, Via Hole Size) y el <strong>ancho</strong> de la pista (Width).', 'In the routing <strong>Properties</strong> panel you can see the <strong>layer</strong> (Layer), the via diameter and hole (Via Diameter, Via Hole Size) and the track <strong>width</strong> (Width).')
           ]
         ),
         step(
@@ -596,9 +590,9 @@ export const ALTIUM_FLOW: Flow = {
                 [['Backspace', 'Backspace'], ['Borrar el último segmento', 'Delete the last segment']],
                 [['* (asterisco del teclado numérico)', '* (numeric keypad asterisk)'], ['Cambiar de Top a Bottom Layer (agrega una vía automáticamente)', 'Switch from Top to Bottom Layer (adds a via automatically)']],
                 [['Tab', 'Tab'], ['Cambiar el ancho de la pista', 'Change the track width']],
-                [['Esc', 'Esc'], ['Cancelar', 'Cancel']],
+                [['Esc', 'Esc'], ['Cancelar', 'Cancel']]
               ]
-            ),
+            )
           ]
         ),
         step(
@@ -618,10 +612,10 @@ export const ALTIUM_FLOW: Flow = {
               [['Parámetro', 'Parameter'], ['Mínimo JLCPCB', 'JLCPCB minimum']],
               [
                 [['Drill (taladro)', 'Drill (hole)'], ['0.3 mm', '0.3 mm']],
-                [['Pad diameter', 'Pad diameter'], ['0.6 mm', '0.6 mm']],
+                [['Pad diameter', 'Pad diameter'], ['0.6 mm', '0.6 mm']]
               ]
             ),
-            note('En el <strong>Properties</strong> de la vía hay que verificar que cumpla esos mínimos (valores que indicó Alessandro; conviene confirmarlos con las capacidades vigentes de JLCPCB). En la vista 2D las vías son círculos con un punto central y en 3D se ven como los agujeros reales de la placa.', 'In the via <strong>Properties</strong> check that it meets those minimums (values given by Alessandro; it is worth confirming them against JLCPCB\'s current capabilities). In the 2D view vias are circles with a center dot and in 3D they look like the real holes in the board.'),
+            note('En el <strong>Properties</strong> de la vía hay que verificar que cumpla esos mínimos (valores que indicó Alessandro; conviene confirmarlos con las capacidades vigentes de JLCPCB). En la vista 2D las vías son círculos con un punto central y en 3D se ven como los agujeros reales de la placa.', 'In the via <strong>Properties</strong> check that it meets those minimums (values given by Alessandro; it is worth confirming them against JLCPCB\'s current capabilities). In the 2D view vias are circles with a center dot and in 3D they look like the real holes in the board.')
           ]
         ),
         step(
@@ -643,8 +637,7 @@ export const ALTIUM_FLOW: Flow = {
           'Abajo se elige la <strong>estrategia de ruteo</strong>. Dejamos <strong>Default 2 Layer Board</strong> (la estrategia por defecto para placas de dos capas) y damos <strong>Route All</strong>.',
           'At the bottom we pick the <strong>routing strategy</strong>. We keep <strong>Default 2 Layer Board</strong> (the default strategy for two-layer boards) and press <strong>Route All</strong>.',
           [
-            shots('auto', S('09-autoruteo-drc-y-texto/107-situs-route-all.webp', [939, 1040], ['Diálogo Situs con Default 2 Layer Board seleccionada y el botón Route All', 'Situs dialog with Default 2 Layer Board selected and the Route All button'], ['Default 2 Layer Board → Route All', 'Default 2 Layer Board → Route All'], [[42, 635, 870, 26, ['Default 2 Layer Board', 'Default 2 Layer Board'], 'top'], [698, 988, 112, 38, ['Route All', 'Route All'], 'top']], false)),
-            pend('Faltan por documentar los demás botones del diálogo (Edit Layer Directions, Edit Rules, Lock All Pre-routes, Rip-up Violations After Routing) y cuándo conviene usar otra estrategia.', 'The other buttons of the dialog (Edit Layer Directions, Edit Rules, Lock All Pre-routes, Rip-up Violations After Routing) and when another strategy is worth using are still to be documented.'),
+            shots('auto', S('09-autoruteo-drc-y-texto/107-situs-route-all.webp', [939, 1040], ['Diálogo Situs con Default 2 Layer Board seleccionada y el botón Route All', 'Situs dialog with Default 2 Layer Board selected and the Route All button'], ['Default 2 Layer Board → Route All', 'Default 2 Layer Board → Route All'], [[42, 635, 870, 26, ['Default 2 Layer Board', 'Default 2 Layer Board'], 'top'], [698, 988, 112, 38, ['Route All', 'Route All'], 'top']], false))
           ]
         ),
         step(
@@ -652,14 +645,14 @@ export const ALTIUM_FLOW: Flow = {
           'And we will see it <strong>route everything</strong>. The <strong>Messages</strong> panel shows the progress (for example, <em>26 of 46 connections</em>) until it ends with <strong>46 of 46 connections</strong> and the <em>Situs Routing finished</em> message.',
           [
             shots('row', S('09-autoruteo-drc-y-texto/108-autoruteo-en-progreso.webp', [1919, 1079], ['Autoruteo en proceso con algunas pistas dibujadas y el panel Messages', 'Autorouting in progress with some tracks drawn and the Messages panel'], ['Ruteando: 26 de 46 conexiones', 'Routing: 26 of 46 connections'], [[497, 214, 776, 776, ['Placa', 'Board'], 'top'], [1398, 500, 505, 52, ['Avance', 'Progress'], 'left']], false),
-              S('09-autoruteo-drc-y-texto/109-autoruteo-terminado.webp', [1919, 1079], ['Autoruteo terminado: todas las pistas dibujadas y Routing finished en Messages', 'Autorouting finished: all tracks drawn and Routing finished in Messages'], ['Terminado: 46 de 46 conexiones', 'Finished: 46 of 46 connections'], [[497, 214, 776, 776, ['Placa ruteada', 'Routed board'], 'top'], [1398, 792, 505, 32, ['Routing finished', 'Routing finished'], 'left']], false)),
+              S('09-autoruteo-drc-y-texto/109-autoruteo-terminado.webp', [1919, 1079], ['Autoruteo terminado: todas las pistas dibujadas y Routing finished en Messages', 'Autorouting finished: all tracks drawn and Routing finished in Messages'], ['Terminado: 46 de 46 conexiones', 'Finished: 46 of 46 connections'], [[497, 214, 776, 776, ['Placa ruteada', 'Routed board'], 'top'], [1398, 792, 505, 32, ['Routing finished', 'Routing finished'], 'left']], false))
           ]
         ),
         step(
           'Podemos usar la <strong>vista 3D</strong> (tecla <kbd>3</kbd>) para verificar cómo quedó la placa.',
           'We can use the <strong>3D view</strong> (the <kbd>3</kbd> key) to check how the board turned out.',
           [shots('auto', S('09-autoruteo-drc-y-texto/111-vista-3d-ruteada.webp', [1919, 1079], ['Vista 3D de la placa ruteada con los componentes y las pistas', '3D view of the routed board with the components and the tracks'], ['Placa ruteada en 3D', 'Routed board in 3D'], [[444, 214, 866, 792, ['Placa en 3D', 'Board in 3D'], 'top']]))]
-        ),
+        )
       ],
     },
 
@@ -684,7 +677,7 @@ export const ALTIUM_FLOW: Flow = {
           'The <strong>Design Rule Verification Report</strong> opens, detailing every violation of the design rules. At the top it shows the number of <strong>Warnings</strong> and <strong>Rule Violations</strong>; the violations are also listed in the <strong>Messages</strong> panel.',
           [
             shots('auto', S('09-autoruteo-drc-y-texto/114-informe-drc.webp', [1919, 1079], ['Informe de verificación de reglas con 0 warnings y 22 violaciones, y el panel Messages', 'Rule verification report with 0 warnings and 22 violations, and the Messages panel'], ['El informe del DRC', 'The DRC report'], [[1214, 418, 134, 84, ['0 Warnings · 22 Violations', '0 Warnings · 22 Violations'], 'left'], [1398, 130, 505, 790, ['Messages', 'Messages'], 'left']])),
-            shots('auto', S('09-autoruteo-drc-y-texto/115-informe-resumen.webp', [1090, 937], ['Resumen del informe: Warnings 0 y la lista de reglas con su número de violaciones', 'Report summary: Warnings 0 and the rule list with its violation count'], ['Resumen: 0 warnings y la lista de reglas', 'Summary: 0 warnings and the rule list'], [[12, 346, 1048, 64, ['Warnings: 0', 'Warnings: 0'], 'top'], [12, 446, 1048, 480, ['Reglas y violaciones', 'Rules and violations'], 'right']], false)),
+            shots('auto', S('09-autoruteo-drc-y-texto/115-informe-resumen.webp', [1090, 937], ['Resumen del informe: Warnings 0 y la lista de reglas con su número de violaciones', 'Report summary: Warnings 0 and the rule list with its violation count'], ['Resumen: 0 warnings y la lista de reglas', 'Summary: 0 warnings and the rule list'], [[12, 346, 1048, 64, ['Warnings: 0', 'Warnings: 0'], 'top'], [12, 446, 1048, 480, ['Reglas y violaciones', 'Rules and violations'], 'right']], false))
           ]
         ),
         step(
@@ -693,9 +686,9 @@ export const ALTIUM_FLOW: Flow = {
           [
             shots('row', S('09-autoruteo-drc-y-texto/116-informe-silk-solder-mask.webp', [1088, 959], ['Lista de violaciones Silk To Solder Mask Clearance entre pads y serigrafía', 'List of Silk To Solder Mask Clearance violations between pads and silkscreen'], ['Silk To Solder Mask Clearance (20)', 'Silk To Solder Mask Clearance (20)'], [[12, 152, 1048, 38, ['Silk To Solder Mask', 'Silk To Solder Mask'], 'top'], [840, 96, 220, 34, ['Total: 22', 'Total: 22'], 'bottom']], false),
               S('09-autoruteo-drc-y-texto/117-informe-board-clearance.webp', [1079, 927], ['Violaciones de Board Clearance entre el borde de la placa y los textos J1 y J4', 'Board Clearance violations between the board edge and the J1 and J4 texts'], ['Board Clearance (2)', 'Board Clearance (2)'], [[6, 740, 1048, 40, ['Board Clearance', 'Board Clearance'], 'top'], [12, 784, 1048, 68, ['Textos J1 y J4', 'J1 and J4 texts'], 'bottom']], false)),
-            important('Lo importante es que <b>no haya warnings</b>. Si aparece alguno, hay que revisarlo y corregirlo antes de fabricar.', 'What matters is that there are <b>no warnings</b>. If one shows up, it must be reviewed and fixed before manufacturing.'),
+            important('Lo importante es que <b>no haya warnings</b>. Si aparece alguno, hay que revisarlo y corregirlo antes de fabricar.', 'What matters is that there are <b>no warnings</b>. If one shows up, it must be reviewed and fixed before manufacturing.')
           ]
-        ),
+        )
       ],
     },
 
@@ -711,7 +704,7 @@ export const ALTIUM_FLOW: Flow = {
           [
             shots('auto', S('09-autoruteo-drc-y-texto/118-menu-place-string.webp', [723, 653], ['Menú Place con String resaltado', 'Place menu with String highlighted'], ['Place → String', 'Place → String'], [[212, 38, 66, 32, ['Place', 'Place'], 'top'], [216, 348, 334, 36, ['String', 'String'], 'right']], false)),
             shots('auto', S('09-autoruteo-drc-y-texto/119-string-flotando.webp', [261, 230], ['Texto String flotando con el cursor, en rojo', 'String text floating with the cursor, in red'], ['El texto flota con el cursor', 'The text floats with the cursor'], [[80, 92, 128, 42, ['String (en rojo)', 'String (in red)'], 'bottom']], false)),
-            important('Si el texto sale en <b>rojo</b>, está en la capa <b>Top Layer</b> (cobre) y no en la serigrafía: hay que cambiarlo a <b>Top Overlay</b> (amarilla). Alessandro lo tuvo que cambiar después porque no lo había hecho antes.', 'If the text shows up in <b>red</b>, it is on the <b>Top Layer</b> (copper) and not on the silkscreen: it must be changed to <b>Top Overlay</b> (yellow). Alessandro had to change it afterwards because he had not done it before.'),
+            important('Si el texto sale en <b>rojo</b>, está en la capa <b>Top Layer</b> (cobre) y no en la serigrafía: hay que cambiarlo a <b>Top Overlay</b> (amarilla). Alessandro lo tuvo que cambiar después porque no lo había hecho antes.', 'If the text shows up in <b>red</b>, it is on the <b>Top Layer</b> (copper) and not on the silkscreen: it must be changed to <b>Top Overlay</b> (yellow). Alessandro had to change it afterwards because he had not done it before.')
           ]
         ),
         step(
@@ -724,14 +717,14 @@ export const ALTIUM_FLOW: Flow = {
           'And by arranging the texts we can put, for example, the <strong>project name</strong> and the <strong>designers</strong>. The 3D view shows how they end up printed on the board.',
           [
             shots('row', S('09-autoruteo-drc-y-texto/122-texto-disenadores-alux.webp', [1919, 1077], ['Placa con el texto designed by Alexa and Alessandro y el nombre Alux sobre la serigrafía', 'Board with the text designed by Alexa and Alessandro and the name Alux on the silkscreen'], ['Textos acomodados en la placa', 'Texts arranged on the board'], [[845, 548, 296, 94, ['Diseñadores', 'Designers'], 'top'], [527, 712, 182, 88, ['Nombre del proyecto', 'Project name'], 'top']], false),
-              S('09-autoruteo-drc-y-texto/124-vista-3d-texto.webp', [1911, 1079], ['Vista 3D de la placa con los textos impresos', '3D view of the board with the printed texts'], ['Los textos en la vista 3D', 'The texts in the 3D view'], [[815, 470, 272, 104, ['Diseñadores', 'Designers'], 'top'], [603, 695, 142, 84, ['Alux', 'Alux'], 'top']], false)),
+              S('09-autoruteo-drc-y-texto/124-vista-3d-texto.webp', [1911, 1079], ['Vista 3D de la placa con los textos impresos', '3D view of the board with the printed texts'], ['Los textos en la vista 3D', 'The texts in the 3D view'], [[815, 470, 272, 104, ['Diseñadores', 'Designers'], 'top'], [603, 695, 142, 84, ['Alux', 'Alux'], 'top']], false))
           ]
         ),
         step(
           'Si queremos añadir un <strong>logo o una imagen</strong>, se hace desde el mismo menú <strong>Place</strong> (la opción <strong>Graphics</strong>, que aparece en el menú).',
           'If we want to add a <strong>logo or an image</strong>, it is done from the same <strong>Place</strong> menu (the <strong>Graphics</strong> option, which shows in the menu).',
-          [pend('<strong>Pendiente de documentar con capturas.</strong> Instrucciones de referencia: 1) elige la capa <strong>Top Overlay</strong>; 2) abre <strong>Place</strong> y busca la opción de gráficos (<strong>Graphics</strong>); 3) selecciona el archivo de imagen del logo (mejor en blanco y negro y con buena resolución); 4) haz clic en la placa para colocarlo y ajusta su tamaño y posición; 5) revisa en 2D y en 3D que se vea bien y que no choque con pads ni orificios, y vuelve a correr el DRC. Falta confirmar con Alessandro el formato exacto que acepta y los nombres de los menús.', '<strong>Still to be documented with screenshots.</strong> Reference instructions: 1) choose the <strong>Top Overlay</strong> layer; 2) open <strong>Place</strong> and find the graphics option (<strong>Graphics</strong>); 3) select the logo image file (preferably black and white and high resolution); 4) click on the board to place it and adjust its size and position; 5) check in 2D and 3D that it looks right and does not overlap pads or holes, and run the DRC again. The exact accepted format and the menu names still need confirming with Alessandro.')]
-        ),
+          [note('<strong>Pasos:</strong> 1) elige la capa <strong>Top Overlay</strong>; 2) abre <strong>Place</strong> y busca la opción de gráficos (<strong>Graphics</strong>); 3) selecciona el archivo de imagen del logo (mejor en blanco y negro y con buena resolución); 4) haz clic en la placa para colocarlo y ajusta su tamaño y posición; 5) revisa en 2D y en 3D que se vea bien y que no choque con pads ni orificios, y vuelve a correr el DRC. Los nombres de los menús pueden variar un poco según la versión de Altium.', '<strong>Steps:</strong> 1) choose the <strong>Top Overlay</strong> layer; 2) open <strong>Place</strong> and find the graphics option (<strong>Graphics</strong>); 3) select the logo image file (preferably black and white and high resolution); 4) click on the board to place it and adjust its size and position; 5) check in 2D and 3D that it looks right and does not overlap pads or holes, and run the DRC again. Menu names may vary slightly depending on the Altium version.')]
+        )
       ],
     },
 
@@ -744,13 +737,13 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'Los archivos que necesita el fabricante son los <strong>Gerber</strong> (una capa por archivo: cobre, máscara, serigrafía, contorno) y los de <strong>taladrado</strong> (NC Drill). Se generan desde <strong>File → Fabrication Outputs</strong>: <strong>Gerber Files</strong> y <strong>NC Drill Files</strong>.',
           'The files the manufacturer needs are the <strong>Gerbers</strong> (one layer per file: copper, mask, silkscreen, outline) and the <strong>drill</strong> files (NC Drill). They are generated from <strong>File → Fabrication Outputs</strong>: <strong>Gerber Files</strong> and <strong>NC Drill Files</strong>.',
-          [pend('<strong>Pendiente de documentar con la placa real.</strong> Instrucciones de referencia: <strong>File → Fabrication Outputs → Gerber Files</strong>, revisar que estén marcadas las capas de cobre, máscara, serigrafía y contorno (Mechanical 1) y aceptar; luego <strong>File → Fabrication Outputs → NC Drill Files</strong> para los taladros. Faltan capturas de cada ventana y la configuración que use Alessandro (unidades, formato, capas).', '<strong>Still to be documented with the real board.</strong> Reference instructions: <strong>File → Fabrication Outputs → Gerber Files</strong>, check that the copper, mask, silkscreen and outline (Mechanical 1) layers are selected and accept; then <strong>File → Fabrication Outputs → NC Drill Files</strong> for the holes. Screenshots of each window and the settings Alessandro uses (units, format, layers) are missing.'), ph('Menú File → Fabrication Outputs y las ventanas de configuración de Gerber y NC Drill.', 'File → Fabrication Outputs menu and the Gerber and NC Drill setup windows.')]
+          [note('<strong>Pasos:</strong> <strong>File → Fabrication Outputs → Gerber Files</strong>; revisa que estén marcadas las capas de cobre, máscara, serigrafía y contorno (Mechanical 1) y acepta. Luego <strong>File → Fabrication Outputs → NC Drill Files</strong> para los taladros. Revisa unidades y formato en cada ventana antes de aceptar; los nombres exactos pueden variar un poco según la versión de Altium.', '<strong>Steps:</strong> <strong>File → Fabrication Outputs → Gerber Files</strong>; check that the copper, mask, silkscreen and outline (Mechanical 1) layers are selected and accept. Then <strong>File → Fabrication Outputs → NC Drill Files</strong> for the holes. Check units and format in each window before accepting; exact names may vary slightly depending on the Altium version.')]
         ),
         step(
           'Los archivos se guardan en una carpeta (por ejemplo, <code>Project Outputs</code>). Los <strong>comprimimos en un solo .zip</strong>, que es lo que se sube al fabricante.',
           'The files are saved in a folder (for example, <code>Project Outputs</code>). We <strong>compress them into a single .zip</strong>, which is what gets uploaded to the manufacturer.',
-          [ph('Carpeta con los archivos Gerber y de taladrado, y el .zip creado.', 'Folder with the Gerber and drill files, and the created .zip.')]
-        ),
+          []
+        )
       ],
     },
 
@@ -763,17 +756,16 @@ export const ALTIUM_FLOW: Flow = {
         step(
           'En el sitio de <strong>JLCPCB</strong> entramos a cotizar/ordenar y subimos el <strong>.zip de Gerbers</strong>. JLCPCB lo procesa y muestra una <strong>vista previa</strong> de la placa: revisamos que el contorno, el cobre y los agujeros se vean bien.',
           'On the <strong>JLCPCB</strong> website we go to quote/order and upload the <strong>Gerber .zip</strong>. JLCPCB processes it and shows a <strong>preview</strong> of the board: we check that the outline, the copper and the holes look right.',
-          [pend('<strong>Pendiente de documentar con el pedido real.</strong> Instrucciones de referencia: entrar a JLCPCB, <strong>Order now</strong>, subir el .zip, esperar la vista previa y revisar contorno, cobre y agujeros. Faltan capturas de la página y de los parámetros elegidos.', '<strong>Still to be documented with the real order.</strong> Reference instructions: go to JLCPCB, <strong>Order now</strong>, upload the .zip, wait for the preview and check outline, copper and holes. Screenshots of the page and of the chosen parameters are missing.'), ph('Página de JLCPCB con el .zip cargado y la vista previa de la placa.', 'JLCPCB page with the .zip uploaded and the board preview.')]
+          [note('<strong>Pasos:</strong> entra a JLCPCB, <strong>Order now</strong>, sube el .zip, espera la vista previa y revisa contorno, cobre y agujeros antes de continuar.', '<strong>Steps:</strong> go to JLCPCB, <strong>Order now</strong>, upload the .zip, wait for the preview and check outline, copper and holes before continuing.')]
         ),
         step(
           'Elegimos los parámetros del pedido: <strong>número de capas</strong> (2), <strong>dimensiones</strong> (las lee del archivo), <strong>cantidad</strong>, <strong>grosor</strong> (normalmente 1.6 mm), <strong>color de máscara</strong> y <strong>acabado superficial</strong>. Al final agregamos al carrito y finalizamos el pedido.',
           'We choose the order parameters: <strong>number of layers</strong> (2), <strong>dimensions</strong> (read from the file), <strong>quantity</strong>, <strong>thickness</strong> (usually 1.6 mm), <strong>solder mask colour</strong> and <strong>surface finish</strong>. At the end we add it to the cart and finish the order.',
           [
-            ph('Opciones del pedido en JLCPCB con capas, cantidad, grosor, color y acabado señalados.', 'Order options at JLCPCB with layers, quantity, thickness, colour and finish marked.'),
-            note('La opción de que JLCPCB también <strong>ensamble</strong> los componentes (SMT) requiere además la lista de materiales (BOM) y el archivo de posiciones; no se cubre en este borrador.', 'The option of having JLCPCB also <strong>assemble</strong> the components (SMT) additionally needs the bill of materials (BOM) and the pick-and-place file; it is not covered in this draft.'),
+            note('La opción de que JLCPCB también <strong>ensamble</strong> los componentes (SMT) requiere además la lista de materiales (BOM) y el archivo de posiciones; no se cubre en esta guía.', 'The option of having JLCPCB also <strong>assemble</strong> the components (SMT) additionally needs the bill of materials (BOM) and the pick-and-place file; it is not covered in this guide.')
           ]
-        ),
+        )
       ],
-    },
+    }
   ],
 }
