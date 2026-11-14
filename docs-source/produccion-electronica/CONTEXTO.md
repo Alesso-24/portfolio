@@ -1,5 +1,8 @@
 # Contexto — Documentación de Producción Electrónica
 
+> ## 🙈 2026-11-14: MULTISIM — solo se muestra lo que tiene capturas
+> Los circuitos de clase (pasos 1-12 + resultados) siguen escritos en `multisim-flow.ts` pero OCULTOS (`MULTISIM_OCULTAS`). Qué falta por capturar, dudas del video y cómo reactivarlos: `docs-source/produccion-electronica/MULTISIM-PENDIENTE.md`. Visible: Descargar, Qué es, Componentes, Colocar, Simular, Instrumentos, Atajos.
+
 > ## ✅ 2026-11-14: DEPLOY DE TODO — Multisim completo + Altium sin etiqueta de borrador
 > Se publicó Multisim (capturas reales, atajos, sin placeholders), se quitó la etiqueta "Pendiente"/borrador de Altium y todos sus placeholders y avisos "pendiente" (secciones 1-15 visibles), la práctica pasó a `completa` y el Objetivo menciona Multisim/Altium.
 > **Lo que falta (detalle en `CLAUDE.md` → "Falta"):** sobre todo **cómo sacar los Gerbers y NC Drill** (sección 14: hoy son pasos de referencia, sin capturas y sin confirmar en AD26 con la placa real; incluye crear el .zip); después JLCPCB (sección 15, sin capturas), logo (sec. 13), Layer Stack Manager (sec. 9) y detalles menores (botones de Situs, `.RUL`, mensajes del DRC del esquemático).

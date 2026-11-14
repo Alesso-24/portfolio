@@ -1,7 +1,7 @@
 // Flujo de Multisim: tutorial de simulación de circuitos, armado a partir de las dos clases grabadas
 // (Downloads: tutorial_multisim.docx + Multisim_transcripciones_y_estructura_web.md).
 // Capturas reales (2026-11-13): descarga, interfaz, colocar/editar componentes, simulación e instrumentos.
-// Los circuitos de clase (pasos 1-12) se explican con texto: no hay capturas de ellos y no se inventan.
+// Los circuitos de clase (pasos 1-12) están OCULTOS hasta tener capturas (ver MULTISIM_OCULTAS y MULTISIM-PENDIENTE.md).
 // El inglés vive aquí mismo (L(es, en)) y se registra en docs-en.ts vía MULTISIM_EN.
 import type { Flow, FlowStep, Block } from './flow-types'
 
@@ -48,9 +48,18 @@ const table = (head: [string, string][], rows: [string, string][][]): Block => (
 })
 const step = (es: string, en: string, blocks: Block[] = []): FlowStep => ({ html: L(es, en), blocks })
 
-export const MULTISIM_FLOW: Flow = {
-  id: 'multisim',
-  sections: [
+/**
+ * Secciones de los circuitos de clase que AÚN NO tienen capturas: se conservan aquí (con todo su texto en ES/EN)
+ * pero NO se muestran en la página. Para publicarlas, quita su id de MULTISIM_OCULTAS cuando haya capturas.
+ * Detalle y lista de capturas: docs-source/produccion-electronica/MULTISIM-PENDIENTE.md
+ */
+export const MULTISIM_OCULTAS = new Set([
+  'multisim-paso1', 'multisim-paso2', 'multisim-paso3', 'multisim-paso4', 'multisim-paso5', 'multisim-paso6',
+  'multisim-paso7', 'multisim-paso8', 'multisim-paso9', 'multisim-paso10', 'multisim-paso11', 'multisim-paso12',
+  'multisim-resultados',
+])
+
+const MULTISIM_TODAS: Flow['sections'] = [
     // ———————————————————————————————— descarga e instalación
     {
       id: 'multisim-instalacion',
@@ -688,5 +697,9 @@ export const MULTISIM_FLOW: Flow = {
         )
       ],
     }
-  ],
+]
+
+export const MULTISIM_FLOW: Flow = {
+  id: 'multisim',
+  sections: MULTISIM_TODAS.filter((sec) => !MULTISIM_OCULTAS.has(sec.id)),
 }
