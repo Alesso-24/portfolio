@@ -58,6 +58,14 @@ export const DOCS_PRACTICES: DocsPractice[] = [
     status: 'completa',
     summary: 'El proceso completo para producir una placa de circuito impreso: diseño en KiCad, trayectorias de fresado con mods y fabricación en MonoFab y Altium.',
   },
+  {
+    subjectSlug: 'produccion-electronica',
+    slug: 'proyecto-kiro',
+    number: '02',
+    title: 'Proyecto Kiro',
+    status: 'en-progreso',
+    summary: 'Kiro: tamagotchi minimalista con PCB circular propia diseñada en Altium (XIAO RP2350, pantalla GC9A01, acelerómetro), con animaciones interactivas y firmware.',
+  },
 ]
 
 export function getSubject(slug: string): DocsSubject | undefined {

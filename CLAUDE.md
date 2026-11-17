@@ -9,7 +9,10 @@ Sitio: https://alesso-24.github.io/portfolio/ — se despliega por CI al hacer m
 - Verificar con `I18N_COLLECT=1 npm run build` (falla si falta una traducción) y `npx astro check`.
 
 ## Práctica "Creación de PCBs" (`/docs/produccion-electronica/practicas/primera-placa-kicad/`)
-Pestañas: KiCad, mods, MonoFab, Multisim, Altium. Página: `src/pages/docs/produccion-electronica/practicas/primera-placa-kicad.astro`. Estado de la práctica: `en-progreso` (`src/data/docs.ts`).
+Pestañas: KiCad, mods, MonoFab, Multisim, Altium. Página: `src/pages/docs/produccion-electronica/practicas/primera-placa-kicad.astro`. Estado de la práctica: `completa` (`src/data/docs.ts`).
+
+## Práctica 02 "Proyecto Kiro" (`/docs/produccion-electronica/practicas/proyecto-kiro/`)
+Página: `src/pages/docs/produccion-electronica/practicas/proyecto-kiro.astro` (estado `en-progreso`, registrada en `src/data/docs.ts`; EN en `docs-en.ts`). Imágenes WebP en `public/images/docs/produccion-electronica/proyecto-kiro/` (copiadas de `Escritorio\Kiro\docs\img`). Fuente de verdad del proyecto: repo https://github.com/Alesso-24/Kiro (sitio con demos: https://alesso-24.github.io/Kiro/). La PCB es **Kiro v1** (serigrafía «Alux V1»); falta la carcasa. Al avanzar Kiro, actualizar esta página.
 
 ## Pestaña Altium — estado (2026-11-14): PUBLICADA sin etiqueta de borrador (15 secciones)
 - Datos: `src/data/altium-flow.ts` (sistema Flow, renderizado por `Flow.astro`; tipos en `flow-types.ts`; EN en `ALTIUM_EN` vía `L(es,en)`).
