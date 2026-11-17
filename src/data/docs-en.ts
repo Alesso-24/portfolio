@@ -6,6 +6,9 @@ import { ALTIUM_EN } from './altium-flow'
 
 export const EN: Record<string, string> = {
   "Creación de PCBs": "PCB Creation",
+  "Proyecto Kiro": "Kiro Project",
+  "Kiro: tamagotchi minimalista con PCB circular propia diseñada en Altium (XIAO RP2350, pantalla GC9A01, acelerómetro), con animaciones interactivas y firmware.": "Kiro: a minimalist tamagotchi with its own circular PCB designed in Altium (XIAO RP2350, GC9A01 display, accelerometer), with interactive animations and firmware.",
+  "Kiro: tamagotchi minimalista con PCB circular propia diseñada en Altium (XIAO RP2350, pantalla GC9A01 y acelerómetro LIS3DHTR), con animaciones interactivas.": "Kiro: a minimalist tamagotchi with its own circular PCB designed in Altium (XIAO RP2350, GC9A01 display and LIS3DHTR accelerometer), with interactive animations.",
   "Documentación de la materia": "Course documentation",
   "Producción Electrónica": "Electronic Production",
   "El proceso completo para producir una placa de circuito impreso: diseño en KiCad, fabricación en MonoFab y Altium.": "The complete process to produce a printed circuit board: design in KiCad, fabrication in MonoFab, and Altium.",

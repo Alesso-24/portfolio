@@ -1,0 +1,124 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro'
+import T from '../../../../components/docs/T.astro'
+import { getSubject } from '../../../../data/docs'
+
+const subject = getSubject('produccion-electronica')!
+const teamNames = subject.team.map((m) => m.name).join(' + ')
+const IMG = '/portfolio/images/docs/produccion-electronica/proyecto-kiro/'
+const REPO = 'https://github.com/Alesso-24/Kiro'
+const LIVE = 'https://alesso-24.github.io/Kiro/'
+const fig = (file: string, es: string, en: string) => ({ src: `${IMG}${file}.webp`, es, en })
+const figs = {
+  pcb: fig('pcb1_altium_top_enviada', 'PCB1 en Altium: la placa enviada a fabricar (Kiro v1).', 'PCB1 in Altium: the board sent to manufacture (Kiro v1).'),
+  d3: fig('pcb_3d_firma_alexa_alessandro', 'Vista 3D en Altium (placa de práctica de la misma familia de diseño), con la firma de Alexa y Alessandro.', '3D view in Altium (practice board of the same design family), with the Alexa and Alessandro signature.'),
+  sch: fig('esquematico_altium', 'Esquemático completo en Altium.', 'Full schematic in Altium.'),
+  gt: fig('gerber_top', 'Gerber, capa superior.', 'Gerber, top layer.'),
+  gb: fig('gerber_bottom', 'Gerber, capa inferior.', 'Gerber, bottom layer.'),
+  drc: fig('drc_resumen', 'Resumen del DRC de la PCB.', 'PCB DRC summary.'),
+  exp: fig('expresiones', 'Las 23 expresiones (render del firmware real).', 'The 23 expressions (real firmware render).'),
+  intro: fig('intro_kiro_fotogramas', 'Fotogramas de la intro del logo KIRO.', 'Frames of the KIRO logo intro.'),
+  trans: fig('transicion_intro_nacimiento', 'Transición de la intro al nacimiento.', 'Transition from the intro to the birth.'),
+  studio: fig('web_estudio_amor', 'Estudio web de animaciones.', 'Animation studio (web).'),
+}
+---
+
+<DocsLayout
+  title="Proyecto Kiro"
+  description="Kiro: tamagotchi minimalista con PCB circular propia diseñada en Altium (XIAO RP2350, pantalla GC9A01 y acelerómetro LIS3DHTR), con animaciones interactivas."
+  badge="Producción Electrónica"
+  breadcrumbs={[
+    { label: 'Documentación', href: '/portfolio/docs' },
+    { label: subject.name, href: `/portfolio/docs/${subject.slug}` },
+    { label: 'Documentación de la materia', href: `/portfolio/docs/${subject.slug}/practicas` },
+  ]}
+  wide
+>
+  <div class="callout" data-reveal>
+    <strong><T es="Ficha" en="Overview" /></strong>
+    <div style="display:flex; flex-wrap:wrap; gap:24px; margin-top:4px;">
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Materia" en="Subject" /></span><T es={subject.name} /></div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Equipo" en="Team" /></span>{teamNames}</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Herramientas" en="Tools" /></span>Altium · JLCPCB · Arduino</div>
+      <div><span style="display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#8a8579; margin-bottom:4px;"><T es="Estado" en="Status" /></span>
+        <span class="status-chip status-chip--en-progreso" style="margin-top:2px;"><span class="status-dot"></span><T es="En progreso" en="In progress" /></span>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="objetivo" class="section-h2" data-reveal><T es="Objetivo." en="Goal." /></h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <T es={'<strong>Kiro</strong> es un tamagotchi minimalista: dos ojos planos de color que sienten, se mueven y reaccionan al movimiento. Vive en una <strong>PCB circular propia</strong> con una <strong>XIAO RP2350</strong>, una pantalla redonda <strong>GC9A01</strong> de 240×240, un acelerómetro <strong>LIS3DHTR</strong>, una batería LiPo y dos botones. Cada Kiro es único: al nacer se sortea una identidad que se guarda en la memoria flash.'} en={'<strong>Kiro</strong> is a minimalist tamagotchi: two flat colored eyes that feel, move and react to motion. It lives on a <strong>custom circular PCB</strong> with a <strong>XIAO RP2350</strong>, a round 240×240 <strong>GC9A01</strong> display, a <strong>LIS3DHTR</strong> accelerometer, a LiPo battery and two buttons. Every Kiro is unique: an identity is drawn at birth and stored in flash memory.'} />
+  </p>
+  <p class="prose" data-reveal data-reveal-delay="80">
+    <T es={`Todo el proyecto está documentado en el repositorio <a href="${REPO}" target="_blank" rel="noopener">Alesso-24/Kiro</a> (archivos de Altium, Gerbers, firmware y animaciones) y en su <a href="${LIVE}" target="_blank" rel="noopener">sitio con demos interactivas</a>.`} en={`The whole project is documented in the <a href="${REPO}" target="_blank" rel="noopener">Alesso-24/Kiro</a> repository (Altium files, Gerbers, firmware and animations) and on its <a href="${LIVE}" target="_blank" rel="noopener">site with interactive demos</a>.`} />
+  </p>
+
+  <p class="prose" data-reveal data-reveal-delay="90">
+    <T es={'Versión para todo público, con los ojos de Kiro en vivo: <a href="/portfolio/project/kiro">ver la página del proyecto</a>.'} en={'Public-friendly version with Kiro’s eyes live: <a href="/portfolio/project/kiro">see the project page</a>.'} />
+  </p>
+
+  <h2 id="animaciones" class="section-h2" data-reveal><T es="Animaciones." en="Animations." /></h2>
+  <p class="prose" data-reveal>
+    <T es={'Las animaciones se diseñan y aprueban primero en el navegador y se portan 1:1 al firmware. Hay <strong>23 expresiones</strong>, una intro con el logo KIRO (6.9 s) y una secuencia de nacimiento (~38 s).'} en={'Animations are designed and approved in the browser first and ported 1:1 to the firmware. There are <strong>23 expressions</strong>, a KIRO logo intro (6.9 s) and a birth sequence (~38 s).'} />
+  </p>
+  <figure class="shot" data-reveal><img src={figs.studio.src} alt={figs.studio.es} data-alt-en={figs.studio.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.studio.es} en={figs.studio.en} /></figcaption></figure>
+  <figure class="shot" data-reveal><img src={figs.exp.src} alt={figs.exp.es} data-alt-en={figs.exp.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.exp.es} en={figs.exp.en} /></figcaption></figure>
+  <figure class="shot" data-reveal><img src={figs.intro.src} alt={figs.intro.es} data-alt-en={figs.intro.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.intro.es} en={figs.intro.en} /></figcaption></figure>
+  <figure class="shot" data-reveal><img src={figs.trans.src} alt={figs.trans.es} data-alt-en={figs.trans.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.trans.es} en={figs.trans.en} /></figcaption></figure>
+  <ul class="prose" data-reveal>
+    <li><a href={`${LIVE}estudio/kiro_v4.html`} target="_blank" rel="noopener"><T es="Estudio interactivo de animaciones" en="Interactive animation studio" /></a></li>
+    <li><a href={`${LIVE}estudio/intro_kiro_10.html`} target="_blank" rel="noopener"><T es="Las 12 propuestas de intro (la elegida es la 12)" en="The 12 intro proposals (12 was chosen)" /></a></li>
+    <li><a href={`${LIVE}estudio/intro_completa.html`} target="_blank" rel="noopener"><T es="Intro + nacimiento completo" en="Full intro + birth" /></a></li>
+  </ul>
+
+  <h2 id="firmware" class="section-h2" data-reveal><T es="Firmware." en="Firmware." /></h2>
+  <p class="prose" data-reveal>
+    <T es={'Arduino (core Earle Philhower) en la XIAO RP2350 a 250 MHz. Doble framebuffer RGB565, DMA por SPI y envío solo de las filas que cambian: <strong>50–60 fps</strong>. El motor (<code>EyesCore.h</code>) no depende del hardware y se compila igual en el PC para probarlo.'} en={'Arduino (Earle Philhower core) on the XIAO RP2350 at 250 MHz. Double RGB565 framebuffer, SPI DMA and sending only the rows that change: <strong>50–60 fps</strong>. The engine (<code>EyesCore.h</code>) is hardware-independent and compiles on the PC for testing.'} />
+  </p>
+
+  <h2 id="hardware" class="section-h2" data-reveal><T es="Hardware: Kiro v1." en="Hardware: Kiro v1." /></h2>
+  <p class="prose" data-reveal>
+    <T es={'La PCB es <strong>Kiro v1</strong> (el estado actual). Se mandó a fabricar con el nombre anterior, por eso la serigrafía dice «Alux V1». Es circular (55 mm, con una pestaña), de 2 capas, ENIG, 1.0 mm, diseñada en <strong>Altium Designer</strong> y fabricada en <strong>JLCPCB</strong>.'} en={'The PCB is <strong>Kiro v1</strong> (the current state). It was ordered under the previous name, so the silkscreen reads “Alux V1”. It is circular (55 mm, with a tab), 2 layers, ENIG, 1.0 mm, designed in <strong>Altium Designer</strong> and manufactured by <strong>JLCPCB</strong>.'} />
+  </p>
+  <figure class="shot" data-reveal><img src={figs.pcb.src} alt={figs.pcb.es} data-alt-en={figs.pcb.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.pcb.es} en={figs.pcb.en} /></figcaption></figure>
+  <figure class="shot" data-reveal><img src={figs.d3.src} alt={figs.d3.es} data-alt-en={figs.d3.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.d3.es} en={figs.d3.en} /></figcaption></figure>
+  <figure class="shot" data-reveal><img src={figs.sch.src} alt={figs.sch.es} data-alt-en={figs.sch.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.sch.es} en={figs.sch.en} /></figcaption></figure>
+
+  <h3 class="section-h3" data-reveal><T es="Mapa de pines de producción" en="Production pin map" /></h3>
+  <div class="prose" data-reveal style="overflow-x:auto">
+    <table>
+      <thead><tr><th><T es="Pin XIAO" en="XIAO pin" /></th><th>GPIO</th><th><T es="Red" en="Net" /></th></tr></thead>
+      <tbody>
+        <tr><td>D0</td><td>26</td><td>VBAT_DIV (ADC)</td></tr>
+        <tr><td>D1</td><td>27</td><td>DISP_CS</td></tr>
+        <tr><td>D2</td><td>28</td><td>DISP_DC</td></tr>
+        <tr><td>D3</td><td>5</td><td>DISP_PWR (Q1, LOW = <T es="encendido" en="on" />)</td></tr>
+        <tr><td>D4 / D5</td><td>6 / 7</td><td>I2C SDA / SCL (LIS3DHTR)</td></tr>
+        <tr><td>D6</td><td>0</td><td>BTN1</td></tr>
+        <tr><td>D7</td><td>1</td><td>LIS_INT2</td></tr>
+        <tr><td>D8</td><td>2</td><td>SPI_SCK</td></tr>
+        <tr><td>D9</td><td>4</td><td>BTN2</td></tr>
+        <tr><td>D10</td><td>3</td><td>SPI_MOSI</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="section-h3" data-reveal><T es="Salidas de fabricación" en="Manufacturing outputs" /></h3>
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;" data-reveal>
+    <figure class="shot"><img src={figs.gt.src} alt={figs.gt.es} data-alt-en={figs.gt.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.gt.es} en={figs.gt.en} /></figcaption></figure>
+    <figure class="shot"><img src={figs.gb.src} alt={figs.gb.es} data-alt-en={figs.gb.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.gb.es} en={figs.gb.en} /></figcaption></figure>
+  </div>
+  <figure class="shot" data-reveal><img src={figs.drc.src} alt={figs.drc.es} data-alt-en={figs.drc.en} loading="lazy" decoding="async" /><figcaption class="screenshot-caption"><T es={figs.drc.es} en={figs.drc.en} /></figcaption></figure>
+  <p class="prose" data-reveal>
+    <T es={`El DRC de la PCB final no tiene errores eléctricos (46/46 conexiones ruteadas); sus 26 violaciones son estéticas (serigrafía sobre máscara y contorno). Los capítulos detallados (esquemático, PCB, fabricación, ensamble) y los archivos reales están en el <a href="${REPO}" target="_blank" rel="noopener">repositorio</a>.`} en={`The final PCB DRC has no electrical errors (46/46 connections routed); its 26 violations are cosmetic (silkscreen over mask and board outline). The detailed chapters (schematic, PCB, manufacturing, assembly) and the real files are in the <a href="${REPO}" target="_blank" rel="noopener">repository</a>.`} />
+  </p>
+
+  <h2 id="pendiente" class="section-h2" data-reveal><T es="Pendiente." en="To do." /></h2>
+  <ul class="prose" data-reveal>
+    <li><T es={'<strong>Diseño de la carcasa</strong> (PLA impreso en 3D): aún no existe.'} en={'<strong>Case design</strong> (3D-printed PLA): not done yet.'} /></li>
+    <li><T es="Ensamblar la PCB cuando lleguen la placa y los componentes SMD." en="Assemble the PCB once the board and SMD parts arrive." /></li>
+    <li><T es="Adaptar el firmware al pinout de producción: auto-sueño con despertar por el acelerómetro, reloj día/noche, temperatura y reacción a vibraciones." en="Adapt the firmware to the production pinout: auto-sleep with accelerometer wake-up, day/night clock, temperature and vibration reaction." /></li>
+    <li><T es="Fotos reales de la PCB ensamblada y del dispositivo funcionando." en="Real photos of the assembled PCB and the working device." /></li>
+  </ul>
+</DocsLayout>

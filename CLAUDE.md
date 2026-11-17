@@ -9,7 +9,16 @@ Sitio: https://alesso-24.github.io/portfolio/ — se despliega por CI al hacer m
 - Verificar con `I18N_COLLECT=1 npm run build` (falla si falta una traducción) y `npx astro check`.
 
 ## Práctica "Creación de PCBs" (`/docs/produccion-electronica/practicas/primera-placa-kicad/`)
-Pestañas: KiCad, mods, MonoFab, Multisim, Altium. Página: `src/pages/docs/produccion-electronica/practicas/primera-placa-kicad.astro`. Estado de la práctica: `en-progreso` (`src/data/docs.ts`).
+Pestañas: KiCad, mods, MonoFab, Multisim, Altium. Página: `src/pages/docs/produccion-electronica/practicas/primera-placa-kicad.astro`. Estado de la práctica: `completa` (`src/data/docs.ts`).
+
+## Práctica 02 "Proyecto Kiro" (`/docs/produccion-electronica/practicas/proyecto-kiro/`)
+Página: `src/pages/docs/produccion-electronica/practicas/proyecto-kiro.astro` (estado `en-progreso`, registrada en `src/data/docs.ts`; EN en `docs-en.ts`). Imágenes WebP en `public/images/docs/produccion-electronica/proyecto-kiro/` (copiadas de `Escritorio\Kiro\docs\img`). Fuente de verdad del proyecto: repo https://github.com/Alesso-24/Kiro (sitio con demos: https://alesso-24.github.io/Kiro/). La PCB es **Kiro v1** (serigrafía «Alux V1»); falta la carcasa. Al avanzar Kiro, actualizar esta página.
+
+## Kiro en el sitio (portada + página de proyecto)
+- Portada: `src/components/sections/KiroTeaser.astro` (banner oscuro «Próximamente · Siguiente proyecto», id `#kiro`, tras Work). Página: `src/pages/project/kiro.astro` (ES/EN con `lang-en`/`lang-es`; bloques «Bajo el cofre» en `<details>`; hoja de ruta con estados done/now/next, **actualizar al avanzar**).
+- Ojos en vivo: `src/components/ui/KiroEyes.astro` (canvas, 7 expresiones, sigue el mouse, pausa fuera de pantalla, respeta `prefers-reduced-motion`).
+- Estudio real embebido (iframe al hacer clic): `public/kiro/lab/kiro_v4.html` (copia de `Kiro/estudio`). Por eso `frame-src` de la CSP en `Base.astro` incluye `'self'`.
+- Imágenes en `public/images/kiro/`. Al terminar la carcasa/PCB ensamblada: quitar «Próximamente» (teaser y badge) y pasar a `PROJECTS` en `content.ts`.
 
 ## Pestaña Altium — estado (2026-11-14): PUBLICADA sin etiqueta de borrador (15 secciones)
 - Datos: `src/data/altium-flow.ts` (sistema Flow, renderizado por `Flow.astro`; tipos en `flow-types.ts`; EN en `ALTIUM_EN` vía `L(es,en)`).

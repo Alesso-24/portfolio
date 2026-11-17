@@ -29,6 +29,7 @@ Based in Puebla, Mexico. Mechatronics Engineering student at Universidad Iberoam
 
 - "Tracky": a custom ESP32-C6 line-following robot built and raced at LARC 2025 (25th Latin American Robotics Competition), Tec de Monterrey
 - A computer-vision-controlled self-balancing platform: real-time OpenCV tracking and inverse kinematics keep a ball balanced on a moving plate
+- "Kiro" (coming soon): a minimalist tamagotchi with two flat colored eyes that react to motion, on a custom circular PCB designed in Altium (XIAO RP2350, GC9A01 round display, LIS3DHTR accelerometer), 50-60 fps firmware. Page: https://alesso-24.github.io/portfolio/project/kiro/
 
 ## Links
 
