@@ -11,7 +11,7 @@ const LIVE = 'https://alesso-24.github.io/Kiro/'
 const fig = (file: string, es: string, en: string) => ({ src: `${IMG}${file}.webp`, es, en })
 const figs = {
   pcb: fig('pcb1_altium_top_enviada', 'PCB1 en Altium: la placa enviada a fabricar (Kiro v1).', 'PCB1 in Altium: the board sent to manufacture (Kiro v1).'),
-  d3: fig('pcb_3d_firma_alexa_alessandro', 'Vista 3D de la placa con la firma de Alexa y Alessandro.', '3D view of the board with the Alexa and Alessandro signature.'),
+  d3: fig('pcb_3d_firma_alexa_alessandro', 'Vista 3D en Altium (placa de práctica de la misma familia de diseño), con la firma de Alexa y Alessandro.', '3D view in Altium (practice board of the same design family), with the Alexa and Alessandro signature.'),
   sch: fig('esquematico_altium', 'Esquemático completo en Altium.', 'Full schematic in Altium.'),
   gt: fig('gerber_top', 'Gerber, capa superior.', 'Gerber, top layer.'),
   gb: fig('gerber_bottom', 'Gerber, capa inferior.', 'Gerber, bottom layer.'),
@@ -52,6 +52,10 @@ const figs = {
   </p>
   <p class="prose" data-reveal data-reveal-delay="80">
     <T es={`Todo el proyecto está documentado en el repositorio <a href="${REPO}" target="_blank" rel="noopener">Alesso-24/Kiro</a> (archivos de Altium, Gerbers, firmware y animaciones) y en su <a href="${LIVE}" target="_blank" rel="noopener">sitio con demos interactivas</a>.`} en={`The whole project is documented in the <a href="${REPO}" target="_blank" rel="noopener">Alesso-24/Kiro</a> repository (Altium files, Gerbers, firmware and animations) and on its <a href="${LIVE}" target="_blank" rel="noopener">site with interactive demos</a>.`} />
+  </p>
+
+  <p class="prose" data-reveal data-reveal-delay="90">
+    <T es={'Versión para todo público, con los ojos de Kiro en vivo: <a href="/portfolio/project/kiro">ver la página del proyecto</a>.'} en={'Public-friendly version with Kiro’s eyes live: <a href="/portfolio/project/kiro">see the project page</a>.'} />
   </p>
 
   <h2 id="animaciones" class="section-h2" data-reveal><T es="Animaciones." en="Animations." /></h2>

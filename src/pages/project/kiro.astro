@@ -1,0 +1,336 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro'
+import KiroEyes from '../../components/ui/KiroEyes.astro'
+
+const I = '/portfolio/images/kiro/'
+const REPO = 'https://github.com/Alesso-24/Kiro'
+const LIVE = 'https://alesso-24.github.io/Kiro/'
+const DOC = '/portfolio/docs/produccion-electronica/practicas/proyecto-kiro'
+const roadmap = [
+  { st: 'done', es: 'Animaciones y motor', en: 'Animations & engine', tes: '23 expresiones, intro y nacimiento, probados en la pantalla real.', ten: '23 expressions, intro and birth, tested on the real display.' },
+  { st: 'done', es: 'PCB Kiro v1', en: 'Kiro v1 PCB', tes: 'Diseñada en Altium, ruteada 46/46 y enviada a JLCPCB.', ten: 'Designed in Altium, routed 46/46 and sent to JLCPCB.' },
+  { st: 'now', es: 'Ensamble de la placa', en: 'Board assembly', tes: 'Soldar SMD, verificar el acelerómetro y la pantalla en la placa propia.', ten: 'Solder the SMD parts, verify the accelerometer and display on the custom board.' },
+  { st: 'now', es: 'Firmware de producción', en: 'Production firmware', tes: 'Pinout final, auto-sueño con despertar por movimiento, día/noche, temperatura y reacción a vibraciones.', ten: 'Final pinout, auto-sleep with motion wake-up, day/night, temperature and vibration reaction.' },
+  { st: 'next', es: 'Carcasa', en: 'Case', tes: 'Diseño 3D para imprimir en PLA. Aún no existe.', ten: '3D design to print in PLA. Not started yet.' },
+  { st: 'next', es: 'Fotos y video del dispositivo', en: 'Device photos & video', tes: 'Kiro funcionando en su placa y en su carcasa.', ten: 'Kiro running on its board and in its case.' },
+]
+const pins = [
+  ['D0', '26', 'VBAT_DIV (ADC)'], ['D1', '27', 'DISP_CS'], ['D2', '28', 'DISP_DC'], ['D3', '5', 'DISP_PWR (Q1, LOW = on)'],
+  ['D4 / D5', '6 / 7', 'I2C SDA / SCL'], ['D6', '0', 'BTN1'], ['D7', '1', 'LIS_INT2'], ['D8', '2', 'SPI_SCK'], ['D9', '4', 'BTN2'], ['D10', '3', 'SPI_MOSI'],
+]
+const stats = [
+  { num: '23', en: 'Expressions', es: 'Expresiones' },
+  { num: '50–60', en: 'Frames per second on a microcontroller', es: 'Cuadros por segundo en un microcontrolador' },
+  { num: '250 MHz', en: 'Overclocked RP2350', es: 'RP2350 con overclock' },
+  { num: '55 mm', en: 'Circular custom PCB', es: 'PCB circular propia' },
+  { num: '46/46', en: 'Connections routed, 0 electrical errors', es: 'Conexiones ruteadas, 0 errores eléctricos' },
+]
+---
+
+<ProjectLayout
+  badgeEs="Próximamente · Producción Electrónica · 2026"
+  badge="Coming soon · Electronic Production · 2026"
+  titleEs="Kiro: un tamagotchi minimalista con su propia placa circular."
+  title="Kiro: a minimalist tamagotchi on its own circular PCB."
+  description="Kiro is a tamagotchi with two flat colored eyes that feel and react to motion, built on a custom circular PCB designed in Altium (XIAO RP2350, round GC9A01 display, LIS3DHTR accelerometer)."
+  coverImage="/portfolio/images/kiro/pcb1_altium_top_enviada.webp"
+  coverAlt="The Kiro v1 circular PCB (PCB1) in Altium, as sent to manufacture"
+  coverAltEs="La PCB circular Kiro v1 (PCB1) en Altium, tal como se envió a fabricar"
+  ogImage="https://alesso-24.github.io/portfolio/images/kiro/web_estudio_amor.webp"
+  metaEs={[
+    { label: 'Rol', value: 'Hardware, firmware y animación (con Alexa)' },
+    { label: 'Plataforma', value: 'XIAO RP2350 · GC9A01 · LIS3DHTR · LiPo' },
+    { label: 'Herramientas', value: 'Altium · JLCPCB · Arduino C++ · Canvas/JS' },
+    { label: 'Estado', value: 'PCB enviada · carcasa pendiente' },
+  ]}
+  meta={[
+    { label: 'Role', value: 'Hardware, firmware & animation (with Alexa)' },
+    { label: 'Platform', value: 'XIAO RP2350 · GC9A01 · LIS3DHTR · LiPo' },
+    { label: 'Tools', value: 'Altium · JLCPCB · Arduino C++ · Canvas/JS' },
+    { label: 'Status', value: 'PCB sent · case pending' },
+  ]}
+  githubHref={REPO}
+>
+
+  <blockquote class="pull-quote" data-reveal>
+    <p>
+      <span class="lang-en">"Two flat-colored eyes on a black circle. No faces drawn, no gimmicks: it feels alive because of how it moves."</span>
+      <span class="lang-es">"Dos ojos planos de color sobre un círculo negro. Sin caras dibujadas ni adornos: parece vivo por cómo se mueve."</span>
+    </p>
+  </blockquote>
+
+  <div class="kiro-stage ke-dark" data-reveal>
+    <div class="kiro-stage__tag">
+      <span class="dot"></span>
+      <span class="lang-en">Live in your browser · not a video</span>
+      <span class="lang-es">En vivo en tu navegador · no es un video</span>
+    </div>
+    <KiroEyes controls auto size={440} />
+    <p class="kiro-stage__hint">
+      <span class="lang-en">Move your mouse: Kiro follows you. Pick an expression, or let it wander.</span>
+      <span class="lang-es">Mueve el mouse: Kiro te sigue. Elige una expresión o déjalo en automático.</span>
+    </p>
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">What is Kiro?</span>
+    <span class="lang-es">¿Qué es Kiro?</span>
+  </h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="lang-en">Kiro is a tiny digital pet that lives on a round screen. It blinks, looks around, gets curious, falls in love, gets angry, yawns and falls asleep. You do not feed it with menus: you <strong>move it</strong>. A built-in motion sensor lets it notice when you pick it up, shake it or leave it still.</span>
+    <span class="lang-es">Kiro es una mascota digital diminuta que vive en una pantalla redonda. Parpadea, mira a su alrededor, se pone curioso, se enamora, se enoja, bosteza y se duerme. No lo cuidas con menús: lo <strong>mueves</strong>. Un sensor de movimiento integrado le permite notar cuándo lo levantas, lo sacudes o lo dejas quieto.</span>
+  </p>
+
+  <div class="tech-grid" data-reveal data-reveal-delay="80">
+    <div class="tech-card">
+      <div class="tech-num" style="color:#ea6a2e;">01</div>
+      <h3><span class="lang-en">Every Kiro is unique</span><span class="lang-es">Cada Kiro es único</span></h3>
+      <p><span class="lang-en">At birth the device rolls a 32-bit seed that decides its colors, eye shape, pupil, size and personality. It is saved in flash memory, so after turning it off and on it is the same creature.</span><span class="lang-es">Al nacer, el dispositivo sortea una semilla de 32 bits que decide sus colores, la forma de los ojos, la pupila, el tamaño y la personalidad. Se guarda en la memoria flash: al apagarlo y encenderlo sigue siendo la misma criatura.</span></p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-num" style="color:#ea6a2e;">02</div>
+      <h3><span class="lang-en">It feels your motion</span><span class="lang-es">Siente tu movimiento</span></h3>
+      <p><span class="lang-en">A 3-axis accelerometer detects shakes and stillness. The plan: it falls asleep when ignored, wakes up curious when picked up, and reacts to vibrations such as music.</span><span class="lang-es">Un acelerómetro de 3 ejes detecta sacudidas y quietud. El plan: se duerme si lo ignoras, despierta curioso al levantarlo y reacciona a vibraciones como la música.</span></p>
+    </div>
+    <div class="tech-card">
+      <div class="tech-num" style="color:#ea6a2e;">03</div>
+      <h3><span class="lang-en">Its own circuit board</span><span class="lang-es">Su propia placa</span></h3>
+      <p><span class="lang-en">Not a breadboard: a circular PCB designed from scratch in Altium and manufactured by JLCPCB. Screen, sensor, battery and two buttons fit on a 55 mm disc.</span><span class="lang-es">No es un protoboard: es una PCB circular diseñada desde cero en Altium y fabricada por JLCPCB. Pantalla, sensor, batería y dos botones caben en un disco de 55 mm.</span></p>
+    </div>
+  </div>
+
+  <div class="stat-highlight" data-reveal data-reveal-delay="100">
+    <div class="stat-grid kiro-stats">
+      {stats.map(({ num, en, es }) => (
+        <div style="border-top:2px solid #ea6a2e; padding-top:14px;">
+          <div style="font-family:'Instrument Serif',serif; font-size:clamp(26px,3vw,44px); color:#ea6a2e; line-height:1; margin-bottom:8px;">{num}</div>
+          <p style="margin:0; font-size:13px; color:#6f6a5f; line-height:1.4;"><span class="lang-en">{en}</span><span class="lang-es">{es}</span></p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Its first seconds of life.</span>
+    <span class="lang-es">Sus primeros segundos de vida.</span>
+  </h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="lang-en">When Kiro is born for the first time, it first writes its own name: white threads draw <strong>KIRO</strong> in dots, the letters mutate through colors and shapes and dissolve into particles that are pulled into a single point. Then thick threads enter from the edges of the screen and the birth begins (about 38 seconds in total).</span>
+    <span class="lang-es">Cuando Kiro nace por primera vez, primero escribe su propio nombre: hilos blancos dibujan <strong>KIRO</strong> en puntos, las letras mutan de color y forma y se deshacen en partículas que se atraen a un solo punto. Después entran hilos gruesos desde los bordes de la pantalla y comienza el nacimiento (unos 38 segundos en total).</span>
+  </p>
+  <div data-reveal class="kiro-frames">
+    <img src={`${I}intro_kiro_fotogramas.webp`} alt="Frames of the KIRO logo intro" data-alt-es="Fotogramas de la intro del logo KIRO" loading="lazy" decoding="async" />
+    <img src={`${I}transicion_intro_nacimiento.webp`} alt="Transition from the intro to the birth" data-alt-es="Transición de la intro al nacimiento" loading="lazy" decoding="async" />
+  </div>
+  <p class="prose" data-reveal style="font-size:14px;">
+    <span class="lang-en">Twelve intro proposals were designed and compared in the browser before choosing number 12, "Threads that mutate". <a href={`${LIVE}estudio/intro_kiro_10.html`} target="_blank" rel="noopener">See all twelve ↗</a></span>
+    <span class="lang-es">Se diseñaron y compararon doce propuestas de intro en el navegador antes de elegir la 12, «Hilos que mutan». <a href={`${LIVE}estudio/intro_kiro_10.html`} target="_blank" rel="noopener">Ver las doce ↗</a></span>
+  </p>
+
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">The animation studio.</span>
+    <span class="lang-es">El estudio de animación.</span>
+  </h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="lang-en">Before touching hardware, every animation is designed in this browser studio and then ported 1:1 to the firmware. It has all 23 expressions, a full tour, and lets you change colors, eye shape and pupils. Click on the creature to roll a new one.</span>
+    <span class="lang-es">Antes de tocar el hardware, cada animación se diseña en este estudio de navegador y luego se porta 1:1 al firmware. Tiene las 23 expresiones, un tour completo y permite cambiar colores, forma de ojos y pupilas. Haz clic en la criatura para sortear una nueva.</span>
+  </p>
+  <div class="kiro-lab" data-reveal>
+    <button type="button" class="kiro-lab__start" id="kiro-lab-start">
+      <img src={`${I}web_estudio_curioso.webp`} alt="" loading="lazy" decoding="async" />
+      <span class="kiro-lab__cta"><span class="play">▶</span>
+        <span class="lang-en">Open the studio here</span><span class="lang-es">Abrir el estudio aquí</span></span>
+    </button>
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Under the hood.</span>
+    <span class="lang-es">Bajo el cofre.</span>
+  </h2>
+  <p class="prose" data-reveal data-reveal-delay="60">
+    <span class="lang-en">For those who want the engineering details. Each block opens up.</span>
+    <span class="lang-es">Para quien quiera los detalles de ingeniería. Cada bloque se abre.</span>
+  </p>
+
+  <div class="kd-list" data-reveal>
+    <details class="kd" open>
+      <summary><span class="kd-n">01</span><span class="lang-en">Hardware-free animation engine</span><span class="lang-es">Motor de animación sin hardware</span></summary>
+      <div class="kd-b">
+        <p><span class="lang-en"><code>EyesCore.h</code> contains the full engine (23 expressions, birth sequence, intro, identity) with <strong>no hardware dependency</strong>. The same file compiles for the XIAO and for a PC test harness (g++), which allowed regression and soak tests without flashing. Creature identity derives only from the EEPROM seed (<code>creatureFromSeed</code>), so it is deterministic.</span><span class="lang-es"><code>EyesCore.h</code> contiene el motor completo (23 expresiones, nacimiento, intro, identidad) <strong>sin depender del hardware</strong>. El mismo archivo compila para la XIAO y para un arnés de pruebas en PC (g++), lo que permitió pruebas de regresión y de resistencia sin grabar la placa. La identidad de la criatura se deriva solo de la semilla en EEPROM (<code>creatureFromSeed</code>): es determinista.</span></p>
+        <p><span class="lang-en">Design rules are part of the engine: flat colors on black, no fades or crossfades, no clutter, single-color eyes and red hearts only.</span><span class="lang-es">Las reglas de diseño son parte del motor: colores planos sobre negro, sin fundidos ni crossfades, nada recargado, ojos de un solo color y solo corazones rojos.</span></p>
+      </div>
+    </details>
+
+    <details class="kd">
+      <summary><span class="kd-n">02</span><span class="lang-en">50–60 fps on a 240×240 round display</span><span class="lang-es">50–60 fps en una pantalla redonda de 240×240</span></summary>
+      <div class="kd-b">
+        <ul>
+          <li><span class="lang-en">RP2350 overclocked to <strong>250 MHz</strong>; SPI0 at <strong>41.7 MHz</strong>.</span><span class="lang-es">RP2350 con overclock a <strong>250 MHz</strong>; SPI0 a <strong>41.7 MHz</strong>.</span></li>
+          <li><span class="lang-en">Double RGB565 framebuffer, and only the <strong>dirty rows</strong> are sent (diff against the previous frame).</span><span class="lang-es">Doble framebuffer RGB565 y solo se envían las <strong>filas que cambiaron</strong> (diferencia contra el cuadro anterior).</span></li>
+          <li><span class="lang-en">16-bit <strong>DMA</strong> over SPI. Classic trap found and fixed: after a 16-bit DMA transfer the SPI format must be restored to 8 bits (<code>spi_set_format(spi0, 8, …)</code>) or the display freezes.</span><span class="lang-es"><strong>DMA</strong> de 16 bits por SPI. Trampa clásica encontrada y resuelta: tras una transferencia DMA de 16 bits hay que restaurar el formato SPI a 8 bits (<code>spi_set_format(spi0, 8, …)</code>) o la pantalla se congela.</span></li>
+          <li><span class="lang-en">Frame times were measured over serial (stress and birth-performance scripts), not guessed.</span><span class="lang-es">Los tiempos por cuadro se midieron por serial (scripts de estrés y rendimiento del nacimiento), no se adivinaron.</span></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="kd">
+      <summary><span class="kd-n">03</span><span class="lang-en">The board: schematic, pins and power</span><span class="lang-es">La placa: esquemático, pines y energía</span></summary>
+      <div class="kd-b">
+        <p><span class="lang-en">A single-sheet schematic. The XIAO provides the MCU, USB-C and LiPo charger. A P-MOSFET (Q1, BSS84) switches the display power so it can be cut in sleep. The battery voltage is read through a divider on ADC0. The LIS3DHTR (I²C, LGA-16) provides the INT2 line to wake the system from motion.</span><span class="lang-es">Esquemático de una sola hoja. La XIAO aporta el MCU, el USB-C y el cargador de LiPo. Un MOSFET P (Q1, BSS84) conmuta la alimentación de la pantalla para poder cortarla al dormir. El voltaje de la batería se lee con un divisor en ADC0. El LIS3DHTR (I²C, LGA-16) entrega la línea INT2 para despertar el sistema con movimiento.</span></p>
+        <div class="kd-table">
+          <table>
+            <thead><tr><th>XIAO</th><th>GPIO</th><th><span class="lang-en">Net</span><span class="lang-es">Red</span></th></tr></thead>
+            <tbody>
+              {pins.map(([a, b, c]) => <tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+        <p><span class="lang-en">The pin map was verified against the Earle Philhower core (<code>pins_arduino.h</code>); note that D3 is GPIO5, not GPIO3. The display reset is tied to 3V3, so the firmware must reset the GC9A01 by software.</span><span class="lang-es">El mapa de pines se verificó contra el core de Earle Philhower (<code>pins_arduino.h</code>); ojo: D3 es GPIO5, no GPIO3. El reset de la pantalla está atado a 3V3, así que el firmware debe resetear el GC9A01 por software.</span></p>
+      </div>
+    </details>
+
+    <details class="kd">
+      <summary><span class="kd-n">04</span><span class="lang-en">PCB, manufacturing and verification</span><span class="lang-es">PCB, fabricación y verificación</span></summary>
+      <div class="kd-b">
+        <ul>
+          <li><span class="lang-en">Circular outline, 55 mm with a tab, 2 layers, ENIG, 1.0 mm, three M2 mounting holes. Designed in Altium Designer 26, built by JLCPCB.</span><span class="lang-es">Contorno circular de 55 mm con una pestaña, 2 capas, ENIG, 1.0 mm, tres taladros M2. Diseñada en Altium Designer 26 y fabricada por JLCPCB.</span></li>
+          <li><span class="lang-en">Routing: 46/46 connections. DRC: no electrical errors; 26 cosmetic violations (silkscreen over mask and board outline).</span><span class="lang-es">Ruteo: 46/46 conexiones. DRC: sin errores eléctricos; 26 violaciones estéticas (serigrafía sobre máscara y contorno).</span></li>
+          <li><span class="lang-en">The manufacturing package (Gerbers, drill, pick-and-place, BOM) was rendered independently with an open-source Gerber library to cross-check what was sent.</span><span class="lang-es">El paquete de fabricación (Gerbers, taladros, pick-and-place, BOM) se renderizó de forma independiente con una librería Gerber de código abierto para contrastar lo que se envió.</span></li>
+          <li><span class="lang-en">A written audit of 14 inconsistencies between the team notes, the Altium files and the firmware is kept in the repository and drives the checklist before assembly.</span><span class="lang-es">Una auditoría escrita de 14 inconsistencias entre las notas del equipo, los archivos de Altium y el firmware vive en el repositorio y guía la lista previa al ensamble.</span></li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="kd">
+      <summary><span class="kd-n">05</span><span class="lang-en">What comes next in firmware</span><span class="lang-es">Lo que sigue en el firmware</span></summary>
+      <div class="kd-b">
+        <ul>
+          <li><span class="lang-en"><strong>Auto-sleep</strong> after 10–20 min of stillness, DORMANT mode, wake by <code>LIS_INT2</code> into the CURIOUS expression.</span><span class="lang-es"><strong>Auto-sueño</strong> tras 10–20 min de quietud, modo DORMANT y despertar por <code>LIS_INT2</code> hacia la expresión CURIOSO.</span></li>
+          <li><span class="lang-en">Internal RTC for day/night cycles, with real sleep current to be measured.</span><span class="lang-es">RTC interno para ciclos día/noche, con la corriente real en sueño por medir.</span></li>
+          <li><span class="lang-en">Temperature from the LIS3DHTR (<code>OUT_TEMP</code>) driving COLD/HOT expressions, calibrated with the PLA case closed.</span><span class="lang-es">Temperatura del LIS3DHTR (<code>OUT_TEMP</code>) para las expresiones FRÍO/CALOR, calibrada con la carcasa de PLA cerrada.</span></li>
+          <li><span class="lang-en">Vibration/music detection with the accelerometer to trigger HYPE and dancing.</span><span class="lang-es">Detección de vibración/música con el acelerómetro para activar HYPE y baile.</span></li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">The board, up close.</span>
+    <span class="lang-es">La placa de cerca.</span>
+  </h2>
+  <div class="kiro-gallery" data-reveal>
+    <figure><img src={`${I}pcb1_altium_top_enviada.webp`} alt="PCB1 in Altium, the board sent to manufacture" data-alt-es="PCB1 en Altium, la placa enviada a fabricar" loading="lazy" decoding="async" /><figcaption><span class="lang-en">The routed board, as sent to manufacture.</span><span class="lang-es">La placa ruteada, tal como se envió a fabricar.</span></figcaption></figure>
+    <figure><img src={`${I}esquematico_altium.webp`} alt="Full schematic in Altium" data-alt-es="Esquemático completo en Altium" loading="lazy" decoding="async" /><figcaption><span class="lang-en">The full schematic.</span><span class="lang-es">El esquemático completo.</span></figcaption></figure>
+    <figure><img src={`${I}gerber_top.webp`} alt="Gerber top layer" data-alt-es="Gerber, capa superior" loading="lazy" decoding="async" /><figcaption><span class="lang-en">Gerber, top.</span><span class="lang-es">Gerber, capa superior.</span></figcaption></figure>
+    <figure><img src={`${I}gerber_bottom.webp`} alt="Gerber bottom layer" data-alt-es="Gerber, capa inferior" loading="lazy" decoding="async" /><figcaption><span class="lang-en">Gerber, bottom.</span><span class="lang-es">Gerber, capa inferior.</span></figcaption></figure>
+  </div>
+  <div class="callout" data-reveal>
+    <strong><span class="lang-en">About the name</span><span class="lang-es">Sobre el nombre</span></strong>
+    <span class="lang-en">The project is called <b>Kiro</b> and this board is <b>Kiro v1</b>. It was ordered under an earlier name, so the silkscreen reads "Alux V1". It is actually the project's second iteration, but it is kept as v1 as the current state.</span>
+    <span class="lang-es">El proyecto se llama <b>Kiro</b> y esta placa es <b>Kiro v1</b>. Se pidió con un nombre anterior, por eso la serigrafía dice «Alux V1». En realidad es la segunda iteración del proyecto, pero se conserva como v1 al ser el estado actual.</span>
+  </div>
+
+  <hr class="divider" />
+
+  <h2 class="section-h2" data-reveal>
+    <span class="lang-en">Where it stands.</span>
+    <span class="lang-es">En qué va.</span>
+  </h2>
+  <ol class="kiro-road" data-reveal>
+    {roadmap.map((r) => (
+      <li class={`st-${r.st}`}>
+        <span class="chip">
+          {r.st === 'done' && <><span class="lang-en">Done</span><span class="lang-es">Listo</span></>}
+          {r.st === 'now' && <><span class="lang-en">In progress</span><span class="lang-es">En proceso</span></>}
+          {r.st === 'next' && <><span class="lang-en">Next</span><span class="lang-es">Siguiente</span></>}
+        </span>
+        <div><b><span class="lang-en">{r.en}</span><span class="lang-es">{r.es}</span></b>
+          <p><span class="lang-en">{r.ten}</span><span class="lang-es">{r.tes}</span></p></div>
+      </li>
+    ))}
+  </ol>
+
+  <div class="kiro-links" data-reveal>
+    <a class="glass glass-btn" href={REPO} target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="glass glass-btn" href={LIVE} target="_blank" rel="noopener"><span class="lang-en">Interactive demos ↗</span><span class="lang-es">Demos interactivas ↗</span></a>
+    <a class="glass glass-btn" href={DOC}><span class="lang-en">Full course documentation →</span><span class="lang-es">Documentación completa de la materia →</span></a>
+  </div>
+
+</ProjectLayout>
+
+<style is:global>
+  .kiro-stage {
+    background: radial-gradient(120% 90% at 50% 0%, #1b1b22 0%, #0b0b0d 70%);
+    border-radius: 22px; padding: clamp(28px,5vw,56px) clamp(16px,3vw,40px) clamp(24px,4vw,40px);
+    margin: clamp(8px,2vh,24px) 0; color: #efe9dc; text-align: center;
+    box-shadow: 0 30px 70px -34px rgba(0,0,0,.6);
+  }
+  .kiro-stage__tag { display: inline-flex; align-items: center; gap: 10px; margin-bottom: clamp(22px,3vw,34px);
+    font: 600 11px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #a49f93; }
+  .kiro-stage__tag .dot { width: 8px; height: 8px; border-radius: 50%; background: #ff3b4e; animation: kpulse 1.6s ease-in-out infinite; }
+  @keyframes kpulse { 50% { opacity: .25; } }
+  .kiro-stage__hint { margin: clamp(16px,2vw,24px) 0 0; font-size: 14px; color: #a49f93; }
+  .project-body .kiro-stats { grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 900px) { .project-body .kiro-stats { grid-template-columns: repeat(2, 1fr); } }
+  .kiro-frames { display: grid; gap: clamp(12px,2vw,20px); margin: clamp(20px,3vh,32px) 0; }
+  .kiro-frames img, .kiro-gallery img, .kiro-lab img { width: 100%; height: auto; display: block; border-radius: 14px; }
+  .kiro-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(12px,2vw,22px); margin: clamp(20px,3vh,32px) 0; }
+  .kiro-gallery figure { margin: 0; }
+  .kiro-gallery img { aspect-ratio: 1; object-fit: cover; }
+  .kiro-gallery figcaption { font-size: 13px; color: #6f6a5f; margin-top: 8px; }
+  @media (max-width: 640px) { .kiro-gallery { grid-template-columns: 1fr; } }
+  .kiro-lab { position: relative; border-radius: 16px; overflow: hidden; margin: clamp(18px,3vh,30px) 0; background: #0b0b0d;
+    box-shadow: 0 24px 60px -30px rgba(0,0,0,.5); }
+  .kiro-lab__start { all: unset; display: block; cursor: pointer; position: relative; width: 100%; }
+  .kiro-lab__start img { opacity: .55; transition: opacity .3s, transform .6s; }
+  .kiro-lab__start:hover img { opacity: .75; transform: scale(1.015); }
+  .kiro-lab__start:focus-visible { outline: 3px solid #2540c0; outline-offset: -3px; }
+  .kiro-lab__cta { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px;
+    font: 600 15px 'Hanken Grotesk', system-ui, sans-serif; color: #fff; letter-spacing: .04em; }
+  .kiro-lab__cta .play { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #ea6a2e; font-size: 18px; padding-left: 3px; }
+  .kiro-lab iframe { width: 100%; height: min(86vh, 900px); border: 0; display: block; background: #0b0b0d; }
+  .kd-list { margin: clamp(18px,3vh,30px) 0 clamp(28px,4vh,44px); display: grid; gap: 12px; }
+  .kd { border: 1px solid rgba(33,31,26,.14); border-radius: 14px; background: rgba(255,255,255,.55); overflow: hidden; }
+  .kd summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 16px; padding: 18px 22px;
+    font-family: 'Instrument Serif', serif; font-size: clamp(18px,2vw,24px); color: #211f1a; }
+  .kd summary::-webkit-details-marker { display: none; }
+  .kd summary::after { content: '+'; margin-left: auto; font: 400 24px system-ui; color: #ea6a2e; transition: transform .25s; }
+  .kd[open] summary::after { transform: rotate(45deg); }
+  .kd summary:focus-visible { outline: 2px solid #2540c0; outline-offset: -2px; }
+  .kd-n { font: 600 12px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: .12em; color: #ea6a2e; }
+  .kd-b { padding: 0 clamp(18px,3vw,28px) 22px; color: #534f46; font-size: 15.5px; line-height: 1.65; }
+  .kd-b p { margin: 0 0 12px; } .kd-b ul { margin: 0; padding-left: 20px; } .kd-b li { margin-bottom: 8px; }
+  .kd-b code { background: rgba(33,31,26,.07); padding: 1px 6px; border-radius: 5px; font-size: .9em; }
+  .kd-table { overflow-x: auto; margin: 14px 0; }
+  .kd-table table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .kd-table th, .kd-table td { text-align: left; padding: 7px 12px; border-bottom: 1px solid rgba(33,31,26,.12); }
+  .kd-table th { font: 600 11px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #6f6a5f; }
+  .kiro-road { list-style: none; margin: clamp(18px,3vh,30px) 0; padding: 0; display: grid; gap: 12px; }
+  .kiro-road li { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; border-radius: 14px;
+    border: 1px solid rgba(33,31,26,.14); background: rgba(255,255,255,.55); }
+  .kiro-road .chip { flex: 0 0 auto; margin-top: 2px; font: 600 11px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: .1em;
+    text-transform: uppercase; padding: 5px 11px; border-radius: 999px; background: rgba(33,31,26,.08); color: #534f46; min-width: 92px; text-align: center; }
+  .kiro-road .st-done .chip { background: #2f7d4f; color: #fff; }
+  .kiro-road .st-now .chip { background: #ea6a2e; color: #fff; }
+  .kiro-road b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 20px; color: #211f1a; }
+  .kiro-road p { margin: 4px 0 0; font-size: 14.5px; color: #534f46; line-height: 1.5; }
+  .kiro-links { display: flex; flex-wrap: wrap; gap: 12px; margin: clamp(28px,4vh,44px) 0 0; }
+  .kiro-links a { text-decoration: none; padding: 12px 20px; border-radius: 999px; font: 600 14px 'Hanken Grotesk', system-ui, sans-serif; color: #211f1a; }
+</style>
+
+<script>
+  const b = document.getElementById('kiro-lab-start')
+  b?.addEventListener('click', () => {
+    const f = document.createElement('iframe')
+    f.src = '/portfolio/kiro/lab/kiro_v4.html'
+    f.title = 'Kiro animation studio'
+    f.loading = 'lazy'
+    b.replaceWith(f)
+  })
+</script>

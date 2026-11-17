@@ -1,0 +1,166 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kiro · Intro de encendido</title>
+<style>
+:root{--bg:#0b0b0d;--panel:#131317;--line:#24242b;--tx:#e8e3d8;--mut:#8f8a80;--ac:#4de3ff}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.35 system-ui,Segoe UI,sans-serif}
+header{padding:16px 22px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+header h1{margin:0;font-size:19px}header span{color:var(--mut);font-size:13px}
+header a,header button{margin-left:auto;color:var(--ac);background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;padding:22px;max-width:1400px;margin:0 auto}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.card canvas{width:100%;max-width:240px;aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 8px #17171b,0 0 0 9px #26262d;cursor:pointer;display:block;margin:6px auto 14px}
+.card h3{margin:0 0 4px;font-size:15px}.card .n{color:var(--ac);font-weight:700;margin-right:6px}
+.card p{margin:0 0 10px;color:var(--mut);font-size:12.5px;min-height:52px}
+.card small{color:#6f6a62;display:block;margin-bottom:8px}
+.v{display:flex;gap:6px;justify-content:center}
+.v button{background:#1b1b21;border:1px solid var(--line);color:var(--tx);border-radius:999px;padding:5px 10px;cursor:pointer;font:inherit;font-size:12px}
+.v button.on{background:var(--ac);color:#04161a;border-color:var(--ac);font-weight:600}
+.note{max-width:1400px;margin:0 auto;padding:14px 22px 0;color:var(--mut);font-size:13px}
+#ov{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;z-index:9}
+#ov.on{display:flex}#ov canvas{width:min(78vh,92vw);aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 12px #17171b,0 0 0 13px #26262d}
+#ov h2{margin:0;font-size:20px}#ov p{margin:0;color:var(--mut);max-width:560px;text-align:center}
+#ov .b{display:flex;gap:8px}#ov .b button{background:#1b1b21;border:1px solid var(--line);color:var(--tx);border-radius:8px;padding:7px 14px;cursor:pointer;font:inherit}
+kbd{background:#1b1b20;border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+</style>
+<header><h1>Kiro · Intro de encendido</h1><span>11 propuestas del logo que se ve ANTES de los hilos y la partícula</span><button id="copy">Copiar mis votos (JSON)</button></header>
+<div class="note">Cada una dura ~4 s y termina igual: todo se mete en espiral a un punto blanco, que es donde empieza la partícula del nacimiento. Sin desvanecidos, sin estrellitas: solo cortes, trazos y deformación. Clic en una = grande · teclas <kbd>1</kbd>…<kbd>9</kbd>,<kbd>0</kbd>(=10) · <kbd>←</kbd><kbd>→</kbd> · <kbd>Esc</kbd>.</div>
+<div class="grid" id="grid"></div>
+<div id="ov"><h2 id="ot"></h2><canvas id="oc"></canvas><p id="od"></p><div class="b"><button id="prev">← anterior</button><button id="rep">repetir</button><button id="next">siguiente →</button><button id="cls">cerrar</button></div></div>
+<script>
+const CX=120,CY=122,H=54,GAP=.3;
+const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),eo=u=>1-Math.pow(1-cl(u),3),ei=u=>{u=cl(u);return u*u*u},
+eio=u=>{u=cl(u);return u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2},eb=u=>{u=cl(u);const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(u-1,3)+c1*Math.pow(u-1,2)};
+const hash=n=>{n=Math.imul(n^n>>>15,2246822519);n=Math.imul(n^n>>>13,3266489917);return((n^n>>>16)>>>0)/4294967296};
+function arc(cx,cy,rx,ry,a0,a1,n){const p=[];for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n;p.push([cx+rx*Math.cos(a),cy+ry*Math.sin(a)])}return p}
+const GLY={
+ K:{w:.62,p:[[[0,0],[0,1]],[[.6,0],[.02,.56]],[[.2,.42],[.62,1]]]},
+ I:{w:.12,p:[[[.06,0],[.06,1]]]},
+ R:{w:.62,p:[[[0,1],[0,0],[.34,0]].concat(arc(.34,.275,.28,.275,-Math.PI/2,Math.PI/2,14)).concat([[0,.55]]),[[.3,.55],[.62,1]]]},
+ O:{w:.72,p:[arc(.36,.5,.36,.5,-Math.PI/2,Math.PI*1.5,44)]}};
+function mkPath(pts){let len=0;const cum=[0];for(let i=1;i<pts.length;i++){len+=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);cum.push(len)}return{pts,cum,len}}
+function trim(p,f){f=cl(f);const T=p.len*f,out=[p.pts[0]];for(let i=1;i<p.pts.length;i++){if(p.cum[i]<=T)out.push(p.pts[i]);else{const u=(T-p.cum[i-1])/(p.cum[i]-p.cum[i-1]),a=p.pts[i-1],b=p.pts[i];out.push([a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u]);break}}return out}
+function line(c,pts,w,col){if(!pts.length)return;c.strokeStyle=col;c.lineWidth=w;c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(pts[0][0],pts[0][1]);if(pts.length===1)c.lineTo(pts[0][0]+.01,pts[0][1]);for(let i=1;i<pts.length;i++)c.lineTo(pts[i][0],pts[i][1]);c.stroke()}
+// glifos centrados en x=0 (centro vertical CY)
+const GP={};for(const k in GLY){const g=GLY[k];GP[k]={w:g.w*H,paths:g.p.map(pp=>mkPath(pp.map(q=>[(q[0]-g.w/2)*H,(q[1]-.5)*H])))}}
+const ORDER='KIRO';let tot=GAP*3;for(const k of ORDER)tot+=GLY[k].w;
+let xx=CX-tot*H/2;const L=[];
+for(const k of ORDER){const g=GLY[k];const cxx=xx+g.w*H/2;L.push({c:k,cx:cxx,w:g.w*H,paths:GP[k].paths.map(pa=>mkPath(pa.pts.map(q=>[q[0]+cxx,q[1]+CY])))});xx+=(g.w+GAP)*H}
+const drawL=(c,l,w,col,dx=0)=>{c.save();c.translate(l.cx+dx,0);for(const p of l.paths)line(c,p.pts,w,col);c.restore()};
+function withL(c,l,ay,sx,sy,dx,dy,fn){c.save();c.translate(l.cx+dx,ay+dy);c.scale(sx,sy);c.translate(-l.cx,-ay);fn();c.restore()}
+const drawLabs=(c,l,w,col)=>{for(const p of l.paths)line(c,p.pts,w,col)};   // coordenadas absolutas
+const PAL=['#ff6b5a','#ffd23f','#4de3ff','#9be564'];
+const BOT=CY+H/2;
+
+const P=[
+// 1 PINCEL
+{n:'Pincel',d:'El nombre se escribe a mano con un trazo de pincel, letra por letra, igual que el ojo cerrado del estudio.',dur:3.9,
+ body(c,t){const all=[];L.forEach(l=>l.paths.forEach(p=>all.push(p)));let sum=0;all.forEach(p=>sum+=p.len);let a=0;
+  all.forEach(p=>{const d=2.2*p.len/sum,f=(t-.25-a)/d;a+=d;if(f>0)line(c,trim(p,f),10+1.2*Math.sin(t*9),'#f4f1ea')})}},
+// 2 GOTAS
+{n:'Gotas viscosas',d:'Cada letra nace como una mancha gorda de color que crece y se afina hasta ser letra (como las manchas del nacimiento).',dur:3.9,
+ body(c,t){L.forEach((l,i)=>{const u=cl((t-.2-.3*i)/.7);if(u<=0)return;const s=Math.max(.05,eb(u));withL(c,l,CY,s,s,0,0,()=>drawLabs(c,l,(10+26*Math.pow(1-u,2))/s,PAL[i]))})}},
+// 3 HILOS
+{n:'Hilos que escriben',d:'Los mismos hilos blancos del nacimiento entran girando y dibujan el nombre; cuando asientan, se vuelven trazo.',dur:4.3,
+ init(){const pts=[];L.forEach(l=>l.paths.forEach(p=>{const n=Math.max(2,Math.round(p.len/4));for(let i=0;i<=n;i++){const q=trim(p,i/n),e=q[q.length-1];pts.push([e[0]+l.cx*0,e[1]])}}));this.pts=pts},
+ body(c,t){if(t>=2.3){L.forEach(l=>drawLabs(c,l,9.5,'#f4f1ea'));return}
+  const q=(tt,i)=>{const dl=(i%16)/16*.6,p=cl((tt-dl)/1.6),e=eo(p),T=this.pts[i],at=Math.atan2(T[1]-CY,T[0]-CX),rt=Math.hypot(T[0]-CX,T[1]-CY),a0=at+2.6+hash(i)*1.2,r0=118;
+   const r=r0+(rt-r0)*e,an=at+(a0-at)*(1-e);return[CX+r*Math.cos(an),CY+r*Math.sin(an),p]};
+  c.strokeStyle='#f4f1ea';c.lineCap='round';c.lineWidth=2.6;
+  for(let i=0;i<this.pts.length;i++){const a=q(t,i);if(a[2]<=0)continue;const b=q(t-.06,i);c.beginPath();c.moveTo(b[0],b[1]);c.lineTo(a[0],a[1]);c.stroke()}}},
+// 4 OJO
+{n:'La O es un ojo',d:'K, I y R salen con rebote y la O es un ojo vivo: mira hacia las letras, a un lado y parpadea con trazo de pincel.',dur:4.2,
+ body(c,t){for(let i=0;i<3;i++){const l=L[i],u=cl((t-.15-.22*i)/.45);if(u<=0)continue;withL(c,l,BOT,1,eb(u),0,0,()=>drawLabs(c,l,10,'#f4f1ea'))}
+  const u=cl((t-.81)/.45);if(u<=0)return;const o=L[3];const bl=t>2.5&&t<2.8?Math.abs((t-2.65)/.15):1,sy=Math.max(.07,Math.min(1,bl));
+  const lx=t<1.2?0:t<1.7?-7:t<2.2?5:0;
+  c.save();c.translate(o.cx,CY);c.scale(1,eb(u)*sy);
+  c.fillStyle='#f4f1ea';c.beginPath();c.ellipse(0,0,21,28,0,0,7);c.fill();
+  c.fillStyle='#16161a';c.beginPath();c.ellipse(lx,5,9.5,12.5,0,0,7);c.fill();c.restore()}},
+// 5 GELATINA
+{n:'Gelatina',d:'Las letras caen una a una, cada una de un color plano, y rebotan con squash & stretch como los ojos.',dur:4.0,
+ body(c,t){L.forEach((l,i)=>{const u=t-.2-.3*i;if(u<0)return;let sx=1,sy=1,dy=0;if(u<.42){dy=-130*(1-Math.pow(u/.42,2));sy=1.12;sx=.94}else{const v=u-.42,s=Math.exp(-5.5*v)*Math.cos(20*v);sy=1-.38*s;sx=1+.3*s}
+  withL(c,l,BOT,sx,sy,0,dy,()=>drawLabs(c,l,10,PAL[i]))})}},
+// 6 PUNTO
+{n:'El punto se estira',d:'Empieza como el mismo punto blanco de la partícula, se estira en una línea y de ella brotan las cuatro letras.',dur:4.0,
+ body(c,t){if(t<.5){const r=3.5*(1+.15*Math.sin(t*20));c.fillStyle='#f4f1ea';c.beginPath();c.arc(CX,CY,r,0,7);c.fill()}
+  else if(t<1.5){const hl=t<1.1?3.5+66.5*eo((t-.5)/.6):70*(1-eo((t-1.1)/.4));if(hl>1)line(c,[[CX-hl,CY],[CX+hl,CY]],7,'#f4f1ea')}
+  L.forEach((l,i)=>{const u=cl((t-1.1-.18*i)/.5);if(u<=0)return;withL(c,l,CY,1,Math.max(.03,eb(u)),0,0,()=>drawLabs(c,l,10,'#f4f1ea'))})}},
+// 7 RULETA
+{n:'Ruleta de letras',d:'Cada casilla cambia a toda velocidad entre letras torcidas (cortes secos, como la ruleta de ojos) y se traba en K·I·R·O con un golpe.',dur:4.3,
+ body(c,t){L.forEach((l,i)=>{const lk=1.5+.35*i;let k=l.c,sx=1,sy=1,rot=0;
+  if(t<lk){const st=Math.floor(t/(.06+.05*i*.2)),h=hash(st*7+i*13);k=ORDER[Math.floor(h*4)];sy=.78+hash(st+i*5)*.4;rot=(hash(st*3+i)-.5)*.5}
+  else{const s=Math.exp(-9*(t-lk))*Math.cos(25*(t-lk));sx=sy=1+.28*s}
+  if(t<.1)return;c.save();c.translate(l.cx,CY);c.rotate(rot);c.scale(sx,sy);for(const p of GP[k].paths)line(c,p.pts,10,'#f4f1ea');c.restore()})}},
+// 8 GARABATO
+{n:'Un solo trazo',d:'Una sola línea cian de pluma recorre todo el nombre sin levantarse, uniendo las letras por debajo como en cursiva.',dur:4.5,
+ init(){const D={K:[[0,0],[0,1],[0,.56],[.6,0],[.22,.4],[.62,1]],I:[[.06,1],[.06,0],[.06,1]],
+  R:[[0,1],[0,0],[.34,0]].concat(arc(.34,.275,.28,.275,-Math.PI/2,Math.PI/2,14)).concat([[.3,.55],[.62,1]]),O:arc(.36,.5,.36,.5,Math.PI/2,Math.PI*2.5,44)};
+  const pts=[];let last=null;L.forEach(l=>{const g=GLY[l.c],q=D[l.c].map(r=>[l.cx+(r[0]-g.w/2)*H,CY+(r[1]-.5)*H]);
+   if(last){const a=last,b=q[0],m=[(a[0]+b[0])/2,CY+H/2+16];for(let i=1;i<=10;i++){const u=i/11;pts.push([(1-u)*(1-u)*a[0]+2*u*(1-u)*m[0]+u*u*b[0],(1-u)*(1-u)*a[1]+2*u*(1-u)*m[1]+u*u*b[1]])}}
+   q.forEach(r=>pts.push(r));last=q[q.length-1]});this.path=mkPath(pts)},
+ body(c,t){const f=eio((t-.2)/3.2);if(f>0)line(c,trim(this.path,f),8,'#4de3ff')}},
+// 9 COLOR
+{n:'Pantalla de color',d:'Fondo amarillo plano con las letras en negro que van saltando; luego un iris negro se abre y las letras quedan blancas (como la pantalla de color).',dur:4.2,
+ body(c,t){if(eo((t-2)/.5)<.98){c.fillStyle='#ffd23f';c.fillRect(0,0,240,240);L.forEach((l,i)=>{if(t>.3+.3*i)drawLabs(c,l,10,'#16161a')})}
+  const r=eo((t-2)/.5)*175;if(r>=172){c.fillStyle='#000';c.fillRect(0,0,240,240);L.forEach(l=>drawLabs(c,l,10,'#f4f1ea'))}else if(r>0){c.save();c.beginPath();c.arc(CX,CY,r,0,7);c.clip();c.fillStyle='#000';c.fillRect(0,0,240,240);L.forEach(l=>drawLabs(c,l,10,'#f4f1ea'));c.restore()}}},
+// 10 LATE
+{n:'Late',d:'El nombre aparece de golpe y late tres veces, cada vez más fuerte, con las letras un pelín desfasadas; se agacha y se lanza al punto.',dur:3.6,
+ body(c,t){if(t<.3)return;const B=[[.5,.08],[1,.12],[1.55,.2]];L.forEach((l,i)=>{let s=1;B.forEach(b=>{const d=t-b[0]-.04*i;if(d>0&&d<.3)s+=b[1]*Math.sin(Math.PI*d/.3)});let sx=s,sy=s;if(t>2.1&&t<2.45){const u=(t-2.1)/.35;sy=1-.2*Math.sin(Math.PI*u);sx=1+.1*Math.sin(Math.PI*u)}
+  withL(c,l,CY,sx,sy,0,0,()=>drawLabs(c,l,10,'#f4f1ea'))})}}
+];
+P.push({n:'Hilos sobre color',d:'Mezcla de 3 y 9: sobre fondo amarillo plano los hilos NEGROS entran girando y escriben el nombre; luego el iris negro se abre y el nombre queda en blanco.',dur:4.4,init:P[2].init,
+ body(c,t){const Y='#ffd23f',K='#16161a',W='#f4f1ea';
+  const ph=(c2,fg,bgc)=>{c2.fillStyle=bgc;c2.fillRect(0,0,240,240);
+   if(t>=1.9){L.forEach(l=>drawLabs(c2,l,9.5,fg));return}
+   const q=(tt,i)=>{const dl=(i%16)/16*.5,p=cl((tt-dl)/1.3),e=eo(p),T=this.pts[i],at=Math.atan2(T[1]-CY,T[0]-CX),rt=Math.hypot(T[0]-CX,T[1]-CY),a0=at+2.6+hash(i)*1.2,r0=118;
+    const r=r0+(rt-r0)*e,an=at+(a0-at)*(1-e);return[CX+r*Math.cos(an),CY+r*Math.sin(an),p]};
+   c2.strokeStyle=fg;c2.lineCap='round';c2.lineWidth=3;
+   for(let i=0;i<this.pts.length;i++){const a=q(t,i);if(a[2]<=0)continue;const b=q(t-.06,i);c2.beginPath();c2.moveTo(b[0],b[1]);c2.lineTo(a[0],a[1]);c2.stroke()}};
+  const r=eo((t-2.4)/.5)*175;
+  if(r>=172){c.fillStyle='#000';c.fillRect(0,0,240,240);L.forEach(l=>drawLabs(c,l,9.5,W))}
+  else{ph(c,K,Y);if(r>0){c.save();c.beginPath();c.arc(CX,CY,r,0,7);c.clip();c.fillStyle='#000';c.fillRect(0,0,240,240);L.forEach(l=>drawLabs(c,l,9.5,W));c.restore()}}}});
+P.push({n:'Hilos que mutan',d:'La 3: los hilos escriben KIRO hecho de puntitos (que ahora se queda un rato más), las letras mutan a saltos de color y forma, terminan blancas y al final se deshacen en partículas que se atraen todas al punto.',dur:5.8,own:true,
+ init(){P[2].init.call(this);this.steps=[];let tt=2.6;while(tt<4){this.steps.push(tt);tt+=.2-.14*Math.sin(Math.PI*(tt-2.6)/1.4)}},
+ body(c,t){const W='#f4f1ea',COL=PAL.concat(['#ff8ad8','#b58cff']),PT=this.pts;
+  if(t<1.9){const q=(tt,i)=>{const dl=(i%16)/16*.6,p=cl((tt-dl)/1.3),e=eo(p),T=PT[i],at=Math.atan2(T[1]-CY,T[0]-CX),rt=Math.hypot(T[0]-CX,T[1]-CY),a0=at+2.6+hash(i)*1.2,r0=118;
+    const r=r0+(rt-r0)*e,an=at+(a0-at)*(1-e);return[CX+r*Math.cos(an),CY+r*Math.sin(an),p]};
+   c.strokeStyle=W;c.lineCap='round';c.lineWidth=2.8;
+   for(let i=0;i<PT.length;i++){const a=q(t,i);if(a[2]<=0)continue;const b=q(t-.06,i);c.beginPath();c.moveTo(b[0],b[1]);c.lineTo(a[0],a[1]);c.stroke()}return}
+  if(t<2.6){c.fillStyle=W;const r=2.2+.25*Math.sin(t*14);PT.forEach((T,i)=>{if(i%2)return;c.beginPath();c.arc(T[0],T[1],r,0,7);c.fill()});return}   // KIRO en puntos, ahora se sostiene
+  if(t>=4.5){   // las letras se deshacen en partículas y todas se atraen al punto
+   const D0=4.5;c.fillStyle=W;c.strokeStyle=W;c.lineCap='round';
+   const pos=(tt,i)=>{const T=PT[i],dl=hash(i*3+1)*.32,u=cl((tt-D0-dl)/.55),e=Math.pow(u,2.2),an=1.8*e,dx=T[0]-CX,dy=T[1]-CY,k=1-e;
+    return[CX+k*(dx*Math.cos(an)-dy*Math.sin(an)),CY+k*(dx*Math.sin(an)+dy*Math.cos(an)),u]};
+   for(let i=0;i<PT.length;i++){const a=pos(t,i);if(a[2]>=1)continue;const b=pos(t-.045,i);
+    if(a[2]>0){c.lineWidth=3.2*(1-.4*a[2]);c.beginPath();c.moveTo(b[0],b[1]);c.lineTo(a[0],a[1]);c.stroke()}else{c.beginPath();c.arc(a[0],a[1],2.5,0,7);c.fill()}}
+   const r=3.5*cl((t-5.0)/.4);if(r>0){c.beginPath();c.arc(CX,CY,r,0,7);c.fill()}return}
+  let k=0;while(k<this.steps.length&&this.steps[k]<=t)k++;
+  L.forEach((l,i)=>{let sk=0,sx=1,sy=1,lw=9.5,col=W;
+   if(t<4){const h=n=>hash(k*13+i*5+n);col=h(1)<.25?W:COL[Math.floor(h(2)*COL.length)];lw=7+h(3)*8;sk=(h(4)-.5)*.6;sx=.85+h(5)*.4;sy=.88+h(6)*.3}
+   else{const u=t-4,z=Math.exp(-10*u)*Math.cos(26*u);sx=sy=1+.22*z}
+   c.save();c.translate(l.cx,CY);c.transform(1,0,sk,1,0,0);c.scale(sx,sy);c.translate(-l.cx,-CY);drawLabs(c,l,lw/Math.max(.8,Math.min(sx,sy)),col);c.restore()})}});
+P.forEach(p=>{if(p.init)p.init()});
+// colapso común: todo gira y se mete a un punto blanco = inicio de la partícula
+function render(c,p,t){c.fillStyle='#000';c.fillRect(0,0,240,240);if(p.own){p.body(c,t);return}const tc=p.dur-1.1,u=cl((t-tc)/.7);
+  if(u>0&&u<1){c.save();c.translate(CX,CY);c.rotate(2.2*u*u);const k=Math.pow(1-u,2);c.scale(k,k);c.translate(-CX,-CY);p.body(c,tc+0*u);c.restore();
+    // el cuerpo se congela en su pose final y se aspira
+  }else if(u<=0)p.body(c,t);
+  if(u>=.85){c.fillStyle='#f4f1ea';c.beginPath();c.arc(CX,CY,3.5*cl((u-.85)/.15),0,7);c.fill()}}
+// UI
+const grid=document.getElementById('grid'),votes=JSON.parse((()=>{try{return localStorage.getItem('kiroIntroVotes')||'{}'}catch(e){return'{}'}})());
+function save(){try{localStorage.setItem('kiroIntroVotes',JSON.stringify(votes))}catch(e){}}
+const tiles=[];
+P.forEach((p,i)=>{const el=document.createElement('div');el.className='card';
+ el.innerHTML=`<canvas width="480" height="480"></canvas><h3><span class="n">${i+1}</span>${p.n}</h3><p>${p.d}</p><small>${p.dur.toFixed(1)} s hasta la partícula</small><div class="v"><button data-v="me encanta">me encanta</button><button data-v="más o menos">más o menos</button><button data-v="no">no</button></div>`;
+ grid.appendChild(el);const cv=el.querySelector('canvas'),c=cv.getContext('2d');c.scale(2,2);
+ const refresh=()=>el.querySelectorAll('.v button').forEach(b=>b.classList.toggle('on',votes[p.n]===b.dataset.v));
+ el.querySelectorAll('.v button').forEach(b=>b.onclick=()=>{votes[p.n]=votes[p.n]===b.dataset.v?undefined:b.dataset.v;save();refresh()});refresh();
+ cv.onclick=()=>openBig(i);tiles.push({p,c,t0:performance.now()})});
+const ov=document.getElementById('ov'),oc=document.getElementById('oc'),octx=oc.getContext('2d');oc.width=oc.height=720;octx.scale(3,3);let cur=-1,ot0=0;
+function openBig(i){cur=(i+P.length)%P.length;document.getElementById('ot').textContent=`${cur+1}. ${P[cur].n}`;document.getElementById('od').textContent=P[cur].d;ov.classList.add('on');ot0=performance.now()}
+const closeBig=()=>{ov.classList.remove('on');cur=-1};
+document.getElementById('cls').onclick=closeBig;document.getElementById('prev').onclick=()=>openBig(cur-1);document.getElementById('next').onclick=()=>openBig(cur+1);document.getElementById('rep').onclick=()=>ot0=performance.now();
+addEventListener('keydown',e=>{if(e.key==='Escape')closeBig();else if(e.key==='ArrowLeft'&&cur>=0)openBig(cur-1);else if(e.key==='ArrowRight'&&cur>=0)openBig(cur+1);else if(/^[0-9]$/.test(e.key))openBig(e.key==='0'?9:+e.key-1);else if((e.key==='r'||e.key==='R')&&cur>=0)ot0=performance.now()});
+document.getElementById('copy').onclick=()=>{const s=JSON.stringify(votes,null,1);navigator.clipboard.writeText(s).then(()=>alert('Votos copiados'),()=>prompt('Copia tus votos:',s))};
+function loop(now){tiles.forEach(o=>{const t=((now-o.t0)/1000)%(o.p.dur+.8);render(o.c,o.p,Math.min(t,o.p.dur))});
+ if(cur>=0){const p=P[cur],t=((now-ot0)/1000)%(p.dur+.8);render(octx,p,Math.min(t,p.dur))}requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+</script>
