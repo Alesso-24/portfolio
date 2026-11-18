@@ -16,7 +16,7 @@ Página: `src/pages/docs/produccion-electronica/practicas/proyecto-kiro.astro` (
 
 ## Kiro en el sitio (portada + página de proyecto)
 - Portada: `src/components/sections/KiroTeaser.astro` (banner oscuro «Próximamente · Siguiente proyecto», id `#kiro`, tras Work). Página: `src/pages/project/kiro.astro` (ES/EN con `lang-en`/`lang-es`; bloques «Bajo el cofre» en `<details>`; hoja de ruta con estados done/now/next, **actualizar al avanzar**).
-- Ojos en vivo: `src/components/ui/KiroEyes.astro` (canvas, 7 expresiones, sigue el mouse, pausa fuera de pantalla, respeta `prefers-reduced-motion`).
+- Ojos en vivo: `src/components/ui/KiroEyes.astro` = iframe del MOTOR REAL (`public/kiro/lab/kiro_embed.html`, generado con `Kiro/herramientas/make_embed.py` desde `kiro_v4.html`; controlado por postMessage: expr/auto/mouse). Si cambia kiro_v4, regenerar y copiar ambos html a `public/kiro/lab/`.
 - Estudio real embebido (iframe al hacer clic): `public/kiro/lab/kiro_v4.html` (copia de `Kiro/estudio`). Por eso `frame-src` de la CSP en `Base.astro` incluye `'self'`.
 - Imágenes en `public/images/kiro/`. Al terminar la carcasa/PCB ensamblada: quitar «Próximamente» (teaser y badge) y pasar a `PROJECTS` en `content.ts`.
 
