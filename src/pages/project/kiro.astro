@@ -285,7 +285,7 @@ const stats = [
   .kiro-gallery img { aspect-ratio: 1; object-fit: cover; }
   .kiro-gallery figcaption { font-size: 13px; color: #6f6a5f; margin-top: 8px; }
   @media (max-width: 640px) { .kiro-gallery { grid-template-columns: 1fr; } }
-  .kiro-lab { position: relative; border-radius: 16px; overflow: hidden; margin: clamp(18px,3vh,30px) 0; background: #0b0b0d;
+  .kiro-lab { position: relative; width: min(1180px, calc(100vw - 32px)); margin: clamp(18px,3vh,30px) 0 clamp(18px,3vh,30px) calc((100% - min(1180px, calc(100vw - 32px))) / 2); border-radius: 16px; overflow: hidden; background: #0b0b0d;
     box-shadow: 0 24px 60px -30px rgba(0,0,0,.5); }
   .kiro-lab__start { all: unset; display: block; cursor: pointer; position: relative; width: 100%; }
   .kiro-lab__start img { opacity: .55; transition: opacity .3s, transform .6s; }
@@ -294,7 +294,7 @@ const stats = [
   .kiro-lab__cta { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px;
     font: 600 15px 'Hanken Grotesk', system-ui, sans-serif; color: #fff; letter-spacing: .04em; }
   .kiro-lab__cta .play { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #ea6a2e; font-size: 18px; padding-left: 3px; }
-  .kiro-lab iframe { width: 100%; height: min(86vh, 900px); border: 0; display: block; background: #0b0b0d; }
+  .kiro-lab iframe { width: 100%; height: clamp(560px, 82vh, 800px); border: 0; display: block; background: #0b0b0d; }
   .kd-list { margin: clamp(18px,3vh,30px) 0 clamp(28px,4vh,44px); display: grid; gap: 12px; }
   .kd { border: 1px solid rgba(33,31,26,.14); border-radius: 14px; background: rgba(255,255,255,.55); overflow: hidden; }
   .kd summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 16px; padding: 18px 22px;
