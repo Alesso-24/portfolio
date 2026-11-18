@@ -1,8 +1,8 @@
 ---
 // Kiro en vivo: es el MOTOR REAL del estudio (kiro_v4, el mismo que se porta al firmware) incrustado sin panel.
 // Props: controls = botones de expresión; size = ancho máx. en px.
-interface Props { controls?: boolean; size?: number }
-const { controls = false, size = 420 } = Astro.props
+interface Props { controls?: boolean; size?: number; side?: boolean }
+const { controls = false, size = 420, side = false } = Astro.props
 const EXPR: [string, string, string][] = [
   ['auto', 'Auto', 'Automático'], ['curioso', 'Curious', 'Curioso'], ['feliz', 'Happy', 'Feliz'], ['amor', 'In love', 'Amor'],
   ['enojado', 'Angry', 'Enojado'], ['triste', 'Sad', 'Triste'], ['sorprendido', 'Surprised', 'Sorprendido'],
@@ -12,7 +12,7 @@ const EXPR: [string, string, string][] = [
 ]
 ---
 
-<div class="kiro-eyes" style={`--ke-size:${size}px`}>
+<div class:list={['kiro-eyes', side && 'ke-side']} style={`--ke-size:${size}px`}>
   <iframe class="ke-frame" src="/portfolio/kiro/lab/kiro_embed.html" title="Kiro" data-title-en="Kiro, live" loading="lazy" tabindex="-1"></iframe>
   {controls && (
     <div class="ke-chips" role="group" aria-label="Expresión" data-aria-label-en="Expression">
@@ -38,6 +38,13 @@ const EXPR: [string, string, string][] = [
   .kiro-eyes .ke-chip:hover { transform: translateY(-2px); }
   .kiro-eyes .ke-chip[aria-pressed="true"] { background: #211f1a; color: #f3ecdd; border-color: #211f1a; }
   .kiro-eyes .ke-chip:focus-visible { outline: 2px solid #2540c0; outline-offset: 3px; }
+  /* menú al lado: criatura a la izquierda, emociones a la derecha (en pantallas anchas) */
+  @media (min-width: 900px) {
+    .kiro-eyes.ke-side { max-width: 980px; display: grid; grid-template-columns: minmax(0, var(--ke-size, 420px)) minmax(0, 1fr); gap: clamp(24px,4vw,56px); align-items: center; }
+    .kiro-eyes.ke-side .ke-chips { margin-top: 0; justify-content: flex-start; flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 6px; max-height: 440px; }
+    .kiro-eyes.ke-side .ke-chips { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .kiro-eyes.ke-side .ke-chip { text-align: left; }
+  }
   .ke-dark .ke-chip { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.16); color: #efe9dc; }
   .ke-dark .ke-chip[aria-pressed="true"] { background: #efe9dc; color: #0b0b0d; }
 </style>
