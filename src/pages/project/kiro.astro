@@ -139,12 +139,8 @@ const stats = [
     <span class="lang-en">Before touching hardware, every animation is designed in this browser studio and then ported 1:1 to the firmware. It has all 23 expressions, a full tour, and lets you change colors, eye shape and pupils. Click on the creature to roll a new one.</span>
     <span class="lang-es">Antes de tocar el hardware, cada animación se diseña en este estudio de navegador y luego se porta 1:1 al firmware. Tiene las 23 expresiones, un tour completo y permite cambiar colores, forma de ojos y pupilas. Haz clic en la criatura para sortear una nueva.</span>
   </p>
-  <div class="kiro-lab" data-reveal>
-    <button type="button" class="kiro-lab__start" id="kiro-lab-start">
-      <img src={`${I}web_estudio_curioso.webp`} alt="" loading="lazy" decoding="async" />
-      <span class="kiro-lab__cta"><span class="play">▶</span>
-        <span class="lang-en">Open the studio here</span><span class="lang-es">Abrir el estudio aquí</span></span>
-    </button>
+  <div class="kiro-lab" id="estudio" data-reveal>
+    <iframe src="/portfolio/kiro/lab/kiro_v4.html" title="Kiro animation studio" loading="lazy"></iframe>
   </div>
 
   <hr class="divider" />
@@ -287,13 +283,6 @@ const stats = [
   @media (max-width: 640px) { .kiro-gallery { grid-template-columns: 1fr; } }
   .kiro-lab { position: relative; width: min(1180px, calc(100vw - 32px)); margin: clamp(18px,3vh,30px) 0 clamp(18px,3vh,30px) calc((100% - min(1180px, calc(100vw - 32px))) / 2); border-radius: 16px; overflow: hidden; background: #0b0b0d;
     box-shadow: 0 24px 60px -30px rgba(0,0,0,.5); }
-  .kiro-lab__start { all: unset; display: block; cursor: pointer; position: relative; width: 100%; }
-  .kiro-lab__start img { opacity: .55; transition: opacity .3s, transform .6s; }
-  .kiro-lab__start:hover img { opacity: .75; transform: scale(1.015); }
-  .kiro-lab__start:focus-visible { outline: 3px solid #2540c0; outline-offset: -3px; }
-  .kiro-lab__cta { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 12px;
-    font: 600 15px 'Hanken Grotesk', system-ui, sans-serif; color: #fff; letter-spacing: .04em; }
-  .kiro-lab__cta .play { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #ea6a2e; font-size: 18px; padding-left: 3px; }
   .kiro-lab iframe { width: 100%; height: clamp(560px, 82vh, 800px); border: 0; display: block; background: #0b0b0d; }
   .kd-list { margin: clamp(18px,3vh,30px) 0 clamp(28px,4vh,44px); display: grid; gap: 12px; }
   .kd { border: 1px solid rgba(33,31,26,.14); border-radius: 14px; background: rgba(255,255,255,.55); overflow: hidden; }
@@ -324,13 +313,3 @@ const stats = [
   .kiro-links a { text-decoration: none; padding: 12px 20px; border-radius: 999px; font: 600 14px 'Hanken Grotesk', system-ui, sans-serif; color: #211f1a; }
 </style>
 
-<script>
-  const b = document.getElementById('kiro-lab-start')
-  b?.addEventListener('click', () => {
-    const f = document.createElement('iframe')
-    f.src = '/portfolio/kiro/lab/kiro_v4.html'
-    f.title = 'Kiro animation studio'
-    f.loading = 'lazy'
-    b.replaceWith(f)
-  })
-</script>
