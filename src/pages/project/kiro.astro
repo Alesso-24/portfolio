@@ -65,7 +65,7 @@ const stats = [
       <span class="lang-en">Live in your browser · not a video</span>
       <span class="lang-es">En vivo en tu navegador · no es un video</span>
     </div>
-    <KiroEyes controls size={440} />
+    <KiroEyes controls side size={440} />
     <p class="kiro-stage__hint">
       <span class="lang-en">Move your mouse: Kiro follows you. Pick an expression, or let it wander.</span>
       <span class="lang-es">Mueve el mouse: Kiro te sigue. Elige una expresión o déjalo en automático.</span>
@@ -267,6 +267,7 @@ const stats = [
     margin: clamp(8px,2vh,24px) 0; color: #efe9dc; text-align: center;
     box-shadow: 0 30px 70px -34px rgba(0,0,0,.6);
   }
+  @media (min-width: 900px) { .kiro-stage { width: min(1080px, calc(100vw - 32px)); margin-left: calc((100% - min(1080px, calc(100vw - 32px))) / 2); margin-right: 0; } }
   .kiro-stage__tag { display: inline-flex; align-items: center; gap: 10px; margin-bottom: clamp(22px,3vw,34px);
     font: 600 11px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #a49f93; }
   .kiro-stage__tag .dot { width: 8px; height: 8px; border-radius: 50%; background: #ff3b4e; animation: kpulse 1.6s ease-in-out infinite; }
