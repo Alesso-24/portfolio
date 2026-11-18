@@ -1,25 +1,23 @@
 ---
-// Ojos de Kiro dibujados en vivo (canvas): planos, de un solo color, sobre negro, como en el dispositivo.
-// Props: controls = muestra los botones de expresión; auto = cambia de expresión sola; size = ancho máx. en px.
-interface Props { controls?: boolean; auto?: boolean; size?: number }
-const { controls = false, auto = true, size = 420 } = Astro.props
+// Kiro en vivo: es el MOTOR REAL del estudio (kiro_v4, el mismo que se porta al firmware) incrustado sin panel.
+// Props: controls = botones de expresión; size = ancho máx. en px.
+interface Props { controls?: boolean; size?: number }
+const { controls = false, size = 420 } = Astro.props
 const EXPR: [string, string, string][] = [
-  ['curioso', 'Curious', 'Curioso'], ['feliz', 'Happy', 'Feliz'], ['amor', 'In love', 'Amor'],
+  ['auto', 'Auto', 'Automático'], ['curioso', 'Curious', 'Curioso'], ['feliz', 'Happy', 'Feliz'], ['amor', 'In love', 'Amor'],
   ['enojado', 'Angry', 'Enojado'], ['triste', 'Sad', 'Triste'], ['sorprendido', 'Surprised', 'Sorprendido'],
-  ['sueno', 'Sleepy', 'Sueño'],
+  ['orgulloso', 'Proud', 'Orgulloso'], ['hype', 'Hype', 'Hype'], ['ansioso', 'Anxious', 'Ansioso'], ['mareado', 'Dizzy', 'Mareado'],
+  ['frio', 'Cold', 'Frío'], ['bostezo', 'Yawn', 'Bostezo'], ['guino', 'Wink', 'Guiño'], ['electrico', 'Electric', 'Eléctrico'],
+  ['dormido', 'Asleep', 'Dormido'], ['nacimiento', 'Birth', 'Nacimiento'],
 ]
 ---
 
-<div class="kiro-eyes" data-auto={auto ? '1' : '0'} style={`--ke-size:${size}px`}>
-  <div class="ke-screen">
-    <canvas class="ke-canvas" width="720" height="720" role="img"
-      aria-label="Kiro, una criatura de dos ojos planos que parpadea y te sigue con la mirada"
-      data-aria-label-en="Kiro, a creature with two flat eyes that blinks and follows your gaze"></canvas>
-  </div>
+<div class="kiro-eyes" style={`--ke-size:${size}px`}>
+  <iframe class="ke-frame" src="/portfolio/kiro/lab/kiro_embed.html" title="Kiro" data-title-en="Kiro, live" loading="lazy" tabindex="-1"></iframe>
   {controls && (
     <div class="ke-chips" role="group" aria-label="Expresión" data-aria-label-en="Expression">
       {EXPR.map(([k, en, es]) => (
-        <button type="button" class="ke-chip" data-expr={k} aria-pressed="false">
+        <button type="button" class="ke-chip" data-expr={k} aria-pressed={k === 'auto' ? 'true' : 'false'}>
           <span class="lang-en">{en}</span><span class="lang-es">{es}</span>
         </button>
       ))}
@@ -29,13 +27,8 @@ const EXPR: [string, string, string][] = [
 
 <style is:global>
   .kiro-eyes { width: 100%; max-width: var(--ke-size, 420px); margin: 0 auto; }
-  .kiro-eyes .ke-screen {
-    aspect-ratio: 1; border-radius: 50%; background: #050506; position: relative; overflow: hidden;
-    box-shadow: 0 0 0 clamp(8px,1.6vw,14px) #1a1a1f, 0 0 0 clamp(9px,1.7vw,15px) #2c2c34,
-                0 40px 80px -30px rgba(0,0,0,.55), inset 0 0 40px rgba(0,0,0,.8);
-  }
-  .kiro-eyes .ke-canvas { width: 100%; height: 100%; display: block; }
-  .kiro-eyes .ke-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: clamp(26px,3vw,36px); }
+  .kiro-eyes .ke-frame { width: 100%; aspect-ratio: 1; border: 0; display: block; background: transparent; color-scheme: normal; }
+  .kiro-eyes .ke-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: clamp(20px,3vw,30px); }
   .kiro-eyes .ke-chip {
     font: 600 12px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: .04em;
     padding: 8px 14px; border-radius: 999px; cursor: pointer;
@@ -50,111 +43,25 @@ const EXPR: [string, string, string][] = [
 </style>
 
 <script>
-  type P = { w: number; h: number; top: number; slant: number; bot: number; heart: number }
-  type E = { col: string } & P
-  const EXPR: Record<string, E> = {
-    curioso:     { col: '#4de3ff', w: 1,    h: 1,    top: 0,   slant: 0,   bot: 0,   heart: 0 },
-    feliz:       { col: '#ffd23f', w: 1.05, h: 1,    top: 0,   slant: 0,   bot: .46, heart: 0 },
-    amor:        { col: '#ff3b4e', w: 1,    h: 1,    top: 0,   slant: 0,   bot: 0,   heart: 1 },
-    enojado:     { col: '#ff6b57', w: 1.05, h: .9,   top: .42, slant: .9,  bot: 0,   heart: 0 },
-    triste:      { col: '#a98bff', w: .95,  h: 1,    top: .36, slant: -.8, bot: 0,   heart: 0 },
-    sorprendido: { col: '#b6f23a', w: .8,   h: 1.28, top: 0,   slant: 0,   bot: 0,   heart: 0 },
-    sueno:       { col: '#ff8fc8', w: 1.1,  h: .8,   top: .62, slant: 0,   bot: 0,   heart: 0 },
-  }
-  const ORDER = ['curioso', 'feliz', 'amor', 'curioso', 'sorprendido', 'enojado', 'triste', 'sueno']
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
-
-  function heartPath(c: CanvasRenderingContext2D, x: number, y: number, s: number) {
-    c.beginPath()
-    c.moveTo(x, y + s * .9)
-    c.bezierCurveTo(x - s * 1.5, y - s * .1, x - s * .95, y - s * 1.2, x, y - s * .45)
-    c.bezierCurveTo(x + s * .95, y - s * 1.2, x + s * 1.5, y - s * .1, x, y + s * .9)
-    c.closePath()
-  }
-
-  function boot(root: HTMLElement) {
-    const cv = root.querySelector('canvas') as HTMLCanvasElement
-    const c = cv.getContext('2d')!
-    const W = cv.width
-    const auto = root.dataset.auto === '1'
+  document.querySelectorAll<HTMLElement>('.kiro-eyes').forEach((root) => {
+    const fr = root.querySelector('iframe') as HTMLIFrameElement
     const chips = [...root.querySelectorAll<HTMLButtonElement>('.ke-chip')]
-    let name = 'curioso', locked = false
-    const cur: P = { ...EXPR.curioso }
-    let col = EXPR.curioso.col
-    let lx = 0, ly = 0, tx = 0, ty = 0, wander = 0
-    let blink = 0, nextBlink = 1.5, tNow = 0, nextExpr = 3.4, ei = 0
-    let visible = false, last = performance.now()
-
-    const set = (n: string, byUser = false) => {
-      name = n; col = EXPR[n].col
-      if (byUser) { locked = true; nextExpr = 1e9 }
-      chips.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.expr === n)))
-    }
-    chips.forEach((b) => b.addEventListener('click', () => set(b.dataset.expr!, true)))
-    set('curioso')
-
+    const post = (m: object) => fr.contentWindow?.postMessage(m, location.origin)
+    let ready = false
+    fr.addEventListener('load', () => { ready = true })
+    chips.forEach((b) => b.addEventListener('click', () => {
+      const id = b.dataset.expr!
+      post(id === 'auto' ? { t: 'auto' } : { t: 'expr', id })
+      chips.forEach((o) => o.setAttribute('aria-pressed', String(o === b)))
+    }))
+    // la mirada sigue al mouse en toda la página (el iframe solo ve el mouse dentro de él)
     addEventListener('pointermove', (e) => {
-      const r = cv.getBoundingClientRect()
-      const dx = (e.clientX - (r.left + r.width / 2)) / Math.max(r.width, 300)
-      const dy = (e.clientY - (r.top + r.height / 2)) / Math.max(r.height, 300)
-      tx = Math.max(-1, Math.min(1, dx * 1.6)); ty = Math.max(-1, Math.min(1, dy * 1.6)); wander = tNow + 2.5
+      if (!ready) return
+      const r = fr.getBoundingClientRect()
+      const x = (e.clientX - (r.left + r.width / 2)) / Math.max(r.width, 300) * 2
+      const y = (e.clientY - (r.top + r.height / 2)) / Math.max(r.height, 300) * 2
+      post({ t: 'mouse', x, y })
     }, { passive: true })
-    cv.addEventListener('click', () => {
-      if (locked) return
-      ei = (ei + 1) % ORDER.length; set(ORDER[ei]); nextExpr = tNow + 3.4
-    })
-
-    new IntersectionObserver(([en]) => {
-      const was = visible
-      visible = en.isIntersecting
-      if (visible && !was) { last = performance.now(); requestAnimationFrame(frame) }
-    }).observe(root)
-
-    function frame(now: number) {
-      if (!visible) return
-      const dt = Math.min(.05, (now - last) / 1000); last = now; tNow += dt
-      if (auto && !locked && !reduce && tNow > nextExpr) { ei = (ei + 1) % ORDER.length; set(ORDER[ei]); nextExpr = tNow + 3.2 + Math.random() * 1.2 }
-      if (tNow > wander && !reduce && Math.random() < dt * .7) { tx = (Math.random() - .5) * 1.4; ty = (Math.random() - .5) * .8 }
-      if (tNow > nextBlink && blink <= 0 && !reduce) { blink = 1; nextBlink = tNow + 1.8 + Math.random() * 3.2 }
-      if (blink > 0) blink = Math.max(0, blink - dt * 7.5)
-      const goal = EXPR[name], k = 1 - Math.exp(-dt * 13)
-      ;(['w', 'h', 'top', 'slant', 'bot', 'heart'] as (keyof P)[]).forEach((p) => { cur[p] += (goal[p] - cur[p]) * k })
-      const kl = 1 - Math.exp(-dt * 9)
-      lx += (tx - lx) * kl; ly += (ty - ly) * kl
-      draw(); requestAnimationFrame(frame)
-    }
-
-    function draw() {
-      c.fillStyle = '#050506'; c.fillRect(0, 0, W, W)
-      const cx = W / 2 + lx * 34, cy = W / 2 + ly * 24 + 6
-      const sep = 112, bw = 94, bh = 134
-      const bl = Math.sin(Math.min(1, blink) * Math.PI)
-      for (let i = 0; i < 2; i++) {
-        const dir = i === 0 ? 1 : -1
-        const x = cx + (i === 0 ? -sep : sep) + lx * 8
-        const w = bw * cur.w, hh = bh * cur.h * (1 - .93 * bl)
-        const y = cy
-        c.save(); c.fillStyle = col
-        if (cur.heart > .5) {
-          const s = 80 * (1 + .06 * Math.sin(tNow * 6)) * cur.w * (1 - .9 * bl)
-          heartPath(c, x, y - 4, s); c.fill(); c.restore(); continue
-        }
-        c.beginPath(); c.ellipse(x, y, w, hh, 0, 0, 7); c.fill(); c.clip()
-        c.fillStyle = '#050506'
-        if (cur.top > .01) {
-          const base = y - hh + 2 * hh * cur.top, s = cur.slant * hh * .55
-          c.beginPath()
-          c.moveTo(x - w * 1.3, y - hh * 1.4); c.lineTo(x + w * 1.3, y - hh * 1.4)
-          c.lineTo(x + w * 1.3, base + dir * s * 1.3); c.lineTo(x - w * 1.3, base - dir * s * 1.3)
-          c.closePath(); c.fill()
-        }
-        if (cur.bot > .01) {
-          const ry = hh * 1.25, top = y + hh - 2 * hh * cur.bot
-          c.beginPath(); c.ellipse(x, top + ry, w * 1.5, ry, 0, 0, 7); c.fill()
-        }
-        c.restore()
-      }
-    }
-  }
-  document.querySelectorAll<HTMLElement>('.kiro-eyes').forEach(boot)
+    document.addEventListener('pointerleave', () => post({ t: 'leave' }))
+  })
 </script>
